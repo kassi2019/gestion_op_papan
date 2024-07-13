@@ -1,0 +1,359 @@
+<template>
+  <div class="container">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="d-flex align-items-center">
+            <h4 class="card-title">Liste Budget notifié</h4>
+
+            <span
+              class="badge badge-primary"
+              style="cursor: pointer"
+              data-bs-toggle="modal"
+              data-bs-target="#largeModal"
+              >Ajouter</span
+            >
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <!-- <th scope="col">#</th> -->
+                  <!-- <th scope="col">N</th> -->
+                  <th scope="col" style="text-align: center">Exercice</th>
+                  <th scope="col" style="text-align: center">Activité</th>
+                  <th scope="col" style="text-align: center">
+                    Dotation (FCFA)
+                  </th>
+                  <th scope="col" style="text-align: center">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="item1 in getterDotationNotifie" :key="item1.id">
+                  <td style="width: 10%">{{ item1.exercice }}</td>
+                  <td style="width: 55%">
+                    {{ libelleActiviteTableau(item1.activite_id) }}
+                  </td>
+                  <td style="width: 15%; text-align: right">
+                    {{ formatageSommeSansFCFA(parseFloat(item1.dotation)) }}
+                  </td>
+                  <td>
+                    <span
+                      class="badge rounded-pill bg-primary"
+                      data-bs-toggle="modal"
+                      data-bs-target="#largeModal1"
+                      style="cursor: pointer"
+                      @click.prevent="AfficheModalModification(item1.id)"
+                      >Modifier</span
+                    >
+                    <span
+                      class="badge bg-danger"
+                      style="cursor: pointer"
+                      @click.prevent="supprimerDotationNotifie(item1.id)"
+                      >Supprimer</span
+                    >
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- modal de modification -->
+
+    <!-- modal de modification -->
+
+    <div class="modal fade" id="largeModal1" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Modifier Buddget notifié</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="col-12">
+                <label for="inputNanme4" class="form-label">Exercice</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputNanme4"
+                  :value="exerciceBudgetaire"
+                  style="border: 1px solid #000; background-color: #dcdcdc"
+                  readonly
+                />
+              </div>
+              <div class="col-12">
+                <label class="form-label">Activité</label>
+                <model-list-select
+                  :list="libelleActivite"
+                  v-model="modNatureDepense.activite_id"
+                  option-value="id"
+                  option-text="libelle"
+                  placeholder="select item"
+                  style="border: 1px solid #000"
+                >
+                </model-list-select>
+              </div>
+              <div class="col-12">
+                <label for="inputNanme4" class="form-label">Dotation</label>
+
+                <money3
+                  v-bind="config"
+                  v-model="modNatureDepense.dotation"
+                  class="form-control"
+                  id="inputNanme4"
+                  style="border: 1px solid #000"
+                ></money3>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              @click.prevent="this.getDotationNotifie()"
+            >
+              Fermer
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              @click.prevent="modificationSection()"
+              data-bs-dismiss="modal"
+            >
+              Modifier
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="largeModal" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Ajouter Budget notifié</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="col-12">
+                <label for="inputNanme4" class="form-label">Exercice</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputNanme4"
+                  :value="exerciceBudgetaire"
+                  style="border: 1px solid #000; background-color: #dcdcdc"
+                  readonly
+                />
+              </div>
+              <div class="col-12">
+                <label class="form-label">Activité</label>
+                <model-list-select
+                  :list="libelleActivite"
+                  v-model="ajouterNatureDepense.activite_id"
+                  option-value="id"
+                  option-text="libelle"
+                  placeholder="select item"
+                  style="border: 1px solid #000"
+                >
+                </model-list-select>
+              </div>
+              <div class="col-12">
+                <label for="inputNanme4" class="form-label">Dotation</label>
+                <money3
+                  v-model="ajouterNatureDepense.dotation"
+                  class="form-control"
+                  id="inputNanme4"
+                  style="border: 1px solid #000"
+                  v-bind="config"
+                ></money3>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Fermer
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              @click.prevent="EnregistrerSection()"
+            >
+              Enregistrer
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import { mapActions, mapGetters } from "vuex";
+import moment from "moment";
+import { ModelListSelect } from "vue-search-select";
+import {
+  formatageSomme,
+  formatageSommeSansFCFA,
+} from "../Repositories/Repository";
+export default {
+  components: { ModelListSelect },
+  data() {
+    return {
+      ajouterNatureDepense: {
+        activite_id: "",
+        dotation: "",
+      },
+      modNatureDepense: {
+        activite_id: "",
+        dotation: "",
+      },
+
+      config: {
+        prefix: "",
+        suffix: "",
+        thousands: ",",
+        decimal: ".",
+        precision: 0,
+        disableNegative: false,
+        disabled: false,
+        min: null,
+        max: null,
+        allowBlank: false,
+        minimumNumberOfCharacters: 0,
+        shouldRound: true,
+        focusOnRight: false,
+      },
+    };
+  },
+  created() {
+    //   this.getActivite();
+    //   this.getExerciceBudgetaire();
+    //  // this.getGroupeActivitebudgetNotifie()
+    //   this.getDotationNotifie();
+  },
+  computed: {
+    ...mapGetters("parametrage", [
+      "getterActivite",
+      "getterExerciceBudgetaire",
+      "getterDotationNotifie",
+      "getterGrpeActiviteBudgetNotifie",
+    ]),
+    libelleActivite() {
+      let collet = [];
+      this.getterActivite.filter((item) => {
+        let data = {
+          id: item.id,
+          libelle: item.code.concat("  ", item.libelle),
+        };
+        collet.push(data);
+        //}
+      });
+      return collet;
+    },
+    libelleActiviteTableau() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.getterActivite.find((qtreel) => qtreel.id == id);
+
+          if (qtereel) {
+            return qtereel.code.concat(" - ", qtereel.libelle);
+          }
+          return 0;
+        }
+      };
+    },
+    listeBudgetNotifie() {
+      return (id) => {
+        if (id != null && id != "") {
+          return this.getterDotationNotifie.filter(
+            (qtreel) => qtreel.activite_id == id
+          );
+        }
+      };
+    },
+    exerciceBudgetaire() {
+      //   return (id) => {
+      //     if (id != null && id != "") {
+      const qtereel = this.getterExerciceBudgetaire.find(
+        (qtreel) => qtreel.encours == 1
+      );
+
+      if (qtereel) {
+        return qtereel.annee;
+      }
+      return 0;
+      //     }
+      //   };
+    },
+  },
+  methods: {
+    ...mapActions("parametrage", [
+      "getActivite",
+      "getExerciceBudgetaire",
+      "getDotationNotifie",
+      "ajouterDotationNotifie",
+      "modifierDotationNotifie",
+      "supprimerDotationNotifie",
+      "getGroupeActivitebudgetNotifie",
+    ]),
+
+    AfficheModalModification(id) {
+      this.modNatureDepense = this.getterDotationNotifie.find(
+        (items) => items.id == id
+      );
+    },
+    EnregistrerSection() {
+      var objetDirect1 = {
+        activite_id: this.ajouterNatureDepense.activite_id,
+        dotation: this.ajouterNatureDepense.dotation,
+        exercice: this.exerciceBudgetaire,
+      };
+
+      this.ajouterDotationNotifie(objetDirect1);
+      this.ajouterNatureDepense = {
+        activite_id: "",
+        dotation: "",
+      };
+    },
+
+    modificationSection() {
+      var objetDirect1 = {
+        id: this.modNatureDepense.id,
+
+        activite_id: this.modNatureDepense.activite_id,
+        dotation: this.modNatureDepense.dotation,
+        exercice: this.exerciceBudgetaire,
+      };
+
+      this.modifierDotationNotifie(objetDirect1);
+      this.modNatureDepense = {};
+    },
+    formatageSomme: formatageSomme,
+    formatageSommeSansFCFA: formatageSommeSansFCFA,
+    formaterDate(date) {
+      return moment(date, "YYYY-MM-DD").format("DD/MM/YYYY");
+    },
+  },
+};
+</script>
