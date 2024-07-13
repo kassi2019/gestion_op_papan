@@ -6,9 +6,9 @@
 
 // import bailleur from "../page/ParametreGeneraux/bailleur.vue"
 // import Activite from "../page/ParametreGeneraux/Activite.vue"
-// import NatureEconomique from "../page/ParametreGeneraux/NatureEconomique.vue"
+import NatureEconomique from "../page/ParametreGeneraux/NatureEconomique.vue"
 // import projet from "../page/ParametreGeneraux/projet.vue"
-// import sousBudget from "../page/GestionBudgetaire/sousBudget.vue"
+ import sousBudget from "../page/GestionBudgetaire/sousBudget.vue"
 import BudgetNotifie from "../page/GestionBudgetaire/BudgetNotifie.vue"
 import BudgetReport from "../page/GestionBudgetaire/BudgetReport.vue"
 // import BudgetAutreRessource from "../page/GestionBudgetaire/BudgetAutreRessource.vue"
@@ -64,21 +64,21 @@ const gestionutilisateur = [
 //         name:"BudgetRessourcePropre",
 //        component: BudgetRessourcePropre
 //   },
-//       {
-//         path: '/sousBudget',
-//         name:"sousBudget",
-//        component: sousBudget
-//   },
+      {
+        path: '/sousBudget',
+        name:"sousBudget",
+       component: sousBudget
+  },
 //      {
 //         path: '/projet',
 //         name:"projet",
 //        component: projet
 //   },
-//       {
-//         path: '/NatureEconomique',
-//         name:"NatureEconomique",
-//        component: NatureEconomique
-//   },
+      {
+        path: '/NatureEconomique',
+        name:"NatureEconomique",
+       component: NatureEconomique
+  },
 //      {
 //         path: '/Activite',
 //         name:"Activite",

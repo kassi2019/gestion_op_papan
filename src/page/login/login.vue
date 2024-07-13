@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
           <div class="col-md-12 text-center mb-5">
             <h2 class="heading-section">
-              SYGOP:Systeme de Gestion des ordres de Paiements
+              SYGOP:Systeme de Gestion des Ordres de Paiements
             </h2>
           </div>
         </div>
@@ -15,9 +15,9 @@
               class="wrap d-md-flex"
               style="
                 border-radius: 15px 50px 30px;
-                border-color: #fff !important;
-                border-style: solid;
-                box-shadow: 10px 5px 5px #f9d531;
+               border:1px solid #000;
+              
+               box-shadow: 60px -16px  #f9d531;
               "
             >
               <div
@@ -27,7 +27,7 @@
               <div class="login-wrap p-4 p-md-5">
                 <div class="d-flex">
                   <div class="w-100">
-                    <h3 class="mb-4" style="text-align: center">SYGOP</h3>
+                    <h3 class="mb-5" style="text-align: center">CONNEXION</h3>
                   </div>
                   <div class="w-100">
                     <p class="social-media d-flex justify-content-end">
@@ -88,7 +88,7 @@
                       class="form-control btn btn-primary rounded submit px-3"
                       @click.prevent="connexion()"
                     >
-                      Se connecter
+                      SE CONNECTER
                     </button>
                   </div>
                   <!-- <div class="form-group d-md-flex">

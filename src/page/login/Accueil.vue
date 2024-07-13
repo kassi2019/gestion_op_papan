@@ -1,79 +1,95 @@
 <template>
-    <div>
-<TheHeader></TheHeader>
-        <br/><br/><br/><br/><br/><br/><br/>
-     <div class="row">
-              <div class="col-md-4" >
-                <div class="card card-secondary" style="
-                border-radius: 25px 100px 50px;
-                border-color: #fff !important;
-                border-style: solid;
-                box-shadow: 10px 10px 10px #f9d531;
-                width: 80%;
-              ">
-                  <div class="card-body skew-shadow">
-                    <h1>3,072</h1>
-                    <h2 class="op-8">Parametre Généraux</h2>
-                    <div class="pull-right">
-                      <h3 class="fw-bold op-8">88%</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="card card-secondary bg-secondary-gradient" style="
-                border-radius: 25px 100px 50px;
-                border-color: #fff !important;
-                border-style: solid;
-                box-shadow: 10px 10px 10px #f9d531;
-                width: 80%;
-              " @click.prevent="ParametreGeneraux(2)">
-                  <div class="card-body bubble-shadow">
-                    <h1>188</h1>
-                    <h2 class="op-8" @click.prevent="ParametreGeneraux(2)">Gestion Budgétaire</h2>
-                    <div class="pull-right">
-                      <h3 class="fw-bold op-8">25%</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="card card-secondary bg-secondary-gradient" style="
-                border-radius: 25px 100px 50px;
-                border-color: #fff !important;
-                border-style: solid;
-                box-shadow: 10px 10px 10px #f9d531;
-                width: 80%;
-              ">
-                  <div class="card-body curves-shadow">
-                    <h1>12</h1>
-                    <h2 class="op-8">Gestion du Personnel</h2>
-                    <div class="pull-right">
-                      <h3 class="fw-bold op-8">70%</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-4">
-                <div class="card card-secondary" style="
-                border-radius: 25px 100px 50px;
-                border-color: #fff !important;
-                border-style: solid;
-                box-shadow: 10px 10px 10px #f9d531;
-                width: 80%;
-              ">
-                  <div class="card-body skew-shadow">
-                    <h1>3,072</h1>
-                    <h2 class="op-8">Gestion des Rapports</h2>
-                    <div class="pull-right">
-                      <h3 class="fw-bold op-8">88%</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- <div class="col-md-4">
+  <div>
+    <TheHeader></TheHeader>
+    <br /><br /><br /><br /><br /><br /><br />
+    <div class="row">
+      <div class="col-md-4">
+        <div
+          class="card card-secondary"
+          style="
+            border-radius: 25px 100px 50px;
+            border-color: #fff !important;
+            border-style: solid;
+            box-shadow: 15px -10px #f9d531;
+            width: 80%;
+          "
+          @click="ParametreGeneraux(1)"
+        >
+          <div class="card-body skew-shadow">
+            <i class="fas fa-cogs" style="  font-size: 50px;"></i>
+            <h2 class="op-8" @click="ParametreGeneraux(1)">Parametre Généraux</h2>
+            <!-- <div class="pull-right">
+              <h3 class="fw-bold op-8">88%</h3>
+            </div> -->
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div
+          class="card card-secondary bg-secondary-gradient"
+          style="
+            border-radius: 25px 100px 50px;
+            border-color: #fff !important;
+            border-style: solid;
+            box-shadow: 15px -10px #f9d531;
+            width: 80%;
+          "
+          @click="ParametreGeneraux(2)"
+        >
+          <div class="card-body bubble-shadow">
+             <i class="fas fa-euro-sign" style="  font-size: 50px;"></i>
+            <h2 class="op-8" @click="ParametreGeneraux(2)">
+              Gestion Budgétaire
+            </h2>
+            <!-- <div class="pull-right">
+              <h3 class="fw-bold op-8">25%</h3>
+            </div> -->
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div
+          class="card card-secondary bg-secondary-gradient"
+          style="
+            border-radius: 25px 100px 50px;
+            border-color: #fff !important;
+            border-style: solid;
+            box-shadow: 15px -10px #f9d531;
+            width: 80%;
+          "
+        >
+          <div class="card-body curves-shadow">
+             <i class="icon-people" style="  font-size: 50px;"></i>
+            <h2 class="op-8">Gestion du Personnel</h2>
+            <!-- <div class="pull-right">
+              <h3 class="fw-bold op-8">70%</h3>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div
+          class="card card-secondary"
+          style="
+            border-radius: 25px 100px 50px;
+            border-color: #fff !important;
+            border-style: solid;
+            box-shadow: 15px -10px #f9d531;
+            width: 80%;
+          "
+        >
+          <div class="card-body skew-shadow">
+             <i class="icon-docs" style="  font-size: 50px;"></i>
+            <h2 class="op-8">Gestion des Rapports</h2>
+            <!-- <div class="pull-right">
+              <h3 class="fw-bold op-8">88%</h3>
+            </div> -->
+          </div>
+        </div>
+      </div>
+      <!-- <div class="col-md-4">
                 <div class="card card-secondary bg-secondary-gradient">
                   <div class="card-body bubble-shadow">
                     <h1>188</h1>
@@ -84,40 +100,43 @@
                   </div>
                 </div>
               </div> -->
-              <div class="col-md-4">
-                <div class="card card-secondary bg-secondary-gradient" style="
-                border-radius: 25px 100px 50px;
-                border-color: #fff !important;
-                border-style: solid;
-                box-shadow: 10px 10px 10px #f9d531;
-                width: 80%;
-              ">
-                  <div class="card-body curves-shadow">
-                    <h1>12</h1>
-                    <h2 class="op-8">Gestion Utilisateurs</h2>
-                    <div class="pull-right">
-                      <h3 class="fw-bold op-8">70%</h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+      <div class="col-md-4">
+        <div
+          class="card card-secondary bg-secondary-gradient"
+          style="
+            border-radius: 25px 100px 50px;
+            border-color: #fff !important;
+            border-style: solid;
+            box-shadow: 15px -10px #f9d531;
+            width: 80%;
+          "
+        >
+          <div class="card-body curves-shadow">
+             <i class="icon-user" style="  font-size: 50px;"></i>
+            <h2 class="op-8">Gestion Utilisateurs</h2>
+            <!-- <div class="pull-right">
+              <h3 class="fw-bold op-8">70%</h3>
+            </div> -->
+          </div>
+        </div>
+      </div>
     </div>
-
+  </div>
 </template>
 
 <script>
-import TheHeader from '../../layouts/TheHeader.vue'
+import TheHeader from "../../layouts/TheHeader.vue";
 import { mapGetters, mapActions } from "vuex";
 export default {
   name: "app",
-    components: {TheHeader},
+  components: { TheHeader },
   props: {
     source: String,
   },
 
   data() {
     return {
+     
       user: {
         email: "",
         password: "",
@@ -126,7 +145,7 @@ export default {
       mydata: false,
     };
   },
-  
+
   created() {
     //this.getUtilisateur();
   },
@@ -139,21 +158,19 @@ export default {
       "errorMessage",
       "getterLoader",
     ]),
-
-  
   },
 
   methods: {
     ...mapActions("Utilisateurs", ["login", "getUtilisateur"]),
-  
-    
- ParametreGeneraux(id) {
-      this.$router.push({
-        name: "PageAccueil",
-        params: { id: id },
-      });
-    },
 
+    ParametreGeneraux($id) {
+
+      localStorage.setItem("module_app", $id);
+      this.$router.push({
+          name: "PageAccueil",
+          params: { id: $id },
+        });
+    },
     
   },
   watch: {

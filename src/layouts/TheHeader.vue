@@ -7,14 +7,12 @@
         <nav
           class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex"
         >
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <button type="submit" class="btn btn-search pe-1">
-                <i class="fa fa-search search-icon"></i>
-              </button>
-            </div>
-            <input type="text" placeholder="Search ..." class="form-control" />
-          </div>
+          <span
+              class="badge badge-info"
+              style="cursor: pointer"
+                  @click.prevent="ParametreGeneraux()"
+              >Voir Module</span
+            >
         </nav>
 
         <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
@@ -322,6 +320,7 @@
       </div>
     </nav>
     <!-- End Navbar -->
+     
   </div>
 </template>
 
@@ -376,7 +375,9 @@ export default {
       "getProfileUsers",
       "getUsers",
     ]),
-
+ParametreGeneraux() {
+      this.$router.push({ name: "Accueil" });
+    },
     exit() {
       this.closePopup();
       // and leave the view

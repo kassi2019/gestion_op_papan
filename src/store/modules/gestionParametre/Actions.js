@@ -214,18 +214,37 @@ export function modifierNatureDepense({ commit }, nouveau) {
     });
 }
 
-export function supprimerNatureDepense({ commit }, id) {
 
-  //this.$app.$dialog
-   // .confirm("Voulez vous vraiment supprimer ?.")
-   // .then(dialog => {
-      commit('SUPPRIMER_NATURE_DEPENSE', id)
-      apiGuest.delete('/supprimerNatureDepense/' + id, { headers: authHeader() })
-        //.then(() => dialog.close())
-   // });
+
+export function supprimerNatureDepense({ commit,dispatch}, id) {
+
+
+  Swal.fire({
+
+  text: "Voulez vous vraiment supprimer ?",
+  icon: "question",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Confimer"
+}).then((result) => {
+  if (result.isConfirmed) {
+   
+    apiGuest.delete('/supprimerNatureDepense/' + id, { headers: authHeader() })
+    commit('SUPPRIMER_NATURE_DEPENSE', id);
+    dispatch('getNatureDepense');
+  
+    Swal.fire({
+      title: "Suppression",
+      text: "effectué avec succès.",
+      icon: "success"
+    });
+    
+    
+  }
+});
+
 }
-
-
 // TYPE FINANCEMENT
 
 
@@ -393,12 +412,13 @@ export function getNatureEconomique({ commit }) {
     .catch(error => console.log(error));
 }
 
-export function ajouteNatureEconomique({ commit }, nouveau) {
+export function ajouteNatureEconomique({ commit,dispatch }, nouveau) {
  
     apiGuest.post("/AjouterNatureEconomique", nouveau, { headers: authHeader() })
     .then(response => {
       if (response.status == 201) {
         commit("AJOUTER_NATURE_ECONOMIQUE", response.data);
+        dispatch('getNatureEconomique');
        toast("Enregistrement effectué avec succès!", {
         "theme": "auto",
         "type": "success",
@@ -408,11 +428,12 @@ export function ajouteNatureEconomique({ commit }, nouveau) {
     }).catch();
 }
 
-export function modifierNatureEconomique({ commit }, nouveau) {
+export function modifierNatureEconomique({ commit,dispatch }, nouveau) {
   apiGuest.
     put("/ModifierNatureEconomique/" + nouveau.id, nouveau, { headers: authHeader() })
     .then(response => {
       commit("MODIFIER_NATURE_ECONOMIQUE", response.data);
+      dispatch('getNatureEconomique');
       toast("Modification effectué avec succès!", {
         "theme": "auto",
         "type": "success",
@@ -421,18 +442,37 @@ export function modifierNatureEconomique({ commit }, nouveau) {
     });
 }
 
-export function supprimerNatureEconomique({ commit }, id) {
+export function supprimerNatureEconomique({ commit,dispatch}, id) {
 
   //this.$app.$dialog
    // .confirm("Voulez vous vraiment supprimer ?.")
    // .then(dialog => {
-      commit('SUPPRIMER_NATURE_ECONOMIQUE', id)
-      apiGuest.delete('/supprimerNatureEconomique/' + id, { headers: authHeader() })
-        //.then(() => dialog.close())
-   // });
+ 
+  Swal.fire({
+  // title: "Are you sure?",
+  text: "Voulez vous vraiment supprimer ?",
+  icon: "question",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Confimer"
+}).then((result) => {
+  if (result.isConfirmed) {
+    apiGuest.delete('/supprimerNatureEconomique/' + id, { headers: authHeader() })
+    commit('SUPPRIMER_NATURE_ECONOMIQUE', id);
+    dispatch('getNatureEconomique');
+    dispatch('getNatureEconomique');
+    Swal.fire({
+      title: "Suppression",
+      text: "effectué avec succès.",
+      icon: "success"
+    });
+
+    
+  }
+});
+
 }
-
-
 // PROJET
 
 export function getProjet({ commit }) {
@@ -549,7 +589,8 @@ export function supprimerSousBudget({ commit,dispatch}, id) {
    
     apiGuest.delete('/supprimerSousBudget/' + id, { headers: authHeader() })
      commit('SUPPRIMER_SOUS_BUDGET', id)
-     dispatch('getSousBudget');
+    dispatch('getSousBudget');
+    dispatch('getSousBudget');
     Swal.fire({
       title: "Suppression",
       text: "effectué avec succès.",
@@ -713,7 +754,6 @@ export function supprimerDotationReport({ commit,dispatch}, id) {
    
     apiGuest.delete('/supprimerDotationReport/' + id, { headers: authHeader() })
      commit('SUPPRIMER_DOTATION_REPORT', id)
-     dispatch('getGroupeActivitebudgetReport')
         dispatch('getDotationReport')
     Swal.fire({
       title: "Suppression",

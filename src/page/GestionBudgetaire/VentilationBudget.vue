@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="col-md-12">
-      <div class="card">
+      <div class="card" style="box-shadow: 5px 5px  #f9d531;">
         <div class="card-header">
           <div class="d-flex align-items-center">
             <h4 class="card-title">Eclatement du budget</h4>
@@ -289,16 +289,16 @@
                         )
                       }}
                     </td>
-                    <td style="width: 10%; text-align: right">
+                    <!-- <td style="width: 10%; text-align: right">
                       {{
                         formatageSommeSansFCFA(
                           parseFloat(item1.doatation_report)
                         )
                       }}
-                    </td>
+                    </td> -->
                     <td style="width: 15%; text-align: right">
                       {{
-                        formatageSommeSansFCFA(parseFloat(item1.dotation_total))
+                        formatageSommeSansFCFA(parseFloat(item1.doatation_report)+parseFloat(item1.dotation_actuelle))
                       }}
                     </td>
                     <td>

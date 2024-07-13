@@ -65,17 +65,17 @@
                   <ul class="nav nav-collapse">
                     <li>
                       <a href="" @click.prevent="activedOptionMenu('NatureDepense')">
-                        <span class="sub-item">Nature dépense</span>
+                        <span class="sub-item">Nature dépense6</span>
                       </a>
                     </li>
                     <li>
-                      <a href="">
+                      <a href="" @click.prevent="activedOptionMenu('NatureEconomique')">
                         <span class="sub-item">Nature économique</span>
                       </a>
                     </li>
                     <li>
-                      <a href="">
-                        <span class="sub-item">Sous budget</span>
+                      <a href="" @click.prevent="activedOptionMenu('sousBudget')">
+                        <span class="sub-item">Sous budget / Composante</span>
                       </a>
                     </li>
                     <!-- <li>
