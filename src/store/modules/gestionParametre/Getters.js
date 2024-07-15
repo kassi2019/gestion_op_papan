@@ -18,4 +18,8 @@ export const getterDotationRessourcePropre = state => state.stateDotationRessour
 export const getterDotationAutreRessource = state => state.stateDotationAutreRessource;
 export const getterInformationBudget = state => state.stateInformationBudget;
 export const getterListeBudgetEclate = state => state.stateListeBudgetEclate;
+export const getterEntreprise = state => state.stateEntreprise;
+export const getterBudgetViseParActivite = state => state.stateBudgetViseParActivite;
+export const getterBudgetViseGroupeParActivite = state => state.stateBudgetViseGroupeParActivite;
+export const getterTaux = state => state.stateTaux;
 // export const getterAfficheDotation = state => state.stateAfficheDotation;

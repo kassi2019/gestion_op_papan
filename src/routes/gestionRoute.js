@@ -1,13 +1,13 @@
 
-// import ExerciceBudgetaire from "../page/ParametreGeneraux/ExerciceBudgetaire.vue"
+ import ExerciceBudgetaire from "../page/ParametreGeneraux/ExerciceBudgetaire.vue"
  import NatureDepense from "../page/ParametreGeneraux/NatureDepense.vue"
-// import section from "../page/ParametreGeneraux/section.vue"
-// import typeFinancement from "../page/ParametreGeneraux/typeFinancement.vue"
-
-// import bailleur from "../page/ParametreGeneraux/bailleur.vue"
-// import Activite from "../page/ParametreGeneraux/Activite.vue"
+ import Section from "../page/ParametreGeneraux/Section.vue"
+ import typeFinancement from "../page/ParametreGeneraux/typeFinancement.vue"
+ import Entreprise from "../page/ParametreGeneraux/Entreprise.vue"
+ import bailleur from "../page/ParametreGeneraux/bailleur.vue"
+import Activite from "../page/ParametreGeneraux/Activite.vue"
 import NatureEconomique from "../page/ParametreGeneraux/NatureEconomique.vue"
-// import projet from "../page/ParametreGeneraux/projet.vue"
+import projet from "../page/ParametreGeneraux/projet.vue"
  import sousBudget from "../page/GestionBudgetaire/sousBudget.vue"
 import BudgetNotifie from "../page/GestionBudgetaire/BudgetNotifie.vue"
 import BudgetReport from "../page/GestionBudgetaire/BudgetReport.vue"
@@ -18,7 +18,18 @@ import BudgetReport from "../page/GestionBudgetaire/BudgetReport.vue"
 import AfficheSousBudgetEclate from "../page/GestionBudgetaire/AfficheSousBudgetEclate.vue"
 import VoirBudgetEclate from "../page/GestionBudgetaire/VoirBudgetEclateParActivite.vue"
 import VentilationSousBudget from "../page/GestionBudgetaire/VentilationSousBudget.vue"
+import OrdrePaiementProvisoire from "../page/GestionBudgetaire/OrdrePaiementProvisoire.vue"
 const gestionutilisateur = [
+  {
+        path: '/Entreprise',
+        name:"Entreprise",
+       component: Entreprise
+     },
+     {
+        path: '/OrdrePaiementProvisoire',
+        name:"OrdrePaiementProvisoire",
+       component: OrdrePaiementProvisoire
+     },
      {
         path: '/VentilationSousBudget/:id',
         name:"VentilationSousBudget",
@@ -69,46 +80,46 @@ const gestionutilisateur = [
         name:"sousBudget",
        component: sousBudget
   },
-//      {
-//         path: '/projet',
-//         name:"projet",
-//        component: projet
-//   },
+     {
+        path: '/projet',
+        name:"projet",
+       component: projet
+  },
       {
         path: '/NatureEconomique',
         name:"NatureEconomique",
        component: NatureEconomique
   },
-//      {
-//         path: '/Activite',
-//         name:"Activite",
-//        component: Activite
-//   },
-//    {
-//         path: '/bailleur',
-//         name:"bailleur",
-//        component: bailleur
-//   },
-//    {
-//         path: '/typeFinancement',
-//         name:"typeFinancement",
-//        component: typeFinancement
-//   },
+     {
+        path: '/Activite',
+        name:"Activite",
+       component: Activite
+  },
+   {
+        path: '/bailleur',
+        name:"bailleur",
+       component: bailleur
+  },
+   {
+        path: '/typeFinancement',
+        name:"typeFinancement",
+       component: typeFinancement
+  },
    {
         path: '/NatureDepense',
         name:"NatureDepense",
        component: NatureDepense
-  }
-//     {
-//         path: '/ExerciceBudgetaire',
-//         name:"ExerciceBudgetaire",
-//        component: ExerciceBudgetaire
-//   },
-//  {
-//         path: '/section',
-//         name:"section",
-//        component: section
-//   },
+  },
+    {
+        path: '/ExerciceBudgetaire',
+        name:"ExerciceBudgetaire",
+       component: ExerciceBudgetaire
+  },
+ {
+        path: '/Section',
+        name:"Section",
+       component: Section
+  },
   
  ]
 

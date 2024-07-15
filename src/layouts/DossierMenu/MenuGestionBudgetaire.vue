@@ -57,7 +57,7 @@
               </li>
               <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#base">
-                  <i class="fas fa-layer-group"></i>
+                  <i class="fas fa-cog"></i>
                   <p>Parametre Budget</p>
                   <span class="caret"></span>
                 </a>
@@ -65,7 +65,7 @@
                   <ul class="nav nav-collapse">
                     <li>
                       <a href="" @click.prevent="activedOptionMenu('NatureDepense')">
-                        <span class="sub-item">Nature dépense6</span>
+                        <span class="sub-item">Nature dépense</span>
                       </a>
                     </li>
                     <li>
@@ -113,7 +113,7 @@
               </li>
               <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarLayouts">
-                  <i class="fas fa-th-list"></i>
+                  <i class="far fa-money-bill-alt"></i>
                   <p>Gestion Budget</p>
                   <span class="caret"></span>
                 </a>
@@ -156,14 +156,14 @@
               </li> -->
 <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#forms">
-                  <i class="fas fa-pen-square"></i>
+                  <i class="fas fa-book-reader"></i>
                   <p>Exécution du budget</p>
                   <span class="caret"></span>
                 </a>
                 <div class="collapse" id="forms">
                   <ul class="nav nav-collapse">
                     <li>
-                      <a href="../forms/forms.html">
+                      <a href=""  @click.prevent="activedOptionMenu('OrdrePaiementProvisoire')">
                         <span class="sub-item">OP Provisoire</span>
                       </a>
                     </li>
@@ -180,6 +180,11 @@
                      <li>
                       <a href="../forms/forms.html">
                         <span class="sub-item">OP Définitif</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="../forms/forms.html">
+                        <span class="sub-item">Voir ordre paiement</span>
                       </a>
                     </li>
                   </ul>

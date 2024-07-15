@@ -4,19 +4,19 @@ import PageAccueil from '../../page/login/Milieu.vue'
 import Accueil from '../../page/login/Accueil.vue'
 
 // import serviceProjet from '../../page/gestionutilisateur/serviceProjet.vue'
-// import roleUtilisateur from '../../page/gestionutilisateur/roleUtilisateur.vue'
-// import Utilisateur from '../../page/gestionutilisateur/Utilisateur.vue'
+ import roleUtilisateur from '../../page/gestionutilisateur/roleUtilisateur.vue'
+import Utilisateur from '../../page/gestionutilisateur/Utilisateur.vue'
 const AuthRoutes = [
-//   {
-//         path: '/Utilisateur',
-//         name:"Utilisateur",
-//        component: Utilisateur
-//   },
-//  {
-//         path: '/roleUtilisateur',
-//         name:"roleUtilisateur",
-//        component: roleUtilisateur
-//   },
+  {
+        path: '/Utilisateur',
+        name:"Utilisateur",
+       component: Utilisateur
+  },
+ {
+        path: '/roleUtilisateur',
+        name:"roleUtilisateur",
+       component: roleUtilisateur
+  },
 //   {
 //         path: '/serviceProjet',
 //         name:"serviceProjet",

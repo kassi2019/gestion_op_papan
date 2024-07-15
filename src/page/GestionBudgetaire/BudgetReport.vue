@@ -1,10 +1,32 @@
 <template>
   <div class="container">
     <div class="col-md-12">
-      <div class="card" style="box-shadow: 5px 5px  #f9d531;">
+      <div class="card" style="box-shadow: 5px 5px #f9d531">
         <div class="card-header">
+          <div class="page-header">
+            <h6 class="fw-bold mb-3">Liste Budget Report</h6>
+            <ul class="breadcrumbs mb-3">
+              <li class="nav-home">
+                <a href="#">
+                  <i class="icon-home"></i>
+                </a>
+              </li>
+              <li class="separator">
+                <i class="icon-arrow-right"></i>
+              </li>
+              <li class="nav-item">
+                <a href="#">Gestion budgétaire</a>
+              </li>
+              <li class="separator">
+                <i class="icon-arrow-right"></i>
+              </li>
+              <li class="nav-item">
+                <a href="#">Budget Report</a>
+              </li>
+            </ul>
+          </div>
           <div class="d-flex align-items-center">
-            <h4 class="card-title">Liste Budget Report</h4>
+            <!-- <h4 class="card-title">Liste Budget Report</h4> -->
 
             <span
               class="badge badge-primary"
@@ -18,41 +40,43 @@
         <div class="card-body">
           <div class="table-responsive">
             <table class="table table-bordered">
-            <thead>
-          <tr>
-            <!-- <th scope="col">#</th> -->
-            <!-- <th scope="col">N</th> -->
-            <th scope="col" style="text-align: center">Exercice</th>
-            <th scope="col" style="text-align: center">Activité</th>
-            <th scope="col" style="text-align: center">Dotation (FCFA)</th>
-            <th scope="col" style="text-align: center">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="item1 in getterDotationReport" :key="item1.id">
-            <td style="width: 10%">{{ item1.exercice }}</td>
-            <td style="width: 55%">{{ item1.libelle_activite }}</td>
-            <td style="width: 15%; text-align: right">
-              {{ formatageSommeSansFCFA(parseFloat(item1.dotation)) }}
-            </td>
-            <td>
-              <span
-                class="badge rounded-pill bg-primary"
-                data-bs-toggle="modal"
-                data-bs-target="#largeModal1"
-                style="cursor: pointer"
-                @click.prevent="AfficheModalModification(item1.id)"
-                >Modifier</span
-              >
-              <span
-                class="badge bg-danger"
-                style="cursor: pointer"
-                @click.prevent="supprimerDotationReport(item1.id)"
-                >Supprimer</span
-              >
-            </td>
-          </tr>
-        </tbody>
+              <thead>
+                <tr>
+                  <!-- <th scope="col">#</th> -->
+                  <!-- <th scope="col">N</th> -->
+                  <th scope="col" style="text-align: center">Exercice</th>
+                  <th scope="col" style="text-align: center">Activité</th>
+                  <th scope="col" style="text-align: center">
+                    Dotation (FCFA)
+                  </th>
+                  <th scope="col" style="text-align: center">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="item1 in getterDotationReport" :key="item1.id">
+                  <td style="width: 10%">{{ item1.exercice }}</td>
+                  <td style="width: 55%">{{ item1.libelle_activite }}</td>
+                  <td style="width: 15%; text-align: right">
+                    {{ formatageSommeSansFCFA(parseFloat(item1.dotation)) }}
+                  </td>
+                  <td>
+                    <span
+                      class="badge rounded-pill bg-primary"
+                      data-bs-toggle="modal"
+                      data-bs-target="#largeModal1"
+                      style="cursor: pointer"
+                      @click.prevent="AfficheModalModification(item1.id)"
+                      >Modifier</span
+                    >
+                    <span
+                      class="badge bg-danger"
+                      style="cursor: pointer"
+                      @click.prevent="supprimerDotationReport(item1.id)"
+                      >Supprimer</span
+                    >
+                  </td>
+                </tr>
+              </tbody>
             </table>
           </div>
         </div>
@@ -173,7 +197,7 @@
               <div class="col-12">
                 <label for="inputNanme4" class="form-label">Dotation</label>
                 <money3
-                   v-model="ajouterReport.dotation"
+                  v-model="ajouterReport.dotation"
                   class="form-control"
                   id="inputNanme4"
                   style="border: 1px solid #000"
@@ -213,7 +237,7 @@ import {
   formatageSommeSansFCFA,
 } from "../Repositories/Repository";
 export default {
-  components: {ModelListSelect},
+  components: { ModelListSelect },
   data() {
     return {
       ajouterReport: {
@@ -225,21 +249,21 @@ export default {
         dotation: "",
       },
 
-        config: {
-          prefix: "",
-          suffix: "",
-          thousands: ",",
-          decimal: ".",
-          precision: 0,
-          disableNegative: false,
-          disabled: false,
-          min: null,
-          max: null,
-          allowBlank: false,
-          minimumNumberOfCharacters: 0,
-          shouldRound: true,
-          focusOnRight: false,
-        },
+      config: {
+        prefix: "",
+        suffix: "",
+        thousands: ",",
+        decimal: ".",
+        precision: 0,
+        disableNegative: false,
+        disabled: false,
+        min: null,
+        max: null,
+        allowBlank: false,
+        minimumNumberOfCharacters: 0,
+        shouldRound: true,
+        focusOnRight: false,
+      },
     };
   },
   created() {
@@ -251,11 +275,12 @@ export default {
   computed: {
     ...mapGetters("parametrage", [
       "getterActivite",
-      "getterExerciceBudgetaire", "getterDotationReport",
+      "getterExerciceBudgetaire",
+      "getterDotationReport",
       "getterGrpeActiviteBudgetReport",
     ]),
-    
-  libelleActivite() {
+
+    libelleActivite() {
       let collet = [];
       this.getterActivite.filter((item) => {
         let data = {
@@ -304,12 +329,16 @@ export default {
     },
   },
   methods: {
-    ...mapActions("parametrage", ["getActivite", "getExerciceBudgetaire","getDotationReport",
+    ...mapActions("parametrage", [
+      "getActivite",
+      "getExerciceBudgetaire",
+      "getDotationReport",
       "ajouterDotationReport",
       "modifierDotationReport",
       "supprimerDotationReport",
-      "getGroupeActivitebudgetReport",]),
-   
+      "getGroupeActivitebudgetReport",
+    ]),
+
     actualisation() {
       // this.getGroupeActivitebudgetReport();
       this.getDotationReport();

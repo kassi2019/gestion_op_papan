@@ -162,15 +162,36 @@ export function modifierSection({ commit }, nouveau) {
     });
 }
 
-export function supprimerSection({ commit }, id) {
 
-  //this.$app.$dialog
-   // .confirm("Voulez vous vraiment supprimer ?.")
-   // .then(dialog => {
-      commit('SUPPRIMER_SECTION', id)
-      apiGuest.delete('/supprimerSection/' + id, { headers: authHeader() })
-        //.then(() => dialog.close())
-   // });
+
+export function supprimerSection({ commit}, id) {
+
+
+  Swal.fire({
+
+  text: "Voulez vous vraiment supprimer ?",
+  icon: "question",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Confimer"
+}).then((result) => {
+  if (result.isConfirmed) {
+   
+    apiGuest.delete('/supprimerSection/' + id, { headers: authHeader() })
+    commit('SUPPRIMER_SECTION', id);
+    // dispatch('getSection');
+  
+    Swal.fire({
+      title: "Suppression",
+      text: "effectué avec succès.",
+      icon: "success"
+    });
+    
+    
+  }
+});
+
 }
 
 
@@ -285,18 +306,36 @@ export function modifierTypeFinancement({ commit }, nouveau) {
     });
 }
 
-export function supprimerTypeFinancement({ commit }, id) {
 
-  //this.$app.$dialog
-   // .confirm("Voulez vous vraiment supprimer ?.")
-   // .then(dialog => {
-      commit('SUPPRIMER_TYPE_FINANCEMENT', id)
-      apiGuest.delete('/supprimertypeFinancement/' + id, { headers: authHeader() })
-        //.then(() => dialog.close())
-   // });
+export function supprimerTypeFinancement({ commit,dispatch}, id) {
+
+
+  Swal.fire({
+
+  text: "Voulez vous vraiment supprimer ?",
+  icon: "question",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Confimer"
+}).then((result) => {
+  if (result.isConfirmed) {
+   
+    apiGuest.delete('/supprimertypeFinancement/' + id, { headers: authHeader() })
+    commit('SUPPRIMER_TYPE_FINANCEMENT', id);
+    dispatch('getTypeFinancement');
+  
+    Swal.fire({
+      title: "Suppression",
+      text: "effectué avec succès.",
+      icon: "success"
+    });
+    
+    
+  }
+});
+
 }
-
-
 // bailleur
 
 
@@ -336,17 +375,40 @@ export function modifierBailleur({ commit }, nouveau) {
     });
 }
 
-export function supprimerBailleur({ commit }, id) {
+
+
+
+export function supprimerBailleur({ commit}, id) {
 
   //this.$app.$dialog
    // .confirm("Voulez vous vraiment supprimer ?.")
    // .then(dialog => {
-      commit('SUPPRIMER_BAILLEUR', id)
-      apiGuest.delete('/supprimerBailleur/' + id, { headers: authHeader() })
-        //.then(() => dialog.close())
-   // });
-}
+ 
+  Swal.fire({
+  // title: "Are you sure?",
+  text: "Voulez vous vraiment supprimer ?",
+  icon: "question",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Confimer"
+}).then((result) => {
+  if (result.isConfirmed) {
+    apiGuest.delete('/supprimerBailleur/' + id, { headers: authHeader() })
+    commit('SUPPRIMER_BAILLEUR', id);
+    // dispatch('getNatureEconomique');
+    // dispatch('getNatureEconomique');
+    Swal.fire({
+      title: "Suppression",
+      text: "effectué avec succès.",
+      icon: "success"
+    });
 
+    
+  }
+});
+
+}
 
 //Activite
 
@@ -387,18 +449,40 @@ export function modifierActivite({ commit }, nouveau) {
     });
 }
 
-export function supprimerActivite({ commit }, id) {
+
+
+
+export function supprimerActivite({ commit}, id) {
 
   //this.$app.$dialog
    // .confirm("Voulez vous vraiment supprimer ?.")
    // .then(dialog => {
-      commit('SUPPRIMER_ACTIVITE', id)
-      apiGuest.delete('/supprimerActivite/' + id, { headers: authHeader() })
-        //.then(() => dialog.close())
-   // });
+ 
+  Swal.fire({
+  // title: "Are you sure?",
+  text: "Voulez vous vraiment supprimer ?",
+  icon: "question",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Confimer"
+}).then((result) => {
+  if (result.isConfirmed) {
+    apiGuest.delete('/supprimerActivite/' + id, { headers: authHeader() })
+    commit('SUPPRIMER_ACTIVITE', id);
+    // dispatch('getNatureEconomique');
+    // dispatch('getNatureEconomique');
+    Swal.fire({
+      title: "Suppression",
+      text: "effectué avec succès.",
+      icon: "success"
+    });
+
+    
+  }
+});
+
 }
-
-
 
 //NATURE ECONOMIQUE
 
@@ -512,18 +596,39 @@ export function modifierProjet({ commit }, nouveau) {
     });
 }
 
-export function supprimerProjet({ commit }, id) {
+
+
+
+export function supprimerProjet({ commit}, id) {
 
   //this.$app.$dialog
    // .confirm("Voulez vous vraiment supprimer ?.")
    // .then(dialog => {
-      commit('SUPPRIMER_PROJET', id)
-      apiGuest.delete('/supprimerProjet/' + id, { headers: authHeader() })
-        //.then(() => dialog.close())
-   // });
+ 
+  Swal.fire({
+  // title: "Are you sure?",
+  text: "Voulez vous vraiment supprimer ?",
+  icon: "question",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Confimer"
+}).then((result) => {
+  if (result.isConfirmed) {
+    apiGuest.delete('/supprimerProjet/' + id, { headers: authHeader() })
+    commit('SUPPRIMER_PROJET', id);
+    
+    Swal.fire({
+      title: "Suppression",
+      text: "effectué avec succès.",
+      icon: "success"
+    });
+
+    
+  }
+});
+
 }
-
-
 
 // SOUS BUDGET
 export function getGroupeActivite({ commit }) {
@@ -1040,4 +1145,184 @@ export function getBudgetEclate({ commit }) {
       commit("GET_AFFICHE_BUDGET_ECLATE", response.data);
     })
     .catch(error => console.log(error));
+}
+export function getBudgetViseParActvite({ commit }, objet) {
+
+  return new Promise((resolve, reject) => {
+    apiGuest
+      .get("/listeBudgetEclateViser/" + objet.id, { headers: authHeader() })
+      .then(response => {
+        resolve(response);
+        commit("GET_BUDGET_VISE_PAR_ACTIVITE", response.data);
+      }).catch(error => {
+        reject(error);
+      });
+  });
+
+}
+
+export function getBudgetEclateViseGroupeParActivte({ commit }) {
+  apiGuest.get("/AfficheBudgetViseGroupeParActivite", { headers: authHeader() })
+    .then(response => {
+      commit("GET_BUDGET_VISE_GROUPE_PAR_ACTIVITE", response.data);
+    })
+    .catch(error => console.log(error));
+}
+// ENTREPRISE
+
+
+
+export function getEntreprise({ commit }) {
+  apiGuest.get("/listeEntreprise", { headers: authHeader() })
+    .then(response => {
+      commit("GET_ENTREPRISE", response.data);
+    })
+    .catch(error => console.log(error));
+}
+
+export function ajouterEntreprise({ commit }, nouveau) {
+ 
+    apiGuest.post("/AjouterEntreprise", nouveau, { headers: authHeader() })
+    .then(response => {
+      if (response.status == 201) {
+        commit("AJOUTER_ENTREPRISE", response.data);
+       toast("Enregistrement effectué avec succès!", {
+        "theme": "auto",
+        "type": "success",
+        "dangerouslyHTMLString": true
+})
+      }
+    }).catch();
+}
+
+
+export function modifierEntreprise({ commit }, nouveau) {
+  apiGuest.
+    put("/ModifierEntreprise/" + nouveau.id, nouveau, { headers: authHeader() })
+    .then(response => {
+      commit("MODIFIER_ENTREPRISE", response.data);
+      toast("Modification effectué avec succès!", {
+        "theme": "auto",
+        "type": "success",
+        "dangerouslyHTMLString": true
+})
+    });
+}
+
+export function supprimerEntreprise({ commit}, id) {
+
+  Swal.fire({
+  // title: "Are you sure?",
+  text: "Voulez vous vraiment supprimer ?",
+  icon: "question",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Confimer"
+}).then((result) => {
+  if (result.isConfirmed) {
+   
+    apiGuest.delete('/supprimerEntreprise/' + id, { headers: authHeader() })
+     commit('SUPPRIMER_ENTREPRISE', id)
+ 
+    Swal.fire({
+      title: "Suppression",
+      text: "effectué avec succès.",
+      icon: "success"
+    });
+
+    
+  }
+});
+      
+        //.then(() => dialog.close())
+   // });
+}
+
+
+// taux
+
+
+
+
+export function getTaux({ commit }) {
+  apiGuest.get("/listeTaux", { headers: authHeader() })
+    .then(response => {
+      commit("GET_TAUX", response.data);
+    })
+    .catch(error => console.log(error));
+}
+
+export function ajouterTaux({ commit }, nouveau) {
+ 
+    apiGuest.post("/AjouterTaux", nouveau, { headers: authHeader() })
+    .then(response => {
+      if (response.status == 201) {
+        commit("AJOUTER_TAUX", response.data);
+       toast("Enregistrement effectué avec succès!", {
+        "theme": "auto",
+        "type": "success",
+        "dangerouslyHTMLString": true
+})
+      }
+    }).catch();
+}
+
+
+export function modifierTaux({ commit }, nouveau) {
+  apiGuest.
+    put("/ModifierTaux/" + nouveau.id, nouveau, { headers: authHeader() })
+    .then(response => {
+      commit("MODIFIER_TAUX", response.data);
+      toast("Modification effectué avec succès!", {
+        "theme": "auto",
+        "type": "success",
+        "dangerouslyHTMLString": true
+})
+    });
+}
+
+export function supprimerTaux({ commit}, id) {
+
+  Swal.fire({
+  // title: "Are you sure?",
+  text: "Voulez vous vraiment supprimer ?",
+  icon: "question",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Confimer"
+}).then((result) => {
+  if (result.isConfirmed) {
+   
+    apiGuest.delete('/supprimerTaux/' + id, { headers: authHeader() })
+     commit('SUPPRIMER_TAUX', id)
+ 
+    Swal.fire({
+      title: "Suppression",
+      text: "effectué avec succès.",
+      icon: "success"
+    });
+
+    
+  }
+});
+}
+
+
+/// ORDRE PAIEMENT
+
+export function ajouterOrdrePaiement({ commit }, nouveau) {
+ 
+    apiGuest.post("/EnregistrementOrdrePaiement", nouveau, { headers: authHeader() })
+    .then(response => {
+      if (response.status == 201) {
+        commit("AJOUTER_ORDRE_PAIEMENT", response.data);
+       toast("Enregistrement effectué avec succès!", {
+        "theme": "auto",
+        "type": "success",
+        "dangerouslyHTMLString": true
+})
+      }
+    }).catch();
 }

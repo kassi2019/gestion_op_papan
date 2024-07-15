@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div >
     <TheHeader></TheHeader>
     <br /><br /><br /><br /><br /><br /><br />
-    <div class="row">
+    <div class="row" style="background-image: url(../../../public/csslogin/images/font.jpg)">
       <div class="col-md-4">
         <div
           class="card card-secondary"
@@ -110,10 +110,11 @@
             box-shadow: 15px -10px #f9d531;
             width: 80%;
           "
+           @click="ParametreGeneraux(5)"
         >
           <div class="card-body curves-shadow">
              <i class="icon-user" style="  font-size: 50px;"></i>
-            <h2 class="op-8">Gestion Utilisateurs</h2>
+            <h2 class="op-8"  @click="ParametreGeneraux(5)">Gestion Utilisateurs</h2>
             <!-- <div class="pull-right">
               <h3 class="fw-bold op-8">70%</h3>
             </div> -->

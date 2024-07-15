@@ -1,5 +1,14 @@
 <template>
-  <div class="main-header">
+  <div
+    class="main-header"
+    style="
+      border-radius: 10px 10px 10px;
+      border-color: #fff !important;
+      border-style: solid;
+      
+      
+    "
+  >
     <nav
       class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom"
     >
@@ -8,11 +17,11 @@
           class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex"
         >
           <span
-              class="badge badge-info"
-              style="cursor: pointer"
-                  @click.prevent="ParametreGeneraux()"
-              >Voir Module</span
-            >
+            class="badge badge-info"
+            style="cursor: pointer"
+            @click.prevent="ParametreGeneraux()"
+            >Voir Module</span
+          >
         </nav>
 
         <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
@@ -320,7 +329,6 @@
       </div>
     </nav>
     <!-- End Navbar -->
-     
   </div>
 </template>
 
@@ -375,7 +383,7 @@ export default {
       "getProfileUsers",
       "getUsers",
     ]),
-ParametreGeneraux() {
+    ParametreGeneraux() {
       this.$router.push({ name: "Accueil" });
     },
     exit() {

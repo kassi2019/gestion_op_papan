@@ -3,8 +3,30 @@
     <div class="col-md-12">
       <div class="card" style="box-shadow: 5px 5px  #f9d531;">
         <div class="card-header">
+          <div class="page-header">
+            <h6 class="fw-bold mb-3">Eclatement</h6>
+            <ul class="breadcrumbs mb-3">
+              <li class="nav-home">
+                <a href="#">
+                  <i class="icon-home"></i>
+                </a>
+              </li>
+              <li class="separator">
+                <i class="icon-arrow-right"></i>
+              </li>
+              <li class="nav-item">
+                <a href="#">Gestion budgétaire</a>
+              </li>
+              <li class="separator">
+                <i class="icon-arrow-right"></i>
+              </li>
+              <li class="nav-item">
+                <a href="#">Eclatement du budget</a>
+              </li>
+            </ul>
+          </div>
           <div class="d-flex align-items-center">
-            <h4 class="card-title">Eclatement du budget</h4>
+            <!-- <h4 class="card-title">Eclatement du budget</h4> -->
           </div>
         </div>
         <div class="card-body">
@@ -69,13 +91,12 @@
                         class="form-control"
                         readonly
                         :value="exerciceBudgetaire"
+                        style="border: 1px solid #000"
                       />
                     </div>
                     <div class="col-9">
                       <label class="form-label"
-                        >Unité Opérationnelle{{
-                          unite_operationnelle_id
-                        }}</label
+                        >Unité Opérationnelle</label
                       >
 
                       <model-list-select
@@ -102,7 +123,7 @@
                     </div>
                      <div class="col-6">
                       <label class="form-label"
-                        >Sous budget{{ sous_budget_id }}</label
+                        >Sous budget</label
                       >
                       <model-list-select
                         :list="libelleSousBudget"
@@ -116,23 +137,27 @@
                     </div>
                      <div class="col-3">
                       <label class="form-label">Budget Notifié ( A )</label>
-                      <input
-                        type="text"
+                      
+                      <money3
+                        v-model="FormDataDossier.doatation_report"
                         class="form-control"
+                        style="border: 1px solid #000 !important"
+                        v-bind="config"
                         readonly
                         :value="MontantNotifie"
-                        style="background-color: #dcdcdc; font-weight: bolder"
-                      />
+                      ></money3>
                     </div>
                     <div class="col-3">
                       <label class="form-label">Budget Réport ( B )</label>
-                      <input
-                        type="text"
+                     
+                      <money3
+                        v-model="FormDataDossier.doatation_report"
                         class="form-control"
+                        style="border: 1px solid #000 !important"
+                        v-bind="config"
                         readonly
                         :value="MontantReport"
-                        style="background-color: #dcdcdc; font-weight: bolder"
-                      />
+                      ></money3>
                     </div>
 
                     <div class="col-6">
@@ -140,17 +165,25 @@
                         >Budget global ( E = A + B)</label
                       >
 
-                      <input
+                      <!-- <input
                         type="text"
                         class="form-control"
                         readonly
                         :value="TotalGlobal"
                         style="background-color: #dcdcdc; font-weight: bolder"
-                      />
+                      /> -->
+                       <money3
+                        v-model="FormDataDossier.doatation_report"
+                        class="form-control"
+                        style="border: 1px solid #000 !important"
+                        v-bind="config"
+                        readonly
+                        :value="TotalGlobal"
+                      ></money3>
                     </div>
                      <div class="col-3">
                       <label class="form-label"
-                        >Nature dépense{{ nature_depense_id }}</label
+                        >Nature dépense</label
                       >
                       <model-list-select
                         :list="getterNatureDepense"
@@ -202,33 +235,25 @@
                       <label class="form-label"
                         >Dotation Actuelle</label
                       >
-
-                      <!-- <money3
+<money3
                         v-model="FormDataDossier.dotation_actuelle"
                         class="form-control"
-                      ></money3> -->
-                      <input
-                        type="text"
-                        class="form-control"
-                       
-                       v-model="FormDataDossier.dotation_actuelle"
-                        
-                      />
+                        style="border: 1px solid #000 !important"
+                        v-bind="config"
+                      ></money3>
+                      
+                      
                     </div>
                     <div class="col-3">
-                      <label class="form-label">Autre Dotation</label>
+                      <label class="form-label">Dotation réport</label>
 
-                      <!-- <money3
+                 
+                      <money3
                         v-model="FormDataDossier.doatation_report"
                         class="form-control"
-                      ></money3> -->
-                       <input
-                        type="text"
-                        class="form-control"
-                        
-                         v-model="FormDataDossier.doatation_report"
-                        
-                      />
+                        style="border: 1px solid #000 !important"
+                        v-bind="config"
+                      ></money3>
                     </div>
                     <div class="col-3">
                       <br />
@@ -498,6 +523,7 @@ export default {
     this.getExerciceBudgetaire();
     this.getActivite();
     this.getNatureEconomique();
+    this.getSousBudget();
     this.getProjet();
     this.getNatureDepense();
     this.getTypeFinancement();
@@ -694,7 +720,7 @@ export default {
   },
   methods: {
     ...mapActions("parametrage", [
-      "getActivite",
+      "getActivite","getSousBudget",
       "getBudgetEclate",
       "getDotationRessourcePropre",
       "getTypeFinancement",

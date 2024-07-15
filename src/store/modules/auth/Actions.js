@@ -2,6 +2,7 @@ import apiGuest from '../../../request/AppRequest';
 import apiImage from '../../../request/AppRequestImage';
 import authHeader from '../../../services/auth-header';
 import router from '../../../routes/index';
+import Swal from 'sweetalert2';
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 
@@ -152,6 +153,37 @@ export function modifierRoleUtilisateur({ commit }, nouveau) {
 //     });
 // }
 
+
+export function supprimerRoleUtilisateur({ commit}, id) {
+
+  //this.$app.$dialog
+   // .confirm("Voulez vous vraiment supprimer ?.")
+   // .then(dialog => {
+ 
+  Swal.fire({
+  // title: "Are you sure?",
+  text: "Voulez vous vraiment supprimer ?",
+  icon: "question",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Confimer"
+}).then((result) => {
+  if (result.isConfirmed) {
+    apiGuest.delete('/supprimerRoles/' + id, { headers: authHeader() })
+    commit('SUPPRIMER_ROLE_UTILISATEUR', id);
+    
+    Swal.fire({
+      title: "Suppression",
+      text: "effectué avec succès.",
+      icon: "success"
+    });
+
+    
+  }
+});
+
+}
 
 export function EnregistreUtilisateur({ commit }, nouveau) {
  

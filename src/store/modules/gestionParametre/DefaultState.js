@@ -20,7 +20,12 @@ const defaultstate = {
     stateGrpeActiviteBudgetAutreRessource: [],
     stateInformationBudget: [],
     stateBudgetEclate: [],
-    stateListeBudgetEclate:[]
+    stateListeBudgetEclate: [],
+    stateEntreprise: [],
+    stateBudgetViseParActivite: [],
+    stateBudgetViseGroupeParActivite: [],
+    stateTaux: [],
+     stateOrdrePaiement:[]
     // stateAfficheDotation:[]
     
 };

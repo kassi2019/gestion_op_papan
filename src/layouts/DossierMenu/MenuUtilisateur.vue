@@ -49,89 +49,33 @@
                   </ul>
                 </div>
               </li> -->
- <li class="nav-section">
-                <span class="sidebar-mini-icon">
-                  <i class="fa fa-ellipsis-h"></i>
-                </span>
-                <h4 class="text-section">PARAMETRE GENERAUX</h4>
-              </li>
+
           <li class="nav-item">
             <a
               class="nav-link collapsed"
               href=""
-              @click.prevent="activedOptionMenu('ExerciceBudgetaire')"
+              @click.prevent="activedOptionMenu('roleUtilisateur')"
             >
-              <i class="fas fa-arrow-right"></i>
+              <i class="fas fa-file"></i>
 
-              <p>Exercice Budgétaire</p>
+              <p>Role</p>
             </a>
           </li>
           <li class="nav-item">
             <a
               class="nav-link collapsed"
               href=""
-               @click.prevent="activedOptionMenu('Section')"
+               @click.prevent="activedOptionMenu('Utilisateur')"
             >
-              <i class="fas fa-arrow-right"></i>
+              <i class="fas fa-file"></i>
 
-              <p>Section</p>
+              <p>Utilisateur</p>
             </a>
           </li>
-          <li class="nav-item">
-            <a
-              class="nav-link collapsed"
-              href=""
-              @click.prevent="activedOptionMenu('typeFinancement')"
-            >
-              <i class="fas fa-arrow-right"></i>
-
-                <p>Type de financement</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a
-              class="nav-link collapsed"
-              href=""
-              @click.prevent="activedOptionMenu('bailleur')"
-            >
-              <i class="fas fa-arrow-right"></i>
-
-              <p>Bailleur</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a
-              class="nav-link collapsed"
-              href=""
-              @click.prevent="activedOptionMenu('Activite')"
-            >
-              <i class="fas fa-arrow-right"></i>
-
-              <p>Activité</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a
-              class="nav-link collapsed"
-              href=""
-              @click.prevent="activedOptionMenu('projet')"
-            >
-              <i class="fas fa-arrow-right"></i>
-
-              <p>Création du projet</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a
-              class="nav-link collapsed"
-              href=""
-              @click.prevent="activedOptionMenu('Entreprise')"
-            >
-              <i class="fas fa-arrow-right"></i>
-
-              <p>Création entreprise</p>
-            </a>
-          </li>
+         
+          
+         
+          
           
         </ul>
       </div>

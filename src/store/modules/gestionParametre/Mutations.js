@@ -78,7 +78,7 @@ export const MODIFIER_NATURE_DEPENSE = (state, elementModif) => {
 }
 
 export const SUPPRIMER_NATURE_DEPENSE = (state, id) => {
-    state.stateNatureDepense = state.stateSection.filter(titre => titre.id != id)
+    state.stateNatureDepense = state.stateNatureDepense.filter(titre => titre.id != id)
 };
 
 // type financement
@@ -104,7 +104,7 @@ export const MODIFIER_TYPE_FINANCEMENT = (state, elementModif) => {
 }
 
 export const SUPPRIMER_TYPE_FINANCEMENT = (state, id) => {
-    state.stateTypeFinancement = state.stateSection.filter(titre => titre.id != id)
+    state.stateTypeFinancement = state.stateTypeFinancement.filter(titre => titre.id != id)
 };
 
 
@@ -129,7 +129,7 @@ export const MODIFIER_BAILLEUR = (state, elementModif) => {
 }
 
 export const SUPPRIMER_BAILLEUR = (state, id) => {
-    state.stateBailleur = state.stateSection.filter(titre => titre.id != id)
+    state.stateBailleur = state.stateBailleur.filter(titre => titre.id != id)
 };
 
 // activite
@@ -153,7 +153,7 @@ export const MODIFIER_ACTIVITE = (state, elementModif) => {
 }
 
 export const SUPPRIMER_ACTIVITE = (state, id) => {
-    state.stateActivite = state.stateSection.filter(titre => titre.id != id)
+    state.stateActivite = state.stateActivite.filter(titre => titre.id != id)
 };
 
 
@@ -179,7 +179,7 @@ export const MODIFIER_NATURE_ECONOMIQUE = (state, elementModif) => {
 }
 
 export const SUPPRIMER_NATURE_ECONOMIQUE = (state, id) => {
-    state.stateNatureEconomique = state.stateSection.filter(titre => titre.id != id)
+    state.stateNatureEconomique = state.stateNatureEconomique.filter(titre => titre.id != id)
 };
 
 //projet
@@ -205,7 +205,7 @@ export const MODIFIER_PROJET = (state, elementModif) => {
 }
 
 export const SUPPRIMER_PROJET = (state, id) => {
-    state.stateProjet = state.stateSection.filter(titre => titre.id != id)
+    state.stateProjet = state.stateProjet.filter(titre => titre.id != id)
 };
 
 
@@ -378,4 +378,65 @@ export const AJOUTER_BUDGET_ECLATE = (state, elementAjouter) => {
 
 export const GET_AFFICHE_BUDGET_ECLATE = (state, value) => {
     state.stateListeBudgetEclate=value
+}
+
+export const GET_BUDGET_VISE_PAR_ACTIVITE = (state,value)=>{
+    state.stateBudgetViseParActivite=value
+}
+export const GET_BUDGET_VISE_GROUPE_PAR_ACTIVITE = (state,value)=>{
+    state.stateBudgetViseGroupeParActivite=value
+}
+// entreprise
+
+
+export const GET_ENTREPRISE = (state,value)=>{
+    state.stateEntreprise=value
+}
+
+export const AJOUTER_ENTREPRISE = (state, elementAjouter) => {
+    state.stateEntreprise.unshift(elementAjouter)
+}
+
+export const MODIFIER_ENTREPRISE = (state, elementModif) => {
+    state.stateEntreprise = state.stateEntreprise.map(response => {
+
+        if (response.id == elementModif.id) {
+            response = { ...elementModif }
+        }
+        return response
+    })
+}
+
+export const SUPPRIMER_ENTREPRISE = (state, id) => {
+    state.stateEntreprise = state.stateEntreprise.filter(titre => titre.id != id)
+};
+
+
+// taux
+
+
+export const GET_TAUX = (state,value)=>{
+    state.stateTaux=value
+}
+
+export const AJOUTER_TAUX = (state, elementAjouter) => {
+    state.stateTaux.unshift(elementAjouter)
+}
+
+export const MODIFIER_TAUX = (state, elementModif) => {
+    state.stateTaux = state.stateTaux.map(response => {
+
+        if (response.id == elementModif.id) {
+            response = { ...elementModif }
+        }
+        return response
+    })
+}
+
+export const SUPPRIMER_TAUX = (state, id) => {
+    state.stateTaux = state.stateTaux.filter(titre => titre.id != id)
+};
+
+export const AJOUTER_ORDRE_PAIEMENT= (state, elementAjouter) => {
+    state.stateOrdrePaiement.unshift(elementAjouter)
 }

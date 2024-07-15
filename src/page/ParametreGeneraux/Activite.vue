@@ -1,10 +1,10 @@
 <template>
-  <div class="container" >
-    <div class="col-md-12" >
-      <div class="card" style="box-shadow: 5px 5px  #f9d531;">
+  <div class="container">
+    <div class="col-md-12">
+      <div class="card" style="box-shadow: 5px 5px #f9d531">
         <div class="card-header">
           <div class="page-header">
-						<h6 class="fw-bold mb-3">Liste Sous budget</h6>
+						<h6 class="fw-bold mb-3">Liste Activité</h6>
 						<ul class="breadcrumbs mb-3">
 							<li class="nav-home">
 								<a href="#">
@@ -15,13 +15,13 @@
 								<i class="icon-arrow-right"></i>
 							</li>
 							<li class="nav-item">
-								<a href="#">Gestion budgétaire</a>
+								<a href="#">Paramétre généraux</a>
 							</li>
 							<li class="separator">
 								<i class="icon-arrow-right"></i>
 							</li>
 							<li class="nav-item">
-								<a href="#">Sous budget</a>
+								<a href="#">Activité</a>
 							</li>
 						</ul>
 					</div>
@@ -40,59 +40,62 @@
         <div class="card-body">
           <div class="table-responsive">
             <table class="table table-bordered">
-            <thead>
-                        <tr>
-                          <!-- <th scope="col">#</th> -->
-                          <!-- <th scope="col">N</th> -->
- <th scope="col" style="text-align: center" >
-                            Activité
-                          </th>
-                          <th scope="col" style="text-align: center" >
-                            Sous budget
-                          </th>
-                          <th scope="col" style="text-align: center">Action</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr
-                          v-for="item1 in getterSousBudget"
-                          :key="item1.id"
-                        >
-                        <td style="width: 45%">{{ libelleActiviteTableau(item1.activite_id) }}</td>
-                          <td style="width: 40%">{{ item1.libelle }}</td>
-                          <td>
-                            <span
+             <thead>
+            <tr>
+              <!-- <th scope="col">#</th> -->
+              <th scope="col">Code</th>
+              <th scope="col" style="width: 70%">Libelle</th>
+
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="item in getterActivite"
+              :key="item.id"
+              
+            >
+              <td>{{ item.code }}</td>
+              <td>{{ item.libelle }}</td>
+
+              <td>
+                <span
                   class="badge rounded-pill bg-primary"
                   data-bs-toggle="modal"
                   data-bs-target="#largeModal1"
                   style="cursor: pointer"
-                  @click.prevent="AfficheModalModification(item1.id)"
+                  @click.prevent="AfficheModalModification(item.id)"
                   >Modifier</span
                 >
                 <span
                   class="badge bg-danger"
                   style="cursor: pointer"
-                  @click.prevent="supprimerSousBudget(item1.id)"
+                  @click.prevent="supprimerActivite(item.id)"
                   >Supprimer</span
                 >
-                           
-                          </td>
-                        </tr>
-                      </tbody>
+                <!-- <button
+                  type="button"
+                  class="btn btn-danger rounded-pill"
+                  v-if="item.encours == 0"
+                >
+                  Supprimer
+                </button> -->
+              </td>
+            </tr>
+          </tbody>
             </table>
           </div>
         </div>
       </div>
     </div>
     <!-- modal de modification -->
-
-    <!-- modal de modification -->
+  <!-- modal de modification -->
 
     <div class="modal fade" id="largeModal1" tabindex="-1">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Modifier Sous Budget / Composante</h5>
+            <h5 class="modal-title">Modifier Activité</h5>
             <button
               type="button"
               class="btn-close"
@@ -103,16 +106,14 @@
           <div class="modal-body">
             <form>
               <div class="col-12">
-                 <label class="form-label">Activité</label>
-                      <model-list-select
-                        :list="libelleActivite"
-                        v-model="modNatureDepense.activite_id"
-                        option-value="id"
-                        option-text="libelle"
-                        placeholder="select item"
-                        style="border: 1px solid #000"
-                      >
-                      </model-list-select>
+                <label for="inputNanme4" class="form-label">Code</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputNanme4"
+                  style="border: 1px solid #000"
+                  v-model="modNatureDepense.code"
+                />
               </div>
               <div class="col-12">
                 <label for="inputNanme4" class="form-label">Libelle</label>
@@ -124,6 +125,7 @@
                   v-model="modNatureDepense.libelle"
                 />
               </div>
+             
             </form>
           </div>
           <div class="modal-footer">
@@ -131,7 +133,7 @@
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
-              @click.prevent="this.getSousBudget()"
+              @click.prevent="this.getActivite()"
             >
               Fermer
             </button>
@@ -147,11 +149,11 @@
         </div>
       </div>
     </div>
-    <div class="modal fade" id="largeModal" tabindex="-1">
+  <div class="modal fade" id="largeModal" tabindex="-1">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Ajouter Sous Budget / Composante</h5>
+            <h5 class="modal-title">Ajouter Activité</h5>
             <button
               type="button"
               class="btn-close"
@@ -162,16 +164,14 @@
           <div class="modal-body">
             <form>
               <div class="col-12">
-                 <label class="form-label">Activité</label>
-                      <model-list-select
-                        :list="libelleActivite"
-                        v-model="ajouterNatureDepense.activite_id"
-                        option-value="id"
-                        option-text="libelle"
-                        placeholder="select item"
-                        style="border: 1px solid #000"
-                      >
-                      </model-list-select>
+                <label for="inputNanme4" class="form-label">Code</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputNanme4"
+                  style="border: 1px solid #000"
+                  v-model="ajouterNatureDepense.code"
+                />
               </div>
               <div class="col-12">
                 <label for="inputNanme4" class="form-label">Libelle</label>
@@ -183,6 +183,7 @@
                   v-model="ajouterNatureDepense.libelle"
                 />
               </div>
+             
             </form>
           </div>
           <div class="modal-footer">
@@ -210,126 +211,75 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import moment from "moment";
-import { ModelListSelect } from "vue-search-select";
 export default {
-  components: {ModelListSelect},
+      name: "TheDefault",
+  components: {},
   data() {
     return {
       ajouterNatureDepense: {
+        code: "",
         libelle: "",
-
-        activite_id: "",
+       
       },
       modNatureDepense: {
+        code: "",
         libelle: "",
-
-        activite_id: "",
+        
       },
     };
   },
   created() {
+
     this.getActivite();
-    this.getGroupeActivite()
-    this.getSousBudget();
+    
   },
   computed: {
-   
-    ...mapGetters("parametrage", ["getterActivite","getterSousBudget",'getterGrpeActivite']),
-    libelleSousBudget() {
-      return (id) => {
-        if (id != null && id != "") {
-          return this.getterSousBudget.filter(
-            (qtreel) => qtreel.activite_id == id
-          );
-        }
-      };
-      },
-    libelleActivite() {
-      let collet = [];
-      this.getterActivite.filter((item) => {
-        let data = {
-          id: item.id,
-          libelle: item.code.concat("  ", item.libelle),
-        };
-        collet.push(data);
-        //}
-      });
-      return collet;
-    },
-    libelleActiviteTableau() {
-      return (id) => {
-        if (id != null && id != "") {
-          const qtereel = this.getterActivite.find(
-            (qtreel) => qtreel.id == id
-          );
-
-          if (qtereel) {
-            return qtereel.code.concat(" - ", qtereel.libelle);
-          }
-          return 0;
-        }
-      };
-    },
-    GroupeParActivie() {
-      // return (id) => {
-
-      let objet = this.getterSousBudget;
-      //  let vm=this
-      let array_exercie = [];
-      if (objet.length > 0) {
-        objet.forEach(function (val) {
-          array_exercie.push(val.activite_id);
-        });
-        let unique = [...new Set(array_exercie)];
-
-        if (unique.length == 0) {
-          return [];
-        }
-        return unique.sort((a, b) => (a.unique > b.unique ? 1 : -1));
-      }
-      return [];
-      // };
-    },
+    ...mapGetters("parametrage", [
+      "getterActivite",
+      
+    ]),
   },
   methods: {
-   
-      ...mapActions("parametrage", [
+    ...mapActions("parametrage", [
       "getActivite",
-      "getSection", "getActivite",'getGroupeActivite',
-      "getSousBudget",
-      "ajouterSousBudget",
-      "modifierSousBudget",
-      "supprimerSousBudget",
-      
-      ]),
-    
+      "ajouteActivite",
+      "modifierActivite",
+      "supprimerActivite",
+  
+    ]),
     AfficheModalModification(id) {
-      this.modNatureDepense = this.getterSousBudget.find((items) => items.id == id);
+      this.modNatureDepense = this.getterActivite.find(
+        (items) => items.id == id
+      );
     },
     EnregistrerSection() {
       var objetDirect1 = {
-        activite_id: this.ajouterNatureDepense.activite_id,
+        code: this.ajouterNatureDepense.code,
         libelle: this.ajouterNatureDepense.libelle,
+       
       };
 
-      this.ajouterSousBudget(objetDirect1);
+      this.ajouteActivite(objetDirect1);
       this.ajouterNatureDepense = {
-        activite_id: "",
+        code: "",
         libelle: "",
+       
       };
     },
 
     modificationSection() {
       var objetDirect1 = {
         id: this.modNatureDepense.id,
-        activite_id: this.modNatureDepense.activite_id,
+        code: this.modNatureDepense.code,
         libelle: this.modNatureDepense.libelle,
+        
       };
 
-      this.modifierSousBudget(objetDirect1);
+      this.modifierActivite(objetDirect1);
       this.modNatureDepense = {};
     },
 
+  
     formaterDate(date) {
       return moment(date, "YYYY-MM-DD").format("DD/MM/YYYY");
     },

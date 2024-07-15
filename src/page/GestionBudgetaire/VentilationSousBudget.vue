@@ -3,6 +3,7 @@
     <div class="col-md-12">
       <div class="card" style="box-shadow: 5px 5px  #f9d531;">
         <div class="card-header">
+          
           <div class="d-flex align-items-center">
             <h4 class="card-title">Présentation du budget par composante</h4>
             <span

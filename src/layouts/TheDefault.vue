@@ -7,6 +7,7 @@
       :isChange2="isChange2"
     ></MenuGestionBudgetaire>
     <MenuParametre v-if="id_module == 1" :isChange2="isChange2"></MenuParametre>
+     <MenuUtilisateur v-if="id_module == 5" :isChange2="isChange2"></MenuUtilisateur>
     <div class="main-panel">
       <TheHeader></TheHeader>
       <div class="container">
@@ -29,6 +30,7 @@
 import { mapGetters, mapActions } from "vuex";
 import MenuGestionBudgetaire from "./DossierMenu/MenuGestionBudgetaire.vue";
 import MenuParametre from "./DossierMenu/MenuParametre.vue";
+import MenuUtilisateur from "./DossierMenu/MenuUtilisateur.vue";
 //  import TheNavBar from './TheNavBar.vue'
 import TheHeader from "./TheHeader.vue";
 
@@ -39,6 +41,7 @@ export default {
     MenuGestionBudgetaire,
     TheHeader,
     MenuParametre,
+    MenuUtilisateur
 
     //  TheFooTer
   },

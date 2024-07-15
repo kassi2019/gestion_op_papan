@@ -4,7 +4,7 @@
       <div class="card" style="box-shadow: 5px 5px  #f9d531;">
         <div class="card-header">
           <div class="page-header">
-						<h6 class="fw-bold mb-3">Liste Nature économique</h6>
+						<h6 class="fw-bold mb-3">Liste des roles</h6>
 						<ul class="breadcrumbs mb-3">
 							<li class="nav-home">
 								<a href="#">
@@ -15,18 +15,18 @@
 								<i class="icon-arrow-right"></i>
 							</li>
 							<li class="nav-item">
-								<a href="#">Gestion budgétaire</a>
+								<a href="#">Gestion Utilisateur</a>
 							</li>
 							<li class="separator">
 								<i class="icon-arrow-right"></i>
 							</li>
 							<li class="nav-item">
-								<a href="#">Nature économique</a>
+								<a href="#">Rôles</a>
 							</li>
 						</ul>
 					</div>
           <div class="d-flex align-items-center">
-           
+            
 
             <span
               class="badge badge-primary"
@@ -39,36 +39,28 @@
         </div>
         <div class="card-body">
           <div class="table-responsive">
-            <div class="input-group">
-            <div class="input-group-prepend">
-              <button type="submit" class="btn btn-search pe-1">
-                <i class="fa fa-search search-icon"></i>
-              </button>
-            </div>
-            <input type="text" placeholder="Recherche ..." class="form-control" v-model="search" />
-          </div><br/>
-
             <table class="table table-bordered">
-               <thead>
+              <thead>
+           
             <tr>
               <!-- <th scope="col">#</th> -->
-              <!-- <th scope="col">Code</th> -->
-              <th scope="col" style="width: 75%">Code/Libelle</th>
-
-              <th></th>
+              <!-- <th scope="col">N</th> -->
+              <th scope="col" style="text-align: center">Code</th>
+              <th scope="col" style="text-align: center">Libelle</th>
+              <th scope="col" style="text-align: center">Action</th>
             </tr>
           </thead>
           <tbody>
             <tr
-              v-for="item in AfficherNatureEconomique"
+              v-for="item in getterRoleUtilisateur"
               :key="item.id"
               
             >
-              <!-- <td>{{ item.code }}</td> -->
-              <td style="width: 80%;">{{ item.libelle_code }}</td>
-
-              <td>
-                <span
+            <td>{{ item.code_role }}</td>
+            <td style="width: 70%;">{{ item.libelle }}</td>
+            <td>
+            
+                 <span
                   class="badge rounded-pill bg-primary"
                   data-bs-toggle="modal"
                   data-bs-target="#largeModal1"
@@ -79,19 +71,16 @@
                 <span
                   class="badge bg-danger"
                   style="cursor: pointer"
-                  @click.prevent="supprimerNatureEconomique(item.id)"
+                  @click.prevent="supprimerRoleUtilisateur(item.id)"
                   >Supprimer</span
                 >
-                <!-- <button
-                  type="button"
-                  class="btn btn-danger rounded-pill"
-                  v-if="item.encours == 0"
-                >
-                  Supprimer
-                </button> -->
+                
               </td>
             </tr>
-          </tbody>
+           
+              
+            
+                    </tbody>
             </table>
           </div>
         </div>
@@ -101,11 +90,11 @@
 
     <!-- modal de modification -->
 
-     <div class="modal fade" id="largeModal1" tabindex="-1">
+    <div class="modal fade" id="largeModal1" tabindex="-1">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Modifier Nature économique</h5>
+            <h5 class="modal-title">MODIFIER ROLE</h5>
             <button
               type="button"
               class="btn-close"
@@ -116,25 +105,30 @@
           <div class="modal-body">
             <form>
               <div class="col-12">
-                <label for="inputNanme4" class="form-label">Code</label>
+                <label for="inputNanme4" class="form-label"
+                  >Code</label
+                >
                 <input
                   type="text"
                   class="form-control"
                   id="inputNanme4"
                   style="border: 1px solid #000"
-                  v-model="modNatureDepense.code"
+                  v-model="modifierrole.code_role"
                 />
               </div>
-              <div class="col-12">
-                <label for="inputNanme4" class="form-label">Libelle</label>
+             <div class="col-12">
+                <label for="inputNanme4" class="form-label"
+                  >Libelle</label
+                >
                 <input
                   type="text"
                   class="form-control"
                   id="inputNanme4"
                   style="border: 1px solid #000"
-                  v-model="modNatureDepense.libelle"
+                  v-model="modifierrole.libelle"
                 />
               </div>
+              
              
             </form>
           </div>
@@ -143,15 +137,16 @@
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
-              @click.prevent="this.getNatureEconomique()"
+               @click.prevent="this.getRoleUtilisateur()"
+              
             >
               Fermer
             </button>
             <button
               type="button"
               class="btn btn-primary"
-              @click.prevent="modificationSection()"
-              data-bs-dismiss="modal"
+              @click.prevent="ModifierRole()"
+               data-bs-dismiss="modal"
             >
               Modifier
             </button>
@@ -159,11 +154,11 @@
         </div>
       </div>
     </div>
-   <div class="modal fade" id="largeModal" tabindex="-1">
+    <div class="modal fade" id="largeModal" tabindex="-1">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Ajouter Nature économique</h5>
+            <h5 class="modal-title">AJOUTER UN ROLE</h5>
             <button
               type="button"
               class="btn-close"
@@ -174,26 +169,33 @@
           <div class="modal-body">
             <form>
               <div class="col-12">
-                <label for="inputNanme4" class="form-label">Code</label>
+                <label for="inputNanme4" class="form-label"
+                  >Code</label
+                >
                 <input
                   type="text"
                   class="form-control"
                   id="inputNanme4"
                   style="border: 1px solid #000"
-                  v-model="ajouterNatureDepense.code"
+                  v-model="formData.code_role"
                 />
               </div>
-              <div class="col-12">
-                <label for="inputNanme4" class="form-label">Libelle</label>
+               <div class="col-12">
+                <label for="inputNanme4" class="form-label"
+                  >Libelle</label
+                >
                 <input
                   type="text"
                   class="form-control"
                   id="inputNanme4"
                   style="border: 1px solid #000"
-                  v-model="ajouterNatureDepense.libelle"
+                  v-model="formData.libelle"
                 />
               </div>
              
+             
+              
+              
             </form>
           </div>
           <div class="modal-footer">
@@ -201,13 +203,14 @@
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
+               @click.prevent="this.getRoleUtilisateur()"
             >
               Fermer
             </button>
             <button
               type="button"
               class="btn btn-primary"
-              @click.prevent="EnregistrerSection()"
+              @click.prevent="EnregistrerRole()"
             >
               Enregistrer
             </button>
@@ -220,93 +223,74 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import moment from "moment";
+
 export default {
   components: {},
   data() {
-      return {
-        search:'',
-      ajouterNatureDepense: {
-        code: "",
-        libelle: "",
-       
+    return {
+      formData: {
+       libelle: "",
+        code_role: ""
       },
-      modNatureDepense: {
-        code: "",
+      modifierrole: {
         libelle: "",
-        
+        code_role: ""
       },
     };
   },
   created() {
-
-     this.getNatureEconomique();
+    this.getRoleUtilisateur();
     
   },
   computed: {
-    ...mapGetters("parametrage", [
-      "getterNatureEconomique",
-      
+    ...mapGetters("Utilisateurs", [
+      "getterExerciceBudgetaire",
+      "getterUtilisateur",
+      "getterModule",
+      "getterGroupement","getterRoleUtilisateur"
     ]),
-    AfficherNatureEconomique(){
-
-     const searchTerm = this.search.toLowerCase();
-
-return this.getterNatureEconomique.filter((item) => {
-  
-    return item.code.toLowerCase().includes(searchTerm) 
-    || item.libelle.toLowerCase().includes(searchTerm)
-
-   
-  
-
-   }
-)
-   }
   },
+
   methods: {
-    ...mapActions("parametrage", [
-      "getNatureEconomique",
-      "ajouteNatureEconomique",
-      "modifierNatureEconomique",
-      "supprimerNatureEconomique",
-  
+    ...mapActions("Utilisateurs", [
+      "getExerciceBudgetaire",
+      "getUtilisateur",
+      "getModule",
+      "ajouterRoleUtilisateur",
+      "getListeService","getRoleUtilisateur","modifierRoleUtilisateur","supprimerRoleUtilisateur"
     ]),
     AfficheModalModification(id) {
-      this.modNatureDepense = this.getterNatureEconomique.find(
+      this.modifierrole = this.getterRoleUtilisateur.find(
         (items) => items.id == id
       );
     },
-    EnregistrerSection() {
+ 
+
+    EnregistrerRole() {
       var objetDirect1 = {
-        code: this.ajouterNatureDepense.code,
-        libelle: this.ajouterNatureDepense.libelle,
-       
+        libelle: this.formData.libelle,
+        code_role: this.formData.code_role
       };
 
-      this.ajouteNatureEconomique(objetDirect1);
-      this.ajouterNatureDepense = {
-        code: "",
+      this.ajouterRoleUtilisateur(objetDirect1);
+      this.formData = {
         libelle: "",
-       
+        code_role: ""
       };
     },
 
-    modificationSection() {
+    ModifierRole() {
       var objetDirect1 = {
-        id: this.modNatureDepense.id,
-        code: this.modNatureDepense.code,
-        libelle: this.modNatureDepense.libelle,
-        
+        id:this.modifierrole.id,
+        libelle: this.modifierrole.libelle,
+        code_role: this.modifierrole.code_role
       };
 
-      this.modifierNatureEconomique(objetDirect1);
-      this.modNatureDepense = {};
-    },
-
-  
-    formaterDate(date) {
-      return moment(date, "YYYY-MM-DD").format("DD/MM/YYYY");
+      this.modifierRoleUtilisateur(objetDirect1);
+      this.modifierrole = {
+        libelle: "",
+        code_role: ""
+      };
     },
   },
 };
