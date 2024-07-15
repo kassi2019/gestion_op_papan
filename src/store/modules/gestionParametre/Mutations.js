@@ -436,7 +436,18 @@ export const MODIFIER_TAUX = (state, elementModif) => {
 export const SUPPRIMER_TAUX = (state, id) => {
     state.stateTaux = state.stateTaux.filter(titre => titre.id != id)
 };
-
+// ORDRE PAIEMENT
 export const AJOUTER_ORDRE_PAIEMENT= (state, elementAjouter) => {
     state.stateOrdrePaiement.unshift(elementAjouter)
+}
+
+export const GET_ACTIVITE_OP= (state,value)=>{
+    state.stateActiviteSurOP=value
+}
+export const GET_LISTE_OP_PAR_UTILISATEUR= (state,value)=>{
+    state.stateListeOPParUser=value
+}
+
+export const GET_LISTE_FACTURE= (state,value)=>{
+    state.stateFacture=value
 }

@@ -569,7 +569,39 @@
               role="tabpanel"
               aria-labelledby="pills-contact-tab"
             >
-              verification
+              <div class="table-responsive">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th>N</th>
+                      <th>Activite</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      v-for="(item, index) in getterActiviteSurOP"
+                      :key="item.activite_id"
+                    >
+                      <td style="border: 1px solid #000">{{ index + 1 }}</td>
+                      <td style="border: 1px solid #000">
+                        {{ item.activite_libelle }}
+                      </td>
+
+                      <td style="border: 1px solid #000">
+                        <span
+                          class="badge badge-black"
+                          style="cursor: pointer"
+                          @click.prevent="
+                            AfficheVentilationBudget(item.activite_id)
+                          "
+                          >Voir OP Provisoire</span
+                        >
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
@@ -647,6 +679,7 @@ export default {
     this.getTypeFinancement();
     this.getBailleur();
     this.getTaux();
+    this.getActiviteOp();
     // this.getDotationNotifie();
     // this.getDotationReport();
     // this.getDotationRessourcePropre();
@@ -658,6 +691,7 @@ export default {
   computed: {
     ...mapGetters("parametrage", [
       "getterProjet",
+      "getterActiviteSurOP",
       "getterTaux",
       "getterBudgetViseParActivite",
       "getterBudgetViseGroupeParActivite",
@@ -1246,6 +1280,7 @@ export default {
   methods: {
     ...mapActions("parametrage", [
       "getActivite",
+      "getActiviteOp",
       "getTaux",
       "getSousBudget",
       "getBudgetViseParActvite",
@@ -1265,7 +1300,12 @@ export default {
       "getEntreprise",
       "ajouterOrdrePaiement",
     ]),
-
+    AfficheVentilationBudget(id) {
+      this.$router.push({
+        name: "AfficheOpActivite",
+        params: { id: id },
+      });
+    },
     voirBudgett(id) {
       this.$router.push({
         name: "VoirBudgetEclate",

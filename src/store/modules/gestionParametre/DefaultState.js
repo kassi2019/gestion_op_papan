@@ -25,7 +25,10 @@ const defaultstate = {
     stateBudgetViseParActivite: [],
     stateBudgetViseGroupeParActivite: [],
     stateTaux: [],
-     stateOrdrePaiement:[]
+    stateOrdrePaiement: [],
+    stateActiviteSurOP: [],
+    stateListeOPParUser: [],
+     stateFacture:[]
     // stateAfficheDotation:[]
     
 };

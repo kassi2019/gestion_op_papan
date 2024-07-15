@@ -1326,3 +1326,26 @@ export function ajouterOrdrePaiement({ commit }, nouveau) {
       }
     }).catch();
 }
+
+export function getActiviteOp({ commit }) {
+  apiGuest.get("/listeOrdrePaiementGroupeActivite", { headers: authHeader() })
+    .then(response => {
+      commit("GET_ACTIVITE_OP", response.data);
+    })
+    .catch(error => console.log(error));
+}
+export function getListeOrdrePaiementParUtilisateur({ commit }) {
+  apiGuest.get("/listeOrdrePaiementParUtilisateur", { headers: authHeader() })
+    .then(response => {
+      commit("GET_LISTE_OP_PAR_UTILISATEUR", response.data);
+    })
+    .catch(error => console.log(error));
+}
+
+export function getListeFacture({ commit }) {
+  apiGuest.get("/listeFacture", { headers: authHeader() })
+    .then(response => {
+      commit("GET_LISTE_FACTURE", response.data);
+    })
+    .catch(error => console.log(error));
+}

@@ -19,7 +19,20 @@ import AfficheSousBudgetEclate from "../page/GestionBudgetaire/AfficheSousBudget
 import VoirBudgetEclate from "../page/GestionBudgetaire/VoirBudgetEclateParActivite.vue"
 import VentilationSousBudget from "../page/GestionBudgetaire/VentilationSousBudget.vue"
 import OrdrePaiementProvisoire from "../page/GestionBudgetaire/OrdrePaiementProvisoire.vue"
+import AfficheOpActivite from "../page/GestionBudgetaire/AfficheOpActivite.vue"
+
+import ImprimerOp from "../page/GestionBudgetaire/ImprimerOp.vue"
 const gestionutilisateur = [
+  {
+        path: '/ImprimerOp/:id',
+        name:"ImprimerOp",
+       component: ImprimerOp
+     },
+  {
+        path: '/AfficheOpActivite/:id',
+        name:"AfficheOpActivite",
+       component: AfficheOpActivite
+     },
   {
         path: '/Entreprise',
         name:"Entreprise",

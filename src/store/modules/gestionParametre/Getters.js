@@ -22,4 +22,7 @@ export const getterEntreprise = state => state.stateEntreprise;
 export const getterBudgetViseParActivite = state => state.stateBudgetViseParActivite;
 export const getterBudgetViseGroupeParActivite = state => state.stateBudgetViseGroupeParActivite;
 export const getterTaux = state => state.stateTaux;
+export const getterActiviteSurOP = state => state.stateActiviteSurOP;
+export const getterListeOPParUser = state => state.stateListeOPParUser;
+export const getterFacture = state => state.stateFacture;
 // export const getterAfficheDotation = state => state.stateAfficheDotation;
