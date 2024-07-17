@@ -79,10 +79,11 @@
             box-shadow: 15px -10px #f9d531;
             width: 80%;
           "
+           @click="ParametreGeneraux(4)"
         >
           <div class="card-body skew-shadow">
              <i class="icon-docs" style="  font-size: 50px;"></i>
-            <h2 class="op-8">Gestion des Rapports</h2>
+            <h2 class="op-8"  @click="ParametreGeneraux(4)">Gestion des Rapports</h2>
             <!-- <div class="pull-right">
               <h3 class="fw-bold op-8">88%</h3>
             </div> -->

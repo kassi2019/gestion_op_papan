@@ -17,35 +17,42 @@
           <!-- Modal -->
           <table class="table table-bordered border-primary">
             <tr>
-              <td style="text-align: center; border: 1px solid #000 !important">
+              <td style="text-align: center; border: 1px solid #000 !important;width: 40%">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <h6 style="font-size: 12px">
                   Ministère des Ressources Animales et Halieutiques<br />
                   ------------------------- <br />
                   Fonds d'Aide à la Production Avicole Nationale <br />
                   <img
                     src="../../../public/csslogin/images/logo1.jpg"
-                    width="80px;"
+                    width="150px;"
                   />
                 </h6>
                 <!-- <img src="/optimisation/skin/img/log3.png" width="80px;"  /> -->
               </td>
-              <td style="text-align: center; border: 1px solid #000 !important">
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <td style="text-align: center; border: 1px solid #000 !important;width: 20%">
+                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  
+                    
                 <img
                   src="../../../public/assets/img/amoirie.png"
-                  width="70px;"
+                  width="50px;"
+                  style="text-align: center;"
                 />
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             
+                
+                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               </td>
 
-              <td style="text-align: center; border: 1px solid #000 !important">
+              <td style="text-align: center; border: 1px solid #000 !important;width: 40%;">
                 <h6 style="font-size: 12px">
                   République de Côte d'Ivoire <br />
                   ------------------------- <br />
                   Union-Discipline-Travail
                 </h6>
+                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  
                 <!-- <img src="/optimisation/skin/img/log3.png" width="80px;"  /> -->
               </td>
             </tr>
@@ -231,8 +238,8 @@
                   "
                   title=""
                 >
-                  N COMPTE CONTRIBUABLE DU BENEFICIAIRE
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                  N° COMPTE CONTRIBUABLE
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
                     style="text-align: center !important; line-height: normal"
                     >:</span
                   >
@@ -293,7 +300,7 @@
                   "
                   title=""
                 >
-                  N COMPTE BANCAIRE DU BENEFICIAIRE &nbsp;&nbsp;&nbsp;<span
+                  N° COMPTE BANCAIRE  &nbsp;&nbsp;&nbsp;<span
                     style="text-align: center !important; line-height: normal"
                     >:</span
                   >
@@ -716,7 +723,7 @@ export default {
   },
   created() {
     this.Activite_id = this.$route.params.id;
-    this.getListeOrdrePaiementParUtilisateur();
+    this.getListeOrdrePaiementGlobal();
     this.getEntreprise();
     this.getListeFacture();
     this.getSousBudget();
@@ -736,7 +743,7 @@ export default {
   computed: {
     ...mapGetters("parametrage", [
       "getterActivite",
-      "getterListeOPParUser",
+      "getterListeOPgloba",
       "getterBailleur",
       "getterNatureEconomique",
       "getterEntreprise",
@@ -759,7 +766,7 @@ export default {
     cumulAnterieure() {
       //   return (id) => {
       //     if (id != null && id != "") {
-      const qtereel = this.getterListeOPParUser.find(
+      const qtereel = this.getterListeOPgloba.find(
         (qtreel) => qtreel.id == this.Activite_id
       );
 
@@ -810,7 +817,7 @@ export default {
     nature_economique_id() {
       //   return (id) => {
       //     if (id != null && id != "") {
-      const qtereel = this.getterListeOPParUser.find(
+      const qtereel = this.getterListeOPgloba.find(
         (qtreel) => qtreel.id == this.Activite_id
       );
 
@@ -824,7 +831,7 @@ export default {
     nature_depense_id() {
       //   return (id) => {
       //     if (id != null && id != "") {
-      const qtereel = this.getterListeOPParUser.find(
+      const qtereel = this.getterListeOPgloba.find(
         (qtreel) => qtreel.id == this.Activite_id
       );
 
@@ -838,7 +845,7 @@ export default {
     type_financement_id() {
       //   return (id) => {
       //     if (id != null && id != "") {
-      const qtereel = this.getterListeOPParUser.find(
+      const qtereel = this.getterListeOPgloba.find(
         (qtreel) => qtreel.id == this.Activite_id
       );
 
@@ -852,7 +859,7 @@ export default {
     source_financement_id() {
       //   return (id) => {
       //     if (id != null && id != "") {
-      const qtereel = this.getterListeOPParUser.find(
+      const qtereel = this.getterListeOPgloba.find(
         (qtreel) => qtreel.id == this.Activite_id
       );
 
@@ -866,7 +873,7 @@ export default {
     activite_id() {
       //   return (id) => {
       //     if (id != null && id != "") {
-      const qtereel = this.getterListeOPParUser.find(
+      const qtereel = this.getterListeOPgloba.find(
         (qtreel) => qtreel.id == this.Activite_id
       );
 
@@ -880,7 +887,7 @@ export default {
     imputation() {
       //   return (id) => {
       //     if (id != null && id != "") {
-      const qtereel = this.getterListeOPParUser.find(
+      const qtereel = this.getterListeOPgloba.find(
         (qtreel) => qtreel.id == this.Activite_id
       );
 
@@ -894,7 +901,7 @@ export default {
     sousbudget_id() {
       //   return (id) => {
       //     if (id != null && id != "") {
-      const qtereel = this.getterListeOPParUser.find(
+      const qtereel = this.getterListeOPgloba.find(
         (qtreel) => qtreel.id == this.Activite_id
       );
 
@@ -936,7 +943,7 @@ export default {
     exerciceBudgetaire() {
       //   return (id) => {
       //     if (id != null && id != "") {
-      const qtereel = this.getterListeOPParUser.find(
+      const qtereel = this.getterListeOPgloba.find(
         (qtreel) => qtreel.id == this.Activite_id
       );
 
@@ -950,7 +957,7 @@ export default {
     numero_ordre_paiement() {
       //   return (id) => {
       //     if (id != null && id != "") {
-      const qtereel = this.getterListeOPParUser.find(
+      const qtereel = this.getterListeOPgloba.find(
         (qtreel) => qtreel.id == this.Activite_id
       );
 
@@ -964,7 +971,7 @@ export default {
     objetDepense() {
       //   return (id) => {
       //     if (id != null && id != "") {
-      const qtereel = this.getterListeOPParUser.find(
+      const qtereel = this.getterListeOPgloba.find(
         (qtreel) => qtreel.id == this.Activite_id
       );
 
@@ -978,7 +985,7 @@ export default {
     montant_prestation() {
       //   return (id) => {
       //     if (id != null && id != "") {
-      const qtereel = this.getterListeOPParUser.find(
+      const qtereel = this.getterListeOPgloba.find(
         (qtreel) => qtreel.id == this.Activite_id
       );
 
@@ -992,7 +999,7 @@ export default {
     beneficiaire() {
       //   return (id) => {
       //     if (id != null && id != "") {
-      const qtereel = this.getterListeOPParUser.find(
+      const qtereel = this.getterListeOPgloba.find(
         (qtreel) => qtreel.id == this.Activite_id
       );
 
@@ -1007,7 +1014,7 @@ export default {
     beneficiaire_id() {
       //   return (id) => {
       //     if (id != null && id != "") {
-      const qtereel = this.getterListeOPParUser.find(
+      const qtereel = this.getterListeOPgloba.find(
         (qtreel) => qtreel.id == this.Activite_id
       );
 
@@ -1050,7 +1057,7 @@ export default {
   methods: {
     ...mapActions("parametrage", [
       "getSousBudget",
-      "getListeOrdrePaiementParUtilisateur",
+      "getListeOrdrePaiementGlobal",
       "getBailleur",
       "getEntreprise",
       "getListeFacture",

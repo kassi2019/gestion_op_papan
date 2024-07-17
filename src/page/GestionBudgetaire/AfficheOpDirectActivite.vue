@@ -21,12 +21,12 @@
                 <i class="icon-arrow-right"></i>
               </li>
               <li class="nav-item">
-                <a href="#">Liste des OP Provisoire</a>
+                <a href="#">Liste des OP Direct</a>
               </li>
             </ul>
           </div>
           <!-- <div class="d-flex align-items-center">
-        
+            
             <span
               class="badge badge-primary"
               style="cursor: pointer"

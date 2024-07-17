@@ -19,10 +19,45 @@ import AfficheSousBudgetEclate from "../page/GestionBudgetaire/AfficheSousBudget
 import VoirBudgetEclate from "../page/GestionBudgetaire/VoirBudgetEclateParActivite.vue"
 import VentilationSousBudget from "../page/GestionBudgetaire/VentilationSousBudget.vue"
 import OrdrePaiementProvisoire from "../page/GestionBudgetaire/OrdrePaiementProvisoire.vue"
+import OrdrePaiementDirect from "../page/GestionBudgetaire/OrdrePaiementDirect.vue"
 import AfficheOpActivite from "../page/GestionBudgetaire/AfficheOpActivite.vue"
-
+import AfficheOpDirectActivite from "../page/GestionBudgetaire/AfficheOpDirectActivite.vue"
 import ImprimerOp from "../page/GestionBudgetaire/ImprimerOp.vue"
+import AfficheActiviteDesOP from "../page/GestionBudgetaire/AfficheActiviteDesOP.vue"
+import listeToutOP from "../page/GestionBudgetaire/listeToutOP.vue"
+import ExecutionBailleur from "../page/GestionRapport/ExecutionBailleur.vue"
+import ExecutionParLigne from "../page/GestionRapport/ExecutionParLigne.vue"
 const gestionutilisateur = [
+  {
+        path: '/ExecutionParLigne',
+        name:"ExecutionParLigne",
+       component: ExecutionParLigne
+     },
+   {
+        path: '/ExecutionBailleur',
+        name:"ExecutionBailleur",
+       component: ExecutionBailleur
+     },
+  {
+        path: '/listeToutOP/:id',
+        name:"listeToutOP",
+       component: listeToutOP
+     },
+   {
+        path: '/AfficheActiviteDesOP',
+        name:"AfficheActiviteDesOP",
+       component: AfficheActiviteDesOP
+     },
+  {
+        path: '/AfficheOpDirectActivite/:id',
+        name:"AfficheOpDirectActivite",
+       component: AfficheOpDirectActivite
+     },
+  {
+        path: '/OrdrePaiementDirect',
+        name:"OrdrePaiementDirect",
+       component: OrdrePaiementDirect
+     },
   {
         path: '/ImprimerOp/:id',
         name:"ImprimerOp",

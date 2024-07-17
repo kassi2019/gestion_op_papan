@@ -168,7 +168,7 @@
                       </a>
                     </li>
                      <li>
-                      <a href="../forms/forms.html">
+                      <a href="" @click.prevent="activedOptionMenu('OrdrePaiementDirect')">
                         <span class="sub-item">OP Direct</span>
                       </a>
                     </li>
@@ -183,7 +183,7 @@
                       </a>
                     </li>
                     <li>
-                      <a href="../forms/forms.html">
+                      <a href="" @click.prevent="activedOptionMenu('AfficheActiviteDesOP')">
                         <span class="sub-item">Voir ordre paiement</span>
                       </a>
                     </li>

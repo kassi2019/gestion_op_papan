@@ -25,4 +25,8 @@ export const getterTaux = state => state.stateTaux;
 export const getterActiviteSurOP = state => state.stateActiviteSurOP;
 export const getterListeOPParUser = state => state.stateListeOPParUser;
 export const getterFacture = state => state.stateFacture;
+export const getterActiviteglobal = state => state.stateActiviteglobal;
+export const getterListeOPgloba = state => state.stateListeOPgloba;
+
+export const getterOpParActivite = state => state.stateOpParActivite;
 // export const getterAfficheDotation = state => state.stateAfficheDotation;

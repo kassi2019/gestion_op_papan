@@ -28,7 +28,10 @@ const defaultstate = {
     stateOrdrePaiement: [],
     stateActiviteSurOP: [],
     stateListeOPParUser: [],
-     stateFacture:[]
+    stateFacture: [],
+     stateOpParActivite:[],
+      stateActiviteglobal: [],
+    stateListeOPgloba: [],
     // stateAfficheDotation:[]
     
 };

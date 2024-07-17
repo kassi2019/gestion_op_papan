@@ -4,7 +4,7 @@
       <div class="card" style="box-shadow: 5px 5px  #f9d531;">
         <div class="card-header">
             <div class="page-header">
-						<h6 class="fw-bold mb-3">Liste des Budgets Notifiés</h6>
+						<h6 class="fw-bold mb-3">Liste des Activités</h6>
 						<ul class="breadcrumbs mb-3">
 							<li class="nav-home">
 								<a href="#">
@@ -21,13 +21,11 @@
 								<i class="icon-arrow-right"></i>
 							</li>
 							<li class="nav-item">
-								<a href="#">Budget Notifié</a>
+								<a href="#">Activite des OP</a>
 							</li>
 						</ul>
 					</div>
-          <div class="d-flex align-items-center">
-            <!-- <h4 class="card-title">Liste Budget notifié</h4> -->
-
+          <!-- <div class="d-flex align-items-center">
             <span
               class="badge badge-primary"
               style="cursor: pointer"
@@ -35,51 +33,39 @@
               data-bs-target="#largeModal"
               >Ajouter</span
             >
-          </div>
+          </div> -->
         </div>
         <div class="card-body">
           <div class="table-responsive">
-            <table class="table table-bordered">
-              <thead>
-                <tr>
-                  <!-- <th scope="col">#</th> -->
-                  <!-- <th scope="col">N</th> -->
-                  <th scope="col" style="text-align: center">Exercice</th>
-                  <th scope="col" style="text-align: center">Activité</th>
-                  <th scope="col" style="text-align: center">
-                    Dotation (FCFA)
-                  </th>
-                  <th scope="col" style="text-align: center">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="item1 in getterDotationNotifie" :key="item1.id">
-                  <td style="width: 10%">{{ item1.exercice }}</td>
-                  <td style="width: 55%">
-                    {{ libelleActiviteTableau(item1.activite_id) }}
-                  </td>
-                  <td style="width: 15%; text-align: right">
-                    {{ formatageSommeSansFCFA(parseFloat(item1.dotation)) }}
-                  </td>
-                  <td>
-                    <span
-                      class="badge rounded-pill bg-primary"
-                      data-bs-toggle="modal"
-                      data-bs-target="#largeModal1"
-                      style="cursor: pointer"
-                      @click.prevent="AfficheModalModification(item1.id)"
-                      >Modifier</span
+             <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th>N°</th>
+                      <th>Activite</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      v-for="(item, index) in GroupeActiviteOPDirect"
+                      :key="item"
                     >
-                    <span
-                      class="badge bg-danger"
-                      style="cursor: pointer"
-                      @click.prevent="supprimerDotationNotifie(item1.id)"
-                      >Supprimer</span
-                    >
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+                      <td style="border: 1px solid #000">{{ index + 1 }}</td>
+                      <td style="border: 1px solid #000">
+                        {{ afficheLibelleActivite(item) }}
+                      </td>
+
+                      <td style="border: 1px solid #000">
+                        <span
+                          class="badge badge-black"
+                          style="cursor: pointer"
+                          @click.prevent="AfficheVentilationBudget(item)"
+                          >Voir Ordre paiement</span
+                        >
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
           </div>
         </div>
       </div>
@@ -268,19 +254,54 @@ export default {
       },
     };
   },
-  created() {
-     this.getActivite();
-      this.getExerciceBudgetaire();
+    created() {
+    this.getActiviteGlobal()
+    //   this.getActivite();
+    //   this.getExerciceBudgetaire();
     //  // this.getGroupeActivitebudgetNotifie()
-      this.getDotationNotifie();
+    //   this.getDotationNotifie();
   },
   computed: {
     ...mapGetters("parametrage", [
       "getterActivite",
       "getterExerciceBudgetaire",
       "getterDotationNotifie",
-      "getterGrpeActiviteBudgetNotifie",
+      "getterGrpeActiviteBudgetNotifie","getterActiviteglobal"
     ]),
+    afficheLibelleActivite() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.getterActiviteglobal.find(
+            (qtreel) => qtreel.activite_id == id
+          );
+
+          if (qtereel) {
+            return qtereel.activite_libelle;
+          }
+          return 0;
+        }
+      };
+    },
+    GroupeActiviteOPDirect() {
+      // return (id) => {
+
+        let objet = this.getterActiviteglobal;
+      //  let vm=this
+      let array_exercie = [];
+      if (objet.length > 0) {
+        objet.forEach(function (val) {
+          array_exercie.push(val.activite_id);
+        });
+        let unique = [...new Set(array_exercie)];
+
+        if (unique.length == 0) {
+          return [];
+        }
+        return unique.sort((a, b) => (a.unique > b.unique ? 1 : -1));
+      }
+      return [];
+      // };
+    },
     libelleActivite() {
       let collet = [];
       this.getterActivite.filter((item) => {
@@ -331,7 +352,7 @@ export default {
   },
   methods: {
     ...mapActions("parametrage", [
-      "getActivite",
+      "getActivite","getActiviteOp","getActiviteGlobal",
       "getExerciceBudgetaire",
       "getDotationNotifie",
       "ajouterDotationNotifie",
@@ -339,7 +360,12 @@ export default {
       "supprimerDotationNotifie",
       "getGroupeActivitebudgetNotifie",
     ]),
-
+ AfficheVentilationBudget(id) {
+      this.$router.push({
+        name: "listeToutOP",
+        params: { id: id },
+      });
+    },
     AfficheModalModification(id) {
       this.modNatureDepense = this.getterDotationNotifie.find(
         (items) => items.id == id

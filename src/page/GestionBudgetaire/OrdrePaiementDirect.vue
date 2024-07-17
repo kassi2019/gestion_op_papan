@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    {{getterActiviteSurOP}}
     <div class="col-md-12">
       <div class="card" style="box-shadow: 5px 5px #f9d531">
         <div class="card-header">
@@ -22,7 +21,7 @@
                 <i class="icon-arrow-right"></i>
               </li>
               <li class="nav-item">
-                <a href="#">OP Provisoire</a>
+                <a href="#">OP Direct</a>
               </li>
             </ul>
           </div>
@@ -594,7 +593,7 @@
                           class="badge badge-black"
                           style="cursor: pointer"
                           @click.prevent="AfficheVentilationBudget(item)"
-                          >Voir OP Provisoire</span
+                          >Voir OP Direct</span
                         >
                       </td>
                     </tr>
@@ -666,6 +665,7 @@ export default {
     };
   },
   created() {
+    
     // this.dossier_id = this.$route.params.id;
     this.getExerciceBudgetaire();
     this.getActivite();
@@ -679,6 +679,7 @@ export default {
     this.getBailleur();
     this.getTaux();
     this.getActiviteOp();
+
     // this.getDotationNotifie();
     // this.getDotationReport();
     // this.getDotationRessourcePropre();
@@ -726,7 +727,7 @@ export default {
       // return (id) => {
 
       let objet = this.getterActiviteSurOP.filter(
-        (item) => item.type_ordre_paiement == 1
+        (item) => item.type_ordre_paiement == 2
       );
       //  let vm=this
       let array_exercie = [];
@@ -1337,7 +1338,7 @@ export default {
     ]),
     AfficheVentilationBudget(id) {
       this.$router.push({
-        name: "AfficheOpActivite",
+        name: "AfficheOpDirectActivite",
         params: { id: id },
       });
     },
@@ -1409,7 +1410,7 @@ export default {
         objet_depense: this.objet_depense,
 
         numero_ordre_paiement: this.numero_ordre_paiement,
-        type_ordre_paiement: 1,
+        type_ordre_paiement: 2,
         montant_prestation: this.montant_prestation,
         nature_economique_id: this.nature_economique_id,
         nature_depense_id: this.NatureDepense_id,

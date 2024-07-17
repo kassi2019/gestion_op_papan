@@ -1349,3 +1349,35 @@ export function getListeFacture({ commit }) {
     })
     .catch(error => console.log(error));
 }
+
+
+
+export function getActiviteGlobal({ commit }) {
+  apiGuest.get("/ActiviteGroupe", { headers: authHeader() })
+    .then(response => {
+      commit("GET_ACTIVITE_GLOBAL", response.data);
+    })
+    .catch(error => console.log(error));
+}
+export function getListeOrdrePaiementGlobal({ commit }) {
+  apiGuest.get("/listeToutOrdrePaiement", { headers: authHeader() })
+    .then(response => {
+      commit("GET_LISTE_OP_GLOBAL", response.data);
+    })
+    .catch(error => console.log(error));
+}
+
+export function getOpParActvite({ commit }, objet) {
+
+  return new Promise((resolve, reject) => {
+    apiGuest
+      .get("/listeOPParActivite/" + objet.id, { headers: authHeader() })
+      .then(response => {
+        resolve(response);
+        commit("GET_OP_PAR_ACTIVITE", response.data);
+      }).catch(error => {
+        reject(error);
+      });
+  });
+
+}

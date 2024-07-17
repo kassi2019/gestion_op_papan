@@ -451,3 +451,14 @@ export const GET_LISTE_OP_PAR_UTILISATEUR= (state,value)=>{
 export const GET_LISTE_FACTURE= (state,value)=>{
     state.stateFacture=value
 }
+
+export const GET_ACTIVITE_GLOBAL= (state,value)=>{
+    state.stateActiviteglobal=value
+}
+export const GET_LISTE_OP_GLOBAL= (state,value)=>{
+    state.stateListeOPgloba=value
+}
+
+export const GET_OP_PAR_ACTIVITE = (state,value)=>{
+    state.stateOpParActivite=value
+}
