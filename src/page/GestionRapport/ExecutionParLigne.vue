@@ -27,7 +27,7 @@
           class="card-body"
           id="printMe45"
           ref="table"
-          style="border: 1px solid #000"
+          style="border: 0.5px solid #000"
         >
           <!-- Modal -->
           <table class="table table-bordered border-primary">
@@ -35,7 +35,7 @@
               <td
                 style="
                   text-align: center;
-                  border: 1px solid #000 !important;
+                  border: 0.5px solid #000 !important;
                   width: 40%;
                 "
               >
@@ -54,7 +54,7 @@
               <td
                 style="
                   text-align: center;
-                  border: 1px solid #000 !important;
+                  border: 0.5px solid #000 !important;
                   width: 20%;
                 "
               >
@@ -73,7 +73,7 @@
               <td
                 style="
                   text-align: center;
-                  border: 1px solid #000 !important;
+                  border: 0.5px solid #000 !important;
                   width: 40%;
                 "
               >
@@ -88,7 +88,7 @@
               </td>
             </tr>
           </table>
-          <h6 style="text-align: center; border: 1px solid #000">
+          <h6 style="text-align: center; border: 0.5px solid #000">
             EXECUTION PAR NATURE ECONOMIQUE
           </h6>
 
@@ -102,7 +102,7 @@
                     scope="col"
                     style="
                       text-align: center;
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       width: 50%;
                       font-size: 10px !important;
                     "
@@ -113,7 +113,7 @@
                     scope="col"
                     style="
                       text-align: center;
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
 
                       font-size: 10px !important;
                     "
@@ -124,7 +124,7 @@
                     scope="col"
                     style="
                       text-align: center;
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
 
                       font-size: 10px !important;
                     "
@@ -135,7 +135,7 @@
                     scope="col"
                     style="
                       text-align: center;
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
 
                       font-size: 10px !important;
                     "
@@ -146,7 +146,7 @@
                     scope="col"
                     style="
                       text-align: center;
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
 
                       font-size: 10px !important;
                     "
@@ -157,7 +157,7 @@
                     scope="col"
                     style="
                       text-align: center;
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
 
                       font-size: 10px !important;
                     "
@@ -168,7 +168,7 @@
                     scope="col"
                     style="
                       text-align: center;
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
 
                       font-size: 10px !important;
                     "
@@ -179,7 +179,7 @@
                     scope="col"
                     style="
                       text-align: center;
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
 
                       font-size: 10px !important;
                     "
@@ -190,12 +190,18 @@
               </thead>
               <tbody v-if="activite_id != 0">
                 <tr>
-                  <td colspan="8" style="border: 1px solid #000 !important">
+                  <td
+                    colspan="8"
+                    style="
+                      border: 0.5px solid #000 !important;
+                      text-align: center;
+                    "
+                  >
                     Activité : {{ libelleActiviteTableau(activite_id) }}
                   </td>
                 </tr>
                 <tr v-if="sous_budget_id != 0">
-                  <td colspan="8" style="border: 1px solid #000 !important">
+                  <td colspan="8" style="border: 0.5px solid #000 !important">
                     Composante : {{ libellleSousBudget(sous_budget_id) }}
                   </td>
                 </tr>
@@ -203,12 +209,12 @@
                   v-for="item1 in GroupeParNatureEconomiqueBienService"
                   :key="item1"
                 >
-                  <td style="border: 1px solid #000 !important">
+                  <td style="border: 0.5px solid #000 !important">
                     {{ LibelleNatureEconomique(item1) }}
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
                     "
                   >
@@ -220,7 +226,7 @@
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
                     "
                   >
@@ -232,7 +238,7 @@
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
                     "
                   >
@@ -246,21 +252,19 @@
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
                     "
                   >
                     {{
                       formatageSommeSansFCFA(
-                        parseFloat(
-                          MontantExecuteOpProvisoireBienService(item1)
-                        )
+                        parseFloat(MontantExecuteOpProvisoireBienService(item1))
                       )
                     }}
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
                     "
                   >
@@ -268,36 +272,44 @@
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
                     "
                   >
-                    {{ formatageSommeSansFCFA(parseFloat(afficheDisponible(item1))) }}
+                    {{
+                      formatageSommeSansFCFA(
+                        parseFloat(afficheDisponible(item1))
+                      )
+                    }}
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
                     "
                   >
-                    {{ formatageSommeSansFCFA(parseFloat(afficheDisponible2(item1))) }}
+                    {{
+                      formatageSommeSansFCFA(
+                        parseFloat(afficheDisponible2(item1))
+                      )
+                    }}
                   </td>
                 </tr>
                 <tr>
                   <td
                     style="
-                      border: 1px solid #000 !important;
-                      text-align: right !important;
-                      background-color: #c79f4b !important;
+                      border: 0.5px solid #000 !important;
+
+                      background-color: #f6e497 !important;
                     "
                   >
                     Sous Total Biens et Service
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
-                      background-color: #c79f4b !important;
+                      background-color: #f6e497 !important;
                     "
                   >
                     {{
@@ -308,9 +320,9 @@
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
-                      background-color: #c79f4b !important;
+                      background-color: #f6e497 !important;
                     "
                   >
                     {{
@@ -321,12 +333,12 @@
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
-                      background-color: #c79f4b !important;
+                      background-color: #f6e497 !important;
                     "
                   >
-                     {{
+                    {{
                       formatageSommeSansFCFA(
                         parseFloat(TotalExecuteOpDirectetDefBienService)
                       )
@@ -334,51 +346,63 @@
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
-                      background-color: #c79f4b !important;
+                      background-color: #f6e497 !important;
                     "
                   >
-                    5
+                    {{
+                      formatageSommeSansFCFA(
+                        parseFloat(TotalExecuteOpProvisoireBienService)
+                      )
+                    }}
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
-                      background-color: #c79f4b !important;
+                      background-color: #f6e497 !important;
                     "
                   >
-                    3
+                    {{ GlobalTauxExecution }}
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
-                      background-color: #c79f4b !important;
+                      background-color: #f6e497 !important;
                     "
                   >
-                    3
+                    {{
+                      formatageSommeSansFCFA(
+                        parseFloat(totalDisponible1BiensService)
+                      )
+                    }}
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
-                      background-color: #c79f4b !important;
+                      background-color: #f6e497 !important;
                     "
                   >
-                    3
+                    {{
+                      formatageSommeSansFCFA(
+                        parseFloat(totalDisponible2BiensService)
+                      )
+                    }}
                   </td>
                 </tr>
                 <tr
                   v-for="item1 in GroupeParNatureEconomiquePersonnel"
                   :key="item1"
                 >
-                  <td style="border: 1px solid #000 !important">
+                  <td style="border: 0.5px solid #000 !important">
                     {{ LibelleNatureEconomique(item1) }}
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
                     "
                   >
@@ -390,7 +414,7 @@
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
                     "
                   >
@@ -402,60 +426,76 @@
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
                     "
                   >
-                    {{ item1 }}
+                    {{
+                      formatageSommeSansFCFA(
+                        parseFloat(MontantExecuteOpDirectetDefPersonnel(item1))
+                      )
+                    }}
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
                     "
                   >
-                    {{ item1 }}
+                    {{
+                      formatageSommeSansFCFA(
+                        parseFloat(MontantExecuteOpProvisoirePersonnel(item1))
+                      )
+                    }}
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
                     "
                   >
-                    {{ item1 }}
+                    {{ afficheTauxExecutionPersonnel(item1) }}
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
                     "
                   >
-                    {{ item1 }}
+                    {{
+                      formatageSommeSansFCFA(
+                        parseFloat(afficheDisponible1Personnel(item1))
+                      )
+                    }}
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
                     "
                   >
-                    {{ item1 }}
+                    {{
+                      formatageSommeSansFCFA(
+                        parseFloat(afficheDisponible2Personnel(item1))
+                      )
+                    }}
                   </td>
                 </tr>
                 <tr>
                   <td
                     style="
-                      border: 1px solid #000 !important;
-                      text-align: right !important;
-                      background-color: #c79f4b !important;
+                      border: 0.5px solid #000 !important;
+
+                      background-color: #f6e497 !important;
                     "
                   >
                     Sous Total Personnel
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
-                      background-color: #c79f4b !important;
+                      background-color: #f6e497 !important;
                     "
                   >
                     {{
@@ -464,9 +504,9 @@
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
-                      background-color: #c79f4b !important;
+                      background-color: #f6e497 !important;
                     "
                   >
                     {{
@@ -475,60 +515,76 @@
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
-                      background-color: #c79f4b !important;
+                      background-color: #f6e497 !important;
                     "
                   >
-                    3
+                    {{
+                      formatageSommeSansFCFA(
+                        parseFloat(totalExecuteOpDirectetDefPersonnel)
+                      )
+                    }}
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
-                      background-color: #c79f4b !important;
+                      background-color: #f6e497 !important;
                     "
                   >
-                    3
+                    {{
+                      formatageSommeSansFCFA(
+                        parseFloat(TotalExecuteOpProvisoirePersonnel)
+                      )
+                    }}
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
-                      background-color: #c79f4b !important;
+                      background-color: #f6e497 !important;
                     "
                   >
-                    3
+                    {{ totalTauxExecutionPersonnel }}
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
-                      background-color: #c79f4b !important;
+                      background-color: #f6e497 !important;
                     "
                   >
-                    3
+                    {{
+                      formatageSommeSansFCFA(
+                        parseFloat(totalDisponible1Personnel)
+                      )
+                    }}
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
-                      background-color: #c79f4b !important;
+                      background-color: #f6e497 !important;
                     "
                   >
-                    3
+                    {{
+                      formatageSommeSansFCFA(
+                        parseFloat(totalDisponible2Personnel)
+                      )
+                    }}
                   </td>
                 </tr>
                 <tr
                   v-for="item1 in GroupeParNatureEconomiqueTransfert"
                   :key="item1"
                 >
-                  <td style="border: 1px solid #000 !important">
+                  <td style="border: 0.5px solid #000 !important">
                     {{ LibelleNatureEconomique(item1) }}
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
                     "
                   >
@@ -540,7 +596,7 @@
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
                     "
                   >
@@ -552,60 +608,79 @@
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
                     "
                   >
-                    {{ item1 }}
+                    {{
+                      formatageSommeSansFCFA(
+                        parseFloat(MontantExecuteOpDirectetDefTransferts(item1))
+                      )
+                    }}
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
                     "
                   >
-                    {{ item1 }}
+                    {{
+                      formatageSommeSansFCFA(
+                        parseFloat(MontantExecuteOpProvisoireTransferts(item1))
+                      )
+                    }}
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
                     "
                   >
-                    {{ item1 }}
+                    {{ afficheTauxExecutionTransferts(item1) }}
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
                     "
                   >
-                    {{ item1 }}
+                    {{ afficheDisponible1Transferts(item1) }}
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
                     "
                   >
-                    {{ item1 }}
+                    {{ afficheDisponible2Transferts(item1) }}
                   </td>
                 </tr>
                 <tr>
                   <td
                     style="
-                      border: 1px solid #000 !important;
-                      text-align: right !important;
-                      background-color: #c79f4b !important;
+                      border: 0.5px solid #000 !important;
+
+                      background-color: #f6e497 !important;
                     "
                   >
                     Sous Total Transfert
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
-                      background-color: #c79f4b !important;
+                      background-color: #f6e497 !important;
+                    "
+                  >
+                    {{
+                      formatageSommeSansFCFA(parseFloat(TotalInitialTransferts))
+                    }}
+                  </td>
+                  <td
+                    style="
+                      border: 0.5px solid #000 !important;
+                      text-align: right !important;
+                      background-color: #f6e497 !important;
                     "
                   >
                     {{
@@ -614,71 +689,78 @@
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
-                      background-color: #c79f4b !important;
-                    "
-                  >
-                    2
-                  </td>
-                  <td
-                    style="
-                      border: 1px solid #000 !important;
-                      text-align: right !important;
-                      background-color: #c79f4b !important;
+                      background-color: #f6e497 !important;
                     "
                   >
                     {{
-                      formatageSommeSansFCFA(parseFloat(TotalActuelTransferts))
+                      formatageSommeSansFCFA(
+                        parseFloat(TotalExecuteOpDirectetDefTransferts)
+                      )
                     }}
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
-                      background-color: #c79f4b !important;
+                      background-color: #f6e497 !important;
                     "
                   >
-                    3
+                    {{
+                      formatageSommeSansFCFA(
+                        parseFloat(TotalExecuteOpProvisoireTransferts)
+                      )
+                    }}
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
-                      background-color: #c79f4b !important;
+                      background-color: #f6e497 !important;
                     "
                   >
-                    3
+                    {{ TotalTauxExecutionTransferts }}
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
-                      background-color: #c79f4b !important;
+                      background-color: #f6e497 !important;
                     "
                   >
-                    3
+                    {{
+                      formatageSommeSansFCFA(
+                        parseFloat(TotalDisponible1Transferts)
+                      )
+                    }}
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
-                      background-color: #c79f4b !important;
+                      background-color: #f6e497 !important;
                     "
                   >
-                    3
+                    {{
+                      formatageSommeSansFCFA(
+                        parseFloat(TotalDisponible2Transferts)
+                      )
+                    }}
+
+                    
                   </td>
                 </tr>
                 <tr
                   v-for="item1 in GroupeParNatureEconomiqueInvestissement"
                   :key="item1"
                 >
-                  <td style="border: 1px solid #000 !important">
+                  <td style="border: 0.5px solid #000 !important">
                     {{ LibelleNatureEconomique(item1) }}
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
                     "
                   >
@@ -690,7 +772,7 @@
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
                     "
                   >
@@ -702,60 +784,93 @@
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
                     "
                   >
-                    {{ item1 }}
+                    {{
+                      formatageSommeSansFCFA(
+                        parseFloat(
+                          MontantExecuteOpDirectetDefInvestissements(item1)
+                        )
+                      )
+                    }}
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
                     "
                   >
-                    {{ item1 }}
+                    {{
+                      formatageSommeSansFCFA(
+                        parseFloat(
+                          MontantExecuteOpProvisoireInvestissements(item1)
+                        )
+                      )
+                    }}
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
                     "
                   >
-                    {{ item1 }}
+                    {{ afficheTauxExecutionInvestissements(item1) }}
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
                     "
                   >
-                    {{ item1 }}
+                    {{
+                      formatageSommeSansFCFA(
+                        parseFloat(afficheDisponible1Investissements(item1))
+                      )
+                    }}
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
                     "
                   >
-                    {{ item1 }}
+                    {{
+                      formatageSommeSansFCFA(
+                        parseFloat(afficheDisponible2Investissements(item1))
+                      )
+                    }}
                   </td>
                 </tr>
                 <tr>
                   <td
                     style="
-                      border: 1px solid #000 !important;
-                      text-align: right !important;
-                      background-color: #c79f4b !important;
+                      border: 0.5px solid #000 !important;
+
+                      background-color: #f6e497 !important;
                     "
                   >
                     Sous Total Investissement
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
-                      background-color: #c79f4b !important;
+                      background-color: #f6e497 !important;
+                    "
+                  >
+                    {{
+                      formatageSommeSansFCFA(
+                        parseFloat(TotalInitialInvestissements)
+                      )
+                    }}
+                  </td>
+                  <td
+                    style="
+                      border: 0.5px solid #000 !important;
+                      text-align: right !important;
+                      background-color: #f6e497 !important;
                     "
                   >
                     {{
@@ -766,61 +881,146 @@
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
-                      background-color: #c79f4b !important;
+                      background-color: #f6e497 !important;
                     "
                   >
                     {{
                       formatageSommeSansFCFA(
-                        parseFloat(TotalActuelInvestissements)
+                        parseFloat(TotalExecuteOpDirectetDefInvestissements)
                       )
                     }}
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
-                      background-color: #c79f4b !important;
+                      background-color: #f6e497 !important;
                     "
                   >
-                    3
+                    {{
+                      formatageSommeSansFCFA(
+                        parseFloat(TotalExecuteOpProvisoireInvestissements)
+                      )
+                    }}
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
-                      background-color: #c79f4b !important;
+                      background-color: #f6e497 !important;
                     "
                   >
-                    3
+                    {{ totalTauxExecutionInvestissements }}
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
-                      background-color: #c79f4b !important;
+                      background-color: #f6e497 !important;
                     "
                   >
-                    3
+                    {{
+                      formatageSommeSansFCFA(
+                        parseFloat(TotalDisponible1Investissements)
+                      )
+                    }}
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
-                      background-color: #c79f4b !important;
+                      background-color: #f6e497 !important;
                     "
                   >
-                    3
+                    {{
+                      formatageSommeSansFCFA(
+                        parseFloat(TotalDisponible2Investissements)
+                      )
+                    }}
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    style="
+                      border: 0.5px solid #000 !important;
+                      text-align: right !important;
+                      background-color: #bd8d46 !important;
+                    "
+                  >
+                    TOTAL GLOBAL
                   </td>
                   <td
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: right !important;
-                      background-color: #c79f4b !important;
+                      background-color: #bd8d46 !important;
                     "
                   >
-                    3
+                    {{ formatageSommeSansFCFA(parseFloat(GlobalInitial)) }}
+                  </td>
+                  <td
+                    style="
+                      border: 0.5px solid #000 !important;
+                      text-align: right !important;
+                      background-color: #bd8d46 !important;
+                    "
+                  >
+                    {{ formatageSommeSansFCFA(parseFloat(GlobalActuelle)) }}
+                  </td>
+                  <td
+                    style="
+                      border: 0.5px solid #000 !important;
+                      text-align: right !important;
+                      background-color: #bd8d46 !important;
+                    "
+                  >
+                    {{
+                      formatageSommeSansFCFA(
+                        parseFloat(GlobalExecutionDirectDef)
+                      )
+                    }}
+                  </td>
+                  <td
+                    style="
+                      border: 0.5px solid #000 !important;
+                      text-align: right !important;
+                      background-color: #bd8d46 !important;
+                    "
+                  >
+                    {{
+                      formatageSommeSansFCFA(
+                        parseFloat(GlobalExecutionProvisoire)
+                      )
+                    }}
+                  </td>
+                  <td
+                    style="
+                      border: 0.5px solid #000 !important;
+                      text-align: right !important;
+                      background-color: #bd8d46 !important;
+                    "
+                  >
+                    {{ GlobalTaux }}
+                  </td>
+                  <td
+                    style="
+                      border: 0.5px solid #000 !important;
+                      text-align: right !important;
+                      background-color: #bd8d46 !important;
+                    "
+                  >
+                    {{ formatageSommeSansFCFA(parseFloat(GlobalDisponible1)) }}
+                  </td>
+                  <td
+                    style="
+                      border: 0.5px solid #000 !important;
+                      text-align: right !important;
+                      background-color: #bd8d46 !important;
+                    "
+                  >
+                    {{ formatageSommeSansFCFA(parseFloat(GlobalDisponible2)) }}
                   </td>
                 </tr>
               </tbody>
@@ -856,7 +1056,7 @@
               option-value="activite_id"
               option-text="plan_activite"
               placeholder="select item"
-              style="border: 1px solid #000"
+              style="border: 0.5px solid #000"
             >
             </model-list-select>
           </div>
@@ -868,7 +1068,7 @@
               option-value="id"
               option-text="libelle"
               placeholder="select item"
-              style="border: 1px solid #000"
+              style="border: 0.5px solid #000"
             >
             </model-list-select>
           </div>
@@ -949,7 +1149,158 @@ export default {
       "getterBudgetViseParActivite",
       "getterNatureDepense",
     ]),
+    GlobalInitial() {
+      return (
+        parseFloat(this.TotalInitialInvestissements) +
+        parseFloat(this.TotalInitialTransferts) +
+        parseFloat(this.TotalInitialPersonnel) +
+        parseFloat(this.TotalInitialBienService)
+      );
+    },
 
+    GlobalActuelle() {
+      return (
+        parseFloat(this.TotalActuelBiensService) +
+        parseFloat(this.TotalActuelPersonnel) +
+        parseFloat(this.TotalActuelTransferts) +
+        parseFloat(this.TotalActuelInvestissements)
+      );
+    },
+
+    GlobalExecutionDirectDef() {
+      return (
+        parseFloat(this.TotalExecuteOpDirectetDefBienService) +
+        parseFloat(this.totalExecuteOpDirectetDefPersonnel) +
+        parseFloat(this.TotalExecuteOpDirectetDefTransferts) +
+        parseFloat(this.TotalExecuteOpDirectetDefInvestissements)
+      );
+    },
+
+    GlobalExecutionProvisoire() {
+      return (
+        parseFloat(this.TotalExecuteOpProvisoireBienService) +
+        parseFloat(this.TotalExecuteOpProvisoirePersonnel) +
+        parseFloat(this.TotalExecuteOpProvisoireTransferts) +
+        parseFloat(this.TotalExecuteOpProvisoireInvestissements)
+      );
+    },
+    GlobalDisponible1() {
+      return (
+        parseFloat(this.GlobalActuelle) -
+        parseFloat(this.GlobalExecutionDirectDef)
+      );
+    },
+    GlobalDisponible2() {
+      return (
+        parseFloat(this.GlobalActuelle) -
+        (parseFloat(this.GlobalExecutionDirectDef) +
+          parseFloat(this.GlobalExecutionProvisoire))
+      );
+    },
+
+    GlobalTaux() {
+      return (
+        (parseFloat(this.GlobalExecutionDirectDef) /
+          parseFloat(this.GlobalActuelle)) *
+        100
+      ).toFixed(2);
+    },
+    totalTauxExecutionInvestissements() {
+      return (
+        (parseFloat(this.TotalExecuteOpDirectetDefInvestissements) /
+          parseFloat(this.TotalActuelInvestissements)) *
+        100
+      ).toFixed(2);
+    },
+    // FIN
+    // DEBUT  AFFICHER DISPONIBLE 1
+    TotalDisponible1Investissements() {
+      return (
+        parseFloat(this.TotalActuelInvestissements) -
+        parseFloat(this.TotalExecuteOpDirectetDefInvestissements)
+      );
+    },
+    // FIN
+    // DEBUT  AFFICHER DISPONIBLE 2
+    TotalDisponible2Investissements() {
+      return (
+        parseFloat(this.TotalActuelInvestissements) -
+        (parseFloat(this.TotalExecuteOpDirectetDefInvestissements) +
+          parseFloat(this.TotalExecuteOpProvisoireInvestissements))
+      );
+    },
+    // FIN
+    // debut : permettre d afficher le montant executer direct et definitif par nature economique pour la depense biens service //
+    TotalExecuteOpDirectetDefInvestissements() {
+      if (this.sous_budget_id == 0 && this.activite_id != 0) {
+        return this.getterOpParActivite
+          .filter(
+            (item) =>
+              (this.codeNatureDepense(item.nature_depense_id) == 4 &&
+                item.type_ordre_paiement == 2) ||
+              (this.codeNatureDepense(item.nature_depense_id) == 4 &&
+                item.type_ordre_paiement == 4)
+          )
+          .reduce(
+            (prec, cur) =>
+              parseFloat(prec) + parseFloat(cur.montant_prestation),
+            0
+          )
+          .toFixed(0);
+      } else {
+        return this.getterOpParActivite
+          .filter(
+            (item) =>
+              (this.codeNatureDepense(item.nature_depense_id) == 4 &&
+                item.sous_budget_id == this.sous_budget_id &&
+                item.type_ordre_paiement == 2) ||
+              (this.codeNatureDepense(item.nature_depense_id) == 4 &&
+                item.sous_budget_id == this.sous_budget_id &&
+                item.type_ordre_paiement == 4)
+          )
+          .reduce(
+            (prec, cur) =>
+              parseFloat(prec) + parseFloat(cur.montant_prestation),
+            0
+          )
+          .toFixed(0);
+      }
+    },
+
+    // fin
+    // debut : permettre d afficher le montant executer OP PROVISOIRE par nature economique pour la depense Personnel //
+    TotalExecuteOpProvisoireInvestissements() {
+      if (this.sous_budget_id == 0 && this.activite_id != 0) {
+        return this.getterOpParActivite
+          .filter(
+            (item) =>
+              this.codeNatureDepense(item.nature_depense_id) == 4 &&
+              item.type_ordre_paiement == 1 &&
+              item.regularisation == 0
+          )
+          .reduce(
+            (prec, cur) =>
+              parseFloat(prec) + parseFloat(cur.montant_prestation),
+            0
+          )
+          .toFixed(0);
+      } else {
+        return this.getterOpParActivite
+          .filter(
+            (item) =>
+              this.codeNatureDepense(item.nature_depense_id) == 4 &&
+              item.sous_budget_id == this.sous_budget_id &&
+              item.type_ordre_paiement == 1 &&
+              item.regularisation == 0
+          )
+          .reduce(
+            (prec, cur) =>
+              parseFloat(prec) + parseFloat(cur.montant_prestation),
+            0
+          )
+          .toFixed(0);
+      }
+    },
     LibelleNatureEconomique() {
       return (id) => {
         if (id != null && id != "") {
@@ -1446,20 +1797,17 @@ export default {
           .toFixed(0);
       }
     },
-      // fin
+    // fin
 
-      
-       // debut : permettre d afficher total executer direct et definitif par nature economique pour la depense biens service //
+    // debut : permettre d afficher total executer direct et definitif par nature economique pour la depense biens service //
     TotalExecuteOpDirectetDefBienService() {
       if (this.sous_budget_id == 0 && this.activite_id != 0) {
         return this.getterOpParActivite
           .filter(
             (item) =>
               (this.codeNatureDepense(item.nature_depense_id) == 2 &&
-                
                 item.type_ordre_paiement == 2) ||
               (this.codeNatureDepense(item.nature_depense_id) == 2 &&
-                
                 item.type_ordre_paiement == 4)
           )
           .reduce(
@@ -1472,12 +1820,10 @@ export default {
         return this.getterOpParActivite
           .filter(
             (item) =>
-              (
-                this.codeNatureDepense(item.nature_depense_id) == 2 &&
+              (this.codeNatureDepense(item.nature_depense_id) == 2 &&
                 item.sous_budget_id == this.sous_budget_id &&
                 item.type_ordre_paiement == 2) ||
-              (
-                this.codeNatureDepense(item.nature_depense_id) == 2 &&
+              (this.codeNatureDepense(item.nature_depense_id) == 2 &&
                 item.sous_budget_id == this.sous_budget_id &&
                 item.type_ordre_paiement == 4)
           )
@@ -1490,7 +1836,253 @@ export default {
       }
     },
 
-      // fin
+    // fin
+    TotalExecuteOpProvisoireBienService() {
+      if (this.sous_budget_id == 0 && this.activite_id != 0) {
+        return this.getterOpParActivite
+          .filter(
+            (item) =>
+              this.codeNatureDepense(item.nature_depense_id) == 2 &&
+              item.type_ordre_paiement == 1 &&
+              item.regularisation == 0
+          )
+          .reduce(
+            (prec, cur) =>
+              parseFloat(prec) + parseFloat(cur.montant_prestation),
+            0
+          )
+          .toFixed(0);
+      } else {
+        return this.getterOpParActivite
+          .filter(
+            (item) =>
+              this.codeNatureDepense(item.nature_depense_id) == 2 &&
+              item.sous_budget_id == this.sous_budget_id &&
+              item.type_ordre_paiement == 1 &&
+              item.regularisation == 0
+          )
+          .reduce(
+            (prec, cur) =>
+              parseFloat(prec) + parseFloat(cur.montant_prestation),
+            0
+          )
+          .toFixed(0);
+      }
+    },
+    GlobalTauxExecution() {
+      return (
+        (parseFloat(this.TotalExecuteOpDirectetDefBienService) /
+          parseFloat(this.TotalActuelBiensService)) *
+        100
+      ).toFixed(2);
+    },
+
+    // FIN
+    // DEBUT  AFFICHER DISPONIBLE 1
+    totalDisponible1BiensService() {
+      return (
+        parseFloat(this.TotalActuelBiensService) -
+        parseFloat(this.TotalExecuteOpDirectetDefBienService)
+      );
+    },
+    // FIN
+    // DEBUT  AFFICHER DISPONIBLE 2
+    totalDisponible2BiensService() {
+      return (
+        parseFloat(this.TotalActuelBiensService) -
+        (parseFloat(this.TotalExecuteOpDirectetDefBienService) +
+          parseFloat(this.TotalExecuteOpProvisoireBienService))
+      );
+    },
+
+    totalExecuteOpDirectetDefPersonnel() {
+      if (this.sous_budget_id == 0 && this.activite_id != 0) {
+        return this.getterOpParActivite
+          .filter(
+            (item) =>
+              (this.codeNatureDepense(item.nature_depense_id) == 1 &&
+                item.type_ordre_paiement == 2) ||
+              (this.codeNatureDepense(item.nature_depense_id) == 1 &&
+                item.type_ordre_paiement == 4)
+          )
+          .reduce(
+            (prec, cur) =>
+              parseFloat(prec) + parseFloat(cur.montant_prestation),
+            0
+          )
+          .toFixed(0);
+      } else {
+        return this.getterOpParActivite
+          .filter(
+            (item) =>
+              (this.codeNatureDepense(item.nature_depense_id) == 1 &&
+                item.sous_budget_id == this.sous_budget_id &&
+                item.type_ordre_paiement == 2) ||
+              (this.codeNatureDepense(item.nature_depense_id) == 1 &&
+                item.sous_budget_id == this.sous_budget_id &&
+                item.type_ordre_paiement == 4)
+          )
+          .reduce(
+            (prec, cur) =>
+              parseFloat(prec) + parseFloat(cur.montant_prestation),
+            0
+          )
+          .toFixed(0);
+      }
+    },
+    TotalExecuteOpProvisoirePersonnel() {
+      if (this.sous_budget_id == 0 && this.activite_id != 0) {
+        return this.getterOpParActivite
+          .filter(
+            (item) =>
+              this.codeNatureDepense(item.nature_depense_id) == 1 &&
+              item.type_ordre_paiement == 1 &&
+              item.regularisation == 0
+          )
+          .reduce(
+            (prec, cur) =>
+              parseFloat(prec) + parseFloat(cur.montant_prestation),
+            0
+          )
+          .toFixed(0);
+      } else {
+        return this.getterOpParActivite
+          .filter(
+            (item) =>
+              this.codeNatureDepense(item.nature_depense_id) == 1 &&
+              item.sous_budget_id == this.sous_budget_id &&
+              item.type_ordre_paiement == 1 &&
+              item.regularisation == 0
+          )
+          .reduce(
+            (prec, cur) =>
+              parseFloat(prec) + parseFloat(cur.montant_prestation),
+            0
+          )
+          .toFixed(0);
+      }
+    },
+    totalTauxExecutionPersonnel() {
+      return (
+        (parseFloat(this.totalExecuteOpDirectetDefPersonnel) /
+          parseFloat(this.TotalActuelPersonnel)) *
+        100
+      ).toFixed(2);
+    },
+    // FIN
+    // DEBUT  AFFICHER DISPONIBLE 1
+    totalDisponible1Personnel() {
+      return (
+        parseFloat(this.TotalActuelPersonnel) -
+        parseFloat(this.totalExecuteOpDirectetDefPersonnel)
+      );
+    },
+    // FIN
+    // DEBUT  AFFICHER DISPONIBLE 2
+    totalDisponible2Personnel() {
+      return (
+        parseFloat(this.TotalActuelPersonnel) -
+        (parseFloat(this.totalExecuteOpDirectetDefPersonnel) +
+          parseFloat(this.TotalExecuteOpProvisoirePersonnel))
+      );
+    },
+
+    TotalTauxExecutionTransferts() {
+      return (
+        (parseFloat(this.TotalExecuteOpDirectetDefTransferts) /
+          parseFloat(this.TotalActuelTransferts)) *
+        100
+      ).toFixed(2);
+    },
+    // FIN
+    // DEBUT  AFFICHER DISPONIBLE 1
+    TotalDisponible1Transferts() {
+      return (
+        parseFloat(this.TotalActuelTransferts) -
+        parseFloat(this.TotalExecuteOpDirectetDefTransferts)
+      );
+    },
+    // FIN
+    // DEBUT  AFFICHER DISPONIBLE 2
+    TotalDisponible2Transferts() {
+      return (
+        parseFloat(this.TotalActuelTransferts) -
+        (parseFloat(this.TotalExecuteOpDirectetDefTransferts) +
+          parseFloat(this.TotalExecuteOpProvisoireTransferts))
+      );
+    },
+    // FIN
+    // debut : permettre d afficher le montant executer direct et definitif par nature economique pour la depense biens service //
+    TotalExecuteOpDirectetDefTransferts() {
+      if (this.sous_budget_id == 0 && this.activite_id != 0) {
+        return this.getterOpParActivite
+          .filter(
+            (item) =>
+              (this.codeNatureDepense(item.nature_depense_id) == 3 &&
+                item.type_ordre_paiement == 2) ||
+              (this.codeNatureDepense(item.nature_depense_id) == 3 &&
+                item.type_ordre_paiement == 4)
+          )
+          .reduce(
+            (prec, cur) =>
+              parseFloat(prec) + parseFloat(cur.montant_prestation),
+            0
+          )
+          .toFixed(0);
+      } else {
+        return this.getterOpParActivite
+          .filter(
+            (item) =>
+              (this.codeNatureDepense(item.nature_depense_id) == 3 &&
+                item.sous_budget_id == this.sous_budget_id &&
+                item.type_ordre_paiement == 2) ||
+              (this.codeNatureDepense(item.nature_depense_id) == 3 &&
+                item.sous_budget_id == this.sous_budget_id &&
+                item.type_ordre_paiement == 4)
+          )
+          .reduce(
+            (prec, cur) =>
+              parseFloat(prec) + parseFloat(cur.montant_prestation),
+            0
+          )
+          .toFixed(0);
+      }
+    },
+
+    // fin
+    // debut : permettre d afficher le montant executer OP PROVISOIRE par nature economique pour la depense Personnel //
+    TotalExecuteOpProvisoireTransferts() {
+      if (this.sous_budget_id == 0 && this.activite_id != 0) {
+        return this.getterOpParActivite
+          .filter(
+            (item) =>
+              this.codeNatureDepense(item.nature_depense_id) == 3 &&
+              item.type_ordre_paiement == 1 &&
+              item.regularisation == 0
+          )
+          .reduce(
+            (prec, cur) =>
+              parseFloat(prec) + parseFloat(cur.montant_prestation),
+            0
+          )
+          .toFixed(0);
+      } else {
+        return this.getterOpParActivite
+          .filter(
+            (item) =>
+              this.codeNatureDepense(item.nature_depense_id) == 3 &&
+              item.sous_budget_id == this.sous_budget_id &&
+              item.type_ordre_paiement == 1 &&
+              item.regularisation == 0
+          )
+          .reduce(
+            (prec, cur) =>
+              parseFloat(prec) + parseFloat(cur.montant_prestation),
+            0
+          )
+          .toFixed(0);
+      }
+    },
   },
   methods: {
     ...mapActions("parametrage", [
@@ -1514,23 +2106,36 @@ export default {
       "getOpParActvite",
     ]),
     formatageSomme: formatageSomme,
-      formatageSommeSansFCFA: formatageSommeSansFCFA,
+    formatageSommeSansFCFA: formatageSommeSansFCFA,
 
-      // DEBUT AFFICHER LE TAUX EXECUTION PAR NATIRE ECONOMIQUE
-      afficheTauxExecution($id) {
-          return ((parseFloat(this.MontantExecuteOpDirectetDefBienService($id)) / parseFloat(this.AfficherBudgetActuelBiensService($id))) * 100).toFixed(2);
-},
-      // FIN
-      // DEBUT  AFFICHER DISPONIBLE 1
-  afficheDisponible($id) {
-          return (parseFloat(this.AfficherBudgetActuelBiensService($id))-parseFloat(this.MontantExecuteOpDirectetDefBienService($id)));
-},
-      // FIN
-// DEBUT  AFFICHER DISPONIBLE 2
-  afficheDisponible2($id) {
-          return (parseFloat(this.AfficherBudgetActuelBiensService($id))-(parseFloat(this.MontantExecuteOpDirectetDefBienService($id))+parseFloat(this.MontantExecuteOpProvisoireBienService($id))));
-},
-      // FIN
+    // debut pour la nature de depense biens et service
+
+    // DEBUT AFFICHER LE TAUX EXECUTION PAR NATIRE ECONOMIQUE
+    afficheTauxExecution($id) {
+      return (
+        (parseFloat(this.MontantExecuteOpDirectetDefBienService($id)) /
+          parseFloat(this.AfficherBudgetActuelBiensService($id))) *
+        100
+      ).toFixed(2);
+    },
+    // FIN
+    // DEBUT  AFFICHER DISPONIBLE 1
+    afficheDisponible($id) {
+      return (
+        parseFloat(this.AfficherBudgetActuelBiensService($id)) -
+        parseFloat(this.MontantExecuteOpDirectetDefBienService($id))
+      );
+    },
+    // FIN
+    // DEBUT  AFFICHER DISPONIBLE 2
+    afficheDisponible2($id) {
+      return (
+        parseFloat(this.AfficherBudgetActuelBiensService($id)) -
+        (parseFloat(this.MontantExecuteOpDirectetDefBienService($id)) +
+          parseFloat(this.MontantExecuteOpProvisoireBienService($id)))
+      );
+    },
+    // FIN
     // debut : permettre d afficher le montant executer direct et definitif par nature economique pour la depense biens service //
     MontantExecuteOpDirectetDefBienService($id) {
       if (this.sous_budget_id == 0 && this.activite_id != 0) {
@@ -1572,16 +2177,17 @@ export default {
       }
     },
 
-      // fin
+    // fin
     // debut : permettre d afficher le montant executer OP PROVISOIRE par nature economique pour la depense biens service //
     MontantExecuteOpProvisoireBienService($id) {
       if (this.sous_budget_id == 0 && this.activite_id != 0) {
         return this.getterOpParActivite
           .filter(
             (item) =>
-              (this.codeNatureDepense(item.nature_depense_id) == 2 &&
-                item.nature_economique_id == $id &&
-                item.type_ordre_paiement == 1 && item.regularisation == 0 ) 
+              this.codeNatureDepense(item.nature_depense_id) == 2 &&
+              item.nature_economique_id == $id &&
+              item.type_ordre_paiement == 1 &&
+              item.regularisation == 0
           )
           .reduce(
             (prec, cur) =>
@@ -1593,10 +2199,11 @@ export default {
         return this.getterOpParActivite
           .filter(
             (item) =>
-              (item.nature_economique_id == $id &&
-                this.codeNatureDepense(item.nature_depense_id) == 2 &&
-                item.sous_budget_id == this.sous_budget_id &&
-                item.type_ordre_paiement == 1 && item.regularisation == 0 ) 
+              item.nature_economique_id == $id &&
+              this.codeNatureDepense(item.nature_depense_id) == 2 &&
+              item.sous_budget_id == this.sous_budget_id &&
+              item.type_ordre_paiement == 1 &&
+              item.regularisation == 0
           )
           .reduce(
             (prec, cur) =>
@@ -1673,7 +2280,115 @@ export default {
       }
     },
     // fin
+    // fin pour la nature de depense bien et service
 
+    // debut pour la nature depense personnel
+
+    // DEBUT AFFICHER LE TAUX EXECUTION PAR NATIRE ECONOMIQUE
+    afficheTauxExecutionPersonnel($id) {
+      return (
+        (parseFloat(this.MontantExecuteOpDirectetDefPersonnel($id)) /
+          parseFloat(this.AfficherBudgetActuelPersonnel($id))) *
+        100
+      ).toFixed(2);
+    },
+    // FIN
+    // DEBUT  AFFICHER DISPONIBLE 1
+    afficheDisponible1Personnel($id) {
+      return (
+        parseFloat(this.AfficherBudgetActuelPersonnel($id)) -
+        parseFloat(this.MontantExecuteOpDirectetDefPersonnel($id))
+      );
+    },
+    // FIN
+    // DEBUT  AFFICHER DISPONIBLE 2
+    afficheDisponible2Personnel($id) {
+      return (
+        parseFloat(this.AfficherBudgetActuelPersonnel($id)) -
+        (parseFloat(this.MontantExecuteOpDirectetDefPersonnel($id)) +
+          parseFloat(this.MontantExecuteOpProvisoirePersonnel($id)))
+      );
+    },
+    // FIN
+    // debut : permettre d afficher le montant executer direct et definitif par nature economique pour la depense biens service //
+    MontantExecuteOpDirectetDefPersonnel($id) {
+      if (this.sous_budget_id == 0 && this.activite_id != 0) {
+        return this.getterOpParActivite
+          .filter(
+            (item) =>
+              (this.codeNatureDepense(item.nature_depense_id) == 1 &&
+                item.nature_economique_id == $id &&
+                item.type_ordre_paiement == 2) ||
+              (this.codeNatureDepense(item.nature_depense_id) == 1 &&
+                item.nature_economique_id == $id &&
+                item.type_ordre_paiement == 4)
+          )
+          .reduce(
+            (prec, cur) =>
+              parseFloat(prec) + parseFloat(cur.montant_prestation),
+            0
+          )
+          .toFixed(0);
+      } else {
+        return this.getterOpParActivite
+          .filter(
+            (item) =>
+              (item.nature_economique_id == $id &&
+                this.codeNatureDepense(item.nature_depense_id) == 1 &&
+                item.sous_budget_id == this.sous_budget_id &&
+                item.type_ordre_paiement == 2) ||
+              (item.nature_economique_id == $id &&
+                this.codeNatureDepense(item.nature_depense_id) == 1 &&
+                item.sous_budget_id == this.sous_budget_id &&
+                item.type_ordre_paiement == 4)
+          )
+          .reduce(
+            (prec, cur) =>
+              parseFloat(prec) + parseFloat(cur.montant_prestation),
+            0
+          )
+          .toFixed(0);
+      }
+    },
+
+    // fin
+    // debut : permettre d afficher le montant executer OP PROVISOIRE par nature economique pour la depense Personnel //
+    MontantExecuteOpProvisoirePersonnel($id) {
+      if (this.sous_budget_id == 0 && this.activite_id != 0) {
+        return this.getterOpParActivite
+          .filter(
+            (item) =>
+              this.codeNatureDepense(item.nature_depense_id) == 1 &&
+              item.nature_economique_id == $id &&
+              item.type_ordre_paiement == 1 &&
+              item.regularisation == 0
+          )
+          .reduce(
+            (prec, cur) =>
+              parseFloat(prec) + parseFloat(cur.montant_prestation),
+            0
+          )
+          .toFixed(0);
+      } else {
+        return this.getterOpParActivite
+          .filter(
+            (item) =>
+              item.nature_economique_id == $id &&
+              this.codeNatureDepense(item.nature_depense_id) == 1 &&
+              item.sous_budget_id == this.sous_budget_id &&
+              item.type_ordre_paiement == 1 &&
+              item.regularisation == 0
+          )
+          .reduce(
+            (prec, cur) =>
+              parseFloat(prec) + parseFloat(cur.montant_prestation),
+            0
+          )
+          .toFixed(0);
+      }
+    },
+
+    // fin
     // debut : permettre d afficher le montant initial par nature economique pour la depense Personnel //
     AfficherBudgetInitialPersonnel($id) {
       if (this.sous_budget_id == 0 && this.activite_id != 0) {
@@ -1738,6 +2453,112 @@ export default {
           .toFixed(0);
       }
     },
+    // fin
+
+    // DEBUT AFFICHER LE TAUX EXECUTION PAR NATIRE ECONOMIQUE
+    afficheTauxExecutionTransferts($id) {
+      return (
+        (parseFloat(this.MontantExecuteOpDirectetDefTransferts($id)) /
+          parseFloat(this.AfficherBudgetActuelTransferts($id))) *
+        100
+      ).toFixed(2);
+    },
+    // FIN
+    // DEBUT  AFFICHER DISPONIBLE 1
+    afficheDisponible1Transferts($id) {
+      return (
+        parseFloat(this.AfficherBudgetActuelTransferts($id)) -
+        parseFloat(this.MontantExecuteOpDirectetDefTransferts($id))
+      );
+    },
+    // FIN
+    // DEBUT  AFFICHER DISPONIBLE 2
+    afficheDisponible2Transferts($id) {
+      return (
+        parseFloat(this.AfficherBudgetActuelTransferts($id)) -
+        (parseFloat(this.MontantExecuteOpDirectetDefTransferts($id)) +
+          parseFloat(this.MontantExecuteOpProvisoireTransferts($id)))
+      );
+    },
+    // FIN
+    // debut : permettre d afficher le montant executer direct et definitif par nature economique pour la depense biens service //
+    MontantExecuteOpDirectetDefTransferts($id) {
+      if (this.sous_budget_id == 0 && this.activite_id != 0) {
+        return this.getterOpParActivite
+          .filter(
+            (item) =>
+              (this.codeNatureDepense(item.nature_depense_id) == 3 &&
+                item.nature_economique_id == $id &&
+                item.type_ordre_paiement == 2) ||
+              (this.codeNatureDepense(item.nature_depense_id) == 3 &&
+                item.nature_economique_id == $id &&
+                item.type_ordre_paiement == 4)
+          )
+          .reduce(
+            (prec, cur) =>
+              parseFloat(prec) + parseFloat(cur.montant_prestation),
+            0
+          )
+          .toFixed(0);
+      } else {
+        return this.getterOpParActivite
+          .filter(
+            (item) =>
+              (item.nature_economique_id == $id &&
+                this.codeNatureDepense(item.nature_depense_id) == 3 &&
+                item.sous_budget_id == this.sous_budget_id &&
+                item.type_ordre_paiement == 2) ||
+              (item.nature_economique_id == $id &&
+                this.codeNatureDepense(item.nature_depense_id) == 3 &&
+                item.sous_budget_id == this.sous_budget_id &&
+                item.type_ordre_paiement == 4)
+          )
+          .reduce(
+            (prec, cur) =>
+              parseFloat(prec) + parseFloat(cur.montant_prestation),
+            0
+          )
+          .toFixed(0);
+      }
+    },
+
+    // fin
+    // debut : permettre d afficher le montant executer OP PROVISOIRE par nature economique pour la depense Personnel //
+    MontantExecuteOpProvisoireTransferts($id) {
+      if (this.sous_budget_id == 0 && this.activite_id != 0) {
+        return this.getterOpParActivite
+          .filter(
+            (item) =>
+              this.codeNatureDepense(item.nature_depense_id) == 3 &&
+              item.nature_economique_id == $id &&
+              item.type_ordre_paiement == 1 &&
+              item.regularisation == 0
+          )
+          .reduce(
+            (prec, cur) =>
+              parseFloat(prec) + parseFloat(cur.montant_prestation),
+            0
+          )
+          .toFixed(0);
+      } else {
+        return this.getterOpParActivite
+          .filter(
+            (item) =>
+              item.nature_economique_id == $id &&
+              this.codeNatureDepense(item.nature_depense_id) == 3 &&
+              item.sous_budget_id == this.sous_budget_id &&
+              item.type_ordre_paiement == 1 &&
+              item.regularisation == 0
+          )
+          .reduce(
+            (prec, cur) =>
+              parseFloat(prec) + parseFloat(cur.montant_prestation),
+            0
+          )
+          .toFixed(0);
+      }
+    },
+
     // fin
     // debut : permettre d afficher le montant initial par nature economique pour la depense Transferts //
     AfficherBudgetInitialTransferts($id) {
@@ -1804,7 +2625,108 @@ export default {
       }
     },
     // fin
+    afficheTauxExecutionInvestissements($id) {
+      return (
+        (parseFloat(this.MontantExecuteOpDirectetDefInvestissements($id)) /
+          parseFloat(this.AfficherBudgetActuelInvestissements($id))) *
+        100
+      ).toFixed(2);
+    },
+    // FIN
+    // DEBUT  AFFICHER DISPONIBLE 1
+    afficheDisponible1Investissements($id) {
+      return (
+        parseFloat(this.AfficherBudgetActuelInvestissements($id)) -
+        parseFloat(this.MontantExecuteOpDirectetDefInvestissements($id))
+      );
+    },
+    // FIN
+    // DEBUT  AFFICHER DISPONIBLE 2
+    afficheDisponible2Investissements($id) {
+      return (
+        parseFloat(this.AfficherBudgetActuelInvestissements($id)) -
+        (parseFloat(this.MontantExecuteOpDirectetDefInvestissements($id)) +
+          parseFloat(this.MontantExecuteOpProvisoireInvestissements($id)))
+      );
+    },
+    // FIN
+    // debut : permettre d afficher le montant executer direct et definitif par nature economique pour la depense biens service //
+    MontantExecuteOpDirectetDefInvestissements($id) {
+      if (this.sous_budget_id == 0 && this.activite_id != 0) {
+        return this.getterOpParActivite
+          .filter(
+            (item) =>
+              (this.codeNatureDepense(item.nature_depense_id) == 4 &&
+                item.nature_economique_id == $id &&
+                item.type_ordre_paiement == 2) ||
+              (this.codeNatureDepense(item.nature_depense_id) == 4 &&
+                item.nature_economique_id == $id &&
+                item.type_ordre_paiement == 4)
+          )
+          .reduce(
+            (prec, cur) =>
+              parseFloat(prec) + parseFloat(cur.montant_prestation),
+            0
+          )
+          .toFixed(0);
+      } else {
+        return this.getterOpParActivite
+          .filter(
+            (item) =>
+              (item.nature_economique_id == $id &&
+                this.codeNatureDepense(item.nature_depense_id) == 4 &&
+                item.sous_budget_id == this.sous_budget_id &&
+                item.type_ordre_paiement == 2) ||
+              (item.nature_economique_id == $id &&
+                this.codeNatureDepense(item.nature_depense_id) == 4 &&
+                item.sous_budget_id == this.sous_budget_id &&
+                item.type_ordre_paiement == 4)
+          )
+          .reduce(
+            (prec, cur) =>
+              parseFloat(prec) + parseFloat(cur.montant_prestation),
+            0
+          )
+          .toFixed(0);
+      }
+    },
 
+    // fin
+    // debut : permettre d afficher le montant executer OP PROVISOIRE par nature economique pour la depense Personnel //
+    MontantExecuteOpProvisoireInvestissements($id) {
+      if (this.sous_budget_id == 0 && this.activite_id != 0) {
+        return this.getterOpParActivite
+          .filter(
+            (item) =>
+              this.codeNatureDepense(item.nature_depense_id) == 4 &&
+              item.nature_economique_id == $id &&
+              item.type_ordre_paiement == 1 &&
+              item.regularisation == 0
+          )
+          .reduce(
+            (prec, cur) =>
+              parseFloat(prec) + parseFloat(cur.montant_prestation),
+            0
+          )
+          .toFixed(0);
+      } else {
+        return this.getterOpParActivite
+          .filter(
+            (item) =>
+              item.nature_economique_id == $id &&
+              this.codeNatureDepense(item.nature_depense_id) == 4 &&
+              item.sous_budget_id == this.sous_budget_id &&
+              item.type_ordre_paiement == 1 &&
+              item.regularisation == 0
+          )
+          .reduce(
+            (prec, cur) =>
+              parseFloat(prec) + parseFloat(cur.montant_prestation),
+            0
+          )
+          .toFixed(0);
+      }
+    },
     // debut : permettre d afficher le montant initial par nature economique pour la depense Investissements //
     AfficherBudgetInitialInvestissements($id) {
       if (this.sous_budget_id == 0 && this.activite_id != 0) {
