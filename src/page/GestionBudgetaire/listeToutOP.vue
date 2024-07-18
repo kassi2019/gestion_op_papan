@@ -74,28 +74,28 @@
                   </td>
                   <td style="border: 1px solid #000">
                     <span
-                      v-if="item.decision == 1"
+                      v-if="item.decision_cf == 1"
                       class="badge badge-success"
                       style="cursor: pointer; text-align: center"
-                      >{{ afficheDecision(item.decision) }}</span
+                      >{{ afficheDecision(item.decision_cf) }}</span
                     >
                     <span
-                      v-if="item.decision == 2"
+                      v-if="item.decision_cf == 2"
                       class="badge badge-success"
                       style="cursor: pointer"
-                      >{{ afficheDecision(item.decision) }}</span
+                      >{{ afficheDecision(item.decision_cf) }}</span
                     >
                     <span
-                      v-if="item.decision == 3"
+                      v-if="item.decision_cf == 3"
                       class="badge badge-warning"
                       style="cursor: pointer"
-                      >{{ afficheDecision(item.decision) }}</span
+                      >{{ afficheDecision(item.decision_cf) }}</span
                     >
                     <span
-                      v-if="item.decision == 4"
+                      v-if="item.decision_cf == 4"
                       class="badge badge-danger"
                       style="cursor: pointer"
-                      >{{ afficheDecision(item.decision) }}</span
+                      >{{ afficheDecision(item.decision_cf) }}</span
                     >
                   </td>
                   <td style="border: 1px solid #000">
@@ -330,7 +330,7 @@
                   <select
                     class="form-select"
                     style="border: 1px solid #000"
-                    v-model="modNatureDepense.decision"
+                    v-model="modNatureDepense.decision_cf"
                   >
                     <option selected></option>
                     <option :value="1">Visé</option>
@@ -364,7 +364,7 @@
             <button
               type="button"
               class="btn btn-primary"
-              @click.prevent="modificationSection()"
+              @click.prevent="modificationOrdrePaiement()"
               data-bs-dismiss="modal"
             >
               Modifier
@@ -511,12 +511,7 @@ export default {
     this.getBailleur();
     this.getNatureDepense();
     this.getNatureEconomique();
-    if (this.modNatureDepense.activite_id == 1) {
-      let objet = {
-        id: this.modNatureDepense.activite_id,
-      };
-      this.getBudgetViseParActvite(objet);
-    }
+    this.getBudgetVise();
 
     // if (this.modNatureDepense.activite_id != 0  ) {
 
@@ -538,6 +533,7 @@ export default {
       "getterNatureDepense",
       "getterBailleur",
       "getterTypeFinancement",
+      "getterAfficheBudgetVise",
     ]),
 
     libelleSourceFinancement() {
@@ -911,6 +907,7 @@ export default {
   methods: {
     ...mapActions("parametrage", [
       "getActivite",
+      "modifierOrdrePaiement",
       "getNatureEconomique",
       "getListeOrdrePaiementGlobal",
       "getBudgetEclateViseGroupeParActivte",
@@ -926,6 +923,7 @@ export default {
       "getEntreprise",
       "getSousBudget",
       "getBudgetViseParActvite",
+      "getBudgetVise",
       "getBudgetEclateViseGroupeParActivte",
       "getBudgetEclate",
       "getDotationRessourcePropre",
@@ -934,6 +932,31 @@ export default {
       "getProjet",
       "getNatureDepense",
     ]),
+
+    modificationOrdrePaiement() {
+      var objetDirect1 = {
+        id: this.modNatureDepense.id,
+        exercice: this.modNatureDepense.exercice,
+        unite_operationnelle_id: this.modNatureDepense.unite_operationnelle_id,
+        activite_id: this.modNatureDepense.activite_id,
+        sous_budget_id: this.modNatureDepense.sous_budget_id,
+        entreprise_id: this.modNatureDepense.entreprise_id,
+        objet_depense: this.modNatureDepense.objet_depense,
+        numero_ordre_paiement: this.modNatureDepense.numero_ordre_paiement,
+        type_ordre_paiement: this.modNatureDepense.type_ordre_paiement,
+        montant_prestation: this.modNatureDepense.montant_prestation,
+        nature_economique_id: this.modNatureDepense.nature_economique_id,
+        nature_depense_id: this.modNatureDepense.nature_depense_id,
+        type_financement_id: this.modNatureDepense.type_financement_id,
+        source_financement_id: this.modNatureDepense.source_financement_id,
+        cumul_anterieure: this.modNatureDepense.cumul_anterieure,
+        date_decision: this.modNatureDepense.date_decision,
+        decision_cf: this.modNatureDepense.decision_cf,
+      };
+
+      this.modifierOrdrePaiement(objetDirect1);
+      this.modNatureDepense = {};
+    },
     AfficheModalModification(id) {
       this.modNatureDepense = this.getterListeOPgloba.find(
         (items) => items.id == id

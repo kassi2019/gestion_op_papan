@@ -1,101 +1,182 @@
 <template>
   <div class="container">
-   
     <div class="col-md-12">
-      <div class="card" style="box-shadow: 5px 5px  #f9d531;">
+      <div class="card" style="box-shadow: 5px 5px #f9d531">
         <div class="card-header">
           <div class="d-flex align-items-center">
             <h4 class="card-title">Présentation du budget par Activité</h4>
-           <span
-            class="badge rounded-pill bg-primary"
-            style="cursor: pointer"
-            @click.prevent="genererEnPdf4()"
-            >Exporter en Pdf</span
-          >
+            <span
+              class="badge rounded-pill bg-primary"
+              style="cursor: pointer"
+              @click.prevent="genererEnPdf4()"
+              >Exporter en Pdf</span
+            >
           </div>
         </div>
         <div class="card-body" id="printMe45" ref="table">
           <!-- Modal -->
-         <table class="table table-bordered border-primary" >
-        <tr>
-          <td style="text-align: center; border: 1px solid #000 !important">
-            <h6 style="font-size: 12px">
-              Ministère des Ressources Animales et Halieutiques<br />
-              ------------------------- <br />
-              Fonds d'Aide à la Production Avicole Nationale <br />
-              <img src="../../../public/csslogin/images/logo1.jpg" width="80px;" />
-            </h6>
-            <!-- <img src="/optimisation/skin/img/log3.png" width="80px;"  /> -->
-          </td>
-          <td style="text-align: center; border: 1px solid #000 !important">
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <img src="../../../public/assets/img/amoirie.png" width="70px;" />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          </td>
+          <table class="table table-bordered border-primary">
+            <tr>
+              <td style="text-align: center; border: 1px solid #000 !important">
+                <h6 style="font-size: 12px">
+                  Ministère des Ressources Animales et Halieutiques<br />
+                  ------------------------- <br />
+                  Fonds d'Aide à la Production Avicole Nationale <br />
+                  <img
+                    src="../../../public/csslogin/images/logo1.jpg"
+                    width="80px;"
+                  />
+                </h6>
+                <!-- <img src="/optimisation/skin/img/log3.png" width="80px;"  /> -->
+              </td>
+              <td style="text-align: center; border: 1px solid #000 !important">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <img
+                  src="../../../public/assets/img/amoirie.png"
+                  width="70px;"
+                />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </td>
 
-          <td style="text-align: center; border: 1px solid #000 !important">
-            <h6 style="font-size: 12px">
-              République de Côte d'Ivoire <br />
-              ------------------------- <br />
-              Union-Discipline-Travail
-            </h6>
-            <!-- <img src="/optimisation/skin/img/log3.png" width="80px;"  /> -->
-          </td>
-        </tr>
-      </table>
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th colspan="7" style="text-align: center; border: 1px solid #000 !important">
-              {{ afficheLibelleActivite(Activite_id) }}
-            </th>
-          </tr>
-          <br />
-          <tr>
-            <th
-              style="
-                text-align: center;
-                font-size: 14px;
-                border: 1px solid #000 !important
-              "
-              colspan="7"
-            >
-              BUDGET INITIAL
-            </th>
-          </tr>
-          <tr style="text-align: center; border: 1px solid #000 !important">
-            <th style="text-align: center; border: 1px solid #000 !important">
-              Nature économique
-            </th>
-            <th colspan="2" style="text-align: center; border: 1px solid #000 !important">
-              Report
-            </th>
-            <th colspan="2" style="text-align: center; border: 1px solid #000 !important">
-              Notifié
-            </th>
-            <th colspan="2" style="text-align: center; border: 1px solid #000 !important">
-              Dotation globale
-            </th>
-          </tr>
-          <tr>
-            <!-- <th scope="col">#</th> -->
-            <!-- <th scope="col">N</th> -->
-            <th
-              scope="col"
-              style="text-align: center; border: 1px solid #000 !important"
-            ></th>
-            <th
-              scope="col"
-              style="text-align: center; border: 1px solid #000 !important"
-              v-for="item in GroupeBailleur"
-              :key="item"
-              colspan=""
-            >
-              {{ afficheSourceFinancement(item) }}
-            </th>
-            <!-- <th
+              <td style="text-align: center; border: 1px solid #000 !important">
+                <h6 style="font-size: 12px">
+                  République de Côte d'Ivoire <br />
+                  ------------------------- <br />
+                  Union-Discipline-Travail
+                </h6>
+                <!-- <img src="/optimisation/skin/img/log3.png" width="80px;"  /> -->
+              </td>
+            </tr>
+          </table>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th
+                  colspan="7"
+                  style="text-align: center; border: 1px solid #000 !important"
+                >
+                  {{ afficheLibelleActivite(Activite_id) }}
+                </th>
+              </tr>
+              <br />
+              <tr>
+                <th
+                  style="
+                    text-align: center;
+                    font-size: 14px;
+                    border: 1px solid #000 !important;
+                  "
+                  colspan="7"
+                >
+                  BUDGET INITIAL
+                </th>
+              </tr>
+              <template v-if="GroupeBailleur == 1">
+                <tr
+                  style="text-align: center; border: 1px solid #000 !important"
+                  v-for="item in GroupeBailleur"
+                  :key="item"
+                >
+                  <th
+                    style="
+                      text-align: center;
+                      border: 1px solid #000 !important;
+                    "
+                  >
+                    Nature économique
+                  </th>
+                  <th
+                    colspan=""
+                    style="
+                      text-align: center;
+                      border: 1px solid #000 !important;
+                    "
+                  >
+                    Report
+                  </th>
+                  <th
+                    colspan=""
+                    style="
+                      text-align: center;
+                      border: 1px solid #000 !important;
+                    "
+                  >
+                    Notifié
+                  </th>
+                  <th
+                    colspan=""
+                    style="
+                      text-align: center;
+                      border: 1px solid #000 !important;
+                    "
+                  >
+                    Dotation globale
+                  </th>
+                </tr>
+              </template>
+              <template v-else>
+                <tr
+                  style="text-align: center; border: 1px solid #000 !important"
+                >
+                  <th
+                    style="
+                      text-align: center;
+                      border: 1px solid #000 !important;
+                    "
+                  >
+                    Nature économique
+                  </th>
+                  <th
+                    colspan="2"
+                    style="
+                      text-align: center;
+                      border: 1px solid #000 !important;
+                    "
+                  >
+                    Report
+                  </th>
+                  <th
+                    colspan="2"
+                    style="
+                      text-align: center;
+                      border: 1px solid #000 !important;
+                    "
+                  >
+                    Notifié
+                  </th>
+                  <th
+                    colspan="2"
+                    style="
+                      text-align: center;
+                      border: 1px solid #000 !important;
+                    "
+                  >
+                    Dotation globale
+                  </th>
+                </tr>
+              </template>
+              <!-- <tr v-for="data in afficheSousBudgetParActivite" :key="data.id">
+  <td>{{ data.libelle }}</td>
+</tr> -->
+              <tr>
+                <!-- <th scope="col">#</th> -->
+                <!-- <th scope="col">N</th> -->
+                <th
+                  scope="col"
+                  style="text-align: center; border: 1px solid #000 !important"
+                ></th>
+                <th
+                  scope="col"
+                  style="text-align: center; border: 1px solid #000 !important"
+                  v-for="item in GroupeBailleur"
+                  :key="item"
+                  colspan=""
+                >
+                  {{ afficheSourceFinancement(item) }}
+                </th>
+                <!-- <th
               scope="col"
               style="text-align: center"
               v-for="item in GroupeBailleur"
@@ -104,380 +185,510 @@
             >
               Total
             </th> -->
-            <th
-              scope="col"
-              style="text-align: center; border: 1px solid #000 !important"
-              v-for="item in GroupeBailleur"
-              :key="item"
-              colspan=""
-            >
-              {{ afficheSourceFinancement(item) }}
-            </th>
+                <th
+                  scope="col"
+                  style="text-align: center; border: 1px solid #000 !important"
+                  v-for="item in GroupeBailleur"
+                  :key="item"
+                  colspan=""
+                >
+                  {{ afficheSourceFinancement(item) }}
+                </th>
 
-            <th
-              scope="col"
-              style="text-align: center; border: 1px solid #000 !important"
-            ></th>
-            <!-- <th scope="col" style="text-align: center">Action</th> -->
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            v-for="item1 in GroupeNatureEconomiqueInvestissements"
-            :key="item1"
-          >
-            <td style="width: 50%; border: 1px solid #000 !important">
-              {{ afficheNatureEconomique(item1) }}
-            </td>
+                <th
+                  scope="col"
+                  style="text-align: center; border: 1px solid #000 !important"
+                ></th>
+                <!-- <th scope="col" style="text-align: center">Action</th> -->
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="item1 in GroupeNatureEconomiqueInvestissements"
+                :key="item1"
+              >
+                <td style="width: 50%; border: 1px solid #000 !important">
+                  {{ afficheNatureEconomique(item1) }}
+                </td>
 
-            <td
-              style="width: 30%; text-align: right; border: 1px solid #000 !important"
-              v-for="item in GroupeBailleur"
-              :key="item"
-            >
-              {{
-                formatageSommeSansFCFA(
-                  parseFloat(MontantReportParLigneInvestissements(item1, item))
-                )
-              }}
-            </td>
-            <!-- <td style="width: 60%" v-for="item in GroupeBailleur" :key="item">
+                <td
+                  style="
+                    width: 30%;
+                    text-align: right;
+                    border: 1px solid #000 !important;
+                  "
+                  v-for="item in GroupeBailleur"
+                  :key="item"
+                >
+                  {{
+                    formatageSommeSansFCFA(
+                      parseFloat(
+                        MontantReportParLigneInvestissements(item1, item)
+                      )
+                    )
+                  }}
+                </td>
+                <!-- <td style="width: 60%" v-for="item in GroupeBailleur" :key="item">
               {{ TotalReportParLigneInvestissements(item1) }}
             </td> -->
-            <td
-              style="width: 20%; text-align: right; border: 1px solid #000 !important"
-              v-for="item in GroupeBailleur"
-              :key="item"
-            >
-              {{
-                formatageSommeSansFCFA(
-                  parseFloat(MontantNotifieParLigneInvestissements(item1, item))
-                )
-              }}
-            </td>
-            <td style="text-align: right; border: 1px solid #000 !important">
-              {{
-                formatageSommeSansFCFA(
-                  parseFloat(MontantParLigneInvestissements(item1))
-                )
-              }}
-            </td>
-            <!-- <td>
+                <td
+                  style="
+                    width: 20%;
+                    text-align: right;
+                    border: 1px solid #000 !important;
+                  "
+                  v-for="item in GroupeBailleur"
+                  :key="item"
+                >
+                  {{
+                    formatageSommeSansFCFA(
+                      parseFloat(
+                        MontantNotifieParLigneInvestissements(item1, item)
+                      )
+                    )
+                  }}
+                </td>
+                <td
+                  style="text-align: right; border: 1px solid #000 !important"
+                >
+                  {{
+                    formatageSommeSansFCFA(
+                      parseFloat(MontantParLigneInvestissements(item1))
+                    )
+                  }}
+                </td>
+                <!-- <td>
               <span class="badge bg-dark" style="cursor: pointer">Budget</span>
             </td> -->
-          </tr>
-          <tr>
-            <td
-              style="
-                background-color: powderblue;
-                text-align: right;
-                border: 1px solid #000 !important;
-              "
-            >
-              Sous Total {{ LibelleGrandeNatureInverssement }}
-            </td>
-            <td
-              style="
-                background-color: powderblue;
-                text-align: right;
-                border: 1px solid #000 !important;
-              "
-              v-for="item in GroupeBailleur"
-              :key="item"
-            >
-              {{
-                formatageSommeSansFCFA(parseFloat(TotalReportBailleur(item)))
-              }}
-            </td>
-            <td
-              style="background-color: powderblue; text-align: right;border: 1px solid #000 !important"
-              v-for="item in GroupeBailleur"
-              :key="item"
-            >
-              {{
-                formatageSommeSansFCFA(parseFloat(TotalNotifierBailleur(item)))
-              }}
-            </td>
-            <td style="background-color: powderblue; text-align: right;border: 1px solid #000 !important">
-              {{ formatageSommeSansFCFA(parseFloat(TotalDotationBailleur)) }}
-            </td>
-          </tr>
+              </tr>
+              <tr>
+                <td
+                  style="
+                    background-color: powderblue;
+                    text-align: right;
+                    border: 1px solid #000 !important;
+                  "
+                >
+                  Sous Total {{ LibelleGrandeNatureInverssement }}
+                </td>
+                <td
+                  style="
+                    background-color: powderblue;
+                    text-align: right;
+                    border: 1px solid #000 !important;
+                  "
+                  v-for="item in GroupeBailleur"
+                  :key="item"
+                >
+                  {{
+                    formatageSommeSansFCFA(
+                      parseFloat(TotalReportBailleur(item))
+                    )
+                  }}
+                </td>
+                <td
+                  style="
+                    background-color: powderblue;
+                    text-align: right;
+                    border: 1px solid #000 !important;
+                  "
+                  v-for="item in GroupeBailleur"
+                  :key="item"
+                >
+                  {{
+                    formatageSommeSansFCFA(
+                      parseFloat(TotalNotifierBailleur(item))
+                    )
+                  }}
+                </td>
+                <td
+                  style="
+                    background-color: powderblue;
+                    text-align: right;
+                    border: 1px solid #000 !important;
+                  "
+                >
+                  {{
+                    formatageSommeSansFCFA(parseFloat(TotalDotationBailleur))
+                  }}
+                </td>
+              </tr>
 
-          <!-- 2 grande nature -->
+              <!-- 2 grande nature -->
 
-          <tr v-for="item1 in GroupeNatureEconomiquePersonnel" :key="item1">
-            <td style="width: 50%; border: 1px solid #000 !important">
-              {{ afficheNatureEconomique(item1) }}
-            </td>
+              <tr v-for="item1 in GroupeNatureEconomiquePersonnel" :key="item1">
+                <td style="width: 50%; border: 1px solid #000 !important">
+                  {{ afficheNatureEconomique(item1) }}
+                </td>
 
-            <td
-              style="width: 30%; text-align: right; border: 1px solid #000 !important"
-              v-for="item in GroupeBailleur"
-              :key="item"
-            >
-              {{
-                formatageSommeSansFCFA(
-                  parseFloat(MontantReportParLignePersonnel(item1, item))
-                )
-              }}
-            </td>
-            <!-- <td style="width: 60%" v-for="item in GroupeBailleur" :key="item">
+                <td
+                  style="
+                    width: 30%;
+                    text-align: right;
+                    border: 1px solid #000 !important;
+                  "
+                  v-for="item in GroupeBailleur"
+                  :key="item"
+                >
+                  {{
+                    formatageSommeSansFCFA(
+                      parseFloat(MontantReportParLignePersonnel(item1, item))
+                    )
+                  }}
+                </td>
+                <!-- <td style="width: 60%" v-for="item in GroupeBailleur" :key="item">
               {{ TotalReportParLigneInvestissements(item1) }}
             </td> -->
-            <td
-              style="width: 20%; text-align: right; border: 1px solid #000 !important"
-              v-for="item in GroupeBailleur"
-              :key="item"
-            >
-              {{
-                formatageSommeSansFCFA(
-                  parseFloat(MontantNotifieParLignePersonnel(item1, item))
-                )
-              }}
-            </td>
-            <td style="text-align: right; border: 1px solid #000 !important">
-              {{
-                formatageSommeSansFCFA(
-                  parseFloat(MontantParLignePersonnel(item1))
-                )
-              }}
-            </td>
-            <!-- <td>
+                <td
+                  style="
+                    width: 20%;
+                    text-align: right;
+                    border: 1px solid #000 !important;
+                  "
+                  v-for="item in GroupeBailleur"
+                  :key="item"
+                >
+                  {{
+                    formatageSommeSansFCFA(
+                      parseFloat(MontantNotifieParLignePersonnel(item1, item))
+                    )
+                  }}
+                </td>
+                <td
+                  style="text-align: right; border: 1px solid #000 !important"
+                >
+                  {{
+                    formatageSommeSansFCFA(
+                      parseFloat(MontantParLignePersonnel(item1))
+                    )
+                  }}
+                </td>
+                <!-- <td>
               <span class="badge bg-dark" style="cursor: pointer">Budget</span>
             </td> -->
-          </tr>
-          <tr>
-            <td
-              style="
-                background-color: powderblue;
-                text-align: right;
-                border: 1px solid #000 !important;
-              "
-            >
-              Sous Total {{ LibelleGrandeNaturepersonnel }}
-            </td>
-            <td
-              style="
-                background-color: powderblue;
-                text-align: right;
-                border: 1px solid #000 !important;
-              "
-              v-for="item in GroupeBailleur"
-              :key="item"
-            >
-              {{
-                formatageSommeSansFCFA(
-                  parseFloat(TotalReportBailleurPersonnel(item))
-                )
-              }}
-            </td>
-            <td
-              style="background-color: powderblue; text-align: right;border: 1px solid #000 !important"
-              v-for="item in GroupeBailleur"
-              :key="item"
-            >
-              {{
-                formatageSommeSansFCFA(
-                  parseFloat(TotalNotifierBailleurPersonnel(item))
-                )
-              }}
-            </td>
-            <td style="background-color: powderblue; text-align: right;border: 1px solid #000 !important">
-              {{
-                formatageSommeSansFCFA(
-                  parseFloat(TotalDotationBailleurPersonnel)
-                )
-              }}
-            </td>
-          </tr>
-          <!-- 3- bien service -->
-          <tr v-for="item1 in GroupeNatureEconomiqueBiensService" :key="item1">
-            <td style="width: 50%; border: 1px solid #000 !important">
-              {{ afficheNatureEconomique(item1) }}
-            </td>
+              </tr>
+              <tr>
+                <td
+                  style="
+                    background-color: powderblue;
+                    text-align: right;
+                    border: 1px solid #000 !important;
+                  "
+                >
+                  Sous Total {{ LibelleGrandeNaturepersonnel }}
+                </td>
+                <td
+                  style="
+                    background-color: powderblue;
+                    text-align: right;
+                    border: 1px solid #000 !important;
+                  "
+                  v-for="item in GroupeBailleur"
+                  :key="item"
+                >
+                  {{
+                    formatageSommeSansFCFA(
+                      parseFloat(TotalReportBailleurPersonnel(item))
+                    )
+                  }}
+                </td>
+                <td
+                  style="
+                    background-color: powderblue;
+                    text-align: right;
+                    border: 1px solid #000 !important;
+                  "
+                  v-for="item in GroupeBailleur"
+                  :key="item"
+                >
+                  {{
+                    formatageSommeSansFCFA(
+                      parseFloat(TotalNotifierBailleurPersonnel(item))
+                    )
+                  }}
+                </td>
+                <td
+                  style="
+                    background-color: powderblue;
+                    text-align: right;
+                    border: 1px solid #000 !important;
+                  "
+                >
+                  {{
+                    formatageSommeSansFCFA(
+                      parseFloat(TotalDotationBailleurPersonnel)
+                    )
+                  }}
+                </td>
+              </tr>
+              <!-- 3- bien service -->
+              <tr
+                v-for="item1 in GroupeNatureEconomiqueBiensService"
+                :key="item1"
+              >
+                <td style="width: 50%; border: 1px solid #000 !important">
+                  {{ afficheNatureEconomique(item1) }}
+                </td>
 
-            <td
-              style="width: 30%; text-align: right; border: 1px solid #000 !important"
-              v-for="item in GroupeBailleur"
-              :key="item"
-            >
-              {{
-                formatageSommeSansFCFA(
-                  parseFloat(MontantReportParLigneBiensService(item1, item))
-                )
-              }}
-            </td>
-            <!-- <td style="width: 60%" v-for="item in GroupeBailleur" :key="item">
+                <td
+                  style="
+                    width: 30%;
+                    text-align: right;
+                    border: 1px solid #000 !important;
+                  "
+                  v-for="item in GroupeBailleur"
+                  :key="item"
+                >
+                  {{
+                    formatageSommeSansFCFA(
+                      parseFloat(MontantReportParLigneBiensService(item1, item))
+                    )
+                  }}
+                </td>
+                <!-- <td style="width: 60%" v-for="item in GroupeBailleur" :key="item">
               {{ TotalReportParLigneInvestissements(item1) }}
             </td> -->
-            <td
-              style="width: 20%; text-align: right; border: 1px solid #000 !important"
-              v-for="item in GroupeBailleur"
-              :key="item"
-            >
-              {{
-                formatageSommeSansFCFA(
-                  parseFloat(MontantNotifieParLigneBiensService(item1, item))
-                )
-              }}
-            </td>
-            <td style="text-align: right; border: 1px solid #000 !important">
-              {{
-                formatageSommeSansFCFA(
-                  parseFloat(MontantParLigneBiensService(item1))
-                )
-              }}
-            </td>
-            <!-- <td>
+                <td
+                  style="
+                    width: 20%;
+                    text-align: right;
+                    border: 1px solid #000 !important;
+                  "
+                  v-for="item in GroupeBailleur"
+                  :key="item"
+                >
+                  {{
+                    formatageSommeSansFCFA(
+                      parseFloat(
+                        MontantNotifieParLigneBiensService(item1, item)
+                      )
+                    )
+                  }}
+                </td>
+                <td
+                  style="text-align: right; border: 1px solid #000 !important"
+                >
+                  {{
+                    formatageSommeSansFCFA(
+                      parseFloat(MontantParLigneBiensService(item1))
+                    )
+                  }}
+                </td>
+                <!-- <td>
               <span class="badge bg-dark" style="cursor: pointer">Budget</span>
             </td> -->
-          </tr>
-          <tr>
-            <td
-              style="
-                background-color: powderblue;
-                text-align: right;
-                border: 1px solid #000 !important;
-              "
-            >
-              Sous Total {{ LibelleGrandeNatureBiensService }}
-            </td>
-            <td
-              style="
-                background-color: powderblue;
-                text-align: right;
-                border: 1px solid #000 !important;
-              "
-              v-for="item in GroupeBailleur"
-              :key="item"
-            >
-              {{
-                formatageSommeSansFCFA(
-                  parseFloat(TotalReportBailleurBienService(item))
-                )
-              }}
-            </td>
-            <td
-              style="background-color: powderblue; text-align: right;border: 1px solid #000 !important"
-              v-for="item in GroupeBailleur"
-              :key="item"
-            >
-              {{
-                formatageSommeSansFCFA(
-                  parseFloat(TotalNotifierBailleurBienService(item))
-                )
-              }}
-            </td>
-            <td style="background-color: powderblue; text-align: right;border: 1px solid #000 !important">
-              {{
-                formatageSommeSansFCFA(
-                  parseFloat(TotalDotationBailleurBiensService)
-                )
-              }}
-            </td>
-          </tr>
-          <!-- transfert -->
-          <tr v-for="item1 in GroupeNatureEconomiqueTransfert" :key="item1">
-            <td style="width: 50%; border: 1px solid #000 !important">
-              {{ afficheNatureEconomique(item1) }}
-            </td>
+              </tr>
+              <tr>
+                <td
+                  style="
+                    background-color: powderblue;
+                    text-align: right;
+                    border: 1px solid #000 !important;
+                  "
+                >
+                  Sous Total {{ LibelleGrandeNatureBiensService }}
+                </td>
+                <td
+                  style="
+                    background-color: powderblue;
+                    text-align: right;
+                    border: 1px solid #000 !important;
+                  "
+                  v-for="item in GroupeBailleur"
+                  :key="item"
+                >
+                  {{
+                    formatageSommeSansFCFA(
+                      parseFloat(TotalReportBailleurBienService(item))
+                    )
+                  }}
+                </td>
+                <td
+                  style="
+                    background-color: powderblue;
+                    text-align: right;
+                    border: 1px solid #000 !important;
+                  "
+                  v-for="item in GroupeBailleur"
+                  :key="item"
+                >
+                  {{
+                    formatageSommeSansFCFA(
+                      parseFloat(TotalNotifierBailleurBienService(item))
+                    )
+                  }}
+                </td>
+                <td
+                  style="
+                    background-color: powderblue;
+                    text-align: right;
+                    border: 1px solid #000 !important;
+                  "
+                >
+                  {{
+                    formatageSommeSansFCFA(
+                      parseFloat(TotalDotationBailleurBiensService)
+                    )
+                  }}
+                </td>
+              </tr>
+              <!-- transfert -->
+              <tr v-for="item1 in GroupeNatureEconomiqueTransfert" :key="item1">
+                <td style="width: 50%; border: 1px solid #000 !important">
+                  {{ afficheNatureEconomique(item1) }}
+                </td>
 
-            <td
-              style="width: 30%; text-align: right; border: 1px solid #000 !important"
-              v-for="item in GroupeBailleur"
-              :key="item"
-            >
-              {{
-                formatageSommeSansFCFA(
-                  parseFloat(MontantReportParLigneTransfert(item1, item))
-                )
-              }}
-            </td>
-            <!-- <td style="width: 60%" v-for="item in GroupeBailleur" :key="item">
+                <td
+                  style="
+                    width: 30%;
+                    text-align: right;
+                    border: 1px solid #000 !important;
+                  "
+                  v-for="item in GroupeBailleur"
+                  :key="item"
+                >
+                  {{
+                    formatageSommeSansFCFA(
+                      parseFloat(MontantReportParLigneTransfert(item1, item))
+                    )
+                  }}
+                </td>
+                <!-- <td style="width: 60%" v-for="item in GroupeBailleur" :key="item">
               {{ TotalReportParLigneInvestissements(item1) }}
             </td> -->
-            <td
-              style="width: 20%; text-align: right; border: 1px solid #000 !important"
-              v-for="item in GroupeBailleur"
-              :key="item"
-            >
-              {{
-                formatageSommeSansFCFA(
-                  parseFloat(MontantNotifieParLigneTransfert(item1, item))
-                )
-              }}
-            </td>
-            <td style="text-align: right; border: 1px solid #000 !important">
-              {{
-                formatageSommeSansFCFA(
-                  parseFloat(MontantParLigneTransfert(item1))
-                )
-              }}
-            </td>
-            <!-- <td>
+                <td
+                  style="
+                    width: 20%;
+                    text-align: right;
+                    border: 1px solid #000 !important;
+                  "
+                  v-for="item in GroupeBailleur"
+                  :key="item"
+                >
+                  {{
+                    formatageSommeSansFCFA(
+                      parseFloat(MontantNotifieParLigneTransfert(item1, item))
+                    )
+                  }}
+                </td>
+                <td
+                  style="text-align: right; border: 1px solid #000 !important"
+                >
+                  {{
+                    formatageSommeSansFCFA(
+                      parseFloat(MontantParLigneTransfert(item1))
+                    )
+                  }}
+                </td>
+                <!-- <td>
               <span class="badge bg-dark" style="cursor: pointer">Budget</span>
             </td> -->
-          </tr>
-          <tr>
-            <td
-              style="
-                background-color: powderblue;
-                text-align: right;
-                border: 1px solid #000 !important;
-              "
-            >
-              Sous Total {{ LibelleGrandeNatureTransfert }}
-            </td>
-            <td
-              style="
-                background-color: powderblue;
-                text-align: right;
-                border: 1px solid #000 !important;
-              "
-              v-for="item in GroupeBailleur"
-              :key="item"
-            >
-              {{
-                formatageSommeSansFCFA(
-                  parseFloat(TotalReportBailleurTransfert(item))
-                )
-              }}
-            </td>
-            <td
-              style="background-color: powderblue; text-align: right;border: 1px solid #000 !important"
-              v-for="item in GroupeBailleur"
-              :key="item"
-            >
-              {{
-                formatageSommeSansFCFA(
-                  parseFloat(TotalNotifierBailleurTransfert(item))
-                )
-              }}
-            </td>
-            <td style="background-color: powderblue; text-align: right;border: 1px solid #000 !important">
-              {{
-                formatageSommeSansFCFA(
-                  parseFloat(TotalDotationBailleurTransfert)
-                )
-              }}
-            </td>
-          </tr>
-          <tr>
-            <td style="background-color: #006d80; color: aliceblue;border: 1px solid #000 !important">
-              TOTAL GLOBAL
-            </td>
-            <td  v-for="item in GroupeBailleur"
-              :key="item" style="background-color: #006d80; text-align: right;border: 1px solid #000 !important;color: aliceblue">{{ formatageSommeSansFCFA(
-                  parseFloat(totalGlobalReport(item))) }}</td>
-              <td  v-for="item in GroupeBailleur"
-              :key="item" style="background-color: #006d80; text-align: right;border: 1px solid #000 !important;color: aliceblue">{{formatageSommeSansFCFA(
-                  parseFloat(totalGlobalNotifie(item)))  }}</td>
-              <td style="background-color: #006d80; text-align: right;border: 1px solid #000 !important;color: aliceblue">{{formatageSommeSansFCFA(
-                  parseFloat(totalGlobal))}}</td>
-            
-          </tr>
-        </tbody>
-      </table>
+              </tr>
+              <tr>
+                <td
+                  style="
+                    background-color: powderblue;
+                    text-align: right;
+                    border: 1px solid #000 !important;
+                  "
+                >
+                  Sous Total {{ LibelleGrandeNatureTransfert }}
+                </td>
+                <td
+                  style="
+                    background-color: powderblue;
+                    text-align: right;
+                    border: 1px solid #000 !important;
+                  "
+                  v-for="item in GroupeBailleur"
+                  :key="item"
+                >
+                  {{
+                    formatageSommeSansFCFA(
+                      parseFloat(TotalReportBailleurTransfert(item))
+                    )
+                  }}
+                </td>
+                <td
+                  style="
+                    background-color: powderblue;
+                    text-align: right;
+                    border: 1px solid #000 !important;
+                  "
+                  v-for="item in GroupeBailleur"
+                  :key="item"
+                >
+                  {{
+                    formatageSommeSansFCFA(
+                      parseFloat(TotalNotifierBailleurTransfert(item))
+                    )
+                  }}
+                </td>
+                <td
+                  style="
+                    background-color: powderblue;
+                    text-align: right;
+                    border: 1px solid #000 !important;
+                  "
+                >
+                  {{
+                    formatageSommeSansFCFA(
+                      parseFloat(TotalDotationBailleurTransfert)
+                    )
+                  }}
+                </td>
+              </tr>
+              <tr>
+                <td
+                  style="
+                    background-color: #006d80;
+                    color: aliceblue;
+                    border: 1px solid #000 !important;
+                  "
+                >
+                  TOTAL GLOBAL
+                </td>
+                <td
+                  v-for="item in GroupeBailleur"
+                  :key="item"
+                  style="
+                    background-color: #006d80;
+                    text-align: right;
+                    border: 1px solid #000 !important;
+                    color: aliceblue;
+                  "
+                >
+                  {{
+                    formatageSommeSansFCFA(parseFloat(totalGlobalReport(item)))
+                  }}
+                </td>
+                <td
+                  v-for="item in GroupeBailleur"
+                  :key="item"
+                  style="
+                    background-color: #006d80;
+                    text-align: right;
+                    border: 1px solid #000 !important;
+                    color: aliceblue;
+                  "
+                >
+                  {{
+                    formatageSommeSansFCFA(parseFloat(totalGlobalNotifie(item)))
+                  }}
+                </td>
+                <td
+                  style="
+                    background-color: #006d80;
+                    text-align: right;
+                    border: 1px solid #000 !important;
+                    color: aliceblue;
+                  "
+                >
+                  {{ formatageSommeSansFCFA(parseFloat(totalGlobal)) }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -523,7 +734,7 @@ export default {
   },
   created() {
     this.Activite_id = this.$route.params.id;
-    // this.getSousBudget();
+    this.getSousBudget();
     this.getBudgetEclate();
     this.getBailleur();
     this.getNatureDepense();
@@ -545,6 +756,7 @@ export default {
 
       "getterNatureDepense",
     ]),
+
     TotalDotationBailleur() {
       return this.getterListeBudgetEclate
         .filter(
@@ -806,12 +1018,9 @@ export default {
 
       return "";
     },
-     totalGlobal() {
+    totalGlobal() {
       return this.getterListeBudgetEclate
-        .filter(
-          (item) =>
-            item.activite_id == this.Activite_id
-        )
+        .filter((item) => item.activite_id == this.Activite_id)
         .reduce(
           (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
           0
@@ -860,16 +1069,15 @@ export default {
       this.$htmlToPaper("printMe45");
     },
 
-     totalGlobalReport($id1) {
+    totalGlobalReport($id1) {
       return this.getterListeBudgetEclate
         .filter(
           (item) =>
             item.activite_id == this.Activite_id &&
-            
-            item.source_financement_id == $id1 
+            item.source_financement_id == $id1
         )
         .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.doatation_report),
+          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_report),
           0
         )
         .toFixed(0);
@@ -879,8 +1087,7 @@ export default {
         .filter(
           (item) =>
             item.activite_id == this.Activite_id &&
-            
-            item.source_financement_id == $id1 
+            item.source_financement_id == $id1
         )
         .reduce(
           (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_actuelle),
@@ -888,7 +1095,7 @@ export default {
         )
         .toFixed(0);
     },
-    
+
     TotalNotifierBailleur($id1) {
       return this.getterListeBudgetEclate
         .filter(
@@ -912,7 +1119,7 @@ export default {
             this.afficheCodeNatureDepense(item.nature_depense_id) == 4
         )
         .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.doatation_report),
+          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_report),
           0
         )
         .toFixed(0);
@@ -940,7 +1147,7 @@ export default {
             this.afficheCodeNatureDepense(item.nature_depense_id) == 4
         )
         .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.doatation_report),
+          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_report),
           0
         )
         .toFixed(0);
@@ -955,7 +1162,7 @@ export default {
             this.afficheCodeNatureDepense(item.nature_depense_id) == 4
         )
         .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.doatation_report),
+          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_report),
           0
         )
         .toFixed(0);
@@ -999,7 +1206,7 @@ export default {
             this.afficheCodeNatureDepense(item.nature_depense_id) == 1
         )
         .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.doatation_report),
+          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_report),
           0
         )
         .toFixed(0);
@@ -1014,7 +1221,7 @@ export default {
             this.afficheCodeNatureDepense(item.nature_depense_id) == 1
         )
         .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.doatation_report),
+          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_report),
           0
         )
         .toFixed(0);
@@ -1072,7 +1279,7 @@ export default {
             this.afficheCodeNatureDepense(item.nature_depense_id) == 2
         )
         .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.doatation_report),
+          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_report),
           0
         )
         .toFixed(0);
@@ -1116,7 +1323,7 @@ export default {
             this.afficheCodeNatureDepense(item.nature_depense_id) == 2
         )
         .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.doatation_report),
+          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_report),
           0
         )
         .toFixed(0);
@@ -1146,7 +1353,7 @@ export default {
             this.afficheCodeNatureDepense(item.nature_depense_id) == 3
         )
         .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.doatation_report),
+          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_report),
           0
         )
         .toFixed(0);
@@ -1190,7 +1397,7 @@ export default {
             this.afficheCodeNatureDepense(item.nature_depense_id) == 3
         )
         .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.doatation_report),
+          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_report),
           0
         )
         .toFixed(0);

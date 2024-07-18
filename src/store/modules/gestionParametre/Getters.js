@@ -29,4 +29,5 @@ export const getterActiviteglobal = state => state.stateActiviteglobal;
 export const getterListeOPgloba = state => state.stateListeOPgloba;
 
 export const getterOpParActivite = state => state.stateOpParActivite;
+export const getterAfficheBudgetVise = state => state.stateAfficheBudgetVise;
 // export const getterAfficheDotation = state => state.stateAfficheDotation;

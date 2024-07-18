@@ -95,7 +95,13 @@
                       />
                     </div>
                     <div class="col-9">
-                      <label class="form-label">Unité Opérationnelle</label>
+                      <label class="form-label">Unité Opérationnelle  <span
+                          style="
+                            color: red !important;
+                            font-size: 15px !important;
+                          "
+                          >*</span
+                        ></label>
 
                       <model-list-select
                         :list="getterBudgetViseGroupeParActivite"
@@ -108,7 +114,13 @@
                       </model-list-select>
                     </div>
                     <div class="col-6">
-                      <label class="form-label">Activité</label>
+                      <label class="form-label">Activité  <span
+                          style="
+                            color: red !important;
+                            font-size: 15px !important;
+                          "
+                          >*</span
+                        ></label>
                       <model-list-select
                         :list="getterBudgetViseGroupeParActivite"
                         v-model="activite_id"
@@ -132,7 +144,13 @@
                       </model-list-select>
                     </div>
                     <div class="col-6">
-                      <label class="form-label">Nom du Bénéficiaire</label>
+                      <label class="form-label">Nom du Bénéficiaire  <span
+                          style="
+                            color: red !important;
+                            font-size: 15px !important;
+                          "
+                          >*</span
+                        ></label>
                       <model-list-select
                         :list="AfficheEntreprise"
                         v-model="entreprise_id"
@@ -166,7 +184,13 @@
                       />
                     </div>
                     <div class="col-12">
-                      <label class="form-label">Objet de la depense</label>
+                      <label class="form-label">Objet de la depense  <span
+                          style="
+                            color: red !important;
+                            font-size: 15px !important;
+                          "
+                          >*</span
+                        ></label>
                       <input
                         type="text"
                         class="form-control"
@@ -176,7 +200,13 @@
                     </div>
                     <div class="col-6">
                       <label class="form-label"
-                        >Numéro de ordre de paiement</label
+                        >Numéro de ordre de paiement  <span
+                          style="
+                            color: red !important;
+                            font-size: 15px !important;
+                          "
+                          >*</span
+                        ></label
                       >
                       <input
                         type="text"
@@ -186,7 +216,13 @@
                       />
                     </div>
                     <div class="col-6">
-                      <label class="form-label">Montant des préstations</label>
+                      <label class="form-label">Montant des préstations  <span
+                          style="
+                            color: red !important;
+                            font-size: 15px !important;
+                          "
+                          >*</span
+                        ></label>
 
                       <money3
                         class="form-control"
@@ -199,7 +235,13 @@
                     </legend>
                     <div class="col-9">
                       <label class="form-label"
-                        >Nature économique / Imputation</label
+                        >Nature économique / Imputation  <span
+                          style="
+                            color: red !important;
+                            font-size: 15px !important;
+                          "
+                          >*</span
+                        ></label
                       >
                       <model-list-select
                         :list="AfficheNatureEconomique"
@@ -222,7 +264,13 @@
                       />
                     </div>
                     <div class="col-3">
-                      <label class="form-label">Type financement</label>
+                      <label class="form-label">Type financement  <span
+                          style="
+                            color: red !important;
+                            font-size: 15px !important;
+                          "
+                          >*</span
+                        ></label>
 
                       <model-list-select
                         :list="AfficheTypeFinancement"
@@ -235,7 +283,13 @@
                       </model-list-select>
                     </div>
                     <div class="col-9">
-                      <label class="form-label">Source de financement</label>
+                      <label class="form-label">Source de financement  <span
+                          style="
+                            color: red !important;
+                            font-size: 15px !important;
+                          "
+                          >*</span
+                        ></label>
 
                       <model-list-select
                         :list="AfficheSourceFinancement"
@@ -298,6 +352,7 @@
                         style="border: 1px solid #000 !important"
                         v-bind="config"
                         :model-value="disponible"
+                        readonly
                       ></money3>
                     </div>
                   </form>

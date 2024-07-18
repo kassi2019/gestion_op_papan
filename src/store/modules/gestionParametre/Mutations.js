@@ -462,3 +462,17 @@ export const GET_LISTE_OP_GLOBAL= (state,value)=>{
 export const GET_OP_PAR_ACTIVITE = (state,value)=>{
     state.stateOpParActivite=value
 }
+
+export const GET_BUDGET_VISE = (state,value)=>{
+    state.stateAfficheBudgetVise=value
+}
+
+export const MODIFIER_ORDRE_PAIEMENT = (state, elementModif) => {
+    state.stateOrdrePaiement = state.stateOrdrePaiement.map(response => {
+
+        if (response.id == elementModif.id) {
+            response = { ...elementModif }
+        }
+        return response
+    })
+}

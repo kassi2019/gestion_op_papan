@@ -31,7 +31,8 @@ const defaultstate = {
     stateFacture: [],
      stateOpParActivite:[],
       stateActiviteglobal: [],
-    stateListeOPgloba: [],
+  stateListeOPgloba: [],
+    stateAfficheBudgetVise:[]
     // stateAfficheDotation:[]
     
 };

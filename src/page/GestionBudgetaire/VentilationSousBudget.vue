@@ -73,31 +73,90 @@
                   BUDGET INITIAL
                 </th>
               </tr>
-              <tr style="text-align: center; border: 1px solid #000 !important">
-                <th
+           <template v-if="GroupeBailleur == 1">
+                <tr
+                  style="text-align: center; border: 1px solid #000 !important"
+                  v-for="item in GroupeBailleur"
+                  :key="item"
+                >
+                  <th
+                    style="
+                      text-align: center;
+                      border: 1px solid #000 !important;
+                    "
+                  >
+                    Nature économique
+                  </th>
+                  <th
+                    colspan=""
+                    style="
+                      text-align: center;
+                      border: 1px solid #000 !important;
+                    "
+                  >
+                    Report
+                  </th>
+                  <th
+                    colspan=""
+                    style="
+                      text-align: center;
+                      border: 1px solid #000 !important;
+                    "
+                  >
+                    Notifié
+                  </th>
+                  <th
+                    colspan=""
+                    style="
+                      text-align: center;
+                      border: 1px solid #000 !important;
+                    "
+                  >
+                    Dotation globale
+                  </th>
+                </tr>
+              </template>
+              <template v-else>
+                <tr
                   style="text-align: center; border: 1px solid #000 !important"
                 >
-                  Nature économique
-                </th>
-                <th
-                  colspan="2"
-                  style="text-align: center; border: 1px solid #000 !important"
-                >
-                  Report
-                </th>
-                <th
-                  colspan="2"
-                  style="text-align: center; border: 1px solid #000 !important"
-                >
-                  Notifié
-                </th>
-                <th
-                  colspan="2"
-                  style="text-align: center; border: 1px solid #000 !important"
-                >
-                  Dotation globale
-                </th>
-              </tr>
+                  <th
+                    style="
+                      text-align: center;
+                      border: 1px solid #000 !important;
+                    "
+                  >
+                    Nature économique
+                  </th>
+                  <th
+                    colspan="2"
+                    style="
+                      text-align: center;
+                      border: 1px solid #000 !important;
+                    "
+                  >
+                    Report
+                  </th>
+                  <th
+                    colspan="2"
+                    style="
+                      text-align: center;
+                      border: 1px solid #000 !important;
+                    "
+                  >
+                    Notifié
+                  </th>
+                  <th
+                    colspan="2"
+                    style="
+                      text-align: center;
+                      border: 1px solid #000 !important;
+                    "
+                  >
+                    Dotation globale
+                  </th>
+                </tr>
+              </template>
               <tr>
                 <!-- <th scope="col">#</th> -->
                 <!-- <th scope="col">N</th> -->
@@ -1029,7 +1088,7 @@ export default {
             item.source_financement_id == $id1
         )
         .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.doatation_report),
+          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_report),
           0
         )
         .toFixed(0);
@@ -1071,7 +1130,7 @@ export default {
             this.afficheCodeNatureDepense(item.nature_depense_id) == 4
         )
         .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.doatation_report),
+          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_report),
           0
         )
         .toFixed(0);
@@ -1099,7 +1158,7 @@ export default {
             this.afficheCodeNatureDepense(item.nature_depense_id) == 4
         )
         .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.doatation_report),
+          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_report),
           0
         )
         .toFixed(0);
@@ -1114,7 +1173,7 @@ export default {
             this.afficheCodeNatureDepense(item.nature_depense_id) == 4
         )
         .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.doatation_report),
+          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_report),
           0
         )
         .toFixed(0);
@@ -1158,7 +1217,7 @@ export default {
             this.afficheCodeNatureDepense(item.nature_depense_id) == 1
         )
         .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.doatation_report),
+          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_report),
           0
         )
         .toFixed(0);
@@ -1173,7 +1232,7 @@ export default {
             this.afficheCodeNatureDepense(item.nature_depense_id) == 1
         )
         .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.doatation_report),
+          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_report),
           0
         )
         .toFixed(0);
@@ -1231,7 +1290,7 @@ export default {
             this.afficheCodeNatureDepense(item.nature_depense_id) == 2
         )
         .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.doatation_report),
+          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_report),
           0
         )
         .toFixed(0);
@@ -1275,7 +1334,7 @@ export default {
             this.afficheCodeNatureDepense(item.nature_depense_id) == 2
         )
         .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.doatation_report),
+          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_report),
           0
         )
         .toFixed(0);
@@ -1305,7 +1364,7 @@ export default {
             this.afficheCodeNatureDepense(item.nature_depense_id) == 3
         )
         .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.doatation_report),
+          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_report),
           0
         )
         .toFixed(0);
@@ -1349,7 +1408,7 @@ export default {
             this.afficheCodeNatureDepense(item.nature_depense_id) == 3
         )
         .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.doatation_report),
+          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_report),
           0
         )
         .toFixed(0);

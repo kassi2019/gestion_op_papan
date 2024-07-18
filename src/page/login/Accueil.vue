@@ -37,7 +37,7 @@
           @click="ParametreGeneraux(2)"
         >
           <div class="card-body bubble-shadow">
-             <i class="fas fa-euro-sign" style="  font-size: 50px;"></i>
+             <i class="fas fa-money-bill-wave" style="  font-size: 50px;"></i>
             <h2 class="op-8" @click="ParametreGeneraux(2)">
               Gestion Budgétaire
             </h2>

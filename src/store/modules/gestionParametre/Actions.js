@@ -1109,12 +1109,13 @@ export function supprimerInformationBudget({ commit}, id) {
 //BUDGET ECLATE
 
 
-export function ajouterBudgetEclate({ commit }, nouveau) {
+export function ajouterBudgetEclate({ commit,dispatch }, nouveau) {
  
     apiGuest.post("/EnregistrementBudget", nouveau, { headers: authHeader() })
     .then(response => {
       if (response.status == 201) {
         commit("AJOUTER_BUDGET_ECLATE", response.data);
+        dispatch("getBudgetEclate");
        toast("Enregistrement effectué avec succès!", {
         "theme": "auto",
         "type": "success",
@@ -1312,12 +1313,13 @@ export function supprimerTaux({ commit}, id) {
 
 /// ORDRE PAIEMENT
 
-export function ajouterOrdrePaiement({ commit }, nouveau) {
+export function ajouterOrdrePaiement({ commit,dispatch }, nouveau) {
  
     apiGuest.post("/EnregistrementOrdrePaiement", nouveau, { headers: authHeader() })
     .then(response => {
       if (response.status == 201) {
         commit("AJOUTER_ORDRE_PAIEMENT", response.data);
+        dispatch("getActiviteOp");
        toast("Enregistrement effectué avec succès!", {
         "theme": "auto",
         "type": "success",
@@ -1380,4 +1382,26 @@ export function getOpParActvite({ commit }, objet) {
       });
   });
 
+}
+
+
+export function getBudgetVise({ commit }) {
+  apiGuest.get("/afficherBudgetVise", { headers: authHeader() })
+    .then(response => {
+      commit("GET_BUDGET_VISE", response.data);
+    })
+    .catch(error => console.log(error));
+}
+
+export function modifierOrdrePaiement({ commit }, nouveau) {
+  apiGuest.
+    put("/ModifierOrdrePaiement/" + nouveau.id, nouveau, { headers: authHeader() })
+    .then(response => {
+      commit("MODIFIER_ORDRE_PAIEMENT", response.data);
+      toast("Modification effectué avec succès!", {
+        "theme": "auto",
+        "type": "success",
+        "dangerouslyHTMLString": true
+})
+    });
 }

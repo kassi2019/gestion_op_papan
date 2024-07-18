@@ -1,30 +1,6 @@
 <template>
   <div class="sidebar" data-background-color="dark">
-    <div class="sidebar-logo">
-      <!-- Logo Header -->
-      <div class="logo-header" data-background-color="dark">
-        <a href="index.html" class="logo">
-          <img
-            src="assets/img/kaiadmin/logo_light.svg"
-            alt="navbar brand"
-            class="navbar-brand"
-            height="20"
-          />
-        </a>
-        <div class="nav-toggle">
-          <button class="btn btn-toggle toggle-sidebar">
-            <i class="gg-menu-right"></i>
-          </button>
-          <button class="btn btn-toggle sidenav-toggler">
-            <i class="gg-menu-left"></i>
-          </button>
-        </div>
-        <button class="topbar-toggler more">
-          <i class="gg-more-vertical-alt"></i>
-        </button>
-      </div>
-      <!-- End Logo Header -->
-    </div>
+    <logo></logo>
     <div class="sidebar-wrapper scrollbar scrollbar-inner">
       <div class="sidebar-content">
         <ul class="nav nav-secondary">
@@ -49,12 +25,12 @@
                   </ul>
                 </div>
               </li> -->
- <li class="nav-section">
-                <span class="sidebar-mini-icon">
-                  <i class="fa fa-ellipsis-h"></i>
-                </span>
-                <h4 class="text-section">GESTION DES RAPPORTS</h4>
-              </li>
+          <li class="nav-section">
+            <span class="sidebar-mini-icon">
+              <i class="fa fa-ellipsis-h"></i>
+            </span>
+            <h4 class="text-section">GESTION DES RAPPORTS</h4>
+          </li>
           <li class="nav-item">
             <a
               class="nav-link collapsed"
@@ -70,18 +46,18 @@
             <a
               class="nav-link collapsed"
               href=""
-               @click.prevent="activedOptionMenu('ExecutionBailleur')"
+              @click.prevent="activedOptionMenu('ExecutionBailleur')"
             >
               <i class="fas fa-arrow-right"></i>
 
               <p>Execution par bailleur</p>
             </a>
           </li>
-           <li class="nav-item">
+          <li class="nav-item">
             <a
               class="nav-link collapsed"
               href=""
-               @click.prevent="activedOptionMenu('ExecutionParLigne')"
+              @click.prevent="activedOptionMenu('ExecutionParLigne')"
             >
               <i class="fas fa-arrow-right"></i>
 
@@ -96,7 +72,7 @@
             >
               <i class="fas fa-arrow-right"></i>
 
-                <p>Etat des OP Provisoire</p>
+              <p>Etat des OP Provisoire</p>
             </a>
           </li>
           <li class="nav-item">
@@ -143,7 +119,6 @@
               <p>Création entreprise</p>
             </a>
           </li> -->
-          
         </ul>
       </div>
     </div>
@@ -153,9 +128,10 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import logo from "./Logo.vue";
 export default {
   name: "app",
-  components: {},
+  components: { logo },
   props: {
     source: String,
   },
