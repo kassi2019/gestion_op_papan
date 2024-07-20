@@ -104,7 +104,7 @@
                   </a>
                 </li>
                 <li>
-                  <a href="" @click.prevent="activedOptionMenu('')">
+                  <a href="" @click.prevent="activedOptionMenu('PresentationBudgetVise')">
                     <span class="sub-item">Consulter budget visé</span>
                   </a>
                 </li>

@@ -27,7 +27,25 @@ import AfficheActiviteDesOP from "../page/GestionBudgetaire/AfficheActiviteDesOP
 import listeToutOP from "../page/GestionBudgetaire/listeToutOP.vue"
 import ExecutionBailleur from "../page/GestionRapport/ExecutionBailleur.vue"
 import ExecutionParLigne from "../page/GestionRapport/ExecutionParLigne.vue"
+import PresentationBudgetVise from "../page/GestionBudgetaire/PresentationBudgetVise.vue"
+import Banque from "../page/ParametreGeneraux/Banque.vue"
+import CompteBancaire from "../page/ParametreGeneraux/CompteBancaire.vue"
 const gestionutilisateur = [
+   {
+        path: '/CompteBancaire/:id',
+        name:"CompteBancaire",
+       component: CompteBancaire
+     },
+   {
+        path: '/Banque',
+        name:"Banque",
+       component: Banque
+     },
+   {
+        path: '/PresentationBudgetVise',
+        name:"PresentationBudgetVise",
+       component: PresentationBudgetVise
+     },
   {
         path: '/ExecutionParLigne',
         name:"ExecutionParLigne",
@@ -94,7 +112,7 @@ const gestionutilisateur = [
        component: AfficheSousBudgetEclate
      },
      {
-        path: '/VentilationBudget',
+        path: '/VentilationBudget/:id',
         name:"VentilationBudget",
        component: VentilationBudget
      },

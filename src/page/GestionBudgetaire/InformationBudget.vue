@@ -176,8 +176,8 @@
                   <option selected></option>
                   <option :value="1">Visé</option>
                   <option :value="2">Visé avec observation</option>
-                  <!-- <option :value="3">Différé</option>
-                  <option :value="4">Réjetté</option> -->
+                  <option :value="3">Différé</option>
+                  <option :value="4">Réjetté</option>
                   <option :value="0">En attente</option>
                 </select>
               </div>

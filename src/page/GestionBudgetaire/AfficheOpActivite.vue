@@ -54,7 +54,7 @@
               <tbody>
                 <tr v-for="item in afficheListeOPprovisoire" :key="item.id">
                   <td style="border: 1px solid #000">{{ item.numero_ordre_paiement }}</td>
-                  <td style="border: 1px solid #000">{{ item.objet_depense }}</td>
+                  <td style="border: 1px solid #000" class="text-break">{{ item.objet_depense }}</td>
                   <td style="border: 1px solid #000;text-align: right">{{ formatageSommeSansFCFA(parseFloat(item.montant_prestation)) }}</td>
                   <td style="border: 1px solid #000">{{ item.nature_economique }}</td>
                   <td style="border: 1px solid #000">{{ item.beneficiaire }}</td>

@@ -32,7 +32,9 @@ const defaultstate = {
      stateOpParActivite:[],
       stateActiviteglobal: [],
   stateListeOPgloba: [],
-    stateAfficheBudgetVise:[]
+    stateAfficheBudgetVise: [],
+    stateBanque: [],
+    stateCompteBancaire:[]
     // stateAfficheDotation:[]
     
 };

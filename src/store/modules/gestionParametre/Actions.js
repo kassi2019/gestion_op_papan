@@ -1405,3 +1405,146 @@ export function modifierOrdrePaiement({ commit }, nouveau) {
 })
     });
 }
+
+
+
+// Banque
+
+
+export function getBanque({ commit }) {
+  apiGuest.get("/listeBanque", { headers: authHeader() })
+    .then(response => {
+      commit("GET_BANQUE", response.data);
+    })
+    .catch(error => console.log(error));
+}
+
+export function ajouteBanque({ commit }, nouveau) {
+ 
+    apiGuest.post("/AjouterBanque", nouveau, { headers: authHeader() })
+    .then(response => {
+      if (response.status == 201) {
+        commit("AJOUTER_BANQUE", response.data);
+       toast("Enregistrement effectué avec succès!", {
+        "theme": "auto",
+        "type": "success",
+        "dangerouslyHTMLString": true
+})
+      }
+    }).catch();
+}
+
+export function modifierBanque({ commit }, nouveau) {
+  apiGuest.
+    put("/ModifierBanque/" + nouveau.id, nouveau, { headers: authHeader() })
+    .then(response => {
+      commit("MODIFIER_BANQUE", response.data);
+      toast("Modification effectué avec succès!", {
+        "theme": "auto",
+        "type": "success",
+        "dangerouslyHTMLString": true
+})
+    });
+}
+
+
+export function supprimerBanque({ commit,dispatch}, id) {
+
+
+  Swal.fire({
+
+  text: "Voulez vous vraiment supprimer ?",
+  icon: "question",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Confimer"
+}).then((result) => {
+  if (result.isConfirmed) {
+   
+    apiGuest.delete('/supprimerBanque/' + id, { headers: authHeader() })
+    commit('SUPPRIMER_BANQUE', id);
+    dispatch('getBanque');
+  
+    Swal.fire({
+      title: "Suppression",
+      text: "effectué avec succès.",
+      icon: "success"
+    });
+    
+    
+  }
+});
+
+}
+
+
+// COMPTE BANCAIRE
+
+
+export function getCompteBancaire({ commit }) {
+  apiGuest.get("/listeCompteBancaire", { headers: authHeader() })
+    .then(response => {
+      commit("GET_COMPTE_BANCAIRE", response.data);
+    })
+    .catch(error => console.log(error));
+}
+
+export function ajouteCompteBancaire({ commit }, nouveau) {
+ 
+    apiGuest.post("/AjouterCompteBancaire", nouveau, { headers: authHeader() })
+    .then(response => {
+      if (response.status == 201) {
+        commit("AJOUTER_COMPTE_BANCAIRE", response.data);
+       toast("Enregistrement effectué avec succès!", {
+        "theme": "auto",
+        "type": "success",
+        "dangerouslyHTMLString": true
+})
+      }
+    }).catch();
+}
+
+export function modifierCompteBancaire({ commit }, nouveau) {
+  apiGuest.
+    put("/ModifierCompteBancaire/" + nouveau.id, nouveau, { headers: authHeader() })
+    .then(response => {
+      commit("MODIFIER_COMPTE_BANCAIRE", response.data);
+      toast("Modification effectué avec succès!", {
+        "theme": "auto",
+        "type": "success",
+        "dangerouslyHTMLString": true
+})
+    });
+}
+
+
+export function supprimerCompteBancaire({ commit,dispatch}, id) {
+
+
+  Swal.fire({
+
+  text: "Voulez vous vraiment supprimer ?",
+  icon: "question",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Confimer"
+}).then((result) => {
+  if (result.isConfirmed) {
+   
+    apiGuest.delete('/supprimerCompteBancaire/' + id, { headers: authHeader() })
+    commit('SUPPRIMER_COMPTE_BANCAIRE', id);
+    dispatch('getBanque');
+  
+    Swal.fire({
+      title: "Suppression",
+      text: "effectué avec succès.",
+      icon: "success"
+    });
+    
+    
+  }
+});
+
+}

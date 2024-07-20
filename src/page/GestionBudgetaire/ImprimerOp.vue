@@ -17,8 +17,14 @@
           <!-- Modal -->
           <table class="table table-bordered border-primary">
             <tr>
-              <td style="text-align: center; border: 1px solid #000 !important;width: 40%">
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <td
+                style="
+                  text-align: center;
+                  border: 1px solid #000 !important;
+                  width: 40%;
+                "
+              >
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <h6 style="font-size: 12px">
                   Ministère des Ressources Animales et Halieutiques<br />
                   ------------------------- <br />
@@ -30,29 +36,39 @@
                 </h6>
                 <!-- <img src="/optimisation/skin/img/log3.png" width="80px;"  /> -->
               </td>
-              <td style="text-align: center; border: 1px solid #000 !important;width: 20%">
-                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  
-                    
+              <td
+                style="
+                  text-align: center;
+                  border: 1px solid #000 !important;
+                  width: 20%;
+                "
+              >
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
                 <img
                   src="../../../public/assets/img/amoirie.png"
                   width="50px;"
-                  style="text-align: center;"
+                  style="text-align: center"
                 />
-             
-                
-                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               </td>
 
-              <td style="text-align: center; border: 1px solid #000 !important;width: 40%;">
+              <td
+                style="
+                  text-align: center;
+                  border: 1px solid #000 !important;
+                  width: 40%;
+                "
+              >
                 <h6 style="font-size: 12px">
                   République de Côte d'Ivoire <br />
                   ------------------------- <br />
                   Union-Discipline-Travail
                 </h6>
-                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
                 <!-- <img src="/optimisation/skin/img/log3.png" width="80px;"  /> -->
               </td>
             </tr>
@@ -62,13 +78,13 @@
           </h3>
           <table
             id="customers"
-            style="text-align: center; border: 1px solid #000"
+            style="text-align: center; border: 1px solid #000; width: 100%"
           >
             <thead>
               <tr>
                 <th
                   style="
-                    font-size: 12px;
+                    font-size: 14px;
                     font-weight: bold;
                     color: #000;
                     width: 10%;
@@ -215,11 +231,12 @@
                 </th>
                 <td
                   style="
-                    font-size: 16px;
+                    font-size: 12px;
                     font-weight: bold;
                     color: #000;
                     text-align: left;
                   "
+                  class="text-break"
                 >
                   {{ objetDepense }}
                 </td>
@@ -300,7 +317,7 @@
                   "
                   title=""
                 >
-                  N° COMPTE BANCAIRE  &nbsp;&nbsp;&nbsp;<span
+                  N° COMPTE BANCAIRE &nbsp;&nbsp;&nbsp;<span
                     style="text-align: center !important; line-height: normal"
                     >:</span
                   >
@@ -312,7 +329,7 @@
                     color: #000;
                     text-align: left;
                   "
-                ></td>
+                >{{ rib_compte(id_compte) }}</td>
               </tr>
             </thead>
             <thead>
@@ -572,7 +589,10 @@
               </tr>
             </thead>
           </table>
-          <table id="customers" style="text-align: center; border: 1px solid #000">
+          <table
+            id="customers"
+            style="text-align: center; border: 1px solid #000"
+          >
             <tr>
               <td
                 style="
@@ -608,74 +628,113 @@
               </td>
             </tr>
             <tr>
-                <td style="
+              <td
+                style="
                   border: 1px solid #000 !important;
                   text-align: left;
                   width: 40%;
-                ">Approbation et signature de l'Ordonnateur
-                <br/><br/><br/>
-            </td>
-                <td style="
+                "
+              >
+                Approbation et signature de l'Ordonnateur <br /><br /><br />
+              </td>
+              <td
+                style="
                   border: 1px solid #000 !important;
                   text-align: left;
                   width: 40%;
-                ">DATE <br/><br/><br/></td>
-                <td style="
+                "
+              >
+                DATE <br /><br /><br />
+              </td>
+              <td
+                style="
                   border: 1px solid #000 !important;
                   text-align: left;
                   width: 40%;
-                "></td>
+                "
+              ></td>
             </tr>
             <tr>
-                <td style="
+              <td
+                style="
                   border: 1px solid #000 !important;
                   text-align: left;
                   width: 40%;
-                ">Visa du contrôleur Financier <br/><br/><br/></td>
-                <td style="
+                "
+              >
+                Visa du contrôleur Financier <br /><br /><br />
+              </td>
+              <td
+                style="
                   border: 1px solid #000 !important;
                   text-align: left;
                   width: 40%;
-                ">DATE <br/><br/><br/></td>
-                <td style="
+                "
+              >
+                DATE <br /><br /><br />
+              </td>
+              <td
+                style="
                   border: 1px solid #000 !important;
                   text-align: left;
                   width: 40%;
-                "></td>
+                "
+              ></td>
             </tr>
-             <tr>
-                <td style="
+            <tr>
+              <td
+                style="
                   border: 1px solid #000 !important;
                   text-align: left;
                   width: 40%;
-                ">Approbation et Signature du Regisseur d'Avances <br/><br/><br/></td>
-                <td style="
+                "
+              >
+                Approbation et Signature du Regisseur d'Avances
+                <br /><br /><br />
+              </td>
+              <td
+                style="
                   border: 1px solid #000 !important;
                   text-align: left;
                   width: 40%;
-                ">DATE <br/><br/><br/></td>
-                <td style="
+                "
+              >
+                DATE <br /><br /><br />
+              </td>
+              <td
+                style="
                   border: 1px solid #000 !important;
                   text-align: left;
                   width: 40%;
-                "></td>
+                "
+              ></td>
             </tr>
-             <tr>
-                <td style="
+            <tr>
+              <td
+                style="
                   border: 1px solid #000 !important;
                   text-align: left;
                   width: 40%;
-                ">Acquis Libératoire <br/><br/><br/></td>
-                <td style="
+                "
+              >
+                Acquis Libératoire <br /><br /><br />
+              </td>
+              <td
+                style="
                   border: 1px solid #000 !important;
                   text-align: left;
                   width: 40%;
-                ">DATE <br/><br/><br/></td>
-                <td style="
+                "
+              >
+                DATE <br /><br /><br />
+              </td>
+              <td
+                style="
                   border: 1px solid #000 !important;
                   text-align: left;
                   width: 40%;
-                "></td>
+                "
+              ></td>
             </tr>
           </table>
         </div>
@@ -735,6 +794,7 @@ export default {
       id: this.activite_id,
     };
     this.getBudgetViseParActvite(objet);
+      this.getCompteBancaire();
     // this.getActivite();
     //   this.getExerciceBudgetaire();
     //  // this.getGroupeActivitebudgetNotifie()
@@ -742,7 +802,7 @@ export default {
   },
   computed: {
     ...mapGetters("parametrage", [
-      "getterActivite",
+      "getterActivite","getterCompteBancaire",
       "getterListeOPgloba",
       "getterBailleur",
       "getterNatureEconomique",
@@ -762,6 +822,34 @@ export default {
       return (
         parseFloat(this.cumulAnterieure) + parseFloat(this.montant_prestation)
       );
+    }, 
+     rib_compte() {
+        return (id) => {
+          if (id != null && id != "") {
+      const qtereel = this.getterCompteBancaire.find(
+        (qtreel) => qtreel.id == id
+      );
+
+      if (qtereel) {
+        return qtereel.numero_compte;
+      }
+      return 0;
+          }
+        };
+    },
+    id_compte() {
+      //   return (id) => {
+      //     if (id != null && id != "") {
+      const qtereel = this.getterListeOPgloba.find(
+        (qtreel) => qtreel.id == this.Activite_id
+      );
+
+      if (qtereel) {
+        return qtereel.compte_id;
+      }
+      return 0;
+      //     }
+      //   };
     },
     cumulAnterieure() {
       //   return (id) => {
@@ -779,8 +867,7 @@ export default {
     },
     afficheDotaion() {
       if (
-        (this.sousbudget_id == 0 && this.activite_id != 0) ||
-        (this.sousbudget_id == "" && this.activite_id != 0)
+        (this.sousbudget_id == 0 && this.activite_id != 0)
       ) {
         // return (id) => {
         //     if (id != null && id != "") {
@@ -1071,7 +1158,7 @@ export default {
       "modifierDotationNotifie",
       "supprimerDotationNotifie",
       "getGroupeActivitebudgetNotifie",
-      "getBudgetEclate",
+      "getBudgetEclate","getCompteBancaire"
     ]),
     formatageSomme: formatageSomme,
     formatageSommeSansFCFA: formatageSommeSansFCFA,

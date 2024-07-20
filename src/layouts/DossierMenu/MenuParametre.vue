@@ -80,6 +80,17 @@
             <a
               class="nav-link collapsed"
               href=""
+              @click.prevent="activedOptionMenu('Banque')"
+            >
+              <i class="fas fa-arrow-right"></i>
+
+              <p>Banque</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link collapsed"
+              href=""
               @click.prevent="activedOptionMenu('Entreprise')"
             >
               <i class="fas fa-arrow-right"></i>

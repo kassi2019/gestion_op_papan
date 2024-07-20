@@ -476,3 +476,55 @@ export const MODIFIER_ORDRE_PAIEMENT = (state, elementModif) => {
         return response
     })
 }
+
+
+// banque
+
+
+export const GET_BANQUE = (state,value)=>{
+    state.stateBanque=value
+}
+
+export const AJOUTER_BANQUE = (state, elementAjouter) => {
+    state.stateBanque.unshift(elementAjouter)
+}
+
+export const MODIFIER_BANQUE = (state, elementModif) => {
+    state.stateBanque = state.stateBanque.map(response => {
+
+        if (response.id == elementModif.id) {
+            response = { ...elementModif }
+        }
+        return response
+    })
+}
+
+export const SUPPRIMER_BANQUE = (state, id) => {
+    state.stateBanque = state.stateBanque.filter(titre => titre.id != id)
+};
+
+// compte bancaire
+
+
+export const GET_COMPTE_BANCAIRE = (state,value)=>{
+    state.stateCompteBancaire=value
+}
+
+export const AJOUTER_COMPTE_BANCAIRE = (state, elementAjouter) => {
+    state.stateCompteBancaire.unshift(elementAjouter)
+}
+
+export const MODIFIER_COMPTE_BANCAIRE = (state, elementModif) => {
+    state.stateCompteBancaire = state.stateCompteBancaire.map(response => {
+
+        if (response.id == elementModif.id) {
+            response = { ...elementModif }
+        }
+        return response
+    })
+}
+
+export const SUPPRIMER_COMPTE_BANCAIRE = (state, id) => {
+    state.stateCompteBancaire = state.stateCompteBancaire.filter(titre => titre.id != id)
+};
+

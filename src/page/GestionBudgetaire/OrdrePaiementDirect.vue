@@ -95,13 +95,16 @@
                       />
                     </div>
                     <div class="col-9">
-                      <label class="form-label">Unité Opérationnelle  <span
+                      <label class="form-label"
+                        >Unité Opérationnelle
+                        <span
                           style="
                             color: red !important;
                             font-size: 15px !important;
                           "
                           >*</span
-                        ></label>
+                        ></label
+                      >
 
                       <model-list-select
                         :list="getterBudgetViseGroupeParActivite"
@@ -114,13 +117,16 @@
                       </model-list-select>
                     </div>
                     <div class="col-6">
-                      <label class="form-label">Activité  <span
+                      <label class="form-label"
+                        >Activité
+                        <span
                           style="
                             color: red !important;
                             font-size: 15px !important;
                           "
                           >*</span
-                        ></label>
+                        ></label
+                      >
                       <model-list-select
                         :list="getterBudgetViseGroupeParActivite"
                         v-model="activite_id"
@@ -144,13 +150,16 @@
                       </model-list-select>
                     </div>
                     <div class="col-6">
-                      <label class="form-label">Nom du Bénéficiaire  <span
+                      <label class="form-label"
+                        >Nom du Bénéficiaire
+                        <span
                           style="
                             color: red !important;
                             font-size: 15px !important;
                           "
                           >*</span
-                        ></label>
+                        ></label
+                      >
                       <model-list-select
                         :list="AfficheEntreprise"
                         v-model="entreprise_id"
@@ -184,13 +193,16 @@
                       />
                     </div>
                     <div class="col-12">
-                      <label class="form-label">Objet de la depense  <span
+                      <label class="form-label"
+                        >Objet de la depense
+                        <span
                           style="
                             color: red !important;
                             font-size: 15px !important;
                           "
                           >*</span
-                        ></label>
+                        ></label
+                      >
                       <input
                         type="text"
                         class="form-control"
@@ -200,7 +212,8 @@
                     </div>
                     <div class="col-6">
                       <label class="form-label"
-                        >Numéro de ordre de paiement  <span
+                        >Numéro de ordre de paiement
+                        <span
                           style="
                             color: red !important;
                             font-size: 15px !important;
@@ -216,13 +229,16 @@
                       />
                     </div>
                     <div class="col-6">
-                      <label class="form-label">Montant des préstations  <span
+                      <label class="form-label"
+                        >Montant des préstations
+                        <span
                           style="
                             color: red !important;
                             font-size: 15px !important;
                           "
                           >*</span
-                        ></label>
+                        ></label
+                      >
 
                       <money3
                         class="form-control"
@@ -235,7 +251,8 @@
                     </legend>
                     <div class="col-9">
                       <label class="form-label"
-                        >Nature économique / Imputation  <span
+                        >Nature économique / Imputation
+                        <span
                           style="
                             color: red !important;
                             font-size: 15px !important;
@@ -264,13 +281,16 @@
                       />
                     </div>
                     <div class="col-3">
-                      <label class="form-label">Type financement  <span
+                      <label class="form-label"
+                        >Type financement
+                        <span
                           style="
                             color: red !important;
                             font-size: 15px !important;
                           "
                           >*</span
-                        ></label>
+                        ></label
+                      >
 
                       <model-list-select
                         :list="AfficheTypeFinancement"
@@ -283,13 +303,16 @@
                       </model-list-select>
                     </div>
                     <div class="col-9">
-                      <label class="form-label">Source de financement  <span
+                      <label class="form-label"
+                        >Source de financement
+                        <span
                           style="
                             color: red !important;
                             font-size: 15px !important;
                           "
                           >*</span
-                        ></label>
+                        ></label
+                      >
 
                       <model-list-select
                         :list="AfficheSourceFinancement"
@@ -720,7 +743,6 @@ export default {
     };
   },
   created() {
-    
     // this.dossier_id = this.$route.params.id;
     this.getExerciceBudgetaire();
     this.getActivite();
@@ -845,7 +867,8 @@ export default {
             qtreel.ligneeconomique_id == this.nature_economique_id &&
             qtreel.type_financement_id == this.type_financement_id &&
             qtreel.source_financement_id == this.source_financement_id &&
-            qtreel.nature_depense_id == this.NatureDepense_id && qtreel.actuelle==1
+            qtreel.nature_depense_id == this.NatureDepense_id &&
+            qtreel.actuelle == 1
         );
 
         if (qtereel) {
@@ -861,7 +884,8 @@ export default {
             qtreel.type_financement_id == this.type_financement_id &&
             qtreel.source_financement_id == this.source_financement_id &&
             qtreel.nature_depense_id == this.NatureDepense_id &&
-            qtreel.sous_budget_id == this.sous_budget_id && qtreel.actuelle==1
+            qtreel.sous_budget_id == this.sous_budget_id &&
+            qtreel.actuelle == 1
         );
 
         if (qtereel) {
@@ -879,7 +903,8 @@ export default {
           (qtreel) =>
             qtreel.ligneeconomique_id == this.nature_economique_id &&
             qtreel.type_financement_id == this.type_financement_id &&
-            qtreel.source_financement_id == this.source_financement_id && qtreel.actuelle==1
+            qtreel.source_financement_id == this.source_financement_id &&
+            qtreel.actuelle == 1
         );
 
         if (qtereel) {
@@ -896,7 +921,8 @@ export default {
             qtreel.ligneeconomique_id == this.nature_economique_id &&
             qtreel.sous_budget_id == this.sous_budget_id &&
             qtreel.type_financement_id == this.type_financement_id &&
-            qtreel.source_financement_id == this.source_financement_id && qtreel.actuelle==1
+            qtreel.source_financement_id == this.source_financement_id &&
+            qtreel.actuelle == 1
         );
 
         if (qtereel) {
@@ -930,7 +956,8 @@ export default {
           (qtreel) =>
             qtreel.ligneeconomique_id == this.nature_economique_id &&
             qtreel.type_financement_id == this.type_financement_id &&
-            qtreel.source_financement_id == this.source_financement_id && qtreel.actuelle==1
+            qtreel.source_financement_id == this.source_financement_id &&
+            qtreel.actuelle == 1
         );
 
         if (qtereel) {
@@ -947,7 +974,8 @@ export default {
             qtreel.ligneeconomique_id == this.nature_economique_id &&
             qtreel.sous_budget_id == this.sous_budget_id &&
             qtreel.type_financement_id == this.type_financement_id &&
-            qtreel.source_financement_id == this.source_financement_id && qtreel.actuelle==1
+            qtreel.source_financement_id == this.source_financement_id &&
+            qtreel.actuelle == 1
         );
 
         if (qtereel) {
@@ -991,7 +1019,8 @@ export default {
           (item) =>
             item.activite_id == this.activite_id &&
             item.ligneeconomique_id == this.nature_economique_id &&
-            item.type_financement_id == this.type_financement_id && item.actuelle==1
+            item.type_financement_id == this.type_financement_id &&
+            item.actuelle == 1
         );
         //  let vm=this
         let array_exercie = [];
@@ -1013,7 +1042,8 @@ export default {
           (item) =>
             item.sous_budget_id == this.sous_budget_id &&
             item.ligneeconomique_id == this.nature_economique_id &&
-            item.type_financement_id == this.type_financement_id && item.actuelle==1
+            item.type_financement_id == this.type_financement_id &&
+            item.actuelle == 1
         );
         //  let vm=this
         let array_exercie = [];
@@ -1066,7 +1096,8 @@ export default {
         let objet = this.getterBudgetViseParActivite.filter(
           (item) =>
             item.activite_id == this.activite_id &&
-            item.ligneeconomique_id == this.nature_economique_id && item.actuelle==1
+            item.ligneeconomique_id == this.nature_economique_id &&
+            item.actuelle == 1
         );
         //  let vm=this
         let array_exercie = [];
@@ -1087,7 +1118,8 @@ export default {
         let objet = this.getterBudgetViseParActivite.filter(
           (item) =>
             item.sous_budget_id == this.sous_budget_id &&
-            item.ligneeconomique_id == this.nature_economique_id && item.actuelle==1
+            item.ligneeconomique_id == this.nature_economique_id &&
+            item.actuelle == 1
         );
         //  let vm=this
         let array_exercie = [];
@@ -1124,7 +1156,7 @@ export default {
       // return (id) => {
       if (this.sous_budget_id == 0 && this.activite_id != 0) {
         let objet = this.getterBudgetViseParActivite.filter(
-          (item) => item.activite_id == this.activite_id && item.actuelle==1
+          (item) => item.activite_id == this.activite_id && item.actuelle == 1
         );
         //  let vm=this
         let array_exercie = [];
@@ -1143,7 +1175,8 @@ export default {
         // };
       } else {
         let objet = this.getterBudgetViseParActivite.filter(
-          (item) => item.sous_budget_id == this.sous_budget_id && item.actuelle==1
+          (item) =>
+            item.sous_budget_id == this.sous_budget_id && item.actuelle == 1
         );
         //  let vm=this
         let array_exercie = [];

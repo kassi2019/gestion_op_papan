@@ -38,6 +38,7 @@
                 role="tab"
                 aria-controls="pills-home"
                 aria-selected="true"
+                style="color: #000 !important;"
               >
                 SAISIR ORDRE DE PAIEMENT
               </button>
@@ -52,6 +53,7 @@
                 role="tab"
                 aria-controls="pills-profile"
                 aria-selected="false"
+                style="color: #000 !important;"
               >
                 SAISIR FACTURE
               </button>
@@ -66,6 +68,7 @@
                 role="tab"
                 aria-controls="pills-contact"
                 aria-selected="false"
+                style="color: #000 !important;"
               >
                 VERIFICATION ORDRE PAIEMENT
               </button>
@@ -115,7 +118,6 @@
                         style="border: 1px solid #000"
                       >
                       </model-list-select>
-                      unite_operationnelle_id
                     </div>
                     <div class="col-6">
                       <label class="form-label"
@@ -150,7 +152,7 @@
                       >
                       </model-list-select>
                     </div>
-                    <div class="col-6">
+                    <div class="col-12">
                       <label class="form-label"
                         >Nom du Bénéficiaire
                         <span
@@ -166,6 +168,27 @@
                         v-model="entreprise_id"
                         option-value="id"
                         option-text="objet"
+                        placeholder="select item"
+                        style="border: 1px solid #000"
+                      >
+                      </model-list-select>
+                    </div>
+                    <div class="col-6">
+                      <label class="form-label"
+                        >Compte Bancaire
+                        <span
+                          style="
+                            color: red !important;
+                            font-size: 15px !important;
+                          "
+                          >*</span
+                        ></label
+                      >
+                      <model-list-select
+                        :list="afficheCompteBancaire"
+                        v-model="compte_id"
+                        option-value="id"
+                        option-text="numero_compte"
                         placeholder="select item"
                         style="border: 1px solid #000"
                       >
@@ -226,7 +249,8 @@
                         type="text"
                         class="form-control"
                         style="border: 1px solid #000 !important"
-                        v-model="numero_ordre_paiement"
+                        :value="automatiseNumeroOP"
+                        readonly
                       />
                     </div>
                     <div class="col-6">
@@ -282,13 +306,16 @@
                       />
                     </div>
                     <div class="col-3">
-                      <label class="form-label">Type financement  <span
+                      <label class="form-label"
+                        >Type financement
+                        <span
                           style="
                             color: red !important;
                             font-size: 15px !important;
                           "
                           >*</span
-                        ></label>
+                        ></label
+                      >
 
                       <model-list-select
                         :list="AfficheTypeFinancement"
@@ -301,13 +328,16 @@
                       </model-list-select>
                     </div>
                     <div class="col-9">
-                      <label class="form-label">Source de financement  <span
+                      <label class="form-label"
+                        >Source de financement
+                        <span
                           style="
                             color: red !important;
                             font-size: 15px !important;
                           "
                           >*</span
-                        ></label>
+                        ></label
+                      >
 
                       <model-list-select
                         :list="AfficheSourceFinancement"
@@ -337,7 +367,8 @@
                       <money3
                         class="form-control"
                         v-bind="config"
-                        v-model="cumul_anterieure"
+                        :model-value="afficheMontantCumul"
+                        readonly
                       ></money3>
                     </div>
                     <div class="col-3">
@@ -394,7 +425,7 @@
                         v-model="numero_facture"
                       />
                     </div>
-                    <div class="col-3">
+                    <div class="col-2">
                       <label class="form-label">Date de la facture</label>
                       <input
                         type="date"
@@ -403,17 +434,25 @@
                       />
                     </div>
                     <div class="col-3">
-                      <label class="form-label">Montant de la facture</label>
+                      <label class="form-label">Montant de la OP</label>
                       <money3
                         class="form-control"
                         v-bind="config"
-                        v-model="montant_facture"
+                        v-model="montant_prestation"
+                        readonly
                       ></money3>
                     </div>
-                    <div class="col-3">
-                      <label class="form-label"
-                        >Montant de la facture saisie</label
-                      >
+                    <div class="col-2">
+                      <label class="form-label">Montant facture saisie</label>
+                      <money3
+                        class="form-control"
+                        v-bind="config"
+                        readonly
+                        v-model="montant_prestation"
+                      ></money3>
+                    </div>
+                    <div class="col-2">
+                      <label class="form-label">Ecart</label>
                       <money3
                         class="form-control"
                         v-bind="config"
@@ -430,7 +469,7 @@
                       />
                     </div>
                     <div class="col-3">
-                      <label class="form-label">Quantité</label>
+                      <label class="form-label">Quantité ( A )</label>
                       <input
                         type="text"
                         class="form-control"
@@ -438,7 +477,7 @@
                       />
                     </div>
                     <div class="col-3">
-                      <label class="form-label">Prix Unitaire</label>
+                      <label class="form-label">Prix Unitaire ( B )</label>
                       <money3
                         class="form-control"
                         v-bind="config"
@@ -446,7 +485,7 @@
                       ></money3>
                     </div>
                     <div class="col-3">
-                      <label class="form-label">Montant HT</label>
+                      <label class="form-label">Montant HT (C = A * B)</label>
                       <money3
                         class="form-control"
                         v-bind="config"
@@ -467,56 +506,25 @@
                         <option value="1">Non</option>
                       </select>
                     </div>
-                    <!-- <div class="col-3">
-                      <label class="form-label">Autre(s) Taxe(s)</label>
-                      <select
-                        class="form-select form-control"
-                        id="defaultSelect"
-                        style="border: 1px solid #000 !important"
-                      >
-                        <option></option>
-                      </select>
-                    </div> -->
-                    <!-- <div class="col-3">
-                      <label class="form-label">Type de Forfait</label>
-                      <select
-                        class="form-select form-control"
-                        id="defaultSelect"
-                        style="border: 1px solid #000 !important"
-                      >
-                        <option></option>
-                        <option value="0">Oui</option>
-                        <option value="1">Non</option>
-                      </select>
-                    </div> -->
-                    <div class="col-3">
-                      <label class="form-label">Taux (%)</label>
-                      <select
-                        class="form-select form-control"
-                        id="defaultSelect"
-                        style="border: 1px solid #000 !important"
-                        v-model="FormDataDossier.taux"
-                      >
-                        <option></option>
-                        <option
-                          v-for="item in AfficheEnFonctionExenere"
-                          :key="item.id"
-                          :value="item.taux"
-                        >
-                          {{ item.taux }}
-                        </option>
-                      </select>
+                    <div class="col-2">
+                      <label class="form-label">Autre taux (%) ( D )</label>
+                      <input type="text" class="form-control"  v-model="autre_taux"/>
                     </div>
-                    <!-- <div class="col-3">
-                      <label class="form-label">NET Commerciale HT</label>
+                    <div class="col-2">
+                      <label class="form-label">Taux TVA (%) ( F )</label>
+                      <input type="text" class="form-control"  :value="AfficheTauxTVA" readonly />
+                    </div>
+                    <div class="col-2">
+                      <label class="form-label">Autre montant ( E = C * D)</label>
                       <money3
                         class="form-control"
                         v-bind="config"
-                        v-model="montant_prestation"
+                        :model-value="afficheAutreMontant"
+                       readonly
                       ></money3>
-                    </div> -->
-                    <div class="col-3">
-                      <label class="form-label">Montant Tva</label>
+                    </div>
+                    <div class="col-2">
+                      <label class="form-label">Montant Tva ( G = C * F)</label>
                       <money3
                         class="form-control"
                         v-bind="config"
@@ -525,14 +533,15 @@
                       ></money3>
                     </div>
                     <div class="col-3">
-                      <label class="form-label">Montant TTC</label>
+                      <label class="form-label">Montant TTC ( H = E + G + C )</label>
                       <money3
                         class="form-control"
                         v-bind="config"
                         :model-value="MontantTTC"
+                        readonly
                       ></money3>
                     </div>
-                    <div class="col-3">
+                    <div class="col-1">
                       <br />
                       <button
                         type="button"
@@ -703,6 +712,8 @@ export default {
         exonere: 0,
         taux: 0,
       },
+      autre_taux:0,
+      compte_id: "",
       objet_depense: "",
       activite_id: 0,
       unite_operationnelle_id: 0,
@@ -751,6 +762,8 @@ export default {
     this.getBailleur();
     this.getTaux();
     this.getActiviteOp();
+    this.getCompteBancaire();
+    // this.getListeOrdrePaiementGlobal()
     // this.getDotationNotifie();
     // this.getDotationReport();
     // this.getDotationRessourcePropre();
@@ -762,6 +775,7 @@ export default {
   computed: {
     ...mapGetters("parametrage", [
       "getterProjet",
+      "getterCompteBancaire",
       "getterActiviteSurOP",
       "getterTaux",
       "getterBudgetViseParActivite",
@@ -779,7 +793,106 @@ export default {
       "getterDotationRessourcePropre",
       "getterDotationAutreRessource",
       "getterListeBudgetEclate",
+      "getterListeOPgloba",
+      "getterOpParActivite",
     ]),
+     MontantTTC() {
+      return parseFloat(this.afficheAutreMontant) + parseFloat(this.montantTva)+parseFloat(this.MontantHt);
+    },
+     montantTva() {
+      const val = parseFloat(
+        (parseFloat(this.MontantHt) * parseFloat(this.AfficheTauxTVA)) /
+          100
+      );
+
+      if (val) {
+        return parseFloat(val).toFixed(0);
+      }
+
+      return 0;
+    },
+    afficheAutreMontant() {
+  return (parseFloat(this.autre_taux)/100)*parseFloat(this.MontantHt)
+    },
+    AfficheTauxTVA() {
+      if (this.FormDataDossier.exonere == 1) {
+        return 0
+      } else {
+       
+      // return (id) => {
+      //   if (id != null && id != "") {
+          const qtereel = this.getterTaux.find(
+            (qtreel) => qtreel.encours == 1
+          );
+
+          if (qtereel) {
+            return qtereel.taux;
+          }
+          return 0;
+      //   }
+      // };
+  
+      }
+    },
+    automatiseNumeroOP() {
+      return (
+        "PAPAN" +
+        " /" +
+        "OP" +
+        "" +
+        (this.getterListeOPgloba.length + 1) +
+        "/ " +
+        this.exerciceBudgetaire
+      );
+    },
+    afficheMontantCumul() {
+      if (this.sous_budget_id == 0 && this.activite_id != 0) {
+        // return (id) => {
+        //     if (id != null && id != "") {
+        const qtereel = this.getterOpParActivite.find(
+          (qtreel) =>
+            qtreel.nature_economique_id == this.nature_economique_id &&
+            qtreel.type_financement_id == this.type_financement_id &&
+            qtreel.source_financement_id == this.source_financement_id &&
+            qtreel.nature_depense_id == this.NatureDepense_id
+        );
+
+        if (qtereel) {
+          return qtereel.dotation_total;
+        }
+        return 0;
+        //   }
+        // };
+      } else {
+        const qtereel = this.getterOpParActivite.find(
+          (qtreel) =>
+            qtreel.nature_economique_id == this.nature_economique_id &&
+            qtreel.type_financement_id == this.type_financement_id &&
+            qtreel.source_financement_id == this.source_financement_id &&
+            qtreel.nature_depense_id == this.NatureDepense_id &&
+            qtreel.sous_budget_id == this.sous_budget_id
+        );
+
+        if (qtereel) {
+          return qtereel.montant_prestation;
+        }
+        return 0;
+      }
+    },
+    afficheCompteBancaire() {
+      let collet = [];
+      this.getterCompteBancaire.filter((item) => {
+        if (item.entreprise_id == this.entreprise_id) {
+          let data = {
+            id: item.id,
+            numero_compte: item.numero_compte,
+          };
+          collet.push(data);
+        }
+      });
+      return collet;
+    },
+
     afficheLibelleActivite() {
       return (id) => {
         if (id != null && id != "") {
@@ -816,21 +929,8 @@ export default {
       return [];
       // };
     },
-    MontantTTC() {
-      return parseFloat(this.MontantHt) + parseFloat(this.montantTva);
-    },
-    montantTva() {
-      const val = parseFloat(
-        (parseFloat(this.MontantHt) * parseFloat(this.FormDataDossier.taux)) /
-          100
-      );
-
-      if (val) {
-        return parseFloat(val).toFixed(0);
-      }
-
-      return 0;
-    },
+   
+   
     AfficheEnFonctionExenere() {
       if (this.exonere == 0) {
         return this.getterTaux.filter((item) => item.encours != 1);
@@ -849,7 +949,8 @@ export default {
     },
     CumulDepense() {
       return (
-        parseFloat(this.cumul_anterieure) + parseFloat(this.montant_prestation)
+        parseFloat(this.afficheMontantCumul) +
+        parseFloat(this.montant_prestation)
       );
     },
     afficheDotaion() {
@@ -1398,6 +1499,8 @@ export default {
   methods: {
     ...mapActions("parametrage", [
       "getActivite",
+      "getListeOrdrePaiementGlobal",
+      "getCompteBancaire",
       "getActiviteOp",
       "getTaux",
       "getSousBudget",
@@ -1417,6 +1520,7 @@ export default {
       "getDotationAutreRessource",
       "getEntreprise",
       "ajouterOrdrePaiement",
+      "getOpParActvite",
     ]),
     AfficheVentilationBudget(id) {
       this.$router.push({
@@ -1484,21 +1588,18 @@ export default {
         exercice: this.exerciceBudgetaire,
         unite_operationnelle_id: this.unite_operationnelle_id,
         activite_id: this.activite_id,
-
         sous_budget_id: this.sous_budget_id,
-
         entreprise_id: this.entreprise_id,
-
+        compte_id: this.compte_id,
         objet_depense: this.objet_depense,
-
-        numero_ordre_paiement: this.numero_ordre_paiement,
+        numero_ordre_paiement: this.automatiseNumeroOP,
         type_ordre_paiement: 1,
         montant_prestation: this.montant_prestation,
         nature_economique_id: this.nature_economique_id,
         nature_depense_id: this.NatureDepense_id,
         type_financement_id: this.type_financement_id,
         source_financement_id: this.source_financement_id,
-        cumul_anterieure: this.cumul_anterieure,
+        cumul_anterieure: this.afficheMontantCumul,
         numero_facture: this.numero_facture,
         date_facture: this.date_facture,
         FormDataDossier: this.TableauDossier,
@@ -1536,6 +1637,7 @@ export default {
         id: value,
       };
       this.getBudgetViseParActvite(objet);
+      this.getOpParActvite(objet);
     },
   },
 };
