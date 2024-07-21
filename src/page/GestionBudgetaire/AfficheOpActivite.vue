@@ -100,21 +100,21 @@
                   data-bs-toggle="modal"
                   data-bs-target="#largeModal1"
                   style="cursor: pointer;color:blue"
-                  @click.prevent="AfficheModalModification(item.id)"
+                  
                   ></span
                 >
                 <span
                 title="Supprimer"
                   class="fas fa-archive"
                   style="cursor: pointer;color:red"
-                  @click.prevent="supprimerInformationBudget(item.id)"
+                  
                   ></span
                 >
                 <span
                 title="Voir facture"
                   class="fas fa-eye"
                   style="cursor: pointer;color:#006D80"
-                  @click.prevent="supprimerInformationBudget(item.id)"
+                 
                   ></span
                 >
                 <span

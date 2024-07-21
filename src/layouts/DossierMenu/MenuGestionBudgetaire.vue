@@ -104,7 +104,10 @@
                   </a>
                 </li>
                 <li>
-                  <a href="" @click.prevent="activedOptionMenu('PresentationBudgetVise')">
+                  <a
+                    href=""
+                    @click.prevent="activedOptionMenu('PresentationBudgetVise')"
+                  >
                     <span class="sub-item">Consulter budget visé</span>
                   </a>
                 </li>
@@ -145,12 +148,15 @@
                   </a>
                 </li>
                 <li>
-                  <a href="../forms/forms.html">
+                  <a href="" @click.prevent="activedOptionMenu('OrdrePaiementAnnulation')">
                     <span class="sub-item">OP Annulation</span>
                   </a>
                 </li>
                 <li>
-                  <a href="../forms/forms.html">
+                  <a
+                    href=""
+                    @click.prevent="activedOptionMenu('OrdrePaiementDefinitif')"
+                  >
                     <span class="sub-item">OP Définitif</span>
                   </a>
                 </li>

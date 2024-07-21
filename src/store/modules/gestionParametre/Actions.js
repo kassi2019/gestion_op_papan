@@ -1320,6 +1320,7 @@ export function ajouterOrdrePaiement({ commit,dispatch }, nouveau) {
       if (response.status == 201) {
         commit("AJOUTER_ORDRE_PAIEMENT", response.data);
         dispatch("getActiviteOp");
+        dispatch('getListeOrdrePaiementGlobal');
        toast("Enregistrement effectué avec succès!", {
         "theme": "auto",
         "type": "success",
@@ -1383,7 +1384,20 @@ export function getOpParActvite({ commit }, objet) {
   });
 
 }
+export function getFactureParOP({ commit }, objet) {
 
+  return new Promise((resolve, reject) => {
+    apiGuest
+      .get("/AfficheFactureParOP/" + objet.id, { headers: authHeader() })
+      .then(response => {
+        resolve(response);
+        commit("GET_FACTURE_PAR_OP", response.data);
+      }).catch(error => {
+        reject(error);
+      });
+  });
+
+}
 
 export function getBudgetVise({ commit }) {
   apiGuest.get("/afficherBudgetVise", { headers: authHeader() })
@@ -1406,7 +1420,20 @@ export function modifierOrdrePaiement({ commit }, nouveau) {
     });
 }
 
+export function getInformationOp({ commit }, objet) {
 
+  return new Promise((resolve, reject) => {
+    apiGuest
+      .get("/AfficheInformationSurOP/" + objet.id, { headers: authHeader() })
+      .then(response => {
+        resolve(response);
+        commit("GET_INFORMATION_ORDRE_PAIEMENT", response.data);
+      }).catch(error => {
+        reject(error);
+      });
+  });
+
+}
 
 // Banque
 

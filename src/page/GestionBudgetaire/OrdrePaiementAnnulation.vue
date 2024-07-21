@@ -21,7 +21,7 @@
                 <i class="icon-arrow-right"></i>
               </li>
               <li class="nav-item">
-                <a href="#">OP Provisoire</a>
+                <a href="#">OP Annulation</a>
               </li>
             </ul>
           </div>
@@ -43,7 +43,7 @@
                 SAISIR ORDRE DE PAIEMENT
               </button>
             </li>
-            <li class="nav-item" role="presentation">
+            <!-- <li class="nav-item" role="presentation">
               <button
                 class="nav-link"
                 id="pills-profile-tab"
@@ -57,7 +57,8 @@
               >
                 SAISIR FACTURE
               </button>
-            </li>
+            </li> -->
+
             <li class="nav-item" role="presentation">
               <button
                 class="nav-link"
@@ -87,44 +88,8 @@
                     <legend style="text-decoration: underline">
                       Information sur Ordre de paiement
                     </legend>
-                    <div class="col-3">
-                      <label class="form-label">Exercice</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        readonly
-                        :value="exerciceBudgetaire"
-                        style="border: 1px solid #000 !important"
-                      />
-                    </div>
-                    <div class="col-9">
-                      <label class="form-label"
-                        >Unité Opérationnelle
-                        <span
-                          style="
-                            color: red !important;
-                            font-size: 15px !important;
-                          "
-                          >*</span
-                        ></label
-                      >
 
-                      <model-list-select
-                        :list="getterBudgetViseGroupeParActivite"
-                        v-model="unite_operationnelle_id"
-                        option-value="unite_operationnelle_id"
-                        option-text="nom_projet"
-                        placeholder="select item"
-                        style="border: 1px solid #000"
-                      >
-                      </model-list-select>
-                      <span
-                        style="color: red"
-                        v-if="unite_operationnelle_id == 0"
-                        >Ce champs est obligatoire!
-                      </span>
-                    </div>
-                    <div class="col-6">
+                    <div class="col-12">
                       <label class="form-label"
                         >Activité
                         <span
@@ -148,17 +113,18 @@
                         >Ce champs est obligatoire!
                       </span>
                     </div>
-                    <div class="col-6">
-                      <label class="form-label"
-                        >Composante
-                        <span
-                          style="
-                            color: red !important;
-                            font-size: 15px !important;
-                          "
-                          >*</span
-                        ></label
-                      >
+                    <div class="col-3">
+                      <label class="form-label">Exercice</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        readonly
+                        :value="exerciceBudgetaire"
+                        style="border: 1px solid #000 !important"
+                      />
+                    </div>
+                    <div class="col-9">
+                      <label class="form-label">Sous budget / Composante</label>
                       <model-list-select
                         :list="libelleSousBudget"
                         v-model="sous_budget_id"
@@ -168,13 +134,10 @@
                         style="border: 1px solid #000"
                       >
                       </model-list-select>
-                      <span style="color: red" v-if="sous_budget_id == 0"
-                        >Ce champs est obligatoire!
-                      </span>
                     </div>
                     <div class="col-12">
                       <label class="form-label"
-                        >Nom du Bénéficiaire
+                        >Numéro Ordre paiement
                         <span
                           style="
                             color: red !important;
@@ -184,38 +147,59 @@
                         ></label
                       >
                       <model-list-select
-                        :list="AfficheEntreprise"
-                        v-model="entreprise_id"
+                        :list="afficheOPProvisoire"
+                        v-model="ordre_paiement_id"
                         option-value="id"
-                        option-text="objet"
+                        option-text="numero_ordre_paiement"
                         placeholder="select item"
                         style="border: 1px solid #000"
                       >
                       </model-list-select>
-                      <span style="color: red" v-if="entreprise_id == 0"
+                      <span style="color: red" v-if="ordre_paiement_id == 0"
                         >Ce champs est obligatoire!
                       </span>
                     </div>
+                    <div class="col-12">
+                      <label class="form-label">Unité Opérationnelle </label>
+
+                      <input
+                        type="text"
+                        class="form-control"
+                        readonly
+                        :value="afficheNomProjet(ordre_paiement_id)"
+                        style="border: 1px solid #000 !important"
+                      />
+                    </div>
+
+                    <!-- <div class="col-6">
+                      <label class="form-label">Composante </label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        readonly
+                        style="border: 1px solid #000 !important"
+                         :value="afficheNomProjet(ordre_paiement_id)"
+                      />
+                    </div> -->
+                    <div class="col-12">
+                      <label class="form-label">Nom du Bénéficiaire </label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        readonly
+                        style="border: 1px solid #000 !important"
+                        :value="afficheBeneficiaire(ordre_paiement_id)"
+                      />
+                    </div>
                     <div class="col-6">
-                      <label class="form-label"
-                        >Compte Bancaire
-                        <!-- <span
-                          style="
-                            color: red !important;
-                            font-size: 15px !important;
-                          "
-                          >*</span
-                        > -->
-                      </label>
-                      <model-list-select
-                        :list="afficheCompteBancaire"
-                        v-model="compte_id"
-                        option-value="id"
-                        option-text="numero_compte"
-                        placeholder="select item"
-                        style="border: 1px solid #000"
-                      >
-                      </model-list-select>
+                      <label class="form-label">Compte Bancaire </label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        readonly
+                        style="border: 1px solid #000 !important"
+                        :value="afficheCompteBancaire1(ordre_paiement_id)"
+                      />
                     </div>
                     <div class="col-3">
                       <label class="form-label">Adresse</label>
@@ -223,8 +207,8 @@
                         type="text"
                         class="form-control"
                         readonly
-                        :value="AdresseEntreprise(entreprise_id)"
                         style="border: 1px solid #000 !important"
+                        :value="afficheAdresse(ordre_paiement_id)"
                       />
                     </div>
                     <div class="col-3">
@@ -236,29 +220,18 @@
                         class="form-control"
                         readonly
                         style="border: 1px solid #000 !important"
-                        :value="ccEntreprise(entreprise_id)"
+                        :value="afficheNumeroCC(ordre_paiement_id)"
                       />
                     </div>
                     <div class="col-12">
-                      <label class="form-label"
-                        >Objet de la depense
-                        <span
-                          style="
-                            color: red !important;
-                            font-size: 15px !important;
-                          "
-                          >*</span
-                        ></label
-                      >
+                      <label class="form-label">Objet de la depense </label>
                       <input
                         type="text"
                         class="form-control"
+                        readonly
                         style="border: 1px solid #000 !important"
-                        v-model="objet_depense"
+                        :value="afficheObjet(ordre_paiement_id)"
                       />
-                      <span style="color: red" v-if="objet_depense == 0"
-                        >Ce champs est obligatoire!
-                      </span>
                     </div>
                     <div class="col-6">
                       <label class="form-label"
@@ -299,26 +272,14 @@
                     <div class="col-9">
                       <label class="form-label"
                         >Nature économique / Imputation
-                        <span
-                          style="
-                            color: red !important;
-                            font-size: 15px !important;
-                          "
-                          >*</span
-                        ></label
-                      >
-                      <model-list-select
-                        :list="AfficheNatureEconomique"
-                        v-model="nature_economique_id"
-                        option-value="id"
-                        option-text="objet"
-                        placeholder="select item"
-                        style="border: 1px solid #000"
-                      >
-                      </model-list-select>
-                      <span style="color: red" v-if="nature_economique_id == 0"
-                        >Ce champs est obligatoire!
-                      </span>
+                      </label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        readonly
+                        style="border: 1px solid #000 !important"
+                        :value="afficheNatureEconomique(ordre_paiement_id)"
+                      />
                     </div>
                     <div class="col-3">
                       <label class="form-label">Nature de depense</label>
@@ -326,59 +287,31 @@
                         type="text"
                         class="form-control"
                         style="border: 1px solid #000 !important"
-                        :value="libelleNatureDepense"
+                        :value="afficheNatureDepense(ordre_paiement_id)"
                         readonly
                       />
                     </div>
                     <div class="col-3">
-                      <label class="form-label"
-                        >Type financement
-                        <span
-                          style="
-                            color: red !important;
-                            font-size: 15px !important;
-                          "
-                          >*</span
-                        ></label
-                      >
+                      <label class="form-label">Type financement </label>
 
-                      <model-list-select
-                        :list="AfficheTypeFinancement"
-                        v-model="type_financement_id"
-                        option-value="id"
-                        option-text="objet"
-                        placeholder="select item"
-                        style="border: 1px solid #000"
-                      >
-                      </model-list-select>
-                      <span style="color: red" v-if="type_financement_id == 0"
-                        >Ce champs est obligatoire!
-                      </span>
+                      <input
+                        type="text"
+                        class="form-control"
+                        readonly
+                        style="border: 1px solid #000 !important"
+                        :value="afficheTypeFiancement(ordre_paiement_id)"
+                      />
                     </div>
                     <div class="col-9">
-                      <label class="form-label"
-                        >Source de financement
-                        <span
-                          style="
-                            color: red !important;
-                            font-size: 15px !important;
-                          "
-                          >*</span
-                        ></label
-                      >
+                      <label class="form-label">Source de financement </label>
 
-                      <model-list-select
-                        :list="AfficheSourceFinancement"
-                        v-model="source_financement_id"
-                        option-value="id"
-                        option-text="objet"
-                        placeholder="select item"
-                        style="border: 1px solid #000"
-                      >
-                      </model-list-select>
-                      <span style="color: red" v-if="source_financement_id == 0"
-                        >Ce champs est obligatoire!
-                      </span>
+                      <input
+                        type="text"
+                        class="form-control"
+                        readonly
+                        style="border: 1px solid #000 !important"
+                        :value="afficheSourceFiancement(ordre_paiement_id)"
+                      />
                     </div>
                     <div class="col-6">
                       <label class="form-label">Dotation ( A )</label>
@@ -386,7 +319,7 @@
                       <money3
                         class="form-control"
                         v-bind="config"
-                        :model-value="afficheDotaion"
+                        :model-value="afficheDotaionOPdef"
                         readonly
                       ></money3>
                     </div>
@@ -434,6 +367,30 @@
                         :model-value="disponible"
                         readonly
                       ></money3>
+                    </div>
+                    <div class="col-10"></div>
+                    <div class="col-2">
+                      <button
+                        v-if="
+                          activite_id == 0 ||
+                          montant_prestation == 0 ||
+                          ordre_paiement_id == 0
+                        "
+                        disabled
+                        type="button"
+                        class="btn btn-success"
+                        @click.prevent="enregistrementSansTypeFiancement2()"
+                      >
+                        Enregistrer
+                      </button>
+                      <button
+                        v-else
+                        type="button"
+                        class="btn btn-success"
+                        @click.prevent="enregistrementSansTypeFiancement2()"
+                      >
+                        Enregistrer
+                      </button>
                     </div>
                   </form>
                 </div>
@@ -1049,9 +1006,7 @@
       <div class="modal-dialog modal-xl">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">
-              Modifier Facture
-            </h5>
+            <h5 class="modal-title">Modifier Facture</h5>
             <button
               type="button"
               class="btn-close"
@@ -1062,118 +1017,124 @@
           <div class="modal-body">
             <form>
               <div class="row">
-              <div class="col-12">
-                <label for="inputNanme4" class="form-label">Désignation</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="inputNanme4"
-                  v-model="FormDataDossierMod.designation"
-                  style="border: 1px solid #000"
-                />
-              </div>
-              <div class="col-3">
-                <label class="form-label"
-                  >Quantité ( A )
+                <div class="col-12">
+                  <label for="inputNanme4" class="form-label"
+                    >Désignation</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="inputNanme4"
+                    v-model="FormDataDossierMod.designation"
+                    style="border: 1px solid #000"
+                  />
+                </div>
+                <div class="col-3">
+                  <label class="form-label"
+                    >Quantité ( A )
+                    <span
+                      style="color: red !important; font-size: 15px !important"
+                      >*</span
+                    ></label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    v-model="FormDataDossierMod.quantite"
+                  />
                   <span
-                    style="color: red !important; font-size: 15px !important"
-                    >*</span
-                  ></label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  v-model="FormDataDossierMod.quantite"
-                />
-                <span style="color: red" v-if="FormDataDossierMod.quantite == 0"
-                  >Ce champs est obligatoire!
-                </span>
-              </div>
-              <div class="col-3">
-                <label class="form-label"
-                  >Prix Unitaire ( B )
+                    style="color: red"
+                    v-if="FormDataDossierMod.quantite == 0"
+                    >Ce champs est obligatoire!
+                  </span>
+                </div>
+                <div class="col-3">
+                  <label class="form-label"
+                    >Prix Unitaire ( B )
+                    <span
+                      style="color: red !important; font-size: 15px !important"
+                      >*</span
+                    ></label
+                  >
+                  <money3
+                    class="form-control"
+                    v-bind="config"
+                    v-model="FormDataDossierMod.prix_unitaire"
+                  ></money3>
                   <span
-                    style="color: red !important; font-size: 15px !important"
-                    >*</span
-                  ></label
-                >
-                <money3
-                  class="form-control"
-                  v-bind="config"
-                  v-model="FormDataDossierMod.prix_unitaire"
-                ></money3>
-                <span
-                  style="color: red"
-                  v-if="FormDataDossierMod.prix_unitaire == 0"
-                  >Ce champs est obligatoire!
-                </span>
-              </div>
-              <div class="col-3">
-                <label class="form-label">Montant HT (C = A * B)</label>
-                <money3
-                  class="form-control"
-                  v-bind="config"
-                  :model-value="MontantHtMod"
-                  readonly
-                ></money3>
-              </div>
-              <div class="col-3">
-                <label class="form-label">Exonéré de la TVA 18%</label>
-                <select
-                  class="form-select form-control"
-                  id="defaultSelect"
-                  style="border: 1px solid #000 !important"
-                  v-model="FormDataDossierMod.exonere"
-                >
-                  <option></option>
-                  <option value="0">Oui</option>
-                  <option value="1">Non</option>
-                </select>
-              </div>
-              <div class="col-2">
-                <label class="form-label">Autre taux (%) ( D )</label>
-                <input type="text" class="form-control" v-model="FormDataDossierMod.autre_taux" />
-              </div>
-              <div class="col-2">
-                      <label class="form-label">Taux TVA (%) ( F )</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        :value="AfficheTauxTVAMod"
-                        readonly
-                      />
-                    </div>
-                    <div class="col-3">
-                      <label class="form-label"
-                        >Autre montant ( E = C * D)</label
-                      >
-                      <money3
-                        class="form-control"
-                        v-bind="config"
-                        :model-value="afficheAutreMontantMod"
-                        readonly
-                      ></money3>
-                    </div>
-                    <div class="col-2">
-                      <label class="form-label">Montant Tva ( G = C * F)</label>
-                      <money3
-                        class="form-control"
-                        v-bind="config"
-                        :model-value="montantTvaMod"
-                        readonly
-                      ></money3>
-                    </div>
-                    <div class="col-3">
-                      <label class="form-label"
-                        >Montant TTC ( H = E + G + C )</label
-                      >
-                      <money3
-                        class="form-control"
-                        v-bind="config"
-                        :model-value="MontantTTCMod"
-                        readonly
-                      ></money3>
-                    </div>
+                    style="color: red"
+                    v-if="FormDataDossierMod.prix_unitaire == 0"
+                    >Ce champs est obligatoire!
+                  </span>
+                </div>
+                <div class="col-3">
+                  <label class="form-label">Montant HT (C = A * B)</label>
+                  <money3
+                    class="form-control"
+                    v-bind="config"
+                    :model-value="MontantHtMod"
+                    readonly
+                  ></money3>
+                </div>
+                <div class="col-3">
+                  <label class="form-label">Exonéré de la TVA 18%</label>
+                  <select
+                    class="form-select form-control"
+                    id="defaultSelect"
+                    style="border: 1px solid #000 !important"
+                    v-model="FormDataDossierMod.exonere"
+                  >
+                    <option></option>
+                    <option value="0">Oui</option>
+                    <option value="1">Non</option>
+                  </select>
+                </div>
+                <div class="col-2">
+                  <label class="form-label">Autre taux (%) ( D )</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    v-model="FormDataDossierMod.autre_taux"
+                  />
+                </div>
+                <div class="col-2">
+                  <label class="form-label">Taux TVA (%) ( F )</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    :value="AfficheTauxTVAMod"
+                    readonly
+                  />
+                </div>
+                <div class="col-3">
+                  <label class="form-label">Autre montant ( E = C * D)</label>
+                  <money3
+                    class="form-control"
+                    v-bind="config"
+                    :model-value="afficheAutreMontantMod"
+                    readonly
+                  ></money3>
+                </div>
+                <div class="col-2">
+                  <label class="form-label">Montant Tva ( G = C * F)</label>
+                  <money3
+                    class="form-control"
+                    v-bind="config"
+                    :model-value="montantTvaMod"
+                    readonly
+                  ></money3>
+                </div>
+                <div class="col-3">
+                  <label class="form-label"
+                    >Montant TTC ( H = E + G + C )</label
+                  >
+                  <money3
+                    class="form-control"
+                    v-bind="config"
+                    :model-value="MontantTTCMod"
+                    readonly
+                  ></money3>
+                </div>
               </div>
             </form>
           </div>
@@ -1182,7 +1143,6 @@
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
-             
             >
               Modifier
             </button>
@@ -1216,6 +1176,7 @@ export default {
     return {
       TableauDossier: [],
       ModifierBudget: {},
+      ordre_paiement_id: 0,
       FormDataDossier: {
         designation: "",
         quantite: 0,
@@ -1311,8 +1272,327 @@ export default {
       "getterListeBudgetEclate",
       "getterListeOPgloba",
       "getterOpParActivite",
+      "getterInfoOrdrePaiement",
     ]),
+    afficheDotaionOPdef() {
+      if (this.sous_budget_id == 0 && this.activite_id != 0) {
+        const qtereel = this.getterInfoOrdrePaiement.find(
+          (qtreel) => qtreel.id == this.ordre_paiement_id
+        );
 
+        if (qtereel) {
+          return qtereel.dotation_sans_sous_budget;
+        }
+        return 0;
+      } else {
+        const qtereel = this.getterInfoOrdrePaiement.find(
+          (qtreel) =>
+            qtreel.id == this.ordre_paiement_id &&
+            qtreel.sous_budget_id == this.sous_budget_id
+        );
+
+        if (qtereel) {
+          return qtereel.dotation_avec_sous_budget;
+        }
+        return 0;
+      }
+    },
+    afficheNomProjet() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.getterInfoOrdrePaiement.find(
+            (qtreel) => qtreel.id == id
+          );
+
+          if (qtereel) {
+            return qtereel.nom_projet;
+          }
+          return 0;
+        }
+      };
+    },
+    afficheNomProjet_id() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.getterInfoOrdrePaiement.find(
+            (qtreel) => qtreel.id == id
+          );
+
+          if (qtereel) {
+            return qtereel.unite_operationnelle_id;
+          }
+          return 0;
+        }
+      };
+    },
+    afficheSousBudget() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.getterInfoOrdrePaiement.find(
+            (qtreel) => qtreel.id == id
+          );
+
+          if (qtereel) {
+            return qtereel.sous_budget;
+          }
+          return 0;
+        }
+      };
+    },
+    afficheSousBudget_id() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.getterInfoOrdrePaiement.find(
+            (qtreel) => qtreel.id == id
+          );
+
+          if (qtereel) {
+            return qtereel.sous_budget_id;
+          }
+          return 0;
+        }
+      };
+    },
+
+    afficheBeneficiaire() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.getterInfoOrdrePaiement.find(
+            (qtreel) => qtreel.id == id
+          );
+
+          if (qtereel) {
+            return qtereel.beneficiaire;
+          }
+          return 0;
+        }
+      };
+    },
+    afficheBeneficiaire_id() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.getterInfoOrdrePaiement.find(
+            (qtreel) => qtreel.id == id
+          );
+
+          if (qtereel) {
+            return qtereel.entreprise_id;
+          }
+          return 0;
+        }
+      };
+    },
+
+    afficheCompteBancaire1() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.getterInfoOrdrePaiement.find(
+            (qtreel) => qtreel.id == id
+          );
+
+          if (qtereel) {
+            return qtereel.numero_compte;
+          }
+          return 0;
+        }
+      };
+    },
+    afficheAdresse() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.getterInfoOrdrePaiement.find(
+            (qtreel) => qtreel.id == id
+          );
+
+          if (qtereel) {
+            return qtereel.adresse_entreprise;
+          }
+          return 0;
+        }
+      };
+    },
+    afficheTelephone() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.getterInfoOrdrePaiement.find(
+            (qtreel) => qtreel.id == id
+          );
+
+          if (qtereel) {
+            return qtereel.telephone_entreprise;
+          }
+          return 0;
+        }
+      };
+    },
+    afficheNumeroCC() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.getterInfoOrdrePaiement.find(
+            (qtreel) => qtreel.id == id
+          );
+
+          if (qtereel) {
+            return qtereel.numero_cc_entreprise;
+          }
+          return 0;
+        }
+      };
+    },
+    afficheCompteBancaire_id() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.getterInfoOrdrePaiement.find(
+            (qtreel) => qtreel.id == id
+          );
+
+          if (qtereel) {
+            return qtereel.compte_id;
+          }
+          return 0;
+        }
+      };
+    },
+    afficheObjet() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.getterInfoOrdrePaiement.find(
+            (qtreel) => qtreel.id == id
+          );
+
+          if (qtereel) {
+            return qtereel.objet_depense;
+          }
+          return 0;
+        }
+      };
+    },
+    afficheNatureEconomique() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.getterInfoOrdrePaiement.find(
+            (qtreel) => qtreel.id == id
+          );
+
+          if (qtereel) {
+            return qtereel.nature_economique;
+          }
+          return 0;
+        }
+      };
+    },
+    afficheNatureEconomique_id() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.getterInfoOrdrePaiement.find(
+            (qtreel) => qtreel.id == id
+          );
+
+          if (qtereel) {
+            return qtereel.nature_economique_id;
+          }
+          return 0;
+        }
+      };
+    },
+
+    afficheNatureDepense() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.getterInfoOrdrePaiement.find(
+            (qtreel) => qtreel.id == id
+          );
+
+          if (qtereel) {
+            return qtereel.nature_depense;
+          }
+          return 0;
+        }
+      };
+    },
+    afficheNatureDepense_id() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.getterInfoOrdrePaiement.find(
+            (qtreel) => qtreel.id == id
+          );
+
+          if (qtereel) {
+            return qtereel.nature_depense_id;
+          }
+          return 0;
+        }
+      };
+    },
+    afficheTypeFiancement() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.getterInfoOrdrePaiement.find(
+            (qtreel) => qtreel.id == id
+          );
+
+          if (qtereel) {
+            return qtereel.type_fiancement;
+          }
+          return 0;
+        }
+      };
+    },
+    afficheTypeFiancement_id() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.getterInfoOrdrePaiement.find(
+            (qtreel) => qtreel.id == id
+          );
+
+          if (qtereel) {
+            return qtereel.type_financement_id;
+          }
+          return 0;
+        }
+      };
+    },
+
+    afficheSourceFiancement() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.getterInfoOrdrePaiement.find(
+            (qtreel) => qtreel.id == id
+          );
+
+          if (qtereel) {
+            return qtereel.source_financement;
+          }
+          return 0;
+        }
+      };
+    },
+    afficheSourceFiancement_id() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.getterInfoOrdrePaiement.find(
+            (qtreel) => qtreel.id == id
+          );
+
+          if (qtereel) {
+            return qtereel.source_financement_id;
+          }
+          return 0;
+        }
+      };
+    },
+
+    afficheOPProvisoire() {
+      if (this.sous_budget_id == 0 && this.activite_id != 0) {
+        // return (id) => {
+        //     if (id != null && id != "") {
+        return this.getterOpParActivite;
+      } else {
+        return this.getterOpParActivite.filter(
+          (qtreel) => qtreel.sous_budget_id == this.sous_budget_id
+        );
+      }
+    },
     taillerTableau() {
       return this.TableauDossier.length;
     },
@@ -1367,9 +1647,10 @@ export default {
         parseFloat(this.MontantHt)
       );
     },
-     montantTvaMod() {
+    montantTvaMod() {
       const val = parseFloat(
-        (parseFloat(this.MontantHtMod) * parseFloat(this.AfficheTauxTVAMod)) / 100
+        (parseFloat(this.MontantHtMod) * parseFloat(this.AfficheTauxTVAMod)) /
+          100
       );
 
       if (val) {
@@ -1378,7 +1659,7 @@ export default {
 
       return 0;
     },
-    
+
     montantTva() {
       const val = parseFloat(
         (parseFloat(this.MontantHt) * parseFloat(this.AfficheTauxTVA)) / 100
@@ -1390,15 +1671,18 @@ export default {
 
       return 0;
     },
-    
-     afficheAutreMontantMod() {
-      return (parseFloat(this.FormDataDossierMod.autre_taux) / 100) * parseFloat(this.MontantHtMod);
+
+    afficheAutreMontantMod() {
+      return (
+        (parseFloat(this.FormDataDossierMod.autre_taux) / 100) *
+        parseFloat(this.MontantHtMod)
+      );
     },
     afficheAutreMontant() {
       return (parseFloat(this.autre_taux) / 100) * parseFloat(this.MontantHt);
     },
-    
-     AfficheTauxTVAMod() {
+
+    AfficheTauxTVAMod() {
       if (this.FormDataDossierMod.exonere == 1) {
         return 0;
       } else {
@@ -1445,34 +1729,44 @@ export default {
       if (this.sous_budget_id == 0 && this.activite_id != 0) {
         // return (id) => {
         //     if (id != null && id != "") {
-        return this.getterOpParActivite.filter(
-          (qtreel) =>
-            qtreel.nature_economique_id == this.nature_economique_id &&
-            qtreel.type_financement_id == this.type_financement_id &&
-            qtreel.source_financement_id == this.source_financement_id &&
-            qtreel.nature_depense_id == this.NatureDepense_id
-        ).reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.montant_prestation),
-          0
-        )
-        .toFixed(0);
-
-       
+        return this.getterOpParActivite
+          .filter(
+            (qtreel) =>
+              qtreel.nature_economique_id ==
+                this.afficheNatureEconomique_id(this.ordre_paiement_id) &&
+              qtreel.type_financement_id ==
+                this.afficheTypeFiancement_id(this.ordre_paiement_id) &&
+              qtreel.source_financement_id ==
+                this.afficheSourceFiancement_id(this.ordre_paiement_id) &&
+              qtreel.nature_depense_id ==
+                this.afficheNatureDepense_id(this.ordre_paiement_id)
+          )
+          .reduce(
+            (prec, cur) =>
+              parseFloat(prec) + parseFloat(cur.montant_prestation),
+            0
+          )
+          .toFixed(0);
       } else {
-        return this.getterOpParActivite.filter(
-          (qtreel) =>
-            qtreel.nature_economique_id == this.nature_economique_id &&
-            qtreel.type_financement_id == this.type_financement_id &&
-            qtreel.source_financement_id == this.source_financement_id &&
-            qtreel.nature_depense_id == this.NatureDepense_id &&
-            qtreel.sous_budget_id == this.sous_budget_id
-        ).reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.montant_prestation),
-          0
-        )
-        .toFixed(0);
-
-       
+        return this.getterOpParActivite
+          .filter(
+            (qtreel) =>
+              qtreel.nature_economique_id ==
+                this.afficheNatureEconomique_id(this.ordre_paiement_id) &&
+              qtreel.type_financement_id ==
+                this.afficheTypeFiancement_id(this.ordre_paiement_id) &&
+              qtreel.source_financement_id ==
+                this.afficheSourceFiancement_id(this.ordre_paiement_id) &&
+              qtreel.nature_depense_id ==
+                this.afficheNatureDepense_id(this.ordre_paiement_id) &&
+              qtreel.sous_budget_id == this.sous_budget_id
+          )
+          .reduce(
+            (prec, cur) =>
+              parseFloat(prec) + parseFloat(cur.montant_prestation),
+            0
+          )
+          .toFixed(0);
       }
     },
     afficheCompteBancaire() {
@@ -1533,7 +1827,7 @@ export default {
         return this.getterTaux;
       }
     },
-    
+
     MontantHtMod() {
       return (
         parseFloat(this.FormDataDossierMod.quantite) *
@@ -1547,7 +1841,9 @@ export default {
       );
     },
     disponible() {
-      return parseFloat(this.afficheDotaion) - parseFloat(this.CumulDepense);
+      return (
+        parseFloat(this.afficheDotaionOPdef) - parseFloat(this.CumulDepense)
+      );
     },
     CumulDepense() {
       return (
@@ -1631,58 +1927,6 @@ export default {
       }
     },
 
-    afficheNatureDepense() {
-      return (id) => {
-        if (id != null && id != "") {
-          const qtereel = this.getterNatureDepense.find(
-            (qtreel) => qtreel.id == id
-          );
-
-          if (qtereel) {
-            return qtereel.code.concat(" ", qtereel.libelle);
-          }
-          return 0;
-        }
-      };
-    },
-    libelleNatureDepense() {
-      if (this.sous_budget_id == 0 && this.activite_id != 0) {
-        // return (id) => {
-        //   if (id != null && id != "") {
-        const qtereel = this.getterBudgetViseParActivite.find(
-          (qtreel) =>
-            qtreel.ligneeconomique_id == this.nature_economique_id &&
-            qtreel.type_financement_id == this.type_financement_id &&
-            qtreel.source_financement_id == this.source_financement_id &&
-            qtreel.actuelle == 1
-        );
-
-        if (qtereel) {
-          return this.afficheNatureDepense(qtereel.nature_depense_id);
-        }
-        return 0;
-        //   }
-        // };
-      } else {
-        // return (id) => {
-        //   if (id != null && id != "") {
-        const qtereel = this.getterBudgetViseParActivite.find(
-          (qtreel) =>
-            qtreel.ligneeconomique_id == this.nature_economique_id &&
-            qtreel.sous_budget_id == this.sous_budget_id &&
-            qtreel.type_financement_id == this.type_financement_id &&
-            qtreel.source_financement_id == this.source_financement_id &&
-            qtreel.actuelle == 1
-        );
-
-        if (qtereel) {
-          return this.afficheNatureDepense(qtereel.nature_depense_id);
-        }
-        return 0;
-        //   }
-        // };
-      }
-    },
     libelleSourceFinancement() {
       return (id) => {
         if (id != null && id != "") {
@@ -1835,20 +2079,7 @@ export default {
         // };
       }
     },
-    AfficheNatureEconomique() {
-      let collet = [];
-      this.GroupeParNatureEconomique.filter((item) => {
-        // if (item.activite_id == this.activite_id)
-        {
-          let data = {
-            id: item,
-            objet: this.afficheNatureEconomique(item),
-          };
-          collet.push(data);
-        }
-      });
-      return collet;
-    },
+
     GroupeParNatureEconomique() {
       // return (id) => {
       if (this.sous_budget_id == 0 && this.activite_id != 0) {
@@ -2032,47 +2263,6 @@ export default {
       };
     },
 
-    afficheNatureEconomique() {
-      return (id) => {
-        if (id != null && id != "") {
-          const qtereel = this.getterNatureEconomique.find(
-            (qtreel) => qtreel.id == id
-          );
-
-          if (qtereel) {
-            return qtereel.libelle_code;
-          }
-          return 0;
-        }
-      };
-    },
-    afficheSourceFinancement() {
-      return (id) => {
-        if (id != null && id != "") {
-          const qtereel = this.getterBailleur.find((qtreel) => qtreel.id == id);
-
-          if (qtereel) {
-            return qtereel.libelle;
-          }
-          return 0;
-        }
-      };
-    },
-    afficheTypeFinancement() {
-      return (id) => {
-        if (id != null && id != "") {
-          const qtereel = this.getterTypeFinancement.find(
-            (qtreel) => qtreel.id == id
-          );
-
-          if (qtereel) {
-            return qtereel.libelle;
-          }
-          return 0;
-        }
-      };
-    },
-
     libelleActivite() {
       let collet = [];
       this.getterActivite.filter((item) => {
@@ -2123,6 +2313,7 @@ export default {
       "getEntreprise",
       "ajouterOrdrePaiement",
       "getOpParActvite",
+      "getInformationOp",
     ]),
     AfficheModalModificationFacture(id) {
       this.FormDataDossierMod = this.TableauDossier.find(
@@ -2168,10 +2359,10 @@ export default {
         this.TableauDossier.splice(item, 1);
       }
     },
-     modifierTableau() {
+    modifierTableau() {
       var nouvelObjet12 = {
         ...this.FormDataDossierMod,
-        nombre:this.FormDataDossierMod.nombre,
+        nombre: this.FormDataDossierMod.nombre,
         designation: this.FormDataDossierMod.designation,
         quantite: this.FormDataDossierMod.quantite,
         prix_unitaire: this.FormDataDossierMod.prix_unitaire,
@@ -2221,19 +2412,27 @@ export default {
     enregistrementSansTypeFiancement2() {
       var nouvelObjettrsor = {
         exercice: this.exerciceBudgetaire,
-        unite_operationnelle_id: this.unite_operationnelle_id,
+        unite_operationnelle_id: this.afficheNomProjet_id(
+          this.ordre_paiement_id
+        ),
         activite_id: this.activite_id,
         sous_budget_id: this.sous_budget_id,
-        entreprise_id: this.entreprise_id,
-        compte_id: this.compte_id,
-        objet_depense: this.objet_depense,
+        entreprise_id: this.afficheBeneficiaire_id(this.ordre_paiement_id),
+        compte_id: this.afficheCompteBancaire_id(this.ordre_paiement_id),
+        objet_depense: this.afficheObjet(this.ordre_paiement_id),
         numero_ordre_paiement: this.automatiseNumeroOP,
-        type_ordre_paiement: 1,
+        type_ordre_paiement: 4,
         montant_prestation: this.montant_prestation,
-        nature_economique_id: this.nature_economique_id,
-        nature_depense_id: this.NatureDepense_id,
-        type_financement_id: this.type_financement_id,
-        source_financement_id: this.source_financement_id,
+        nature_economique_id: this.afficheNatureEconomique_id(
+          this.ordre_paiement_id
+        ),
+        nature_depense_id: this.afficheNatureDepense_id(this.ordre_paiement_id),
+        type_financement_id: this.afficheTypeFiancement_id(
+          this.ordre_paiement_id
+        ),
+        source_financement_id: this.afficheSourceFiancement_id(
+          this.ordre_paiement_id
+        ),
         cumul_anterieure: this.afficheMontantCumul,
         numero_facture: this.numero_facture,
         date_facture: this.date_facture,
@@ -2274,6 +2473,12 @@ export default {
       };
       this.getBudgetViseParActvite(objet);
       this.getOpParActvite(objet);
+    },
+    ordre_paiement_id: function (value) {
+      let objet = {
+        id: value,
+      };
+      this.getInformationOp(objet);
     },
   },
 };

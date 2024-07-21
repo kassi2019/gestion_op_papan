@@ -462,7 +462,12 @@ export const GET_LISTE_OP_GLOBAL= (state,value)=>{
 export const GET_OP_PAR_ACTIVITE = (state,value)=>{
     state.stateOpParActivite=value
 }
-
+export const GET_INFORMATION_ORDRE_PAIEMENT = (state,value)=>{
+    state.stateInfoOrdrePaiement=value
+}
+export const GET_FACTURE_PAR_OP = (state,value)=>{
+    state.stateFactureParOp=value
+}
 export const GET_BUDGET_VISE = (state,value)=>{
     state.stateAfficheBudgetVise=value
 }

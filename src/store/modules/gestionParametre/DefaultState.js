@@ -34,7 +34,9 @@ const defaultstate = {
   stateListeOPgloba: [],
     stateAfficheBudgetVise: [],
     stateBanque: [],
-    stateCompteBancaire:[]
+    stateCompteBancaire: [],
+    stateInfoOrdrePaiement: [],
+    stateFactureParOp:[]
     // stateAfficheDotation:[]
     
 };

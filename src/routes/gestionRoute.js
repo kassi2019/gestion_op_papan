@@ -28,9 +28,22 @@ import listeToutOP from "../page/GestionBudgetaire/listeToutOP.vue"
 import ExecutionBailleur from "../page/GestionRapport/ExecutionBailleur.vue"
 import ExecutionParLigne from "../page/GestionRapport/ExecutionParLigne.vue"
 import PresentationBudgetVise from "../page/GestionBudgetaire/PresentationBudgetVise.vue"
+import OrdrePaiementDefinitif from "../page/GestionBudgetaire/OrdrePaiementDefinitif.vue"
+
+import OrdrePaiementAnnulation from "../page/GestionBudgetaire/OrdrePaiementAnnulation.vue"
 import Banque from "../page/ParametreGeneraux/Banque.vue"
 import CompteBancaire from "../page/ParametreGeneraux/CompteBancaire.vue"
 const gestionutilisateur = [
+  {
+        path: '/OrdrePaiementAnnulation',
+        name:"OrdrePaiementAnnulation",
+       component: OrdrePaiementAnnulation
+     },
+  {
+        path: '/OrdrePaiementDefinitif',
+        name:"OrdrePaiementDefinitif",
+       component: OrdrePaiementDefinitif
+     },
    {
         path: '/CompteBancaire/:id',
         name:"CompteBancaire",

@@ -29,7 +29,11 @@ export const getterActiviteglobal = state => state.stateActiviteglobal;
 export const getterListeOPgloba = state => state.stateListeOPgloba;
 
 export const getterOpParActivite = state => state.stateOpParActivite;
+export const getterInfoOrdrePaiement = state => state.stateInfoOrdrePaiement;
+
 export const getterAfficheBudgetVise = state => state.stateAfficheBudgetVise;
 export const getterBanque = state => state.stateBanque.sort((a, b) => (a.code < b.code) ? -1 : 1);
 export const getterCompteBancaire = state => state.stateCompteBancaire.sort((a, b) => (a.code < b.code) ? -1 : 1);
+
+export const getterstateFactureParOp = state => state.stateFactureParOp;
 // export const getterAfficheDotation = state => state.stateAfficheDotation;
