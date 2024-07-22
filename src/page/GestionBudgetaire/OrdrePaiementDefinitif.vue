@@ -441,7 +441,7 @@
                           disabled
                           type="button"
                           class="btn btn-success"
-                          @click.prevent="enregistrementSansTypeFiancement2()"
+                          @click.prevent="enregistrementAvecFacture()"
                         >
                           Enregistrer
                         </button>
@@ -449,7 +449,7 @@
                           v-else
                           type="button"
                           class="btn btn-success"
-                          @click.prevent="enregistrementSansTypeFiancement2()"
+                          @click.prevent="enregistrementAvecFacture()"
                         >
                           Enregistrer
                         </button>
@@ -1335,7 +1335,7 @@
                           class="badge badge-black"
                           style="cursor: pointer"
                           @click.prevent="AfficheVentilationBudget(item)"
-                          >Voir OP Provisoire</span
+                          >Voir OP Définitif</span
                         >
                       </td>
                     </tr>
@@ -2089,7 +2089,7 @@ export default {
       }
     },
     AfficheTauxTVA() {
-      if (this.FormDataDossier.exonere == 1) {
+      if (this.FormDataDossier.exonere == 0) {
         return 0;
       } else {
         // return (id) => {
@@ -2129,7 +2129,16 @@ export default {
               qtreel.source_financement_id ==
                 this.afficheSourceFiancement_id(this.ordre_paiement_id) &&
               qtreel.nature_depense_id ==
-                this.afficheNatureDepense_id(this.ordre_paiement_id)
+              this.afficheNatureDepense_id(this.ordre_paiement_id) && qtreel.annulation == 0
+                && qtreel.type_ordre_paiement == 4 || qtreel.nature_economique_id ==
+                this.afficheNatureEconomique_id(this.ordre_paiement_id) &&
+              qtreel.type_financement_id ==
+                this.afficheTypeFiancement_id(this.ordre_paiement_id) &&
+              qtreel.source_financement_id ==
+                this.afficheSourceFiancement_id(this.ordre_paiement_id) &&
+              qtreel.nature_depense_id ==
+              this.afficheNatureDepense_id(this.ordre_paiement_id) && qtreel.annulation == 0
+                && qtreel.type_ordre_paiement == 2
           )
           .reduce(
             (prec, cur) =>
@@ -2149,7 +2158,17 @@ export default {
                 this.afficheSourceFiancement_id(this.ordre_paiement_id) &&
               qtreel.nature_depense_id ==
                 this.afficheNatureDepense_id(this.ordre_paiement_id) &&
-              qtreel.sous_budget_id == this.sous_budget_id
+              qtreel.sous_budget_id == this.sous_budget_id && qtreel.annulation == 0
+             && qtreel.type_ordre_paiement == 2 || qtreel.nature_economique_id ==
+                this.afficheNatureEconomique_id(this.ordre_paiement_id) &&
+              qtreel.type_financement_id ==
+                this.afficheTypeFiancement_id(this.ordre_paiement_id) &&
+              qtreel.source_financement_id ==
+                this.afficheSourceFiancement_id(this.ordre_paiement_id) &&
+              qtreel.nature_depense_id ==
+                this.afficheNatureDepense_id(this.ordre_paiement_id) &&
+              qtreel.sous_budget_id == this.sous_budget_id && qtreel.annulation == 0
+             && qtreel.type_ordre_paiement == 4
           )
           .reduce(
             (prec, cur) =>
@@ -2191,7 +2210,7 @@ export default {
       // return (id) => {
 
       let objet = this.getterActiviteSurOP.filter(
-        (item) => item.type_ordre_paiement == 1
+        (item) => item.type_ordre_paiement == 4
       );
       //  let vm=this
       let array_exercie = [];
@@ -2702,8 +2721,8 @@ export default {
       "ajouterBudgetEclate",
       "getDotationAutreRessource",
       "getEntreprise",
-      "ajouterOrdrePaiement",
-      "getOpParActvite",
+      "ajouterOrdrePaiementDefinitif",
+      "getOpParActvite","ajouterOrdrePaiement",
       "getInformationOp",
     ]),
     AfficheModalModificationFacture(id) {
@@ -2713,7 +2732,7 @@ export default {
     },
     AfficheVentilationBudget(id) {
       this.$router.push({
-        name: "AfficheOpActivite",
+        name: "AfficheOPDefinitif",
         params: { id: id },
       });
     },
@@ -2825,15 +2844,71 @@ export default {
           this.ordre_paiement_id
         ),
         cumul_anterieure: this.afficheMontantCumul,
+        numero_facture_definitve: this.numero_facture,
+        date_facture_definitve: this.date_facture,
+        parent_id:this.ordre_paiement_id
+        
+      };
+
+      this.ajouterOrdrePaiementDefinitif(nouvelObjettrsor);
+
+      (this.objet_depense = ""),
+        (this.activite_id = 0),
+        (this.unite_operationnelle_id = 0),
+        (this.nature_depense_id = 0),
+        (this.entreprise_id = 0),
+        (this.sous_budget_id = 0),
+        (this.type_financement_id = 0),
+        (this.source_financement_id = 0),
+        (this.numero_ordre_paiement = ""),
+        (this.nature_economique_id = 0),
+        (this.type_ordre_paiement = 0),
+        (this.montant_prestation = 0),
+        (this.cumul_anterieure = 0),
+        (this.montant_facture = 0),
+        (this.date_facture = ""),
+        (this.numero_facture = 0);
+    },
+
+
+
+    enregistrementAvecFacture() {
+      var nouvelObjettrsor = {
+        exercice: this.exerciceBudgetaire,
+        unite_operationnelle_id: this.afficheNomProjet_id(
+          this.ordre_paiement_id
+        ),
+        activite_id: this.activite_id,
+        sous_budget_id: this.sous_budget_id,
+        entreprise_id: this.afficheBeneficiaire_id(this.ordre_paiement_id),
+        compte_id: this.afficheCompteBancaire_id(this.ordre_paiement_id),
+        objet_depense: this.afficheObjet(this.ordre_paiement_id),
+        numero_ordre_paiement: this.automatiseNumeroOP,
+        type_ordre_paiement: 4,
+        montant_prestation: this.montant_prestation,
+        nature_economique_id: this.afficheNatureEconomique_id(
+          this.ordre_paiement_id
+        ),
+        nature_depense_id: this.afficheNatureDepense_id(this.ordre_paiement_id),
+        type_financement_id: this.afficheTypeFiancement_id(
+          this.ordre_paiement_id
+        ),
+        source_financement_id: this.afficheSourceFiancement_id(
+          this.ordre_paiement_id
+        ),
+        cumul_anterieure: this.afficheMontantCumul,
+        numero_facture_definitve: this.numero_facture,
+        date_facture_definitve: this.date_facture,
+        parent_id:this.ordre_paiement_id,
         numero_facture: this.numero_facture,
         date_facture: this.date_facture,
 
         FormDataDossier: this.TableauDossier,
+        
       };
 
       this.ajouterOrdrePaiement(nouvelObjettrsor);
-
-      (this.TableauDossier = []),
+ (this.TableauDossier = []),
         (this.FormDataDossier.designation = ""),
         (this.FormDataDossier.quantite = ""),
         (this.FormDataDossier.prix_unitaire = 0),

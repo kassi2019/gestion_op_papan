@@ -36,7 +36,8 @@ const defaultstate = {
     stateBanque: [],
     stateCompteBancaire: [],
     stateInfoOrdrePaiement: [],
-    stateFactureParOp:[]
+    stateFactureParOp: []
+   
     // stateAfficheDotation:[]
     
 };

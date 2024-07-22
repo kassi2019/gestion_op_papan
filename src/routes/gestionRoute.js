@@ -33,7 +33,19 @@ import OrdrePaiementDefinitif from "../page/GestionBudgetaire/OrdrePaiementDefin
 import OrdrePaiementAnnulation from "../page/GestionBudgetaire/OrdrePaiementAnnulation.vue"
 import Banque from "../page/ParametreGeneraux/Banque.vue"
 import CompteBancaire from "../page/ParametreGeneraux/CompteBancaire.vue"
+import AfficheOPDefinitif from "../page/GestionBudgetaire/AfficheOPDefinitif.vue"
+import AfficheOPAnnulation from "../page/GestionBudgetaire/AfficheOPAnnulation.vue"
 const gestionutilisateur = [
+   {
+        path: '/AfficheOPAnnulation/:id',
+        name:"AfficheOPAnnulation",
+       component: AfficheOPAnnulation
+     },
+  {
+        path: '/AfficheOPDefinitif/:id',
+        name:"AfficheOPDefinitif",
+       component: AfficheOPDefinitif
+     },
   {
         path: '/OrdrePaiementAnnulation',
         name:"OrdrePaiementAnnulation",

@@ -1329,7 +1329,38 @@ export function ajouterOrdrePaiement({ commit,dispatch }, nouveau) {
       }
     }).catch();
 }
-
+export function ajouterOrdrePaiementDefinitif({ commit,dispatch }, nouveau) {
+ 
+    apiGuest.post("/EnregistrementOrdrePaiementDefinitif", nouveau, { headers: authHeader() })
+    .then(response => {
+      if (response.status == 201) {
+        commit("AJOUTER_ORDRE_PAIEMENT_DEFINITIF", response.data);
+        dispatch("getActiviteOp");
+        dispatch('getListeOrdrePaiementGlobal');
+       toast("Enregistrement effectué avec succès!", {
+        "theme": "auto",
+        "type": "success",
+        "dangerouslyHTMLString": true
+})
+      }
+    }).catch();
+}
+export function ajouterOrdrePaiementAnnulation({ commit,dispatch }, nouveau) {
+ 
+    apiGuest.post("/EnregistrementOrdrePaiementAnnulation", nouveau, { headers: authHeader() })
+    .then(response => {
+      if (response.status == 201) {
+        commit("AJOUTER_ORDRE_PAIEMENT_ANNULATION", response.data);
+        dispatch("getActiviteOp");
+        dispatch('getListeOrdrePaiementGlobal');
+       toast("Enregistrement effectué avec succès!", {
+        "theme": "auto",
+        "type": "success",
+        "dangerouslyHTMLString": true
+})
+      }
+    }).catch();
+}
 export function getActiviteOp({ commit }) {
   apiGuest.get("/listeOrdrePaiementGroupeActivite", { headers: authHeader() })
     .then(response => {

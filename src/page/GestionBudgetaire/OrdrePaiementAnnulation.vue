@@ -265,6 +265,9 @@
                       <span style="color: red" v-if="montant_prestation == 0"
                         >Ce champs est obligatoire!
                       </span>
+                       <span style="color: red" v-if="parseFloat(montant_prestation) < 0"
+                        >Montant de l'OP doit est négatif!
+                      </span>
                     </div>
                     <legend style="text-decoration: underline">
                       Information sur la dotation
@@ -919,33 +922,7 @@
                     <tr>
                       <td colspan="8"></td>
                       <td colspan="">
-                        <button
-                          v-if="
-                            unite_operationnelle_id == 0 ||
-                            activite_id == 0 ||
-                            entreprise_id == 0 ||
-                            type_financement_id == 0 ||
-                            sous_budget_id == 0 ||
-                            source_financement_id == 0 ||
-                            nature_economique_id == 0 ||
-                            montant_prestation == 0 ||
-                            objet_depense == 0
-                          "
-                          disabled
-                          type="button"
-                          class="btn btn-success"
-                          @click.prevent="enregistrementSansTypeFiancement2()"
-                        >
-                          Enregistrer
-                        </button>
-                        <button
-                          v-else
-                          type="button"
-                          class="btn btn-success"
-                          @click.prevent="enregistrementSansTypeFiancement2()"
-                        >
-                          Enregistrer
-                        </button>
+                       
                       </td>
                     </tr>
                   </tbody>
@@ -982,7 +959,7 @@
                           class="badge badge-black"
                           style="cursor: pointer"
                           @click.prevent="AfficheVentilationBudget(item)"
-                          >Voir OP Provisoire</span
+                          >Voir OP Annulation</span
                         >
                       </td>
                     </tr>
@@ -1739,7 +1716,16 @@ export default {
               qtreel.source_financement_id ==
                 this.afficheSourceFiancement_id(this.ordre_paiement_id) &&
               qtreel.nature_depense_id ==
-                this.afficheNatureDepense_id(this.ordre_paiement_id)
+                this.afficheNatureDepense_id(this.ordre_paiement_id) && qtreel.annulation == 0
+                && qtreel.type_ordre_paiement == 2 || qtreel.nature_economique_id ==
+                this.afficheNatureEconomique_id(this.ordre_paiement_id) &&
+              qtreel.type_financement_id ==
+                this.afficheTypeFiancement_id(this.ordre_paiement_id) &&
+              qtreel.source_financement_id ==
+                this.afficheSourceFiancement_id(this.ordre_paiement_id) &&
+              qtreel.nature_depense_id ==
+                this.afficheNatureDepense_id(this.ordre_paiement_id) && qtreel.annulation == 0
+                && qtreel.type_ordre_paiement == 4
           )
           .reduce(
             (prec, cur) =>
@@ -1759,7 +1745,17 @@ export default {
                 this.afficheSourceFiancement_id(this.ordre_paiement_id) &&
               qtreel.nature_depense_id ==
                 this.afficheNatureDepense_id(this.ordre_paiement_id) &&
-              qtreel.sous_budget_id == this.sous_budget_id
+              qtreel.sous_budget_id == this.sous_budget_id && qtreel.annulation == 0
+                && qtreel.type_ordre_paiement == 4 || qtreel.nature_economique_id ==
+                this.afficheNatureEconomique_id(this.ordre_paiement_id) &&
+              qtreel.type_financement_id ==
+                this.afficheTypeFiancement_id(this.ordre_paiement_id) &&
+              qtreel.source_financement_id ==
+                this.afficheSourceFiancement_id(this.ordre_paiement_id) &&
+              qtreel.nature_depense_id ==
+                this.afficheNatureDepense_id(this.ordre_paiement_id) &&
+              qtreel.sous_budget_id == this.sous_budget_id && qtreel.annulation == 0
+                && qtreel.type_ordre_paiement == 2
           )
           .reduce(
             (prec, cur) =>
@@ -1801,7 +1797,7 @@ export default {
       // return (id) => {
 
       let objet = this.getterActiviteSurOP.filter(
-        (item) => item.type_ordre_paiement == 1
+        (item) => item.type_ordre_paiement == 3
       );
       //  let vm=this
       let array_exercie = [];
@@ -2311,7 +2307,7 @@ export default {
       "ajouterBudgetEclate",
       "getDotationAutreRessource",
       "getEntreprise",
-      "ajouterOrdrePaiement",
+      "ajouterOrdrePaiementAnnulation",
       "getOpParActvite",
       "getInformationOp",
     ]),
@@ -2322,7 +2318,7 @@ export default {
     },
     AfficheVentilationBudget(id) {
       this.$router.push({
-        name: "AfficheOpActivite",
+        name: "AfficheOPAnnulation",
         params: { id: id },
       });
     },
@@ -2421,7 +2417,7 @@ export default {
         compte_id: this.afficheCompteBancaire_id(this.ordre_paiement_id),
         objet_depense: this.afficheObjet(this.ordre_paiement_id),
         numero_ordre_paiement: this.automatiseNumeroOP,
-        type_ordre_paiement: 4,
+        type_ordre_paiement: 3,
         montant_prestation: this.montant_prestation,
         nature_economique_id: this.afficheNatureEconomique_id(
           this.ordre_paiement_id
@@ -2434,20 +2430,10 @@ export default {
           this.ordre_paiement_id
         ),
         cumul_anterieure: this.afficheMontantCumul,
-        numero_facture: this.numero_facture,
-        date_facture: this.date_facture,
-
-        FormDataDossier: this.TableauDossier,
+        parent_id: this.ordre_paiement_id,
       };
 
-      this.ajouterOrdrePaiement(nouvelObjettrsor);
-
-      (this.TableauDossier = []),
-        (this.FormDataDossier.designation = ""),
-        (this.FormDataDossier.quantite = ""),
-        (this.FormDataDossier.prix_unitaire = 0),
-        (this.FormDataDossier.exonere = 0);
-      this.FormDataDossier.taux = 0;
+      this.ajouterOrdrePaiementAnnulation(nouvelObjettrsor);
       (this.objet_depense = ""),
         (this.activite_id = 0),
         (this.unite_operationnelle_id = 0),

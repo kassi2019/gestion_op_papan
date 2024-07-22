@@ -231,7 +231,7 @@
                 </th>
                 <td
                   style="
-                    font-size: 12px;
+                    font-size: 14px;
                     font-weight: bold;
                     color: #000;
                     text-align: left;
@@ -329,7 +329,9 @@
                     color: #000;
                     text-align: left;
                   "
-                >{{ rib_compte(id_compte) }}</td>
+                >
+                  {{ rib_compte(id_compte) }}
+                </td>
               </tr>
             </thead>
             <thead>
@@ -794,7 +796,7 @@ export default {
       id: this.activite_id,
     };
     this.getBudgetViseParActvite(objet);
-      this.getCompteBancaire();
+    this.getCompteBancaire();
     // this.getActivite();
     //   this.getExerciceBudgetaire();
     //  // this.getGroupeActivitebudgetNotifie()
@@ -802,7 +804,8 @@ export default {
   },
   computed: {
     ...mapGetters("parametrage", [
-      "getterActivite","getterCompteBancaire",
+      "getterActivite",
+      "getterCompteBancaire",
       "getterListeOPgloba",
       "getterBailleur",
       "getterNatureEconomique",
@@ -822,20 +825,20 @@ export default {
       return (
         parseFloat(this.cumulAnterieure) + parseFloat(this.montant_prestation)
       );
-    }, 
-     rib_compte() {
-        return (id) => {
-          if (id != null && id != "") {
-      const qtereel = this.getterCompteBancaire.find(
-        (qtreel) => qtreel.id == id
-      );
+    },
+    rib_compte() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.getterCompteBancaire.find(
+            (qtreel) => qtreel.id == id
+          );
 
-      if (qtereel) {
-        return qtereel.numero_compte;
-      }
-      return 0;
+          if (qtereel) {
+            return qtereel.numero_compte;
           }
-        };
+          return 0;
+        }
+      };
     },
     id_compte() {
       //   return (id) => {
@@ -866,9 +869,7 @@ export default {
       //   };
     },
     afficheDotaion() {
-      if (
-        (this.sousbudget_id == 0 && this.activite_id != 0)
-      ) {
+      if (this.sousbudget_id == 0 && this.activite_id != 0) {
         // return (id) => {
         //     if (id != null && id != "") {
         const qtereel = this.getterBudgetViseParActivite.find(
@@ -1013,7 +1014,7 @@ export default {
       //     }
       //   };
     },
-    listeFactureopt() {
+    ActiviteFacture_id() {
       //   return (id) => {
       //     if (id != null && id != "") {
       const qtereel = this.getterFacture.find(
@@ -1021,11 +1022,43 @@ export default {
       );
 
       if (qtereel) {
-        return qtereel.numero_facture.concat(" du ", qtereel.date_facture);
+        return 1;
       }
       return 0;
       //     }
       //   };
+    },
+    listeFactureopt() {
+      if (this.ActiviteFacture_id == 1) {
+        //   return (id) => {
+        //     if (id != null && id != "") {
+        const qtereel = this.getterFacture.find(
+          (qtreel) => qtreel.ordre_paiement_id == this.Activite_id
+        );
+
+        if (qtereel) {
+          return qtereel.numero_facture.concat(" du ", qtereel.date_facture);
+        }
+        return 0;
+        //     }
+        //   };
+      } else {
+        //   return (id) => {
+        //     if (id != null && id != "") {
+        const qtereel = this.getterFacture.find(
+          (qtreel) => qtreel.ordre_paiement_def_id == this.Activite_id
+        );
+
+        if (qtereel) {
+          return qtereel.numero_facture_definitve.concat(
+            " du ",
+            qtereel.date_facture_definitve
+          );
+        }
+        return 0;
+        //     }
+        //   };
+      }
     },
     exerciceBudgetaire() {
       //   return (id) => {
@@ -1158,7 +1191,8 @@ export default {
       "modifierDotationNotifie",
       "supprimerDotationNotifie",
       "getGroupeActivitebudgetNotifie",
-      "getBudgetEclate","getCompteBancaire"
+      "getBudgetEclate",
+      "getCompteBancaire",
     ]),
     formatageSomme: formatageSomme,
     formatageSommeSansFCFA: formatageSommeSansFCFA,

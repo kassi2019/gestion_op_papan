@@ -440,7 +440,12 @@ export const SUPPRIMER_TAUX = (state, id) => {
 export const AJOUTER_ORDRE_PAIEMENT= (state, elementAjouter) => {
     state.stateOrdrePaiement.unshift(elementAjouter)
 }
-
+export const AJOUTER_ORDRE_PAIEMENT_DEFINITIF= (state, elementAjouter) => {
+    state.stateOrdrePaiement.unshift(elementAjouter)
+}
+export const AJOUTER_ORDRE_PAIEMENT_ANNULATION= (state, elementAjouter) => {
+    state.stateOrdrePaiement.unshift(elementAjouter)
+}
 export const GET_ACTIVITE_OP= (state,value)=>{
     state.stateActiviteSurOP=value
 }

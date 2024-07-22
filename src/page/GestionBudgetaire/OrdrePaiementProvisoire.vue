@@ -1049,9 +1049,7 @@
       <div class="modal-dialog modal-xl">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">
-              Modifier Facture
-            </h5>
+            <h5 class="modal-title">Modifier Facture</h5>
             <button
               type="button"
               class="btn-close"
@@ -1062,118 +1060,124 @@
           <div class="modal-body">
             <form>
               <div class="row">
-              <div class="col-12">
-                <label for="inputNanme4" class="form-label">Désignation</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="inputNanme4"
-                  v-model="FormDataDossierMod.designation"
-                  style="border: 1px solid #000"
-                />
-              </div>
-              <div class="col-3">
-                <label class="form-label"
-                  >Quantité ( A )
+                <div class="col-12">
+                  <label for="inputNanme4" class="form-label"
+                    >Désignation</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="inputNanme4"
+                    v-model="FormDataDossierMod.designation"
+                    style="border: 1px solid #000"
+                  />
+                </div>
+                <div class="col-3">
+                  <label class="form-label"
+                    >Quantité ( A )
+                    <span
+                      style="color: red !important; font-size: 15px !important"
+                      >*</span
+                    ></label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    v-model="FormDataDossierMod.quantite"
+                  />
                   <span
-                    style="color: red !important; font-size: 15px !important"
-                    >*</span
-                  ></label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  v-model="FormDataDossierMod.quantite"
-                />
-                <span style="color: red" v-if="FormDataDossierMod.quantite == 0"
-                  >Ce champs est obligatoire!
-                </span>
-              </div>
-              <div class="col-3">
-                <label class="form-label"
-                  >Prix Unitaire ( B )
+                    style="color: red"
+                    v-if="FormDataDossierMod.quantite == 0"
+                    >Ce champs est obligatoire!
+                  </span>
+                </div>
+                <div class="col-3">
+                  <label class="form-label"
+                    >Prix Unitaire ( B )
+                    <span
+                      style="color: red !important; font-size: 15px !important"
+                      >*</span
+                    ></label
+                  >
+                  <money3
+                    class="form-control"
+                    v-bind="config"
+                    v-model="FormDataDossierMod.prix_unitaire"
+                  ></money3>
                   <span
-                    style="color: red !important; font-size: 15px !important"
-                    >*</span
-                  ></label
-                >
-                <money3
-                  class="form-control"
-                  v-bind="config"
-                  v-model="FormDataDossierMod.prix_unitaire"
-                ></money3>
-                <span
-                  style="color: red"
-                  v-if="FormDataDossierMod.prix_unitaire == 0"
-                  >Ce champs est obligatoire!
-                </span>
-              </div>
-              <div class="col-3">
-                <label class="form-label">Montant HT (C = A * B)</label>
-                <money3
-                  class="form-control"
-                  v-bind="config"
-                  :model-value="MontantHtMod"
-                  readonly
-                ></money3>
-              </div>
-              <div class="col-3">
-                <label class="form-label">Exonéré de la TVA 18%</label>
-                <select
-                  class="form-select form-control"
-                  id="defaultSelect"
-                  style="border: 1px solid #000 !important"
-                  v-model="FormDataDossierMod.exonere"
-                >
-                  <option></option>
-                  <option value="0">Oui</option>
-                  <option value="1">Non</option>
-                </select>
-              </div>
-              <div class="col-2">
-                <label class="form-label">Autre taux (%) ( D )</label>
-                <input type="text" class="form-control" v-model="FormDataDossierMod.autre_taux" />
-              </div>
-              <div class="col-2">
-                      <label class="form-label">Taux TVA (%) ( F )</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        :value="AfficheTauxTVAMod"
-                        readonly
-                      />
-                    </div>
-                    <div class="col-3">
-                      <label class="form-label"
-                        >Autre montant ( E = C * D)</label
-                      >
-                      <money3
-                        class="form-control"
-                        v-bind="config"
-                        :model-value="afficheAutreMontantMod"
-                        readonly
-                      ></money3>
-                    </div>
-                    <div class="col-2">
-                      <label class="form-label">Montant Tva ( G = C * F)</label>
-                      <money3
-                        class="form-control"
-                        v-bind="config"
-                        :model-value="montantTvaMod"
-                        readonly
-                      ></money3>
-                    </div>
-                    <div class="col-3">
-                      <label class="form-label"
-                        >Montant TTC ( H = E + G + C )</label
-                      >
-                      <money3
-                        class="form-control"
-                        v-bind="config"
-                        :model-value="MontantTTCMod"
-                        readonly
-                      ></money3>
-                    </div>
+                    style="color: red"
+                    v-if="FormDataDossierMod.prix_unitaire == 0"
+                    >Ce champs est obligatoire!
+                  </span>
+                </div>
+                <div class="col-3">
+                  <label class="form-label">Montant HT (C = A * B)</label>
+                  <money3
+                    class="form-control"
+                    v-bind="config"
+                    :model-value="MontantHtMod"
+                    readonly
+                  ></money3>
+                </div>
+                <div class="col-3">
+                  <label class="form-label">Exonéré de la TVA 18%</label>
+                  <select
+                    class="form-select form-control"
+                    id="defaultSelect"
+                    style="border: 1px solid #000 !important"
+                    v-model="FormDataDossierMod.exonere"
+                  >
+                    <option></option>
+                    <option value="0">Oui</option>
+                    <option value="1">Non</option>
+                  </select>
+                </div>
+                <div class="col-2">
+                  <label class="form-label">Autre taux (%) ( D )</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    v-model="FormDataDossierMod.autre_taux"
+                  />
+                </div>
+                <div class="col-2">
+                  <label class="form-label">Taux TVA (%) ( F )</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    :value="AfficheTauxTVAMod"
+                    readonly
+                  />
+                </div>
+                <div class="col-3">
+                  <label class="form-label">Autre montant ( E = C * D)</label>
+                  <money3
+                    class="form-control"
+                    v-bind="config"
+                    :model-value="afficheAutreMontantMod"
+                    readonly
+                  ></money3>
+                </div>
+                <div class="col-2">
+                  <label class="form-label">Montant Tva ( G = C * F)</label>
+                  <money3
+                    class="form-control"
+                    v-bind="config"
+                    :model-value="montantTvaMod"
+                    readonly
+                  ></money3>
+                </div>
+                <div class="col-3">
+                  <label class="form-label"
+                    >Montant TTC ( H = E + G + C )</label
+                  >
+                  <money3
+                    class="form-control"
+                    v-bind="config"
+                    :model-value="MontantTTCMod"
+                    readonly
+                  ></money3>
+                </div>
               </div>
             </form>
           </div>
@@ -1182,7 +1186,6 @@
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
-             
             >
               Modifier
             </button>
@@ -1367,9 +1370,10 @@ export default {
         parseFloat(this.MontantHt)
       );
     },
-     montantTvaMod() {
+    montantTvaMod() {
       const val = parseFloat(
-        (parseFloat(this.MontantHtMod) * parseFloat(this.AfficheTauxTVAMod)) / 100
+        (parseFloat(this.MontantHtMod) * parseFloat(this.AfficheTauxTVAMod)) /
+          100
       );
 
       if (val) {
@@ -1378,7 +1382,7 @@ export default {
 
       return 0;
     },
-    
+
     montantTva() {
       const val = parseFloat(
         (parseFloat(this.MontantHt) * parseFloat(this.AfficheTauxTVA)) / 100
@@ -1390,15 +1394,18 @@ export default {
 
       return 0;
     },
-    
-     afficheAutreMontantMod() {
-      return (parseFloat(this.FormDataDossierMod.autre_taux) / 100) * parseFloat(this.MontantHtMod);
+
+    afficheAutreMontantMod() {
+      return (
+        (parseFloat(this.FormDataDossierMod.autre_taux) / 100) *
+        parseFloat(this.MontantHtMod)
+      );
     },
     afficheAutreMontant() {
       return (parseFloat(this.autre_taux) / 100) * parseFloat(this.MontantHt);
     },
-    
-     AfficheTauxTVAMod() {
+
+    AfficheTauxTVAMod() {
       if (this.FormDataDossierMod.exonere == 1) {
         return 0;
       } else {
@@ -1415,7 +1422,7 @@ export default {
       }
     },
     AfficheTauxTVA() {
-      if (this.FormDataDossier.exonere == 1) {
+      if (this.FormDataDossier.exonere == 0) {
         return 0;
       } else {
         // return (id) => {
@@ -1445,34 +1452,53 @@ export default {
       if (this.sous_budget_id == 0 && this.activite_id != 0) {
         // return (id) => {
         //     if (id != null && id != "") {
-        return this.getterOpParActivite.filter(
-          (qtreel) =>
-            qtreel.nature_economique_id == this.nature_economique_id &&
-            qtreel.type_financement_id == this.type_financement_id &&
-            qtreel.source_financement_id == this.source_financement_id &&
-            qtreel.nature_depense_id == this.NatureDepense_id
-        ).reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.montant_prestation),
-          0
-        )
-        .toFixed(0);
-
-       
+        return this.getterOpParActivite
+          .filter(
+            (qtreel) =>
+              (qtreel.nature_economique_id == this.nature_economique_id &&
+                qtreel.type_financement_id == this.type_financement_id &&
+                qtreel.source_financement_id == this.source_financement_id &&
+                qtreel.nature_depense_id == this.NatureDepense_id &&
+                qtreel.annulation == 0 &&
+                qtreel.type_ordre_paiement == 2) ||
+              (qtreel.nature_economique_id == this.nature_economique_id &&
+                qtreel.type_financement_id == this.type_financement_id &&
+                qtreel.source_financement_id == this.source_financement_id &&
+                qtreel.nature_depense_id == this.NatureDepense_id &&
+                qtreel.annulation == 0 &&
+                qtreel.type_ordre_paiement == 4)
+          )
+          .reduce(
+            (prec, cur) =>
+              parseFloat(prec) + parseFloat(cur.montant_prestation),
+            0
+          )
+          .toFixed(0);
       } else {
-        return this.getterOpParActivite.filter(
-          (qtreel) =>
-            qtreel.nature_economique_id == this.nature_economique_id &&
-            qtreel.type_financement_id == this.type_financement_id &&
-            qtreel.source_financement_id == this.source_financement_id &&
-            qtreel.nature_depense_id == this.NatureDepense_id &&
-            qtreel.sous_budget_id == this.sous_budget_id
-        ).reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.montant_prestation),
-          0
-        )
-        .toFixed(0);
-
-       
+        return this.getterOpParActivite
+          .filter(
+            (qtreel) =>
+              (qtreel.nature_economique_id == this.nature_economique_id &&
+                qtreel.type_financement_id == this.type_financement_id &&
+                qtreel.source_financement_id == this.source_financement_id &&
+                qtreel.nature_depense_id == this.NatureDepense_id &&
+                qtreel.sous_budget_id == this.sous_budget_id &&
+                qtreel.annulation == 0 &&
+                qtreel.type_ordre_paiement == 4) ||
+              (qtreel.nature_economique_id == this.nature_economique_id &&
+                qtreel.type_financement_id == this.type_financement_id &&
+                qtreel.source_financement_id == this.source_financement_id &&
+                qtreel.nature_depense_id == this.NatureDepense_id &&
+                qtreel.sous_budget_id == this.sous_budget_id &&
+                qtreel.annulation == 0 &&
+                qtreel.type_ordre_paiement == 2)
+          )
+          .reduce(
+            (prec, cur) =>
+              parseFloat(prec) + parseFloat(cur.montant_prestation),
+            0
+          )
+          .toFixed(0);
       }
     },
     afficheCompteBancaire() {
@@ -1533,7 +1559,7 @@ export default {
         return this.getterTaux;
       }
     },
-    
+
     MontantHtMod() {
       return (
         parseFloat(this.FormDataDossierMod.quantite) *
@@ -2168,10 +2194,10 @@ export default {
         this.TableauDossier.splice(item, 1);
       }
     },
-     modifierTableau() {
+    modifierTableau() {
       var nouvelObjet12 = {
         ...this.FormDataDossierMod,
-        nombre:this.FormDataDossierMod.nombre,
+        nombre: this.FormDataDossierMod.nombre,
         designation: this.FormDataDossierMod.designation,
         quantite: this.FormDataDossierMod.quantite,
         prix_unitaire: this.FormDataDossierMod.prix_unitaire,
