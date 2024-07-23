@@ -11,6 +11,7 @@
             border-color: #fff !important;
             border-style: solid;
             box-shadow: 15px -10px #f9d531;
+            cursor: pointer;
             width: 80%;
           "
           @click="ParametreGeneraux(1)"
@@ -33,6 +34,7 @@
             border-style: solid;
             box-shadow: 15px -10px #f9d531;
             width: 80%;
+            cursor: pointer;
           "
           @click="ParametreGeneraux(2)"
         >
@@ -56,6 +58,7 @@
             border-style: solid;
             box-shadow: 15px -10px #f9d531;
             width: 80%;
+            cursor: pointer;
           "
         >
           <div class="card-body curves-shadow">
@@ -78,6 +81,7 @@
             border-style: solid;
             box-shadow: 15px -10px #f9d531;
             width: 80%;
+            cursor: pointer;
           "
            @click="ParametreGeneraux(4)"
         >
@@ -110,6 +114,7 @@
             border-style: solid;
             box-shadow: 15px -10px #f9d531;
             width: 80%;
+            cursor: pointer;
           "
            @click="ParametreGeneraux(5)"
         >

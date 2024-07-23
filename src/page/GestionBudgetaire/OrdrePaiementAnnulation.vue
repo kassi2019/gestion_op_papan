@@ -27,68 +27,11 @@
           </div>
         </div>
         <div class="card-body">
-          <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-            <li class="nav-item" role="presentation">
-              <button
-                class="nav-link active"
-                id="pills-home-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#pills-home"
-                type="button"
-                role="tab"
-                aria-controls="pills-home"
-                aria-selected="true"
-                style="color: #000 !important"
-              >
-                SAISIR ORDRE DE PAIEMENT
-              </button>
-            </li>
-            <!-- <li class="nav-item" role="presentation">
-              <button
-                class="nav-link"
-                id="pills-profile-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#pills-profile"
-                type="button"
-                role="tab"
-                aria-controls="pills-profile"
-                aria-selected="false"
-                style="color: #000 !important"
-              >
-                SAISIR FACTURE
-              </button>
-            </li> -->
-
-            <li class="nav-item" role="presentation">
-              <button
-                class="nav-link"
-                id="pills-contact-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#pills-contact"
-                type="button"
-                role="tab"
-                aria-controls="pills-contact"
-                aria-selected="false"
-                style="color: #000 !important"
-              >
-                VERIFICATION ORDRE PAIEMENT
-              </button>
-            </li>
-          </ul>
-          <div class="tab-content" id="pills-tabContent">
-            <div
-              class="tab-pane fade show active"
-              id="pills-home"
-              role="tabpanel"
-              aria-labelledby="pills-home-tab"
-            >
+          <FormWizard @on-complete="onComplete" color="#e67e22">
+            <TabContent title="INFORMATION SUR OP" icon="ti-write">
               <div class="row">
                 <div class="col-lg-12">
                   <form class="row g-3">
-                    <legend style="text-decoration: underline">
-                      Information sur Ordre de paiement
-                    </legend>
-
                     <div class="col-12">
                       <label class="form-label"
                         >Activité
@@ -265,14 +208,21 @@
                       <span style="color: red" v-if="montant_prestation == 0"
                         >Ce champs est obligatoire!
                       </span>
-                       <span style="color: red" v-if="parseFloat(montant_prestation) < 0"
+                      <span
+                        style="color: red"
+                        v-if="parseFloat(montant_prestation) < 0"
                         >Montant de l'OP doit est négatif!
                       </span>
                     </div>
-                    <legend style="text-decoration: underline">
-                      Information sur la dotation
-                    </legend>
-                    <div class="col-9">
+                  </form>
+                </div>
+              </div>
+            </TabContent>
+            <TabContent title="INFORMATION SUR DOTATION" icon="ti-write"
+              ><div class="row">
+                <div class="col-lg-12">
+                  <form class="row g-3">
+                     <div class="col-9">
                       <label class="form-label"
                         >Nature économique / Imputation
                       </label>
@@ -396,578 +346,10 @@
                       </button>
                     </div>
                   </form>
-                </div>
-              </div>
-            </div>
-            <div
-              class="tab-pane fade"
-              id="pills-profile"
-              role="tabpanel"
-              aria-labelledby="pills-profile-tab"
-            >
-              <div class="row">
-                <div class="col-lg-12">
-                  <form class="row g-3">
-                    <div class="col-3">
-                      <label class="form-label"
-                        >Numéro de la facture
-                        <span
-                          style="
-                            color: red !important;
-                            font-size: 15px !important;
-                          "
-                          >*</span
-                        ></label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        v-model="numero_facture"
-                      />
-                      <span style="color: red" v-if="numero_facture == 0"
-                        >Ce champs est obligatoire!
-                      </span>
-                    </div>
-                    <div class="col-2">
-                      <label class="form-label"
-                        >Date de la facture
-                        <span
-                          style="
-                            color: red !important;
-                            font-size: 15px !important;
-                          "
-                          >*</span
-                        ></label
-                      >
-                      <input
-                        type="date"
-                        class="form-control"
-                        v-model="date_facture"
-                      />
-                      <span
-                        style="color: red; font-size: 10px"
-                        v-if="date_facture == ''"
-                        >Ce champs est obligatoire!
-                      </span>
-                    </div>
-                    <div class="col-3">
-                      <label class="form-label">Montant de la OP</label>
-                      <money3
-                        class="form-control"
-                        v-bind="config"
-                        v-model="montant_prestation"
-                        readonly
-                      ></money3>
-                    </div>
-                    <div class="col-2">
-                      <label class="form-label">Montant facture saisie</label>
-                      <money3
-                        class="form-control"
-                        v-bind="config"
-                        readonly
-                        :model-value="CumulMontantSaisi"
-                      ></money3>
-                    </div>
-                    <div class="col-2">
-                      <label class="form-label">Ecart</label>
-                      <money3
-                        v-if="
-                          parseFloat(montant_prestation) !=
-                          parseFloat(CumulMontantSaisi)
-                        "
-                        class="form-control"
-                        v-bind="config"
-                        readonly
-                        :model-value="
-                          parseFloat(montant_prestation) -
-                          parseFloat(CumulMontantSaisi)
-                        "
-                        style="border: 2px solid red !important"
-                      ></money3>
-                      <money3
-                        v-else
-                        class="form-control"
-                        v-bind="config"
-                        readonly
-                        :model-value="
-                          parseFloat(montant_prestation) -
-                          parseFloat(CumulMontantSaisi)
-                        "
-                      ></money3>
-                    </div>
-                    <div class="col-12">
-                      <label class="form-label"
-                        >Désignation
-                        <span
-                          style="
-                            color: red !important;
-                            font-size: 15px !important;
-                          "
-                          >*</span
-                        ></label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        v-model="FormDataDossier.designation"
-                      />
-                      <span
-                        style="color: red"
-                        v-if="FormDataDossier.designation == ''"
-                        >Ce champs est obligatoire!
-                      </span>
-                    </div>
-                    <div class="col-3">
-                      <label class="form-label"
-                        >Quantité ( A )
-                        <span
-                          style="
-                            color: red !important;
-                            font-size: 15px !important;
-                          "
-                          >*</span
-                        ></label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        v-model="FormDataDossier.quantite"
-                      />
-                      <span
-                        style="color: red"
-                        v-if="FormDataDossier.quantite == 0"
-                        >Ce champs est obligatoire!
-                      </span>
-                    </div>
-                    <div class="col-3">
-                      <label class="form-label"
-                        >Prix Unitaire ( B )
-                        <span
-                          style="
-                            color: red !important;
-                            font-size: 15px !important;
-                          "
-                          >*</span
-                        ></label
-                      >
-                      <money3
-                        class="form-control"
-                        v-bind="config"
-                        v-model="FormDataDossier.prix_unitaire"
-                      ></money3>
-                      <span
-                        style="color: red"
-                        v-if="FormDataDossier.prix_unitaire == 0"
-                        >Ce champs est obligatoire!
-                      </span>
-                    </div>
-                    <div class="col-3">
-                      <label class="form-label">Montant HT (C = A * B)</label>
-                      <money3
-                        class="form-control"
-                        v-bind="config"
-                        :model-value="MontantHt"
-                        readonly
-                      ></money3>
-                    </div>
-                    <div class="col-3">
-                      <label class="form-label">Exonéré de la TVA 18%</label>
-                      <select
-                        class="form-select form-control"
-                        id="defaultSelect"
-                        style="border: 1px solid #000 !important"
-                        v-model="FormDataDossier.exonere"
-                      >
-                        <option></option>
-                        <option value="0">Oui</option>
-                        <option value="1">Non</option>
-                      </select>
-                    </div>
-                    <div class="col-2">
-                      <label class="form-label">Autre taux (%) ( D )</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        v-model="autre_taux"
-                      />
-                    </div>
-                    <div class="col-2">
-                      <label class="form-label">Taux TVA (%) ( F )</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        :value="AfficheTauxTVA"
-                        readonly
-                      />
-                    </div>
-                    <div class="col-2">
-                      <label class="form-label"
-                        >Autre montant ( E = C * D)</label
-                      >
-                      <money3
-                        class="form-control"
-                        v-bind="config"
-                        :model-value="afficheAutreMontant"
-                        readonly
-                      ></money3>
-                    </div>
-                    <div class="col-2">
-                      <label class="form-label">Montant Tva ( G = C * F)</label>
-                      <money3
-                        class="form-control"
-                        v-bind="config"
-                        :model-value="montantTva"
-                        readonly
-                      ></money3>
-                    </div>
-                    <div class="col-3">
-                      <label class="form-label"
-                        >Montant TTC ( H = E + G + C )</label
-                      >
-                      <money3
-                        class="form-control"
-                        v-bind="config"
-                        :model-value="MontantTTC"
-                        readonly
-                      ></money3>
-                    </div>
-                    <div class="col-1">
-                      <br />
-                      <button
-                        v-if="
-                          numero_facture == 0 ||
-                          date_facture == '' ||
-                          FormDataDossier.designation == 0 ||
-                          FormDataDossier.quantite == 0 ||
-                          FormDataDossier.prix_unitaire == 0
-                        "
-                        disabled
-                        type="button"
-                        class="btn btn-primary"
-                        @click.prevent="ajouterPartieRequerante()"
-                      >
-                        Ajouter
-                      </button>
-                      <button
-                        v-else
-                        type="button"
-                        class="btn btn-primary"
-                        @click.prevent="ajouterPartieRequerante()"
-                      >
-                        Ajouter
-                      </button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-              <br />
-              <div class="table-responsive">
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <!-- <th scope="col">#</th> -->
-                      <!-- <th scope="col">N</th> -->
-                      <!-- <th scope="col" style="text-align: center">N°</th> -->
-                      <th
-                        scope="col"
-                        style="
-                          text-align: center;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        Désignation
-                      </th>
-                      <th
-                        scope="col"
-                        style="
-                          text-align: center;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        Quantité
-                      </th>
-                      <th
-                        scope="col"
-                        style="
-                          text-align: center;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        Prix unitaire
-                      </th>
-                      <th
-                        scope="col"
-                        style="
-                          text-align: center;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        Montant HT
-                      </th>
-                      <!-- <th scope="col" style="text-align: center">Rémise</th>
-                      <th scope="col" style="text-align: center">Addition</th>-->
-                      <th
-                        scope="col"
-                        style="
-                          text-align: center;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        Autre Montant HT
-                      </th>
-                      <th
-                        scope="col"
-                        style="
-                          text-align: center;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        Taux
-                      </th>
-                      <th
-                        scope="col"
-                        style="
-                          text-align: center;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        Montant TVA
-                      </th>
-                      <th
-                        scope="col"
-                        style="
-                          text-align: center;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        Montant TTC
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr
-                      v-for="(item1, index) in TableauDossier"
-                      :key="item1.id"
-                    >
-                      <td style="width: 45%; border: 1px solid #000 !important">
-                        {{ item1.designation }}
-                      </td>
-                      <td style="width: 10%; border: 1px solid #000 !important">
-                        {{ item1.quantite }}
-                      </td>
-                      <td
-                        style="
-                          width: 10%;
-                          text-align: right;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        {{
-                          formatageSommeSansFCFA(
-                            parseFloat(item1.prix_unitaire)
-                          )
-                        }}
-                      </td>
-                      <td
-                        style="
-                          width: 10%;
-                          text-align: right;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        {{
-                          formatageSommeSansFCFA(parseFloat(item1.montant_ht))
-                        }}
-                      </td>
-                      <td
-                        style="
-                          width: 15%;
-                          text-align: right;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        {{ formatageSommeSansFCFA(parseFloat(item1.taux)) }}
-                      </td>
-                      <td
-                        style="
-                          width: 15%;
-                          text-align: right;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        {{
-                          formatageSommeSansFCFA(
-                            parseFloat(item1.autre_montant)
-                          )
-                        }}
-                      </td>
-                      <td
-                        style="
-                          width: 15%;
-                          text-align: right;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        {{
-                          formatageSommeSansFCFA(parseFloat(item1.montant_tva))
-                        }}
-                      </td>
-                      <td
-                        style="
-                          width: 15%;
-                          text-align: right;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        {{
-                          formatageSommeSansFCFA(parseFloat(item1.montant_ttc))
-                        }}
-                      </td>
-                      <td>
-                        <!-- <span
-                          title="Modifier"
-                          class="fas fa-edit"
-                          data-bs-toggle="modal"
-                          data-bs-target="#largeModal1"
-                          style="cursor: pointer; color: blue"
-                          @click.prevent="
-                            AfficheModalModificationFacture(item1.nombre)
-                          "
-                        ></span> -->
-                        <span
-                          title="Supprimer"
-                          class="fas fa-archive"
-                          style="
-                            cursor: pointer;
-                            color: red;
-                            border: 1px solid #000 !important;
-                          "
-                          @click.prevent="deletePartieRequerante(index)"
-                        ></span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td
-                        colspan="3"
-                        style="
-                          text-align: center;
-                          background-color: #f6e8b1 !important;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        TOTAL
-                      </td>
-
-                      <td
-                        style="
-                          text-align: right !important;
-                          background-color: #f6e8b1 !important;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        {{ formatageSommeSansFCFA(parseFloat(CumulMontantHT)) }}
-                      </td>
-                      <td
-                        style="
-                          text-align: right !important;
-                          background-color: #f6e8b1 !important;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        {{ formatageSommeSansFCFA(parseFloat(0)) }}
-                      </td>
-                      <td
-                        style="
-                          text-align: right !important;
-                          background-color: #f6e8b1 !important;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        {{
-                          formatageSommeSansFCFA(
-                            parseFloat(CumulMontantAutreMontant)
-                          )
-                        }}
-                      </td>
-                      <td
-                        style="
-                          text-align: right !important;
-                          background-color: #f6e8b1 !important;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        {{
-                          formatageSommeSansFCFA(parseFloat(CumulMontanttva))
-                        }}
-                      </td>
-                      <td
-                        style="
-                          text-align: right !important;
-                          background-color: #f6e8b1 !important;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        {{
-                          formatageSommeSansFCFA(parseFloat(CumulMontantSaisi))
-                        }}
-                      </td>
-                      <td
-                        style="
-                          text-align: right !important;
-                          background-color: #f6e8b1 !important;
-                          border: 1px solid #000 !important;
-                        "
-                      ></td>
-                    </tr>
-                    <tr>
-                      <td colspan="8"></td>
-                      <td colspan="">
-                       
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <div
-              class="tab-pane fade"
-              id="pills-contact"
-              role="tabpanel"
-              aria-labelledby="pills-contact-tab"
-            >
-              <div class="table-responsive">
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <th>N°</th>
-                      <th>Activite</th>
-                      <th></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr
-                      v-for="(item, index) in GroupeActiviteOPDirect"
-                      :key="item"
-                    >
-                      <td style="border: 1px solid #000">{{ index + 1 }}</td>
-                      <td style="border: 1px solid #000">
-                        {{ afficheLibelleActivite(item) }}
-                      </td>
-
-                      <td style="border: 1px solid #000">
-                        <span
-                          class="badge badge-black"
-                          style="cursor: pointer"
-                          @click.prevent="AfficheVentilationBudget(item)"
-                          >Voir OP Annulation</span
-                        >
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
+                </div></div
+            ></TabContent>
+            <TabContent title="VERIFICATION OP" icon="ti-write">369</TabContent>
+          </FormWizard>
         </div>
       </div>
     </div>
@@ -1709,23 +1091,26 @@ export default {
         return this.getterOpParActivite
           .filter(
             (qtreel) =>
-              qtreel.nature_economique_id ==
+              (qtreel.nature_economique_id ==
                 this.afficheNatureEconomique_id(this.ordre_paiement_id) &&
-              qtreel.type_financement_id ==
-                this.afficheTypeFiancement_id(this.ordre_paiement_id) &&
-              qtreel.source_financement_id ==
-                this.afficheSourceFiancement_id(this.ordre_paiement_id) &&
-              qtreel.nature_depense_id ==
-                this.afficheNatureDepense_id(this.ordre_paiement_id) && qtreel.annulation == 0
-                && qtreel.type_ordre_paiement == 2 || qtreel.nature_economique_id ==
+                qtreel.type_financement_id ==
+                  this.afficheTypeFiancement_id(this.ordre_paiement_id) &&
+                qtreel.source_financement_id ==
+                  this.afficheSourceFiancement_id(this.ordre_paiement_id) &&
+                qtreel.nature_depense_id ==
+                  this.afficheNatureDepense_id(this.ordre_paiement_id) &&
+                qtreel.annulation == 0 &&
+                qtreel.type_ordre_paiement == 2) ||
+              (qtreel.nature_economique_id ==
                 this.afficheNatureEconomique_id(this.ordre_paiement_id) &&
-              qtreel.type_financement_id ==
-                this.afficheTypeFiancement_id(this.ordre_paiement_id) &&
-              qtreel.source_financement_id ==
-                this.afficheSourceFiancement_id(this.ordre_paiement_id) &&
-              qtreel.nature_depense_id ==
-                this.afficheNatureDepense_id(this.ordre_paiement_id) && qtreel.annulation == 0
-                && qtreel.type_ordre_paiement == 4
+                qtreel.type_financement_id ==
+                  this.afficheTypeFiancement_id(this.ordre_paiement_id) &&
+                qtreel.source_financement_id ==
+                  this.afficheSourceFiancement_id(this.ordre_paiement_id) &&
+                qtreel.nature_depense_id ==
+                  this.afficheNatureDepense_id(this.ordre_paiement_id) &&
+                qtreel.annulation == 0 &&
+                qtreel.type_ordre_paiement == 4)
           )
           .reduce(
             (prec, cur) =>
@@ -1737,25 +1122,28 @@ export default {
         return this.getterOpParActivite
           .filter(
             (qtreel) =>
-              qtreel.nature_economique_id ==
+              (qtreel.nature_economique_id ==
                 this.afficheNatureEconomique_id(this.ordre_paiement_id) &&
-              qtreel.type_financement_id ==
-                this.afficheTypeFiancement_id(this.ordre_paiement_id) &&
-              qtreel.source_financement_id ==
-                this.afficheSourceFiancement_id(this.ordre_paiement_id) &&
-              qtreel.nature_depense_id ==
-                this.afficheNatureDepense_id(this.ordre_paiement_id) &&
-              qtreel.sous_budget_id == this.sous_budget_id && qtreel.annulation == 0
-                && qtreel.type_ordre_paiement == 4 || qtreel.nature_economique_id ==
+                qtreel.type_financement_id ==
+                  this.afficheTypeFiancement_id(this.ordre_paiement_id) &&
+                qtreel.source_financement_id ==
+                  this.afficheSourceFiancement_id(this.ordre_paiement_id) &&
+                qtreel.nature_depense_id ==
+                  this.afficheNatureDepense_id(this.ordre_paiement_id) &&
+                qtreel.sous_budget_id == this.sous_budget_id &&
+                qtreel.annulation == 0 &&
+                qtreel.type_ordre_paiement == 4) ||
+              (qtreel.nature_economique_id ==
                 this.afficheNatureEconomique_id(this.ordre_paiement_id) &&
-              qtreel.type_financement_id ==
-                this.afficheTypeFiancement_id(this.ordre_paiement_id) &&
-              qtreel.source_financement_id ==
-                this.afficheSourceFiancement_id(this.ordre_paiement_id) &&
-              qtreel.nature_depense_id ==
-                this.afficheNatureDepense_id(this.ordre_paiement_id) &&
-              qtreel.sous_budget_id == this.sous_budget_id && qtreel.annulation == 0
-                && qtreel.type_ordre_paiement == 2
+                qtreel.type_financement_id ==
+                  this.afficheTypeFiancement_id(this.ordre_paiement_id) &&
+                qtreel.source_financement_id ==
+                  this.afficheSourceFiancement_id(this.ordre_paiement_id) &&
+                qtreel.nature_depense_id ==
+                  this.afficheNatureDepense_id(this.ordre_paiement_id) &&
+                qtreel.sous_budget_id == this.sous_budget_id &&
+                qtreel.annulation == 0 &&
+                qtreel.type_ordre_paiement == 2)
           )
           .reduce(
             (prec, cur) =>

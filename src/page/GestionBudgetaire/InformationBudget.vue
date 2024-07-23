@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="col-md-12">
-      <div class="card" style="box-shadow: 5px 5px  #f9d531;">
+      <div class="card" style="box-shadow: 5px 5px #f9d531">
         <div class="card-header">
           <div class="page-header">
             <h6 class="fw-bold mb-3">Information du budget global</h6>
@@ -53,30 +53,32 @@
                 <tr v-for="item in getterInformationBudget" :key="item.id">
                   <td style="border: 1px solid #000">{{ item.exercice }}</td>
                   <td style="border: 1px solid #000">{{ item.libelle }}</td>
-                  <td style="border: 1px solid #000;text-align: right">{{ formatageSommeSansFCFA(parseFloat(item.dotation)) }}</td>
+                  <td style="border: 1px solid #000; text-align: right">
+                    {{ formatageSommeSansFCFA(parseFloat(item.dotation)) }}
+                  </td>
                   <td style="border: 1px solid #000">
-                    <span v-if="item.decision==1"
+                    <span
+                      v-if="item.decision == 1"
                       class="badge badge-success"
-                      style="cursor: pointer;text-align: center;"
-                      
+                      style="cursor: pointer; text-align: center"
                       >{{ afficheDecision(item.decision) }}</span
                     >
-                    <span v-if="item.decision==2"
+                    <span
+                      v-if="item.decision == 2"
                       class="badge badge-success"
                       style="cursor: pointer"
-                      
                       >{{ afficheDecision(item.decision) }}</span
                     >
-                     <span v-if="item.decision==3"
+                    <span
+                      v-if="item.decision == 3"
                       class="badge badge-warning"
                       style="cursor: pointer"
-                      
                       >{{ afficheDecision(item.decision) }}</span
                     >
-                     <span v-if="item.decision==4"
+                    <span
+                      v-if="item.decision == 4"
                       class="badge badge-danger"
                       style="cursor: pointer"
-                      
                       >{{ afficheDecision(item.decision) }}</span
                     >
                   </td>
@@ -90,20 +92,20 @@
                       @click.prevent="AfficheVentilationBudget(item.id)"
                       >Saisir budget</span
                     >
-                     <span
-                  class="badge rounded-pill bg-primary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#largeModal1"
-                  style="cursor: pointer"
-                  @click.prevent="AfficheModalModification(item.id)"
-                  >Modifier</span
-                >
-                <span
-                  class="badge bg-danger"
-                  style="cursor: pointer"
-                  @click.prevent="supprimerInformationBudget(item.id)"
-                  >Supprimer</span
-                >
+                    <span
+                      class="badge rounded-pill bg-primary"
+                      data-bs-toggle="modal"
+                      data-bs-target="#largeModal1"
+                      style="cursor: pointer"
+                      @click.prevent="AfficheModalModification(item.id)"
+                      >Modifier</span
+                    >
+                    <span
+                      class="badge bg-danger"
+                      style="cursor: pointer"
+                      @click.prevent="supprimerInformationBudget(item.id)"
+                      >Supprimer</span
+                    >
                   </td>
                 </tr>
               </tbody>
@@ -128,37 +130,60 @@
           </div>
           <div class="modal-body">
             <form>
-            
               <div class="col-12">
                 <label for="inputNanme4" class="form-label">Exercice</label>
                 <input
                   type="text"
                   class="form-control"
-                  
                   :value="exerciceBudgetaire"
                   style="border: 1px solid #000; background-color: #dcdcdc"
                   readonly
                 />
               </div>
+               <div class="col-12">
+                <label class="form-label"
+                  >Activité
+                  <span
+                    style="color: red !important; font-size: 15px !important"
+                    >*</span
+                  ></label
+                >
+                <model-list-select
+                  :list="libelleActivite"
+                  v-model="modNatureDepense.activite_id"
+                  option-value="id"
+                  option-text="libelle"
+                  placeholder="select item"
+                  style="border: 1px solid #000"
+                >
+                </model-list-select>
+                <span
+                  style="color: red"
+                  v-if="modNatureDepense.activite_id == 0"
+                  >Ce champs est obligatoire!
+                </span>
+              </div>
               <div class="col-12">
-                <label for="inputNanme4" class="form-label">Libelle du budget</label>
+                <label for="inputNanme4" class="form-label"
+                  >Libelle du budget</label
+                >
                 <input
                   type="text"
                   class="form-control"
-                  
                   style="border: 1px solid #000"
                   v-model="modNatureDepense.libelle"
                 />
               </div>
               <div class="col-12">
-                <label for="inputNanme4" class="form-label">Dotation global budget</label>
+                <label for="inputNanme4" class="form-label"
+                  >Dotation global budget</label
+                >
                 <money3
-                  v-model="modNatureDepense.dotation"
+                  :model-value="AfficheMontantGlobalModi"
                   class="form-control"
-                  
                   style=""
                 ></money3>
-                 <!-- <input
+                <!-- <input
                         type="text"
                         class="form-control"
                        
@@ -188,7 +213,6 @@
                 <input
                   type="date"
                   class="form-control"
-                  
                   style="border: 1px solid #000"
                   v-model="modNatureDepense.date_decision"
                 />
@@ -236,9 +260,36 @@
                   type="text"
                   class="form-control"
                   :value="exerciceBudgetaire"
-                  style="border: 1px solid #000 !important; background-color: #dcdcdc !important;color:#000 !important"
+                  style="
+                    border: 1px solid #000 !important;
+                    background-color: #dcdcdc !important;
+                    color: #000 !important;
+                  "
                   readonly
                 />
+              </div>
+              <div class="col-12">
+                <label class="form-label"
+                  >Activité
+                  <span
+                    style="color: red !important; font-size: 15px !important"
+                    >*</span
+                  ></label
+                >
+                <model-list-select
+                  :list="libelleActivite"
+                  v-model="ajouterNatureDepense.activite_id"
+                  option-value="id"
+                  option-text="libelle"
+                  placeholder="select item"
+                  style="border: 1px solid #000"
+                >
+                </model-list-select>
+                <span
+                  style="color: red"
+                  v-if="ajouterNatureDepense.activite_id == 0"
+                  >Ce champs est obligatoire!
+                </span>
               </div>
               <div class="col-12">
                 <label for="inputNanme4" class="form-label"
@@ -256,7 +307,7 @@
                   >Dotation global budget</label
                 >
                 <money3
-                  v-model="ajouterNatureDepense.dotation"
+                  :model-value="AfficheMontantGlobal"
                   class="form-control"
                   v-bind="config"
                   style="border: 1px solid #000"
@@ -295,23 +346,22 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import moment from "moment";
-import {
-
-  formatageSommeSansFCFA,
-} from "../Repositories/Repository";
+import { ModelListSelect } from "vue-search-select";
+import { formatageSommeSansFCFA } from "../Repositories/Repository";
 export default {
-  components: {},
+  components: { ModelListSelect },
   data() {
     return {
       ajouterNatureDepense: {
         dotation: "",
         libelle: "",
+        activite_id: "",
       },
       modNatureDepense: {
         dotation: "",
-          libelle: "",
-          decision: "",
-          date_decision:""
+        libelle: "",
+        decision: "",
+        date_decision: "",
       },
       config: {
         prefix: "",
@@ -332,14 +382,31 @@ export default {
   },
   created() {
     this.getExerciceBudgetaire();
+    this.getActivite();
+    this.getDotationNotifie();
+    this.getDotationReport();
     this.getInformationBudget();
   },
   computed: {
     ...mapGetters("parametrage", [
       "getterActivite",
+      "getterDotationReport",
+      "getterDotationNotifie",
       "getterExerciceBudgetaire",
       "getterInformationBudget",
     ]),
+    libelleActivite() {
+      let collet = [];
+      this.getterActivite.filter((item) => {
+        let data = {
+          id: item.id,
+          libelle: item.code.concat("  ", item.libelle),
+        };
+        collet.push(data);
+        //}
+      });
+      return collet;
+    },
     exerciceBudgetaire() {
       //   return (id) => {
       //     if (id != null && id != "") {
@@ -354,34 +421,95 @@ export default {
       //     }
       //   };
     },
+    montantReport() {
+      //   return (id) => {
+      //     if (id != null && id != "") {
+      const qtereel = this.getterDotationReport.find(
+        (qtreel) =>
+          qtreel.activite_id == this.ajouterNatureDepense.activite_id &&
+          qtreel.exercice == this.exerciceBudgetaire - 1
+      );
+
+      if (qtereel) {
+        return qtereel.dotation;
+      }
+      return 0;
+      //     }
+      //   };
+    },
+    montantReportMod() {
+      //   return (id) => {
+      //     if (id != null && id != "") {
+      const qtereel = this.getterDotationReport.find(
+        (qtreel) =>
+          qtreel.activite_id == this.modNatureDepense.activite_id &&
+          qtreel.exercice == this.exerciceBudgetaire - 1
+      );
+
+      if (qtereel) {
+        return qtereel.dotation;
+      }
+      return 0;
+      //     }
+      //   };
+    },
+
+    montantNotifier() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.getterDotationNotifie.find(
+            (qtreel) => qtreel.activite_id == id
+          );
+
+          if (qtereel) {
+            return qtereel.dotation;
+          }
+          return 0;
+        }
+      };
+    },
+    AfficheMontantGlobal() {
+      return (
+        parseFloat(this.montantReport) +
+        parseFloat(this.montantNotifier(this.ajouterNatureDepense.activite_id))
+      );
+    },
+    AfficheMontantGlobalModi() {
+      return (
+        parseFloat(this.montantReportMod) +
+        parseFloat(this.montantNotifier(this.modNatureDepense.activite_id))
+      );
+    },
   },
   methods: {
     ...mapActions("parametrage", [
       "getActivite",
+      "getDotationNotifie",
+      "getDotationReport",
       "ajouterInformationBudget",
       "modifierInformationBudget",
       "supprimerInformationBudget",
       "getExerciceBudgetaire",
       "getInformationBudget",
     ]),
-     AfficheVentilationBudget(id) {
+    AfficheVentilationBudget(id) {
       this.$router.push({
         name: "VentilationBudget",
         params: { id: id },
       });
     },
-      afficheDecision($id) {
-          if ($id == 1) {
-            return 'Visé'
-          } else if ($id == 2) {
-            return 'Visé avec observation'
-          } else if ($id == 3) {
-            return 'Différé'
-          } else if ($id == 4) {
-            return 'Réjetté'
-          } else {
-            return 'En attente'
-        }
+    afficheDecision($id) {
+      if ($id == 1) {
+        return "Visé";
+      } else if ($id == 2) {
+        return "Visé avec observation";
+      } else if ($id == 3) {
+        return "Différé";
+      } else if ($id == 4) {
+        return "Réjetté";
+      } else {
+        return "En attente";
+      }
     },
     AfficheModalModification(id) {
       this.modNatureDepense = this.getterInformationBudget.find(
@@ -391,8 +519,9 @@ export default {
     EnregistrerSection() {
       var objetDirect1 = {
         exercice: this.exerciceBudgetaire,
-        dotation: this.ajouterNatureDepense.dotation,
+        dotation: this.AfficheMontantGlobal,
         libelle: this.ajouterNatureDepense.libelle,
+        activite_id: this.ajouterNatureDepense.activite_id,
       };
 
       this.ajouterInformationBudget(objetDirect1);
@@ -402,17 +531,18 @@ export default {
     modificationSection() {
       var objetDirect1 = {
         id: this.modNatureDepense.id,
+        activite_id: this.modNatureDepense.activite_id,
         exercice: this.exerciceBudgetaire,
-        dotation: this.modNatureDepense.dotation,
-          libelle: this.modNatureDepense.libelle,
-          date_decision: this.modNatureDepense.date_decision,
+        dotation: this.AfficheMontantGlobalModi,
+        libelle: this.modNatureDepense.libelle,
+        date_decision: this.modNatureDepense.date_decision,
         decision: this.modNatureDepense.decision,
       };
 
       this.modifierInformationBudget(objetDirect1);
       this.modNatureDepense = {};
     },
-formatageSommeSansFCFA: formatageSommeSansFCFA,
+    formatageSommeSansFCFA: formatageSommeSansFCFA,
     formaterDate(date) {
       return moment(date, "YYYY-MM-DD").format("DD/MM/YYYY");
     },

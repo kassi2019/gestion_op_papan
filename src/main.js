@@ -7,6 +7,7 @@ import TheDefault from "./layouts/TheDefault.vue"
 import 'vue-search-select/dist/VueSearchSelect.css';
 import VueHtmlToPaper from 'vue-html-to-paper';
 import money from 'v-money3'
+import "vue3-form-wizard/dist/style.css";
 
 
 

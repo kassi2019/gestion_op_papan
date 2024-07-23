@@ -30,57 +30,8 @@
           </div>
         </div>
         <div class="card-body">
-          <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-            <li class="nav-item" role="presentation">
-              <button
-                class="nav-link active"
-                id="pills-home-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#pills-home"
-                type="button"
-                role="tab"
-                aria-controls="pills-home"
-                aria-selected="true"
-              >
-                SAISIR BUDGET
-              </button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button
-                class="nav-link"
-                id="pills-profile-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#pills-profile"
-                type="button"
-                role="tab"
-                aria-controls="pills-profile"
-                aria-selected="false"
-              >
-                VERIFICATION DU BUDGET
-              </button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button
-                class="nav-link"
-                id="pills-contact-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#pills-contact"
-                type="button"
-                role="tab"
-                aria-controls="pills-contact"
-                aria-selected="false"
-              >
-                IMPRIMER LE BUDGET
-              </button>
-            </li>
-          </ul>
-          <div class="tab-content" id="pills-tabContent">
-            <div
-              class="tab-pane fade show active"
-              id="pills-home"
-              role="tabpanel"
-              aria-labelledby="pills-home-tab"
-            >
+          <FormWizard @on-complete="onComplete" color="#e67e22">
+            <TabContent title="SAISIR BUDGET" icon="ti-pencil-alt2">
               <div class="row">
                 <div class="col-lg-12">
                   <form class="row g-3">
@@ -362,9 +313,7 @@
                       </button>
                     </div>
                   </form>
-                </div>
-              </div>
-              <br />
+                   <br />
               <table class="table table-bordered border-primary">
                 <thead>
                   <tr>
@@ -465,14 +414,11 @@
                   </tr>
                 </tbody>
               </table>
-            </div>
-            <div
-              class="tab-pane fade"
-              id="pills-profile"
-              role="tabpanel"
-              aria-labelledby="pills-profile-tab"
-            >
-              <div class="col-12">
+                </div>
+              </div>
+            </TabContent>
+            <TabContent title="VERIFICATION DU BUDGET" icon="ti-search">
+               <div class="col-12">
                 <label class="form-label"
                   >Activité
                   <span
@@ -627,13 +573,8 @@
                   </tr>
                 </tbody>
               </table>
-            </div>
-            <div
-              class="tab-pane fade"
-              id="pills-contact"
-              role="tabpanel"
-              aria-labelledby="pills-contact-tab"
-            >
+            </TabContent>
+            <TabContent title="IMPRIMER LE BUDGET" icon="ti-printer">
               <table class="table table-bordered border-primary">
                 <thead>
                   <tr>
@@ -713,18 +654,19 @@
                   </tr>
                 </tbody>
               </table>
-            </div>
-          </div>
+            </TabContent>
+          </FormWizard>
         </div>
       </div>
     </div>
   </div>
 </template>
-
 <script>
 import { mapActions, mapGetters } from "vuex";
 // import moment from "moment";
-import { ModelListSelect } from "vue-search-select";
+ import { ModelListSelect } from "vue-search-select";
+import { FormWizard, TabContent } from "vue3-form-wizard";
+
 //  import { required} from  'vuelidate/lib/validators'
 
 import {
@@ -732,7 +674,11 @@ import {
   formatageSommeSansFCFA,
 } from "../Repositories/Repository";
 export default {
-  components: { ModelListSelect },
+  components: {
+     ModelListSelect,
+    FormWizard,
+    TabContent,
+  },
   data() {
     return {
       TableauDossier: [],
@@ -941,34 +887,35 @@ export default {
         }
       };
     },
-    
+
     AfficheBailleurParType() {
-      if (this.FormDataDossier.type_financement_id==4) {
-      let collet = [];
-      this.getterBailleur.filter((item) => {
-        if (item.type_financement_id == this.FormDataDossier.type_financement_id) {
-          let data = {
-            id: item.id,
-            libelle: item.libelle,
-          };
-          collet.push(data);
-        }
-      });
-      return collet;
+      if (this.FormDataDossier.type_financement_id == 4) {
+        let collet = [];
+        this.getterBailleur.filter((item) => {
+          if (
+            item.type_financement_id == this.FormDataDossier.type_financement_id
+          ) {
+            let data = {
+              id: item.id,
+              libelle: item.libelle,
+            };
+            collet.push(data);
+          }
+        });
+        return collet;
       } else {
-      let collet = [];
-      this.getterBailleur.filter((item) => {
-        if (item.type_financement_id == 0) {
-          let data = {
-            id: item.id,
-            libelle: item.libelle,
-          };
-          collet.push(data);
-        }
-      });
-      return collet;
-  }
-    
+        let collet = [];
+        this.getterBailleur.filter((item) => {
+          if (item.type_financement_id == 0) {
+            let data = {
+              id: item.id,
+              libelle: item.libelle,
+            };
+            collet.push(data);
+          }
+        });
+        return collet;
+      }
     },
     libelleSousBudget() {
       let collet = [];
@@ -1009,6 +956,9 @@ export default {
     },
   },
   methods: {
+    onComplete() {
+      // alert("Yay. Done!");
+    },
     ...mapActions("parametrage", [
       "getActivite",
       "getSousBudget",
@@ -1116,6 +1066,7 @@ export default {
 };
 </script>
 <style scoped>
+@import url("https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css");
 .form-control {
   border: 1px solid #000 !important;
   color: #000;

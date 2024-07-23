@@ -27,66 +27,11 @@
           </div>
         </div>
         <div class="card-body">
-          <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-            <li class="nav-item" role="presentation">
-              <button
-                class="nav-link active"
-                id="pills-home-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#pills-home"
-                type="button"
-                role="tab"
-                aria-controls="pills-home"
-                aria-selected="true"
-                style="color: #000 !important"
-              >
-                SAISIR ORDRE DE PAIEMENT
-              </button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button
-                class="nav-link"
-                id="pills-profile-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#pills-profile"
-                type="button"
-                role="tab"
-                aria-controls="pills-profile"
-                aria-selected="false"
-                style="color: #000 !important"
-              >
-                SAISIR FACTURE
-              </button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button
-                class="nav-link"
-                id="pills-contact-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#pills-contact"
-                type="button"
-                role="tab"
-                aria-controls="pills-contact"
-                aria-selected="false"
-                style="color: #000 !important"
-              >
-                VERIFICATION ORDRE PAIEMENT
-              </button>
-            </li>
-          </ul>
-          <div class="tab-content" id="pills-tabContent">
-            <div
-              class="tab-pane fade show active"
-              id="pills-home"
-              role="tabpanel"
-              aria-labelledby="pills-home-tab"
-            >
+          <FormWizard @on-complete="onComplete" color="#e67e22">
+            <TabContent title="INFORMATION SUR OP" icon="ti-write">
               <div class="row">
                 <div class="col-lg-12">
                   <form class="row g-3">
-                    <legend style="text-decoration: underline">
-                      Information sur Ordre de paiement
-                    </legend>
                     <div class="col-3">
                       <label class="form-label">Exercice</label>
                       <input
@@ -293,9 +238,14 @@
                         >Ce champs est obligatoire!
                       </span>
                     </div>
-                    <legend style="text-decoration: underline">
-                      Information sur la dotation
-                    </legend>
+                  </form>
+                </div>
+              </div>
+            </TabContent>
+            <TabContent title="INFORMATION SUR LA DOTATION" icon="ti-search">
+              <div class="row">
+                <div class="col-lg-12">
+                  <form class="row g-3">
                     <div class="col-9">
                       <label class="form-label"
                         >Nature économique / Imputation
@@ -436,15 +386,9 @@
                       ></money3>
                     </div>
                   </form>
-                </div>
-              </div>
-            </div>
-            <div
-              class="tab-pane fade"
-              id="pills-profile"
-              role="tabpanel"
-              aria-labelledby="pills-profile-tab"
-            >
+                </div></div
+            ></TabContent>
+            <TabContent title="SAISIR FACTURE" icon="ti-files">
               <div class="row">
                 <div class="col-lg-12">
                   <form class="row g-3">
@@ -994,14 +938,9 @@
                   </tbody>
                 </table>
               </div>
-            </div>
-            <div
-              class="tab-pane fade"
-              id="pills-contact"
-              role="tabpanel"
-              aria-labelledby="pills-contact-tab"
-            >
-              <div class="table-responsive">
+            </TabContent>
+            <TabContent title="VERIFICATION ORDRE PAIEMENT" icon="ti-printer"
+              ><div class="table-responsive">
                 <table class="table table-bordered">
                   <thead>
                     <tr>
@@ -1025,171 +964,176 @@
                           class="badge badge-black"
                           style="cursor: pointer"
                           @click.prevent="AfficheVentilationBudget(item)"
-                          >Voir OP Direct</span
+                          >Voir OP Provisoire</span
                         >
                       </td>
                     </tr>
                   </tbody>
                 </table>
-              </div>
-            </div>
-          </div>
+              </div></TabContent
+            >
+          </FormWizard>
         </div>
       </div>
-    </div>
 
-    <div
-      class="modal fade"
-      id="largeModal1"
-      tabindex="-1"
-      data-bs-keyboard="false"
-      data-bs-backdrop="static"
-      aria-labelledby="staticBackdropLabel"
-    >
-      <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Modifier Facture</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <form>
-              <div class="row">
-                <div class="col-12">
-                  <label for="inputNanme4" class="form-label"
-                    >Désignation</label
-                  >
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="inputNanme4"
-                    v-model="FormDataDossierMod.designation"
-                    style="border: 1px solid #000"
-                  />
-                </div>
-                <div class="col-3">
-                  <label class="form-label"
-                    >Quantité ( A )
+      <div
+        class="modal fade"
+        id="largeModal1"
+        tabindex="-1"
+        data-bs-keyboard="false"
+        data-bs-backdrop="static"
+        aria-labelledby="staticBackdropLabel"
+      >
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Modifier Facture</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="row">
+                  <div class="col-12">
+                    <label for="inputNanme4" class="form-label"
+                      >Désignation</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="inputNanme4"
+                      v-model="FormDataDossierMod.designation"
+                      style="border: 1px solid #000"
+                    />
+                  </div>
+                  <div class="col-3">
+                    <label class="form-label"
+                      >Quantité ( A )
+                      <span
+                        style="
+                          color: red !important;
+                          font-size: 15px !important;
+                        "
+                        >*</span
+                      ></label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      v-model="FormDataDossierMod.quantite"
+                    />
                     <span
-                      style="color: red !important; font-size: 15px !important"
-                      >*</span
-                    ></label
-                  >
-                  <input
-                    type="text"
-                    class="form-control"
-                    v-model="FormDataDossierMod.quantite"
-                  />
-                  <span
-                    style="color: red"
-                    v-if="FormDataDossierMod.quantite == 0"
-                    >Ce champs est obligatoire!
-                  </span>
-                </div>
-                <div class="col-3">
-                  <label class="form-label"
-                    >Prix Unitaire ( B )
+                      style="color: red"
+                      v-if="FormDataDossierMod.quantite == 0"
+                      >Ce champs est obligatoire!
+                    </span>
+                  </div>
+                  <div class="col-3">
+                    <label class="form-label"
+                      >Prix Unitaire ( B )
+                      <span
+                        style="
+                          color: red !important;
+                          font-size: 15px !important;
+                        "
+                        >*</span
+                      ></label
+                    >
+                    <money3
+                      class="form-control"
+                      v-bind="config"
+                      v-model="FormDataDossierMod.prix_unitaire"
+                    ></money3>
                     <span
-                      style="color: red !important; font-size: 15px !important"
-                      >*</span
-                    ></label
-                  >
-                  <money3
-                    class="form-control"
-                    v-bind="config"
-                    v-model="FormDataDossierMod.prix_unitaire"
-                  ></money3>
-                  <span
-                    style="color: red"
-                    v-if="FormDataDossierMod.prix_unitaire == 0"
-                    >Ce champs est obligatoire!
-                  </span>
+                      style="color: red"
+                      v-if="FormDataDossierMod.prix_unitaire == 0"
+                      >Ce champs est obligatoire!
+                    </span>
+                  </div>
+                  <div class="col-3">
+                    <label class="form-label">Montant HT (C = A * B)</label>
+                    <money3
+                      class="form-control"
+                      v-bind="config"
+                      :model-value="MontantHtMod"
+                      readonly
+                    ></money3>
+                  </div>
+                  <div class="col-3">
+                    <label class="form-label">Exonéré de la TVA 18%</label>
+                    <select
+                      class="form-select form-control"
+                      id="defaultSelect"
+                      style="border: 1px solid #000 !important"
+                      v-model="FormDataDossierMod.exonere"
+                    >
+                      <option></option>
+                      <option value="0">Oui</option>
+                      <option value="1">Non</option>
+                    </select>
+                  </div>
+                  <div class="col-2">
+                    <label class="form-label">Autre taux (%) ( D )</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      v-model="FormDataDossierMod.autre_taux"
+                    />
+                  </div>
+                  <div class="col-2">
+                    <label class="form-label">Taux TVA (%) ( F )</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      :value="AfficheTauxTVAMod"
+                      readonly
+                    />
+                  </div>
+                  <div class="col-3">
+                    <label class="form-label">Autre montant ( E = C * D)</label>
+                    <money3
+                      class="form-control"
+                      v-bind="config"
+                      :model-value="afficheAutreMontantMod"
+                      readonly
+                    ></money3>
+                  </div>
+                  <div class="col-2">
+                    <label class="form-label">Montant Tva ( G = C * F)</label>
+                    <money3
+                      class="form-control"
+                      v-bind="config"
+                      :model-value="montantTvaMod"
+                      readonly
+                    ></money3>
+                  </div>
+                  <div class="col-3">
+                    <label class="form-label"
+                      >Montant TTC ( H = E + G + C )</label
+                    >
+                    <money3
+                      class="form-control"
+                      v-bind="config"
+                      :model-value="MontantTTCMod"
+                      readonly
+                    ></money3>
+                  </div>
                 </div>
-                <div class="col-3">
-                  <label class="form-label">Montant HT (C = A * B)</label>
-                  <money3
-                    class="form-control"
-                    v-bind="config"
-                    :model-value="MontantHtMod"
-                    readonly
-                  ></money3>
-                </div>
-                <div class="col-3">
-                  <label class="form-label">Exonéré de la TVA 18%</label>
-                  <select
-                    class="form-select form-control"
-                    id="defaultSelect"
-                    style="border: 1px solid #000 !important"
-                    v-model="FormDataDossierMod.exonere"
-                  >
-                    <option></option>
-                    <option value="0">Oui</option>
-                    <option value="1">Non</option>
-                  </select>
-                </div>
-                <div class="col-2">
-                  <label class="form-label">Autre taux (%) ( D )</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    v-model="FormDataDossierMod.autre_taux"
-                  />
-                </div>
-                <div class="col-2">
-                  <label class="form-label">Taux TVA (%) ( F )</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    :value="AfficheTauxTVAMod"
-                    readonly
-                  />
-                </div>
-                <div class="col-3">
-                  <label class="form-label">Autre montant ( E = C * D)</label>
-                  <money3
-                    class="form-control"
-                    v-bind="config"
-                    :model-value="afficheAutreMontantMod"
-                    readonly
-                  ></money3>
-                </div>
-                <div class="col-2">
-                  <label class="form-label">Montant Tva ( G = C * F)</label>
-                  <money3
-                    class="form-control"
-                    v-bind="config"
-                    :model-value="montantTvaMod"
-                    readonly
-                  ></money3>
-                </div>
-                <div class="col-3">
-                  <label class="form-label"
-                    >Montant TTC ( H = E + G + C )</label
-                  >
-                  <money3
-                    class="form-control"
-                    v-bind="config"
-                    :model-value="MontantTTCMod"
-                    readonly
-                  ></money3>
-                </div>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Modifier
-            </button>
-            <!-- <button
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Modifier
+              </button>
+              <!-- <button
               type="button"
               class="btn btn-primary"
               @click.prevent="modificationSection()"
@@ -1197,6 +1141,7 @@
             >
               Modifier
             </button> -->
+            </div>
           </div>
         </div>
       </div>
@@ -1206,15 +1151,22 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import { FormWizard, TabContent } from "vue3-form-wizard";
 // import moment from "moment";
 import { ModelListSelect } from "vue-search-select";
 import { Money3Component } from "v-money3";
+
 import {
   formatageSomme,
   formatageSommeSansFCFA,
 } from "../Repositories/Repository";
 export default {
-  components: { money3: Money3Component, ModelListSelect },
+  components: {
+    money3: Money3Component,
+    ModelListSelect,
+    FormWizard,
+    TabContent,
+  },
   data() {
     return {
       TableauDossier: [],
@@ -2157,7 +2109,7 @@ export default {
     },
     AfficheVentilationBudget(id) {
       this.$router.push({
-        name: "AfficheOpDirectActivite",
+        name: "AfficheOpActivite",
         params: { id: id },
       });
     },
@@ -2254,7 +2206,7 @@ export default {
         compte_id: this.compte_id,
         objet_depense: this.objet_depense,
         numero_ordre_paiement: this.automatiseNumeroOP,
-        type_ordre_paiement: 1,
+        type_ordre_paiement: 2,
         montant_prestation: this.montant_prestation,
         nature_economique_id: this.nature_economique_id,
         nature_depense_id: this.NatureDepense_id,
