@@ -28,7 +28,7 @@
         </div>
         <div class="card-body">
           <FormWizard @on-complete="onComplete" color="#e67e22">
-            <TabContent title="INFORMATION SUR OP" icon="ti-write">
+            <TabContent title="INFO SUR LE PROJET" icon="ti-home">
               <div class="row">
                 <div class="col-lg-12">
                   <form class="row g-3">
@@ -124,6 +124,14 @@
                          :value="afficheNomProjet(ordre_paiement_id)"
                       />
                     </div> -->
+                  </form>
+                </div>
+              </div>
+            </TabContent>
+            <TabContent title="INFORMATION SUR OP" icon="ti-write">
+              <div class="row">
+                <div class="col-lg-12">
+                  <form class="row g-3">
                     <div class="col-12">
                       <label class="form-label">Nom du Bénéficiaire </label>
                       <input
@@ -210,7 +218,7 @@
                       </span>
                       <span
                         style="color: red"
-                        v-if="parseFloat(montant_prestation) < 0"
+                        v-if="parseFloat(montant_prestation) > 0"
                         >Montant de l'OP doit est négatif!
                       </span>
                     </div>
@@ -218,11 +226,11 @@
                 </div>
               </div>
             </TabContent>
-            <TabContent title="INFORMATION SUR DOTATION" icon="ti-write"
+            <TabContent title="INFORMATION SUR DOTATION" icon="ti-search"
               ><div class="row">
                 <div class="col-lg-12">
                   <form class="row g-3">
-                     <div class="col-9">
+                    <div class="col-9">
                       <label class="form-label"
                         >Nature économique / Imputation
                       </label>
@@ -321,6 +329,33 @@
                         readonly
                       ></money3>
                     </div>
+                    <div class="col-6">
+                      <label for="inputNanme4" class="form-label"
+                        >Décision</label
+                      >
+                      <select
+                        class="form-select"
+                        style="border: 1px solid #000"
+                        v-model="decision_cf"
+                      >
+                        <option selected></option>
+                        <option :value="1">Visé</option>
+                        <option :value="2">Visé avec observation</option>
+                        <option :value="3">Différé</option>
+                        <option :value="4">Réjetté</option>
+                      </select>
+                    </div>
+                    <div class="col-6">
+                      <label for="inputNanme4" class="form-label"
+                        >Date décision</label
+                      >
+                      <input
+                        type="date"
+                        class="form-control"
+                        style="border: 1px solid #000"
+                        v-model="date_decision"
+                      />
+                    </div>
                     <div class="col-10"></div>
                     <div class="col-2">
                       <button
@@ -346,9 +381,42 @@
                       </button>
                     </div>
                   </form>
-                </div></div
-            ></TabContent>
-            <TabContent title="VERIFICATION OP" icon="ti-write">369</TabContent>
+                </div>
+              </div></TabContent
+            >
+            <TabContent title="VERIFICATION OP" icon="ti-printer"
+              ><div class="table-responsive">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th>N°</th>
+                      <th>Activite</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      v-for="(item, index) in GroupeActiviteOPDirect"
+                      :key="item"
+                    >
+                      <td style="border: 1px solid #000">{{ index + 1 }}</td>
+                      <td style="border: 1px solid #000">
+                        {{ afficheLibelleActivite(item) }}
+                      </td>
+
+                      <td style="border: 1px solid #000">
+                        <span
+                          class="badge badge-black"
+                          style="cursor: pointer"
+                          @click.prevent="AfficheVentilationBudget(item)"
+                          >Voir OP Provisoire</span
+                        >
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div></TabContent
+            >
           </FormWizard>
         </div>
       </div>
@@ -525,12 +593,18 @@ import { mapActions, mapGetters } from "vuex";
 // import moment from "moment";
 import { ModelListSelect } from "vue-search-select";
 import { Money3Component } from "v-money3";
+import { FormWizard, TabContent } from "vue3-form-wizard";
 import {
   formatageSomme,
   formatageSommeSansFCFA,
 } from "../Repositories/Repository";
 export default {
-  components: { money3: Money3Component, ModelListSelect },
+  components: {
+    money3: Money3Component,
+    ModelListSelect,
+    FormWizard,
+    TabContent,
+  },
   data() {
     return {
       TableauDossier: [],
@@ -548,6 +622,8 @@ export default {
         prix_unitaire: 0,
         exonere: 0,
       },
+      decision_cf: 0,
+      date_decision: "",
       autre_taux: 0,
       compte_id: "",
       objet_depense: 0,
@@ -1075,12 +1151,12 @@ export default {
     },
     automatiseNumeroOP() {
       return (
-        "PAPAN" +
-        " /" +
-        "OP" +
+        "00" +
         "" +
         (this.getterListeOPgloba.length + 1) +
-        "/ " +
+        "/" +
+        "PA" +
+        "/" +
         this.exerciceBudgetaire
       );
     },
@@ -1110,7 +1186,18 @@ export default {
                 qtreel.nature_depense_id ==
                   this.afficheNatureDepense_id(this.ordre_paiement_id) &&
                 qtreel.annulation == 0 &&
-                qtreel.type_ordre_paiement == 4)
+                qtreel.type_ordre_paiement == 4) ||
+              (qtreel.nature_economique_id ==
+                this.afficheNatureEconomique_id(this.ordre_paiement_id) &&
+                qtreel.type_financement_id ==
+                  this.afficheTypeFiancement_id(this.ordre_paiement_id) &&
+                qtreel.source_financement_id ==
+                  this.afficheSourceFiancement_id(this.ordre_paiement_id) &&
+                qtreel.nature_depense_id ==
+                  this.afficheNatureDepense_id(this.ordre_paiement_id) &&
+                qtreel.annulation == 0 &&
+                qtreel.regularisation == 0 &&
+                qtreel.type_ordre_paiement == 1)
           )
           .reduce(
             (prec, cur) =>
@@ -1143,7 +1230,18 @@ export default {
                   this.afficheNatureDepense_id(this.ordre_paiement_id) &&
                 qtreel.sous_budget_id == this.sous_budget_id &&
                 qtreel.annulation == 0 &&
-                qtreel.type_ordre_paiement == 2)
+                qtreel.type_ordre_paiement == 2) ||
+              (qtreel.nature_economique_id ==
+                this.afficheNatureEconomique_id(this.ordre_paiement_id) &&
+                qtreel.type_financement_id ==
+                  this.afficheTypeFiancement_id(this.ordre_paiement_id) &&
+                qtreel.source_financement_id ==
+                  this.afficheSourceFiancement_id(this.ordre_paiement_id) &&
+                qtreel.nature_depense_id ==
+                  this.afficheNatureDepense_id(this.ordre_paiement_id) &&
+                qtreel.annulation == 0 &&
+                qtreel.regularisation == 0 &&
+                qtreel.type_ordre_paiement == 1)
           )
           .reduce(
             (prec, cur) =>
@@ -1819,6 +1917,8 @@ export default {
         ),
         cumul_anterieure: this.afficheMontantCumul,
         parent_id: this.ordre_paiement_id,
+        decision_cf: this.decision_cf,
+        date_decision: this.date_decision,
       };
 
       this.ajouterOrdrePaiementAnnulation(nouvelObjettrsor);

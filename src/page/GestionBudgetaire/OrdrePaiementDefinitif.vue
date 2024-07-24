@@ -27,451 +27,11 @@
           </div>
         </div>
         <div class="card-body">
-          <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-            <li class="nav-item" role="presentation">
-              <button
-                class="nav-link active"
-                id="pills-home-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#pills-home"
-                type="button"
-                role="tab"
-                aria-controls="pills-home"
-                aria-selected="true"
-                style="color: #000 !important"
-              >
-                SAISIR ORDRE DE PAIEMENT
-              </button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button
-                class="nav-link"
-                id="pills-profile-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#pills-profile"
-                type="button"
-                role="tab"
-                aria-controls="pills-profile"
-                aria-selected="false"
-                style="color: #000 !important"
-              >
-                SAISIR FACTURE DEFINITIVE
-              </button>
-            </li>
-            <li>
-              <button
-                class="nav-link"
-                id="pills-profile-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#pills-profile1"
-                type="button"
-                role="tab"
-                aria-controls="pills-profile1"
-                aria-selected="false"
-                style="color: #000 !important"
-              >
-                VOIR FACTURE PRO-FORMA
-              </button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button
-                class="nav-link"
-                id="pills-contact-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#pills-contact"
-                type="button"
-                role="tab"
-                aria-controls="pills-contact"
-                aria-selected="false"
-                style="color: #000 !important"
-              >
-                VERIFICATION ORDRE PAIEMENT
-              </button>
-            </li>
-          </ul>
-          <div class="tab-content" id="pills-tabContent">
-            <div
-              class="tab-pane fade"
-              id="pills-profile1"
-              role="tabpanel"
-              aria-labelledby="pills-profile1-tab"
-            >
+          <FormWizard @on-complete="onComplete" color="#e67e22">
+            <TabContent title="INFO SUR LE PROJET" icon="ti-home">
               <div class="row">
                 <div class="col-lg-12">
                   <form class="row g-3">
-                    <div class="col-3">
-                      <label class="form-label"
-                        >Numéro de la facture Définitive
-                        <span
-                          style="
-                            color: red !important;
-                            font-size: 15px !important;
-                          "
-                          >*</span
-                        ></label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        v-model="numero_facture"
-                      />
-                      <span style="color: red" v-if="numero_facture == 0"
-                        >Ce champs est obligatoire!
-                      </span>
-                    </div>
-                    <div class="col-3">
-                      <label class="form-label"
-                        >Date de la facture Définitive
-                        <span
-                          style="
-                            color: red !important;
-                            font-size: 15px !important;
-                          "
-                          >*</span
-                        ></label
-                      >
-                      <input
-                        type="date"
-                        class="form-control"
-                        v-model="date_facture"
-                      />
-                      <span
-                        style="color: red; font-size: 10px"
-                        v-if="date_facture == ''"
-                        >Ce champs est obligatoire!
-                      </span>
-                    </div>
-                    <div class="col-2">
-                      <label class="form-label">Montant de la OP</label>
-                      <money3
-                        class="form-control"
-                        v-bind="config"
-                        v-model="montant_prestation"
-                        readonly
-                      ></money3>
-                    </div>
-                    <div class="col-2">
-                      <label class="form-label">Montant facture saisie</label>
-                      <money3
-                        class="form-control"
-                        v-bind="config"
-                        readonly
-                        :model-value="CumulMontantSaisiDef"
-                      ></money3>
-                    </div>
-                    <div class="col-2">
-                      <label class="form-label">Ecart</label>
-                      <money3
-                        v-if="
-                          parseFloat(montant_prestation) !=
-                          parseFloat(CumulMontantSaisiDef)
-                        "
-                        class="form-control"
-                        v-bind="config"
-                        readonly
-                        :model-value="
-                          parseFloat(montant_prestation) -
-                          parseFloat(CumulMontantSaisiDef)
-                        "
-                        style="border: 2px solid red !important"
-                      ></money3>
-                      <money3
-                        v-else
-                        class="form-control"
-                        v-bind="config"
-                        readonly
-                        :model-value="
-                          parseFloat(montant_prestation) -
-                          parseFloat(CumulMontantSaisiDef)
-                        "
-                      ></money3>
-                    </div>
-                  </form>
-                </div>
-              </div>
-              <div class="table-responsive">
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <!-- <th scope="col">#</th> -->
-                      <!-- <th scope="col">N</th> -->
-                      <!-- <th scope="col" style="text-align: center">N°</th> -->
-                      <th
-                        scope="col"
-                        style="
-                          text-align: center;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        Désignation
-                      </th>
-                      <th
-                        scope="col"
-                        style="
-                          text-align: center;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        Quantité
-                      </th>
-                      <th
-                        scope="col"
-                        style="
-                          text-align: center;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        Prix unitaire
-                      </th>
-                      <th
-                        scope="col"
-                        style="
-                          text-align: center;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        Montant HT
-                      </th>
-                      <!-- <th scope="col" style="text-align: center">Rémise</th>
-                      <th scope="col" style="text-align: center">Addition</th>-->
-                      <th
-                        scope="col"
-                        style="
-                          text-align: center;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        Autre Montant HT
-                      </th>
-                      <th
-                        scope="col"
-                        style="
-                          text-align: center;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        Taux
-                      </th>
-                      <th
-                        scope="col"
-                        style="
-                          text-align: center;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        Montant TVA
-                      </th>
-                      <th
-                        scope="col"
-                        style="
-                          text-align: center;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        Montant TTC
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr
-                      v-for="item1 in getterstateFactureParOp"
-                      :key="item1.id"
-                    >
-                      <td style="width: 45%; border: 1px solid #000 !important">
-                        {{ item1.designation }}
-                      </td>
-                      <td style="width: 10%; border: 1px solid #000 !important">
-                        {{ item1.quantite }}
-                      </td>
-                      <td
-                        style="
-                          width: 10%;
-                          text-align: right;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        {{
-                          formatageSommeSansFCFA(
-                            parseFloat(item1.prix_unitaire)
-                          )
-                        }}
-                      </td>
-                      <td
-                        style="
-                          width: 10%;
-                          text-align: right;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        {{
-                          formatageSommeSansFCFA(parseFloat(item1.montant_ht))
-                        }}
-                      </td>
-                      <td
-                        style="
-                          width: 15%;
-                          text-align: right;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        {{ formatageSommeSansFCFA(parseFloat(item1.taux)) }}
-                      </td>
-                      <td
-                        style="
-                          width: 15%;
-                          text-align: right;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        {{
-                          formatageSommeSansFCFA(
-                            parseFloat(item1.autre_montant)
-                          )
-                        }}
-                      </td>
-                      <td
-                        style="
-                          width: 15%;
-                          text-align: right;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        {{
-                          formatageSommeSansFCFA(parseFloat(item1.montant_tva))
-                        }}
-                      </td>
-                      <td
-                        style="
-                          width: 15%;
-                          text-align: right;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        {{
-                          formatageSommeSansFCFA(parseFloat(item1.montant_ttc))
-                        }}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td
-                        colspan="3"
-                        style="
-                          text-align: center;
-                          background-color: #f6e8b1 !important;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        TOTAL
-                      </td>
-
-                      <td
-                        style="
-                          text-align: right !important;
-                          background-color: #f6e8b1 !important;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        {{
-                          formatageSommeSansFCFA(parseFloat(CumulMontantHTDef))
-                        }}
-                      </td>
-                      <td
-                        style="
-                          text-align: right !important;
-                          background-color: #f6e8b1 !important;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        {{ formatageSommeSansFCFA(parseFloat(0)) }}
-                      </td>
-                      <td
-                        style="
-                          text-align: right !important;
-                          background-color: #f6e8b1 !important;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        {{
-                          formatageSommeSansFCFA(
-                            parseFloat(CumulMontantAutreMontantDef)
-                          )
-                        }}
-                      </td>
-                      <td
-                        style="
-                          text-align: right !important;
-                          background-color: #f6e8b1 !important;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        {{
-                          formatageSommeSansFCFA(parseFloat(CumulMontanttvaDef))
-                        }}
-                      </td>
-                      <td
-                        style="
-                          text-align: right !important;
-                          background-color: #f6e8b1 !important;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        {{
-                          formatageSommeSansFCFA(
-                            parseFloat(CumulMontantSaisiDef)
-                          )
-                        }}
-                      </td>
-                      <td
-                        style="
-                          text-align: right !important;
-                          background-color: #f6e8b1 !important;
-                          border: 1px solid #000 !important;
-                        "
-                      ></td>
-                    </tr>
-                    <tr>
-                      <td colspan="7"></td>
-                      <td colspan="">
-                        <button
-                          v-if="
-                            activite_id == 0 ||
-                            montant_prestation == 0 ||
-                            ordre_paiement_id == 0
-                          "
-                          disabled
-                          type="button"
-                          class="btn btn-success"
-                          @click.prevent="enregistrementAvecFacture()"
-                        >
-                          Enregistrer
-                        </button>
-                        <button
-                          v-else
-                          type="button"
-                          class="btn btn-success"
-                          @click.prevent="enregistrementAvecFacture()"
-                        >
-                          Enregistrer
-                        </button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <div
-              class="tab-pane fade show active"
-              id="pills-home"
-              role="tabpanel"
-              aria-labelledby="pills-home-tab"
-            >
-              <div class="row">
-                <div class="col-lg-12">
-                  <form class="row g-3">
-                    <legend style="text-decoration: underline">
-                      Information sur Ordre de paiement
-                    </legend>
-
                     <div class="col-12">
                       <label class="form-label"
                         >Activité
@@ -564,6 +124,14 @@
                          :value="afficheNomProjet(ordre_paiement_id)"
                       />
                     </div> -->
+                  </form>
+                </div>
+              </div>
+            </TabContent>
+            <TabContent title="INFO SUR OP" icon="ti-write">
+              <div class="row">
+                <div class="col-lg-12">
+                  <form class="row g-3">
                     <div class="col-12">
                       <label class="form-label">Nom du Bénéficiaire </label>
                       <input
@@ -648,10 +216,18 @@
                       <span style="color: red" v-if="montant_prestation == 0"
                         >Ce champs est obligatoire!
                       </span>
+                      <span style="color: red" v-if="montant_prestation < 0"
+                        >le Montant doit être positif
+                      </span>
                     </div>
-                    <legend style="text-decoration: underline">
-                      Information sur la dotation
-                    </legend>
+                  </form>
+                </div>
+              </div>
+            </TabContent>
+            <TabContent title="INFO SUR LA DOTATION" icon="ti-search">
+              <div class="row">
+                <div class="col-lg-12">
+                  <form class="row g-3">
                     <div class="col-9">
                       <label class="form-label"
                         >Nature économique / Imputation
@@ -751,16 +327,38 @@
                         readonly
                       ></money3>
                     </div>
+                    <div class="col-6">
+                      <label for="inputNanme4" class="form-label"
+                        >Décision</label
+                      >
+                      <select
+                        class="form-select"
+                        style="border: 1px solid #000"
+                        v-model="decision_cf"
+                      >
+                        <option selected></option>
+                        <option :value="1">Visé</option>
+                        <option :value="2">Visé avec observation</option>
+                        <option :value="3">Différé</option>
+                        <option :value="4">Réjetté</option>
+                      </select>
+                    </div>
+                    <div class="col-6">
+                      <label for="inputNanme4" class="form-label"
+                        >Date décision</label
+                      >
+                      <input
+                        type="date"
+                        class="form-control"
+                        style="border: 1px solid #000"
+                        v-model="date_decision"
+                      />
+                    </div>
                   </form>
                 </div>
               </div>
-            </div>
-            <div
-              class="tab-pane fade"
-              id="pills-profile"
-              role="tabpanel"
-              aria-labelledby="pills-profile-tab"
-            >
+            </TabContent>
+            <TabContent title="SAISIR FACTURE DEFINITIVE" icon="ti-files">
               <div class="row">
                 <div class="col-lg-12">
                   <form class="row g-3">
@@ -1282,7 +880,372 @@
                           v-if="
                             activite_id == 0 ||
                             montant_prestation == 0 ||
-                            ordre_paiement_id == 0
+                            ordre_paiement_id == 0  || montant_prestation<0
+                          "
+                          disabled
+                          type="button"
+                          class="btn btn-success"
+                          @click.prevent="enregistrementAvecFacture()"
+                        >
+                          Enregistrer
+                        </button>
+                        <button
+                          v-else
+                          type="button"
+                          class="btn btn-success"
+                          @click.prevent="enregistrementAvecFacture()"
+                        >
+                          Enregistrer
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </TabContent>
+            <TabContent title="VOIR FACTURE PRO-FORMA" icon="ti-clipboard">
+              <div class="row">
+                <div class="col-lg-12">
+                  <form class="row g-3">
+                    <div class="col-3">
+                      <label class="form-label"
+                        >Numéro de la facture Définitive
+                        <span
+                          style="
+                            color: red !important;
+                            font-size: 15px !important;
+                          "
+                          >*</span
+                        ></label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        v-model="numero_facture_definitve"
+                      />
+                      <span style="color: red" v-if="numero_facture_definitve == 0"
+                        >Ce champs est obligatoire!
+                      </span>
+                    </div>
+                    <div class="col-3">
+                      <label class="form-label"
+                        >Date de la facture Définitive
+                        <span
+                          style="
+                            color: red !important;
+                            font-size: 15px !important;
+                          "
+                          >*</span
+                        ></label
+                      >
+                      <input
+                        type="date"
+                        class="form-control"
+                        v-model="date_facture_definitve"
+                      />
+                      <span
+                        style="color: red; font-size: 10px"
+                        v-if="date_facture_definitve == ''"
+                        >Ce champs est obligatoire!
+                      </span>
+                    </div>
+                    <div class="col-2">
+                      <label class="form-label">Montant de la OP</label>
+                      <money3
+                        class="form-control"
+                        v-bind="config"
+                        v-model="montant_prestation"
+                        readonly
+                      ></money3>
+                    </div>
+                    <div class="col-2">
+                      <label class="form-label">Montant facture saisie</label>
+                      <money3
+                        class="form-control"
+                        v-bind="config"
+                        readonly
+                        :model-value="CumulMontantSaisiDef"
+                      ></money3>
+                    </div>
+                    <div class="col-2">
+                      <label class="form-label">Ecart</label>
+                      <money3
+                        v-if="
+                          parseFloat(montant_prestation) !=
+                          parseFloat(CumulMontantSaisiDef)
+                        "
+                        class="form-control"
+                        v-bind="config"
+                        readonly
+                        :model-value="
+                          parseFloat(montant_prestation) -
+                          parseFloat(CumulMontantSaisiDef)
+                        "
+                        style="border: 2px solid red !important"
+                      ></money3>
+                      <money3
+                        v-else
+                        class="form-control"
+                        v-bind="config"
+                        readonly
+                        :model-value="
+                          parseFloat(montant_prestation) -
+                          parseFloat(CumulMontantSaisiDef)
+                        "
+                      ></money3>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <!-- <th scope="col">#</th> -->
+                      <!-- <th scope="col">N</th> -->
+                      <!-- <th scope="col" style="text-align: center">N°</th> -->
+                      <th
+                        scope="col"
+                        style="
+                          text-align: center;
+                          border: 1px solid #000 !important;
+                        "
+                      >
+                        Désignation
+                      </th>
+                      <th
+                        scope="col"
+                        style="
+                          text-align: center;
+                          border: 1px solid #000 !important;
+                        "
+                      >
+                        Quantité
+                      </th>
+                      <th
+                        scope="col"
+                        style="
+                          text-align: center;
+                          border: 1px solid #000 !important;
+                        "
+                      >
+                        Prix unitaire
+                      </th>
+                      <th
+                        scope="col"
+                        style="
+                          text-align: center;
+                          border: 1px solid #000 !important;
+                        "
+                      >
+                        Montant HT
+                      </th>
+                      <!-- <th scope="col" style="text-align: center">Rémise</th>
+                      <th scope="col" style="text-align: center">Addition</th>-->
+                      <th
+                        scope="col"
+                        style="
+                          text-align: center;
+                          border: 1px solid #000 !important;
+                        "
+                      >
+                        Autre Montant HT
+                      </th>
+                      <th
+                        scope="col"
+                        style="
+                          text-align: center;
+                          border: 1px solid #000 !important;
+                        "
+                      >
+                        Taux
+                      </th>
+                      <th
+                        scope="col"
+                        style="
+                          text-align: center;
+                          border: 1px solid #000 !important;
+                        "
+                      >
+                        Montant TVA
+                      </th>
+                      <th
+                        scope="col"
+                        style="
+                          text-align: center;
+                          border: 1px solid #000 !important;
+                        "
+                      >
+                        Montant TTC
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      v-for="item1 in AfficheFactureParOrdrePaiement"
+                      :key="item1.id"
+                    >
+                      <td style="width: 45%; border: 1px solid #000 !important">
+                        {{ item1.designation }}
+                      </td>
+                      <td style="width: 10%; border: 1px solid #000 !important">
+                        {{ item1.quantite }}
+                      </td>
+                      <td
+                        style="
+                          width: 10%;
+                          text-align: right;
+                          border: 1px solid #000 !important;
+                        "
+                      >
+                        {{
+                          formatageSommeSansFCFA(
+                            parseFloat(item1.prix_unitaire)
+                          )
+                        }}
+                      </td>
+                      <td
+                        style="
+                          width: 10%;
+                          text-align: right;
+                          border: 1px solid #000 !important;
+                        "
+                      >
+                        {{
+                          formatageSommeSansFCFA(parseFloat(item1.montant_ht))
+                        }}
+                      </td>
+                      <td
+                        style="
+                          width: 15%;
+                          text-align: right;
+                          border: 1px solid #000 !important;
+                        "
+                      >
+                        {{ formatageSommeSansFCFA(parseFloat(item1.taux)) }}
+                      </td>
+                      <td
+                        style="
+                          width: 15%;
+                          text-align: right;
+                          border: 1px solid #000 !important;
+                        "
+                      >
+                        {{
+                          formatageSommeSansFCFA(
+                            parseFloat(item1.autre_montant)
+                          )
+                        }}
+                      </td>
+                      <td
+                        style="
+                          width: 15%;
+                          text-align: right;
+                          border: 1px solid #000 !important;
+                        "
+                      >
+                        {{
+                          formatageSommeSansFCFA(parseFloat(item1.montant_tva))
+                        }}
+                      </td>
+                      <td
+                        style="
+                          width: 15%;
+                          text-align: right;
+                          border: 1px solid #000 !important;
+                        "
+                      >
+                        {{
+                          formatageSommeSansFCFA(parseFloat(item1.montant_ttc))
+                        }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        colspan="3"
+                        style="
+                          text-align: center;
+                          background-color: #f6e8b1 !important;
+                          border: 1px solid #000 !important;
+                        "
+                      >
+                        TOTAL
+                      </td>
+
+                      <td
+                        style="
+                          text-align: right !important;
+                          background-color: #f6e8b1 !important;
+                          border: 1px solid #000 !important;
+                        "
+                      >
+                        {{
+                          formatageSommeSansFCFA(parseFloat(CumulMontantHTDef))
+                        }}
+                      </td>
+                      <td
+                        style="
+                          text-align: right !important;
+                          background-color: #f6e8b1 !important;
+                          border: 1px solid #000 !important;
+                        "
+                      >
+                        {{ formatageSommeSansFCFA(parseFloat(0)) }}
+                      </td>
+                      <td
+                        style="
+                          text-align: right !important;
+                          background-color: #f6e8b1 !important;
+                          border: 1px solid #000 !important;
+                        "
+                      >
+                        {{
+                          formatageSommeSansFCFA(
+                            parseFloat(CumulMontantAutreMontantDef)
+                          )
+                        }}
+                      </td>
+                      <td
+                        style="
+                          text-align: right !important;
+                          background-color: #f6e8b1 !important;
+                          border: 1px solid #000 !important;
+                        "
+                      >
+                        {{
+                          formatageSommeSansFCFA(parseFloat(CumulMontanttvaDef))
+                        }}
+                      </td>
+                      <td
+                        style="
+                          text-align: right !important;
+                          background-color: #f6e8b1 !important;
+                          border: 1px solid #000 !important;
+                        "
+                      >
+                        {{
+                          formatageSommeSansFCFA(
+                            parseFloat(CumulMontantSaisiDef)
+                          )
+                        }}
+                      </td>
+                      <td
+                        style="
+                          text-align: right !important;
+                          background-color: #f6e8b1 !important;
+                          border: 1px solid #000 !important;
+                        "
+                      ></td>
+                    </tr>
+                    <tr>
+                      <td colspan="7"></td>
+                      <td colspan="">
+                        <button
+                          v-if="
+                            activite_id == 0 ||
+                            montant_prestation == 0 ||
+                            ordre_paiement_id == 0 || date_facture_definitve==0 || numero_facture_definitve==0
+                            
                           "
                           disabled
                           type="button"
@@ -1304,13 +1267,8 @@
                   </tbody>
                 </table>
               </div>
-            </div>
-            <div
-              class="tab-pane fade"
-              id="pills-contact"
-              role="tabpanel"
-              aria-labelledby="pills-contact-tab"
-            >
+            </TabContent>
+            <TabContent title="VERIFICATION SUR OP" icon="ti-printer">
               <div class="table-responsive">
                 <table class="table table-bordered">
                   <thead>
@@ -1342,8 +1300,8 @@
                   </tbody>
                 </table>
               </div>
-            </div>
-          </div>
+            </TabContent>
+          </FormWizard>
         </div>
       </div>
     </div>
@@ -1460,7 +1418,7 @@
                   />
                 </div>
                 <div class="col-3">
-                  <label class="form-label">Autre montant ( E = C * D)</label>
+                  <label class="form-label">Autre montant(E=C*D)</label>
                   <money3
                     class="form-control"
                     v-bind="config"
@@ -1519,12 +1477,18 @@ import { mapActions, mapGetters } from "vuex";
 // import moment from "moment";
 import { ModelListSelect } from "vue-search-select";
 import { Money3Component } from "v-money3";
+import { FormWizard, TabContent } from "vue3-form-wizard";
 import {
   formatageSomme,
   formatageSommeSansFCFA,
 } from "../Repositories/Repository";
 export default {
-  components: { money3: Money3Component, ModelListSelect },
+  components: {
+    money3: Money3Component,
+    ModelListSelect,
+    FormWizard,
+    TabContent,
+  },
   data() {
     return {
       TableauDossier: [],
@@ -1542,6 +1506,8 @@ export default {
         prix_unitaire: 0,
         exonere: 0,
       },
+      decision_cf: 0,
+      date_decision: "",
       autre_taux: 0,
       compte_id: "",
       objet_depense: 0,
@@ -1560,6 +1526,8 @@ export default {
       montant_facture: 0,
       date_facture: "",
       numero_facture: 0,
+      numero_facture_definitve: 0,
+      date_facture_definitve: "",
 
       config: {
         prefix: "",
@@ -1628,6 +1596,13 @@ export default {
       "getterOpParActivite",
       "getterInfoOrdrePaiement",
     ]),
+    AfficheFactureParOrdrePaiement() {
+      if (this.ordre_paiement_id == 0) {
+        return "";
+      } else {
+        return this.getterstateFactureParOp;
+      }
+    },
     afficheDotaionOPdef() {
       if (this.sous_budget_id == 0 && this.activite_id != 0) {
         const qtereel = this.getterInfoOrdrePaiement.find(
@@ -1957,12 +1932,16 @@ export default {
       return this.TableauDossier.length;
     },
     CumulMontantAutreMontantDef() {
-      return this.getterstateFactureParOp
-        .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.autre_montant),
-          0
-        )
-        .toFixed(0);
+      if (this.ordre_paiement_id == 0) {
+        return 0;
+      } else {
+        return this.getterstateFactureParOp
+          .reduce(
+            (prec, cur) => parseFloat(prec) + parseFloat(cur.autre_montant),
+            0
+          )
+          .toFixed(0);
+      }
     },
     CumulMontantAutreMontant() {
       return this.TableauDossier.filter(
@@ -1975,12 +1954,16 @@ export default {
         .toFixed(0);
     },
     CumulMontanttvaDef() {
-      return this.getterstateFactureParOp
-        .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.montant_tva),
-          0
-        )
-        .toFixed(0);
+      if (this.ordre_paiement_id == 0) {
+        return 0;
+      } else {
+        return this.getterstateFactureParOp
+          .reduce(
+            (prec, cur) => parseFloat(prec) + parseFloat(cur.montant_tva),
+            0
+          )
+          .toFixed(0);
+      }
     },
     CumulMontanttva() {
       return this.TableauDossier.filter(
@@ -1993,9 +1976,16 @@ export default {
         .toFixed(0);
     },
     CumulMontantHTDef() {
-      return this.getterstateFactureParOp
-        .reduce((prec, cur) => parseFloat(prec) + parseFloat(cur.montant_ht), 0)
-        .toFixed(0);
+      if (this.ordre_paiement_id == 0) {
+        return 0;
+      } else {
+        return this.getterstateFactureParOp
+          .reduce(
+            (prec, cur) => parseFloat(prec) + parseFloat(cur.montant_ht),
+            0
+          )
+          .toFixed(0);
+      }
     },
 
     CumulMontantHT() {
@@ -2006,22 +1996,30 @@ export default {
         .toFixed(0);
     },
     CumulMontantSaisiDef() {
-      return this.getterstateFactureParOp
-        .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.montant_ttc),
-          0
-        )
-        .toFixed(0);
+      if (this.ordre_paiement_id == 0) {
+        return 0;
+      } else {
+        return this.getterstateFactureParOp
+          .reduce(
+            (prec, cur) => parseFloat(prec) + parseFloat(cur.montant_ttc),
+            0
+          )
+          .toFixed(0);
+      }
     },
     CumulMontantSaisi() {
-      return this.TableauDossier.filter(
-        (item) => item.numero_ordre_paiement == this.automatiseNumeroOP
-      )
-        .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.montant_ttc),
-          0
+      if (this.ordre_paiement_id == 0) {
+        return 0;
+      } else {
+        return this.TableauDossier.filter(
+          (item) => item.numero_ordre_paiement == this.automatiseNumeroOP
         )
-        .toFixed(0);
+          .reduce(
+            (prec, cur) => parseFloat(prec) + parseFloat(cur.montant_ttc),
+            0
+          )
+          .toFixed(0);
+      }
     },
     MontantTTCMod() {
       return (
@@ -2106,12 +2104,12 @@ export default {
     },
     automatiseNumeroOP() {
       return (
-        "PAPAN" +
-        " /" +
-        "OP" +
+        "00" +
         "" +
         (this.getterListeOPgloba.length + 1) +
-        "/ " +
+        "/" +
+        "PA" +
+        "/" +
         this.exerciceBudgetaire
       );
     },
@@ -2122,23 +2120,26 @@ export default {
         return this.getterOpParActivite
           .filter(
             (qtreel) =>
-              qtreel.nature_economique_id ==
+              (qtreel.nature_economique_id ==
                 this.afficheNatureEconomique_id(this.ordre_paiement_id) &&
-              qtreel.type_financement_id ==
-                this.afficheTypeFiancement_id(this.ordre_paiement_id) &&
-              qtreel.source_financement_id ==
-                this.afficheSourceFiancement_id(this.ordre_paiement_id) &&
-              qtreel.nature_depense_id ==
-              this.afficheNatureDepense_id(this.ordre_paiement_id) && qtreel.annulation == 0
-                && qtreel.type_ordre_paiement == 4 || qtreel.nature_economique_id ==
+                qtreel.type_financement_id ==
+                  this.afficheTypeFiancement_id(this.ordre_paiement_id) &&
+                qtreel.source_financement_id ==
+                  this.afficheSourceFiancement_id(this.ordre_paiement_id) &&
+                qtreel.nature_depense_id ==
+                  this.afficheNatureDepense_id(this.ordre_paiement_id) &&
+                qtreel.annulation == 0 &&
+                qtreel.type_ordre_paiement == 4) ||
+              (qtreel.nature_economique_id ==
                 this.afficheNatureEconomique_id(this.ordre_paiement_id) &&
-              qtreel.type_financement_id ==
-                this.afficheTypeFiancement_id(this.ordre_paiement_id) &&
-              qtreel.source_financement_id ==
-                this.afficheSourceFiancement_id(this.ordre_paiement_id) &&
-              qtreel.nature_depense_id ==
-              this.afficheNatureDepense_id(this.ordre_paiement_id) && qtreel.annulation == 0
-                && qtreel.type_ordre_paiement == 2
+                qtreel.type_financement_id ==
+                  this.afficheTypeFiancement_id(this.ordre_paiement_id) &&
+                qtreel.source_financement_id ==
+                  this.afficheSourceFiancement_id(this.ordre_paiement_id) &&
+                qtreel.nature_depense_id ==
+                  this.afficheNatureDepense_id(this.ordre_paiement_id) &&
+                qtreel.annulation == 0 &&
+                qtreel.type_ordre_paiement == 2)
           )
           .reduce(
             (prec, cur) =>
@@ -2150,25 +2151,28 @@ export default {
         return this.getterOpParActivite
           .filter(
             (qtreel) =>
-              qtreel.nature_economique_id ==
+              (qtreel.nature_economique_id ==
                 this.afficheNatureEconomique_id(this.ordre_paiement_id) &&
-              qtreel.type_financement_id ==
-                this.afficheTypeFiancement_id(this.ordre_paiement_id) &&
-              qtreel.source_financement_id ==
-                this.afficheSourceFiancement_id(this.ordre_paiement_id) &&
-              qtreel.nature_depense_id ==
-                this.afficheNatureDepense_id(this.ordre_paiement_id) &&
-              qtreel.sous_budget_id == this.sous_budget_id && qtreel.annulation == 0
-             && qtreel.type_ordre_paiement == 2 || qtreel.nature_economique_id ==
+                qtreel.type_financement_id ==
+                  this.afficheTypeFiancement_id(this.ordre_paiement_id) &&
+                qtreel.source_financement_id ==
+                  this.afficheSourceFiancement_id(this.ordre_paiement_id) &&
+                qtreel.nature_depense_id ==
+                  this.afficheNatureDepense_id(this.ordre_paiement_id) &&
+                qtreel.sous_budget_id == this.sous_budget_id &&
+                qtreel.annulation == 0 &&
+                qtreel.type_ordre_paiement == 2) ||
+              (qtreel.nature_economique_id ==
                 this.afficheNatureEconomique_id(this.ordre_paiement_id) &&
-              qtreel.type_financement_id ==
-                this.afficheTypeFiancement_id(this.ordre_paiement_id) &&
-              qtreel.source_financement_id ==
-                this.afficheSourceFiancement_id(this.ordre_paiement_id) &&
-              qtreel.nature_depense_id ==
-                this.afficheNatureDepense_id(this.ordre_paiement_id) &&
-              qtreel.sous_budget_id == this.sous_budget_id && qtreel.annulation == 0
-             && qtreel.type_ordre_paiement == 4
+                qtreel.type_financement_id ==
+                  this.afficheTypeFiancement_id(this.ordre_paiement_id) &&
+                qtreel.source_financement_id ==
+                  this.afficheSourceFiancement_id(this.ordre_paiement_id) &&
+                qtreel.nature_depense_id ==
+                  this.afficheNatureDepense_id(this.ordre_paiement_id) &&
+                qtreel.sous_budget_id == this.sous_budget_id &&
+                qtreel.annulation == 0 &&
+                qtreel.type_ordre_paiement == 4)
           )
           .reduce(
             (prec, cur) =>
@@ -2722,7 +2726,8 @@ export default {
       "getDotationAutreRessource",
       "getEntreprise",
       "ajouterOrdrePaiementDefinitif",
-      "getOpParActvite","ajouterOrdrePaiement",
+      "getOpParActvite",
+      "ajouterOrdrePaiement",
       "getInformationOp",
     ]),
     AfficheModalModificationFacture(id) {
@@ -2844,10 +2849,11 @@ export default {
           this.ordre_paiement_id
         ),
         cumul_anterieure: this.afficheMontantCumul,
-        numero_facture_definitve: this.numero_facture,
-        date_facture_definitve: this.date_facture,
-        parent_id:this.ordre_paiement_id
-        
+        numero_facture_definitve: this.numero_facture_definitve,
+        date_facture_definitve: this.date_facture_definitve,
+        parent_id: this.ordre_paiement_id,
+        decision_cf: this.decision_cf,
+        date_decision: this.date_decision,
       };
 
       this.ajouterOrdrePaiementDefinitif(nouvelObjettrsor);
@@ -2869,8 +2875,6 @@ export default {
         (this.date_facture = ""),
         (this.numero_facture = 0);
     },
-
-
 
     enregistrementAvecFacture() {
       var nouvelObjettrsor = {
@@ -2897,18 +2901,17 @@ export default {
           this.ordre_paiement_id
         ),
         cumul_anterieure: this.afficheMontantCumul,
-        numero_facture_definitve: this.numero_facture,
-        date_facture_definitve: this.date_facture,
-        parent_id:this.ordre_paiement_id,
+
+        parent_id: this.ordre_paiement_id,
         numero_facture: this.numero_facture,
         date_facture: this.date_facture,
-
+        decision_cf: this.decision_cf,
+        date_decision: this.date_decision,
         FormDataDossier: this.TableauDossier,
-        
       };
 
       this.ajouterOrdrePaiement(nouvelObjettrsor);
- (this.TableauDossier = []),
+      (this.TableauDossier = []),
         (this.FormDataDossier.designation = ""),
         (this.FormDataDossier.quantite = ""),
         (this.FormDataDossier.prix_unitaire = 0),

@@ -99,7 +99,7 @@
                   </a>
                 </li>
                 <li>
-                  <a href="" @click.prevent="activedOptionMenu('')">
+                  <a href="" @click.prevent="activedOptionMenu('InformationBudgetModifier')">
                     <span class="sub-item">Modifier budget</span>
                   </a>
                 </li>

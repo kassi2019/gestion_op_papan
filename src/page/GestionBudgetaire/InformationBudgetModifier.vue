@@ -21,7 +21,7 @@
                 <i class="icon-arrow-right"></i>
               </li>
               <li class="nav-item">
-                <a href="#">budget global</a>
+                <a href="#">Dotation Global modification</a>
               </li>
             </ul>
           </div>
@@ -90,7 +90,7 @@
                       class="badge badge-black"
                       style="cursor: pointer"
                       @click.prevent="AfficheVentilationBudget(item.id)"
-                      >Saisir budget</span
+                      >Modification Budget</span
                     >
                     <span
                       class="badge rounded-pill bg-primary"
@@ -307,7 +307,7 @@
                   >Dotation global budget</label
                 >
                 <money3
-                  :model-value="AfficheMontantGlobal"
+                  v-model="ajouterNatureDepense.dotation"
                   class="form-control"
                   v-bind="config"
                   style="border: 1px solid #000"
@@ -395,9 +395,10 @@ export default {
       "getterExerciceBudgetaire",
       "getterInformationBudget",
     ]),
-    AfficherBudgetGlobal() {
-      return this.getterInformationBudget.filter(item=>item.statut==0)
+ AfficherBudgetGlobal() {
+      return this.getterInformationBudget.filter(item=>item.statut==1)
     },
+    // afficher
     libelleActivite() {
       let collet = [];
       this.getterActivite.filter((item) => {
@@ -497,7 +498,7 @@ export default {
     ]),
     AfficheVentilationBudget(id) {
       this.$router.push({
-        name: "VentilationBudget",
+        name: "modificationBudgetaire",
         params: { id: id },
       });
     },
@@ -522,10 +523,10 @@ export default {
     EnregistrerSection() {
       var objetDirect1 = {
         exercice: this.exerciceBudgetaire,
-        dotation: this.AfficheMontantGlobal,
+        dotation: this.ajouterNatureDepense.dotation,
         libelle: this.ajouterNatureDepense.libelle,
-        activite_id: this.ajouterNatureDepense.activite_id,
-        statut: 0,
+          activite_id: this.ajouterNatureDepense.activite_id,
+        statut:1
       };
 
       this.ajouterInformationBudget(objetDirect1);
@@ -537,11 +538,11 @@ export default {
         id: this.modNatureDepense.id,
         activite_id: this.modNatureDepense.activite_id,
         exercice: this.exerciceBudgetaire,
-        dotation: this.AfficheMontantGlobalModi,
+        dotation: this.modNatureDepense.dotation,
         libelle: this.modNatureDepense.libelle,
         date_decision: this.modNatureDepense.date_decision,
         decision: this.modNatureDepense.decision,
-         statut: 0,
+        statut:1
       };
 
       this.modifierInformationBudget(objetDirect1);

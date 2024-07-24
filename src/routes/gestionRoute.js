@@ -14,7 +14,9 @@ import BudgetReport from "../page/GestionBudgetaire/BudgetReport.vue"
 // import BudgetAutreRessource from "../page/GestionBudgetaire/BudgetAutreRessource.vue"
 // import BudgetRessourcePropre from "../page/GestionBudgetaire/BudgetRessourcePropre.vue"
  import Budget from "../page/GestionBudgetaire/InformationBudget.vue"
- import VentilationBudget from "../page/GestionBudgetaire/VentilationBudget.vue"
+import VentilationBudget from "../page/GestionBudgetaire/VentilationBudget.vue"
+
+
 import AfficheSousBudgetEclate from "../page/GestionBudgetaire/AfficheSousBudgetEclate.vue"
 import VoirBudgetEclate from "../page/GestionBudgetaire/VoirBudgetEclateParActivite.vue"
 import VentilationSousBudget from "../page/GestionBudgetaire/VentilationSousBudget.vue"
@@ -35,7 +37,21 @@ import Banque from "../page/ParametreGeneraux/Banque.vue"
 import CompteBancaire from "../page/ParametreGeneraux/CompteBancaire.vue"
 import AfficheOPDefinitif from "../page/GestionBudgetaire/AfficheOPDefinitif.vue"
 import AfficheOPAnnulation from "../page/GestionBudgetaire/AfficheOPAnnulation.vue"
+
+import InformationBudgetModifier from "../page/GestionBudgetaire/InformationBudgetModifier.vue"
+ 
+import modificationBudgetaire from "../page/GestionBudgetaire/modificationBudgetaire.vue"
 const gestionutilisateur = [
+   {
+        path: '/modificationBudgetaire/:id',
+        name:"modificationBudgetaire",
+       component: modificationBudgetaire
+     },
+  {
+        path: '/InformationBudgetModifier',
+        name:"InformationBudgetModifier",
+       component: InformationBudgetModifier
+     },
    {
         path: '/AfficheOPAnnulation/:id',
         name:"AfficheOPAnnulation",

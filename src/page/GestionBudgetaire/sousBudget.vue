@@ -1,33 +1,31 @@
 <template>
-  <div class="container" >
-    <div class="col-md-12" >
-      <div class="card" style="box-shadow: 5px 5px  #f9d531;">
+  <div class="container">
+    <div class="col-md-12">
+      <div class="card" style="box-shadow: 5px 5px #f9d531">
         <div class="card-header">
           <div class="page-header">
-						<h6 class="fw-bold mb-3">Liste Sous budget</h6>
-						<ul class="breadcrumbs mb-3">
-							<li class="nav-home">
-								<a href="#">
-									<i class="icon-home"></i>
-								</a>
-							</li>
-							<li class="separator">
-								<i class="icon-arrow-right"></i>
-							</li>
-							<li class="nav-item">
-								<a href="#">Gestion budgétaire</a>
-							</li>
-							<li class="separator">
-								<i class="icon-arrow-right"></i>
-							</li>
-							<li class="nav-item">
-								<a href="#">Sous budget</a>
-							</li>
-						</ul>
-					</div>
+            <h6 class="fw-bold mb-3">Liste Sous budget</h6>
+            <ul class="breadcrumbs mb-3">
+              <li class="nav-home">
+                <a href="#">
+                  <i class="icon-home"></i>
+                </a>
+              </li>
+              <li class="separator">
+                <i class="icon-arrow-right"></i>
+              </li>
+              <li class="nav-item">
+                <a href="#">Gestion budgétaire</a>
+              </li>
+              <li class="separator">
+                <i class="icon-arrow-right"></i>
+              </li>
+              <li class="nav-item">
+                <a href="#">Sous budget</a>
+              </li>
+            </ul>
+          </div>
           <div class="d-flex align-items-center">
-            
-
             <span
               class="badge badge-primary"
               style="cursor: pointer"
@@ -40,45 +38,41 @@
         <div class="card-body">
           <div class="table-responsive">
             <table class="table table-bordered">
-            <thead>
-                        <tr>
-                          <!-- <th scope="col">#</th> -->
-                          <!-- <th scope="col">N</th> -->
- <th scope="col" style="text-align: center" >
-                            Activité
-                          </th>
-                          <th scope="col" style="text-align: center" >
-                            Sous budget
-                          </th>
-                          <th scope="col" style="text-align: center">Action</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr
-                          v-for="item1 in getterSousBudget"
-                          :key="item1.id"
-                        >
-                        <td style="width: 45%">{{ libelleActiviteTableau(item1.activite_id) }}</td>
-                          <td style="width: 40%">{{ item1.libelle }}</td>
-                          <td>
-                            <span
-                  class="badge rounded-pill bg-primary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#largeModal1"
-                  style="cursor: pointer"
-                  @click.prevent="AfficheModalModification(item1.id)"
-                  >Modifier</span
-                >
-                <span
-                  class="badge bg-danger"
-                  style="cursor: pointer"
-                  @click.prevent="supprimerSousBudget(item1.id)"
-                  >Supprimer</span
-                >
-                           
-                          </td>
-                        </tr>
-                      </tbody>
+              <thead>
+                <tr>
+                  <!-- <th scope="col">#</th> -->
+                  <!-- <th scope="col">N</th> -->
+                  <th scope="col" style="text-align: center">Activité</th>
+                  <th scope="col" style="text-align: center">Sous budget</th>
+                  <th scope="col" style="text-align: center">Taux Budgétaire</th>
+                  <th scope="col" style="text-align: center">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="item1 in getterSousBudget" :key="item1.id">
+                  <td style="width: 30%">
+                    {{ libelleActiviteTableau(item1.activite_id) }}
+                  </td>
+                  <td style="width: 35%">{{ item1.libelle }}</td>
+                  <td style="text-align: right;">{{ item1. taux_budget }}%</td>
+                  <td>
+                    <span
+                      class="badge rounded-pill bg-primary"
+                      data-bs-toggle="modal"
+                      data-bs-target="#largeModal1"
+                      style="cursor: pointer"
+                      @click.prevent="AfficheModalModification(item1.id)"
+                      >Modifier</span
+                    >
+                    <span
+                      class="badge bg-danger"
+                      style="cursor: pointer"
+                      @click.prevent="supprimerSousBudget(item1.id)"
+                      >Supprimer</span
+                    >
+                  </td>
+                </tr>
+              </tbody>
             </table>
           </div>
         </div>
@@ -103,16 +97,16 @@
           <div class="modal-body">
             <form>
               <div class="col-12">
-                 <label class="form-label">Activité</label>
-                      <model-list-select
-                        :list="libelleActivite"
-                        v-model="modNatureDepense.activite_id"
-                        option-value="id"
-                        option-text="libelle"
-                        placeholder="select item"
-                        style="border: 1px solid #000"
-                      >
-                      </model-list-select>
+                <label class="form-label">Activité</label>
+                <model-list-select
+                  :list="libelleActivite"
+                  v-model="modNatureDepense.activite_id"
+                  option-value="id"
+                  option-text="libelle"
+                  placeholder="select item"
+                  style="border: 1px solid #000"
+                >
+                </model-list-select>
               </div>
               <div class="col-12">
                 <label for="inputNanme4" class="form-label">Libelle</label>
@@ -122,6 +116,16 @@
                   id="inputNanme4"
                   style="border: 1px solid #000"
                   v-model="modNatureDepense.libelle"
+                />
+              </div>
+               <div class="col-12">
+                <label for="inputNanme4" class="form-label">Taux du budget</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="inputNanme4"
+                  style="border: 1px solid #000"
+                  v-model="modNatureDepense.taux_budget"
                 />
               </div>
             </form>
@@ -162,16 +166,16 @@
           <div class="modal-body">
             <form>
               <div class="col-12">
-                 <label class="form-label">Activité</label>
-                      <model-list-select
-                        :list="libelleActivite"
-                        v-model="ajouterNatureDepense.activite_id"
-                        option-value="id"
-                        option-text="libelle"
-                        placeholder="select item"
-                        style="border: 1px solid #000"
-                      >
-                      </model-list-select>
+                <label class="form-label">Activité</label>
+                <model-list-select
+                  :list="libelleActivite"
+                  v-model="ajouterNatureDepense.activite_id"
+                  option-value="id"
+                  option-text="libelle"
+                  placeholder="select item"
+                  style="border: 1px solid #000"
+                >
+                </model-list-select>
               </div>
               <div class="col-12">
                 <label for="inputNanme4" class="form-label">Libelle</label>
@@ -181,6 +185,16 @@
                   id="inputNanme4"
                   style="border: 1px solid #000"
                   v-model="ajouterNatureDepense.libelle"
+                />
+              </div>
+              <div class="col-12">
+                <label for="inputNanme4" class="form-label">Taux du budget</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="inputNanme4"
+                  style="border: 1px solid #000"
+                  v-model="ajouterNatureDepense.taux_budget"
                 />
               </div>
             </form>
@@ -212,29 +226,32 @@ import { mapActions, mapGetters } from "vuex";
 import moment from "moment";
 import { ModelListSelect } from "vue-search-select";
 export default {
-  components: {ModelListSelect},
+  components: { ModelListSelect },
   data() {
     return {
       ajouterNatureDepense: {
         libelle: "",
-
+        taux_budget: "",
         activite_id: "",
       },
       modNatureDepense: {
         libelle: "",
-
+        taux_budget: "",
         activite_id: "",
       },
     };
   },
   created() {
     this.getActivite();
-    this.getGroupeActivite()
+    this.getGroupeActivite();
     this.getSousBudget();
   },
   computed: {
-   
-    ...mapGetters("parametrage", ["getterActivite","getterSousBudget",'getterGrpeActivite']),
+    ...mapGetters("parametrage", [
+      "getterActivite",
+      "getterSousBudget",
+      "getterGrpeActivite",
+    ]),
     libelleSousBudget() {
       return (id) => {
         if (id != null && id != "") {
@@ -243,7 +260,7 @@ export default {
           );
         }
       };
-      },
+    },
     libelleActivite() {
       let collet = [];
       this.getterActivite.filter((item) => {
@@ -259,9 +276,7 @@ export default {
     libelleActiviteTableau() {
       return (id) => {
         if (id != null && id != "") {
-          const qtereel = this.getterActivite.find(
-            (qtreel) => qtreel.id == id
-          );
+          const qtereel = this.getterActivite.find((qtreel) => qtreel.id == id);
 
           if (qtereel) {
             return qtereel.code.concat(" - ", qtereel.libelle);
@@ -292,24 +307,27 @@ export default {
     },
   },
   methods: {
-   
-      ...mapActions("parametrage", [
+    ...mapActions("parametrage", [
       "getActivite",
-      "getSection", "getActivite",'getGroupeActivite',
+      "getSection",
+      "getActivite",
+      "getGroupeActivite",
       "getSousBudget",
       "ajouterSousBudget",
       "modifierSousBudget",
       "supprimerSousBudget",
-      
-      ]),
-    
+    ]),
+
     AfficheModalModification(id) {
-      this.modNatureDepense = this.getterSousBudget.find((items) => items.id == id);
+      this.modNatureDepense = this.getterSousBudget.find(
+        (items) => items.id == id
+      );
     },
     EnregistrerSection() {
       var objetDirect1 = {
         activite_id: this.ajouterNatureDepense.activite_id,
         libelle: this.ajouterNatureDepense.libelle,
+        taux_budget: this.ajouterNatureDepense.taux_budget,
       };
 
       this.ajouterSousBudget(objetDirect1);
@@ -324,6 +342,7 @@ export default {
         id: this.modNatureDepense.id,
         activite_id: this.modNatureDepense.activite_id,
         libelle: this.modNatureDepense.libelle,
+        taux_budget: this.modNatureDepense.taux_budget,
       };
 
       this.modifierSousBudget(objetDirect1);

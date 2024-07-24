@@ -28,7 +28,7 @@
         </div>
         <div class="card-body">
           <FormWizard @on-complete="onComplete" color="#e67e22">
-            <TabContent title="INFORMATION SUR OP" icon="ti-write">
+            <TabContent title="INFO SUR LE PROJET" icon="ti-home">
               <div class="row">
                 <div class="col-lg-12">
                   <form class="row g-3">
@@ -184,6 +184,14 @@
                         :value="ccEntreprise(entreprise_id)"
                       />
                     </div>
+                  </form>
+                </div>
+              </div>
+            </TabContent>
+            <TabContent title="INFO SUR OP" icon="ti-write">
+              <div class="row">
+                <div class="col-lg-12">
+                  <form class="row g-3">
                     <div class="col-12">
                       <label class="form-label"
                         >Objet de la depense
@@ -237,12 +245,15 @@
                       <span style="color: red" v-if="montant_prestation == 0"
                         >Ce champs est obligatoire!
                       </span>
+                      <span style="color: red" v-if="montant_prestation < 0"
+                        >le Montant doit être positif
+                      </span>
                     </div>
                   </form>
                 </div>
               </div>
             </TabContent>
-            <TabContent title="INFORMATION SUR LA DOTATION" icon="ti-search">
+            <TabContent title="INFO SUR LA DOTATION" icon="ti-search">
               <div class="row">
                 <div class="col-lg-12">
                   <form class="row g-3">
@@ -384,6 +395,33 @@
                         :model-value="disponible"
                         readonly
                       ></money3>
+                    </div>
+                    <div class="col-6">
+                      <label for="inputNanme4" class="form-label"
+                        >Décision</label
+                      >
+                      <select
+                        class="form-select"
+                        style="border: 1px solid #000"
+                        v-model="decision_cf"
+                      >
+                        <option selected></option>
+                        <option :value="1">Visé</option>
+                  <option :value="2">Visé avec observation</option>
+                  <option :value="3">Différé</option>
+                  <option :value="4">Réjetté</option>
+                      </select>
+                    </div>
+                    <div class="col-6">
+                      <label for="inputNanme4" class="form-label"
+                        >Date décision</label
+                      >
+                      <input
+                        type="date"
+                        class="form-control"
+                        style="border: 1px solid #000"
+                        v-model="date_decision"
+                      />
                     </div>
                   </form>
                 </div></div
@@ -916,7 +954,7 @@
                             source_financement_id == 0 ||
                             nature_economique_id == 0 ||
                             montant_prestation == 0 ||
-                            objet_depense == 0
+                            objet_depense == 0 || montant_prestation < 0
                           "
                           disabled
                           type="button"
@@ -1183,6 +1221,8 @@ export default {
         prix_unitaire: 0,
         exonere: 0,
       },
+      decision_cf: 0,
+      date_decision: "",
       autre_taux: 0,
       compte_id: "",
       objet_depense: 0,
@@ -1391,12 +1431,12 @@ export default {
     },
     automatiseNumeroOP() {
       return (
-        "PAPAN" +
-        " /" +
-        "OP" +
+        "00" +
         "" +
         (this.getterListeOPgloba.length + 1) +
-        "/ " +
+        "/" +
+        "PA" +
+        "/" +
         this.exerciceBudgetaire
       );
     },
@@ -2215,6 +2255,8 @@ export default {
         cumul_anterieure: this.afficheMontantCumul,
         numero_facture: this.numero_facture,
         date_facture: this.date_facture,
+        decision_cf: this.decision_cf,
+        date_decision: this.date_decision,
 
         FormDataDossier: this.TableauDossier,
       };

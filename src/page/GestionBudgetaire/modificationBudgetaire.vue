@@ -4,7 +4,7 @@
       <div class="card" style="box-shadow: 5px 5px #f9d531">
         <div class="card-header">
           <div class="page-header">
-            <h6 class="fw-bold mb-3">Eclatement</h6>
+            <h6 class="fw-bold mb-3">Mdification</h6>
             <ul class="breadcrumbs mb-3">
               <li class="nav-home">
                 <a href="#">
@@ -21,17 +21,14 @@
                 <i class="icon-arrow-right"></i>
               </li>
               <li class="nav-item">
-                <a href="#">Eclatement du budget</a>
+                <a href="#">Modification Budgétaire</a>
               </li>
             </ul>
-          </div>
-          <div class="d-flex align-items-center">
-            <!-- <h4 class="card-title">Eclatement du budget</h4> -->
           </div>
         </div>
         <div class="card-body">
           <FormWizard @on-complete="onComplete" color="#e67e22">
-            <TabContent title="SAISIR BUDGET" icon="ti-pencil-alt2">
+            <TabContent title="MODIFICATION BUDGETAIRE" icon="ti-pencil-alt2">
               <div class="row">
                 <div class="col-lg-12">
                   <form class="row g-3">
@@ -108,75 +105,6 @@
                       >
                       </model-list-select>
                     </div>
-                    <div class="col-3">
-                      <label class="form-label">Budget Notifié ( A )</label>
-
-                      <money3
-                        class="form-control"
-                        v-bind="config"
-                        readonly
-                        :model-value="MontantNotifie"
-                      ></money3>
-                    </div>
-                    <div class="col-3">
-                      <label class="form-label">Budget Réport ( B )</label>
-                      <money3
-                        class="form-control"
-                        v-bind="config"
-                        readonly
-                        :model-value="MontantReport"
-                      ></money3>
-                    </div>
-
-                    <div class="col-3">
-                      <label class="form-label"
-                        >Budget global ( E = A + B)</label
-                      >
-                      <money3
-                        class="form-control"
-                        style="border: 1px solid #000 !important"
-                        v-bind="config"
-                        readonly
-                        :model-value="TotalGlobal"
-                      ></money3>
-                    </div>
-                    <div class="col-3">
-                      <label class="form-label"
-                        >Montant affecté ( {{ AfficheTauxBudget }} % Budget global)</label
-                      >
-
-                      <money3
-                        class="form-control"
-                        style="border: 1px solid #000 !important"
-                        v-bind="config"
-                        readonly
-                        :model-value="TauxDuBudgetGlobal"
-                      ></money3>
-                    </div>
-                    <div class="col-3">
-                      <label class="form-label"
-                        >Nature dépense
-                        <span
-                          style="
-                            color: red !important;
-                            font-size: 15px !important;
-                          "
-                          >*</span
-                        ></label
-                      >
-                      <model-list-select
-                        :list="getterNatureDepense"
-                        v-model="nature_depense_id"
-                        option-value="id"
-                        option-text="libelle"
-                        placeholder="select item"
-                        style="border: 1px solid #000"
-                      >
-                      </model-list-select>
-                      <span style="color: red" v-if="nature_depense_id == 0"
-                        >Ce champs est obligatoire!
-                      </span>
-                    </div>
                     <div class="col-9">
                       <label class="form-label"
                         >Nature économique
@@ -189,10 +117,10 @@
                         ></label
                       >
                       <model-list-select
-                        :list="getterNatureEconomique"
+                        :list="AfficheNatureEconomique"
                         v-model="economique_id"
                         option-value="id"
-                        option-text="libelle_code"
+                        option-text="objet"
                         placeholder="select item"
                         style="border: 1px solid #000"
                       >
@@ -200,17 +128,16 @@
                       <span style="color: red" v-if="economique_id == 0"
                         >Ce champs est obligatoire!
                       </span>
-                      <span
-                        style="color: red"
-                        v-if="verificationBailleurSurNatureEconomique == 1"
-                        >Cette Nature économique est déja rattaché à ce bailleur </span
-                      ><br />
-                      <span
-                        style="color: red"
-                        v-if="verificationGrandeNatureSurNatureEconomique == 1"
-                        >Cette Nature économique est déja rattaché à une Nature
-                        dépense
-                      </span>
+                    </div>
+                    <div class="col-3">
+                      <label class="form-label">Nature de depense</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        style="border: 1px solid #000 !important"
+                        :value="libelleNatureDepense"
+                        readonly
+                      />
                     </div>
                     <div class="col-3">
                       <label class="form-label"
@@ -224,17 +151,15 @@
                         ></label
                       >
                       <model-list-select
-                        :list="getterTypeFinancement"
-                        v-model="FormDataDossier.type_financement_id"
+                        :list="AfficheTypeFinancement"
+                        v-model="type_financement_id"
                         option-value="id"
-                        option-text="libelle"
+                        option-text="objet"
                         placeholder="select item"
                         style="border: 1px solid #000"
                       >
                       </model-list-select>
-                      <span
-                        style="color: red"
-                        v-if="FormDataDossier.type_financement_id == 0"
+                      <span style="color: red" v-if="type_financement_id == 0"
                         >Ce champs est obligatoire!
                       </span>
                     </div>
@@ -250,196 +175,38 @@
                         ></label
                       >
                       <model-list-select
-                        :list="AfficheBailleurParType"
-                        v-model="FormDataDossier.source_financement_id"
+                        :list="AfficheSourceFinancement"
+                        v-model="source_financement_id"
                         option-value="id"
-                        option-text="libelle"
+                        option-text="objet"
                         placeholder="select item"
                         style="border: 1px solid #000"
                       >
                       </model-list-select>
-                      <span
-                        style="color: red"
-                        v-if="FormDataDossier.source_financement_id == 0"
+                      <span style="color: red" v-if="source_financement_id == 0"
                         >Ce champs est obligatoire!
                       </span>
-                    </div>
-                    <div class="col-3">
-                      <label class="form-label">Dotation Actuelle</label>
-                      <money3
-                        v-model="FormDataDossier.dotation_actuelle"
-                        class="form-control"
-                        style="border: 1px solid #000 !important"
-                        v-bind="config"
-                      ></money3>
-                    </div>
-                    <div class="col-3">
-                      <label class="form-label">Dotation réport</label>
-
-                      <money3
-                        v-model="FormDataDossier.dotation_report"
-                        class="form-control"
-                        style="border: 1px solid #000 !important"
-                        v-bind="config"
-                      ></money3>
                     </div>
                     <div class="col-4">
-                      <label class="form-label">Cumul dotation saisie</label>
-
-                      <money3
-                        class="form-control"
-                        style="border: 1px solid #000 !important"
-                        v-bind="config"
-                        readonly
-                        :model-value="MontantSaisir"
-                      ></money3>
-                      <span
-                        style="color: red"
-                        v-if="MontantSaisir != MontantRecuParSousBudget"
-                        >Ce champs est obligatoire!
-                      </span>
+                      <label for="inputNanme4" class="form-label"
+                        >Dotation Actuelle (A)</label
+                      >
+                      <money3 class="form-control" style=""></money3>
                     </div>
-                    <div class="col-2">
-                      <br />
-                      <button
-                        v-if="
-                          FormDataDossier.type_financement_id == 0 ||
-                          FormDataDossier.source_financement_id == 0 ||
-                          MontantSaisir == MontantRecuParSousBudget ||
-                          verificationBailleurSurNatureEconomique == 1 ||
-                          verificationGrandeNatureSurNatureEconomique == 1
-                        "
-                        type="button"
-                        class="btn btn-primary"
-                        @click.prevent="ajouterPartieRequerante()"
-                        disabled
-                        style="cursor: pointer"
+
+                    <div class="col-4">
+                      <label for="inputNanme4" class="form-label"
+                        >Variation(D)</label
                       >
-                        Ajouter
-                      </button>
-                      <button
-                        v-else
-                        type="button"
-                        class="btn btn-primary"
-                        @click.prevent="ajouterPartieRequerante()"
-                        style="cursor: pointer"
+                      <money3 class="form-control" style=""></money3>
+                    </div>
+                    <div class="col-4">
+                      <label for="inputNanme4" class="form-label"
+                        >Nouveau montant actuel (E=)</label
                       >
-                        Ajouter
-                      </button>
+                      <money3 class="form-control" style=""></money3>
                     </div>
                   </form>
-                  <br />
-                  <table class="table table-bordered border-primary">
-                    <thead>
-                      <tr>
-                        <!-- <th scope="col">#</th> -->
-                        <!-- <th scope="col">N</th> -->
-                        <th scope="col" style="text-align: center">
-                          Type financement
-                        </th>
-                        <th scope="col" style="text-align: center">
-                          Source financement
-                        </th>
-                        <th scope="col" style="text-align: center">
-                          Dotation actuelle (FCFA)
-                        </th>
-                        <th scope="col" style="text-align: center">
-                          Autre dotation (FCFA)
-                        </th>
-                        <th scope="col" style="text-align: center">
-                          Total (FCFA)
-                        </th>
-                        <th scope="col" style="text-align: center">Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr
-                        v-for="(item1, index) in TableauDossier"
-                        :key="item1.id"
-                      >
-                        <td style="width: 10%">
-                          {{
-                            afficheTypeFinancement(item1.type_financement_id)
-                          }}
-                        </td>
-                        <td style="width: 45%">
-                          {{
-                            afficheSourceFinancement(
-                              item1.source_financement_id
-                            )
-                          }}
-                        </td>
-                        <td style="width: 10%; text-align: right">
-                          {{
-                            formatageSommeSansFCFA(
-                              parseFloat(item1.dotation_actuelle)
-                            )
-                          }}
-                        </td>
-                        <td style="width: 10%; text-align: right">
-                          {{
-                            formatageSommeSansFCFA(
-                              parseFloat(item1.dotation_report)
-                            )
-                          }}
-                        </td>
-                        <!-- <td style="width: 10%; text-align: right">
-                      {{
-                        formatageSommeSansFCFA(
-                          parseFloat(item1.dotation_report)
-                        )
-                      }}
-                    </td> -->
-                        <td style="width: 15%; text-align: right">
-                          {{
-                            formatageSommeSansFCFA(
-                              parseFloat(item1.dotation_report) +
-                                parseFloat(item1.dotation_actuelle)
-                            )
-                          }}
-                        </td>
-                        <td>
-                          <span
-                            class="badge bg-danger"
-                            style="cursor: pointer"
-                            @click.prevent="deletePartieRequerante(index)"
-                            >Supprimer</span
-                          >
-                        </td>
-                      </tr>
-                      <tr>
-                        <td colspan="5"></td>
-                        <td colspan="">
-                          <button
-                            v-if="
-                              unite_operationnelle_id == 0 ||
-                              activite_id == 0 ||
-                              nature_depense_id == 0 ||
-                              economique_id == 0 ||
-                              verificationBailleurSurNatureEconomique == 1 ||
-                              verificationGrandeNatureSurNatureEconomique == 1
-                            "
-                            type="button"
-                            class="btn btn-success"
-                            @click.prevent="enregistrementSansTypeFiancement2()"
-                            style="cursor: pointer"
-                            disabled
-                          >
-                            Enregistrer
-                          </button>
-                          <button
-                            v-else
-                            type="button"
-                            class="btn btn-success"
-                            @click.prevent="enregistrementSansTypeFiancement2()"
-                            style="cursor: pointer"
-                          >
-                            Enregistrer
-                          </button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
                 </div>
               </div>
             </TabContent>
@@ -709,12 +476,9 @@ export default {
     return {
       TableauDossier: [],
       ModifierBudget: {},
-      FormDataDossier: {
-        dotation_report: 0,
-        dotation_actuelle: 0,
-        type_financement_id: 0,
-        source_financement_id: 0,
-      },
+
+      type_financement_id: 0,
+      source_financement_id: 0,
       economique_id: 0,
       activite_id: 0,
       unite_operationnelle_id: 0,
@@ -776,6 +540,7 @@ export default {
     ...mapGetters("parametrage", [
       "getterProjet",
       "getterActivite",
+      "getterBudgetViseParActivite",
       "getterTypeFinancement",
       "getterExerciceBudgetaire",
       "getterDotationNotifie",
@@ -789,180 +554,269 @@ export default {
       "getterDotationAutreRessource",
       "getterListeBudgetEclate",
     ]),
-    verificationBailleurSurNatureEconomique() {
-      if (this.sous_budget_id == 0) {
-        const qtereel = this.getterListeBudgetEclate.find(
+
+    libelleNatureDepense() {
+      if (this.sous_budget_id == 0 && this.activite_id != 0) {
+        // return (id) => {
+        //   if (id != null && id != "") {
+        const qtereel = this.getterBudgetViseParActivite.find(
           (qtreel) =>
-            qtreel.activite_id == this.activite_id &&
             qtreel.ligneeconomique_id == this.economique_id &&
-            qtreel.source_financement_id ==
-              this.FormDataDossier.source_financement_id
+            qtreel.type_financement_id == this.type_financement_id &&
+            qtreel.source_financement_id == this.source_financement_id &&
+            qtreel.actuelle == 1
         );
 
         if (qtereel) {
-          return 1;
+          return this.afficheNatureDepense(qtereel.nature_depense_id);
         }
         return 0;
+        //   }
+        // };
       } else {
-        //   return (id) => {
-        //     if (id != null && id != "") {
-        const qtereel = this.getterListeBudgetEclate.find(
+        // return (id) => {
+        //   if (id != null && id != "") {
+        const qtereel = this.getterBudgetViseParActivite.find(
           (qtreel) =>
+            qtreel.ligneeconomique_id == this.economique_id &&
             qtreel.sous_budget_id == this.sous_budget_id &&
-            qtreel.ligneeconomique_id == this.economique_id &&
-            qtreel.source_financement_id ==
-              this.FormDataDossier.source_financement_id
+            qtreel.type_financement_id == this.type_financement_id &&
+            qtreel.source_financement_id == this.source_financement_id &&
+            qtreel.actuelle == 1
         );
 
         if (qtereel) {
-          return 1;
+          return this.afficheNatureDepense(qtereel.nature_depense_id);
         }
         return 0;
-        //     }
-        //   };
+        //   }
+        // };
       }
     },
-    verificationGrandeNatureSurNatureEconomique() {
-      if (this.sous_budget_id == 0) {
-        const qtereel = this.getterListeBudgetEclate.find(
-          (qtreel) =>
-            qtreel.activite_id == this.activite_id &&
-            qtreel.ligneeconomique_id == this.economique_id &&
-            qtreel.nature_depense_id == this.nature_depense_id
-        );
-
-        if (qtereel) {
-          return 1;
+    AfficheTypeFinancement() {
+      let collet = [];
+      this.GroupeParTypeFinancement.filter((item) => {
+        // if (item.activite_id == this.activite_id)
+        {
+          let data = {
+            id: item,
+            objet: this.libelleTypeFinancement(item),
+          };
+          collet.push(data);
         }
-        return 0;
-      } else {
-        //   return (id) => {
-        //     if (id != null && id != "") {
-        const qtereel = this.getterListeBudgetEclate.find(
-          (qtreel) =>
-            qtreel.sous_budget_id == this.sous_budget_id &&
-            qtreel.ligneeconomique_id == this.economique_id &&
-            qtreel.nature_depense_id == this.nature_depense_id
-        );
+      });
+      return collet;
+    },
+    libelleTypeFinancement() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.getterTypeFinancement.find(
+            (qtreel) => qtreel.id == id
+          );
 
-        if (qtereel) {
-          return 1;
+          if (qtereel) {
+            return qtereel.libelle;
+          }
+          return 0;
         }
-        return 0;
-        //     }
-        //   };
-      }
+      };
     },
-    MontantRecuParSousBudget() {
-      if (this.TauxDuBudgetGlobal != 0) {
-        return this.TauxDuBudgetGlobal;
-      } else {
-        return this.TotalGlobal;
-      }
-    },
+    libelleSourceFinancement() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.getterBailleur.find((qtreel) => qtreel.id == id);
 
-    MontantSaisir() {
-      if (this.sous_budget_id == 0) {
-        return this.getterListeBudgetEclate
-          .filter((item) => item.activite_id == this.activite_id)
-          .reduce(
-            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
-            0
-          )
-          .toFixed(0);
-      } else {
-        return this.getterListeBudgetEclate
-          .filter(
-            (item) =>
-              item.activite_id == this.activite_id &&
-              item.sous_budget_id == this.sous_budget_id
-          )
-          .reduce(
-            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
-            0
-          )
-          .toFixed(0);
-      }
+          if (qtereel) {
+            return qtereel.libelle;
+          }
+          return 0;
+        }
+      };
     },
-    AfficheTauxBudget() {
-      //   return (id) => {
-      //     if (id != null && id != "") {
-      const qtereel = this.getterSousBudget.find(
-        (qtreel) => qtreel.id == this.sous_budget_id
-      );
-
-      if (qtereel) {
-        return qtereel.taux_budget;
-      }
-      return 0;
-      //     }
-      //   };
+    AfficheSourceFinancement() {
+      let collet = [];
+      this.GroupeParSourceFinancement.filter((item) => {
+        // if (item.activite_id == this.activite_id)
+        {
+          let data = {
+            id: item,
+            objet: this.libelleSourceFinancement(item),
+          };
+          collet.push(data);
+        }
+      });
+      return collet;
     },
-    TauxDuBudgetGlobal() {
-      return (
-        (parseFloat(this.TotalGlobal) * parseFloat(this.AfficheTauxBudget)) /
-        100
-      ).toFixed(0);
-    },
-
-    retourneTauxArrondi() {
-      return parseFloat(this.AfficheTauxBudget) / parseFloat(100);
-    },
-    afficheBudgetParActivite() {
-      return this.getterListeBudgetEclate.filter(
-        (item) => item.activite_id == this.activite_id
-      );
-    },
-    ResultatDotation() {
-      if (
-        this.FormDataDossier.dotation_actuelle == 0 &&
-        this.FormDataDossier.dotation_report == 0
-      ) {
-        return 0;
-      } else {
-        return parseFloat(
-          parseFloat(this.FormDataDossier.dotation_actuelle) +
-            parseFloat(this.FormDataDossier.dotation_report)
-        );
-      }
-    },
-
-    TotalGlobal() {
-      return (
-        parseFloat(this.MontantNotifie) + parseFloat(this.MontantReport)
-        // +
-        // parseFloat(this.MontantRessourcePropre) +
-        // parseFloat(this.MontantAutreRessource)
-      );
-    },
-    MontantAutreRessource() {
-      return this.getterDotationAutreRessource
-        .filter((item) => item.activite_id == this.activite_id)
-        .reduce((prec, cur) => parseFloat(prec) + parseFloat(cur.dotation), 0)
-        .toFixed(0);
-    },
-    MontantRessourcePropre() {
-      return this.getterDotationRessourcePropre
-        .filter((item) => item.activite_id == this.activite_id)
-        .reduce((prec, cur) => parseFloat(prec) + parseFloat(cur.dotation), 0)
-        .toFixed(0);
-    },
-    MontantReport() {
-      return this.getterDotationReport
-        .filter(
+    GroupeParSourceFinancement() {
+      // return (id) => {
+      if (this.sous_budget_id == 0 && this.activite_id != 0) {
+        let objet = this.getterBudgetViseParActivite.filter(
           (item) =>
             item.activite_id == this.activite_id &&
-            item.exercice == this.exerciceBudgetaire - 1
-        )
-        .reduce((prec, cur) => parseFloat(prec) + parseFloat(cur.dotation), 0)
-        .toFixed(0);
+            item.ligneeconomique_id == this.economique_id &&
+            item.type_financement_id == this.type_financement_id &&
+            item.actuelle == 1
+        );
+        //  let vm=this
+        let array_exercie = [];
+        if (objet.length > 0) {
+          objet.forEach(function (val) {
+            array_exercie.push(val.source_financement_id);
+          });
+          let unique = [...new Set(array_exercie)];
+
+          if (unique.length == 0) {
+            return [];
+          }
+          return unique.sort((a, b) => (a.unique > b.unique ? 1 : -1));
+        }
+        return [];
+        // };
+      } else {
+        let objet = this.getterBudgetViseParActivite.filter(
+          (item) =>
+            item.sous_budget_id == this.sous_budget_id &&
+            item.ligneeconomique_id == this.economique_id &&
+            item.type_financement_id == this.type_financement_id &&
+            item.actuelle == 1
+        );
+        //  let vm=this
+        let array_exercie = [];
+        if (objet.length > 0) {
+          objet.forEach(function (val) {
+            array_exercie.push(val.source_financement_id);
+          });
+          let unique = [...new Set(array_exercie)];
+
+          if (unique.length == 0) {
+            return [];
+          }
+          return unique.sort((a, b) => (a.unique > b.unique ? 1 : -1));
+        }
+        return [];
+        // };
+      }
     },
-    MontantNotifie() {
-      return this.getterDotationNotifie
-        .filter((item) => item.activite_id == this.activite_id)
-        .reduce((prec, cur) => parseFloat(prec) + parseFloat(cur.dotation), 0)
-        .toFixed(0);
+    GroupeParTypeFinancement() {
+      // return (id) => {
+      if (this.sous_budget_id == 0 && this.activite_id != 0) {
+        let objet = this.getterBudgetViseParActivite.filter(
+          (item) =>
+            item.activite_id == this.activite_id &&
+            item.ligneeconomique_id == this.economique_id &&
+            item.actuelle == 1
+        );
+        //  let vm=this
+        let array_exercie = [];
+        if (objet.length > 0) {
+          objet.forEach(function (val) {
+            array_exercie.push(val.type_financement_id);
+          });
+          let unique = [...new Set(array_exercie)];
+
+          if (unique.length == 0) {
+            return [];
+          }
+          return unique.sort((a, b) => (a.unique > b.unique ? 1 : -1));
+        }
+        return [];
+        // };
+      } else {
+        let objet = this.getterBudgetViseParActivite.filter(
+          (item) =>
+            item.sous_budget_id == this.sous_budget_id &&
+            item.ligneeconomique_id == this.economique_id &&
+            item.actuelle == 1
+        );
+        //  let vm=this
+        let array_exercie = [];
+        if (objet.length > 0) {
+          objet.forEach(function (val) {
+            array_exercie.push(val.type_financement_id);
+          });
+          let unique = [...new Set(array_exercie)];
+
+          if (unique.length == 0) {
+            return [];
+          }
+          return unique.sort((a, b) => (a.unique > b.unique ? 1 : -1));
+        }
+        return [];
+        // };
+      }
     },
+    afficheNatureDepense() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.getterNatureDepense.find(
+            (qtreel) => qtreel.id == id
+          );
+
+          if (qtereel) {
+            return qtereel.code.concat(" ", qtereel.libelle);
+          }
+          return 0;
+        }
+      };
+    },
+    AfficheNatureEconomique() {
+      let collet = [];
+      this.GroupeParNatureEconomique.filter((item) => {
+        // if (item.activite_id == this.activite_id)
+        {
+          let data = {
+            id: item,
+            objet: this.afficheNatureEconomique(item),
+          };
+          collet.push(data);
+        }
+      });
+      return collet;
+    },
+    GroupeParNatureEconomique() {
+      // return (id) => {
+      if (this.sous_budget_id == 0 && this.activite_id != 0) {
+        let objet = this.getterBudgetViseParActivite.filter(
+          (item) => item.activite_id == this.activite_id && item.actuelle == 1
+        );
+        //  let vm=this
+        let array_exercie = [];
+        if (objet.length > 0) {
+          objet.forEach(function (val) {
+            array_exercie.push(val.ligneeconomique_id);
+          });
+          let unique = [...new Set(array_exercie)];
+
+          if (unique.length == 0) {
+            return [];
+          }
+          return unique.sort((a, b) => (a.unique > b.unique ? 1 : -1));
+        }
+        return [];
+        // };
+      } else {
+        let objet = this.getterBudgetViseParActivite.filter(
+          (item) =>
+            item.sous_budget_id == this.sous_budget_id && item.actuelle == 1
+        );
+        //  let vm=this
+        let array_exercie = [];
+        if (objet.length > 0) {
+          objet.forEach(function (val) {
+            array_exercie.push(val.ligneeconomique_id);
+          });
+          let unique = [...new Set(array_exercie)];
+
+          if (unique.length == 0) {
+            return [];
+          }
+          return unique.sort((a, b) => (a.unique > b.unique ? 1 : -1));
+        }
+        return [];
+        // };
+      }
+    },
+
     exerciceBudgetaire() {
       //   return (id) => {
       //     if (id != null && id != "") {
@@ -1106,6 +960,7 @@ export default {
     },
     ...mapActions("parametrage", [
       "getActivite",
+      "getBudgetViseParActvite",
       "getSousBudget",
       "getBudgetEclate",
       "getDotationRessourcePropre",
@@ -1154,60 +1009,16 @@ export default {
         this.TableauDossier.splice(item, 1);
       }
     },
-    ajouterPartieRequerante() {
-      //  console.log(this.partie.motif_partie_id)
-      var nouvelObjet12 = {
-        ...this.FormDataDossier,
-        type_financement_id: this.FormDataDossier.type_financement_id,
-        source_financement_id: this.FormDataDossier.source_financement_id,
-        ligneeconomique_id: this.economique_id,
-        dotation_total: this.ResultatDotation,
+  },
+  watch: {
+    activite_id: function (value) {
+      let objet = {
+        id: value,
       };
-      this.TableauDossier.push(nouvelObjet12);
-
-      this.FormDataDossier = {
-        dotation_report: 0,
-        dotation_actuelle: 0,
-
-        type_financement_id: 0,
-        source_financement_id: 0,
-      };
-    },
-
-    enregistrementSansTypeFiancement2() {
-      var nouvelObjettrsor = {
-        annebudgetaire: this.exerciceBudgetaire,
-        unite_operationnelle_id: this.unite_operationnelle_id,
-        activite_id: this.activite_id,
-
-        // section_id: this.activite_id,
-
-        sous_budget_id: this.sous_budget_id,
-
-        nature_depense_id: this.nature_depense_id,
-
-        dossier_id: this.dossier_id,
-
-        FormDataDossier: this.TableauDossier,
-      };
-
-      this.ajouterBudgetEclate(nouvelObjettrsor);
-
-      (this.TableauDossier = []),
-        (this.FormDataDossier.type_financement_id = ""),
-        (this.FormDataDossier.source_financement_id = ""),
-        (this.FormDataDossier.dotation_actuelle = 0),
-        (this.FormDataDossier.dotation_report = 0);
+      this.getBudgetViseParActvite(objet);
+      //this.getOpParActvite(objet);
     },
   },
-  // watch: {
-  //   activite_id: function (value) {
-  //     let objet = {
-  //       id: value
-  //     };
-  //     this.getAfficherDotation(objet)
-  //   }
-  // },
 };
 </script>
 <style scoped>
