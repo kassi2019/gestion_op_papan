@@ -41,7 +41,20 @@ import AfficheOPAnnulation from "../page/GestionBudgetaire/AfficheOPAnnulation.v
 import InformationBudgetModifier from "../page/GestionBudgetaire/InformationBudgetModifier.vue"
  
 import modificationBudgetaire from "../page/GestionBudgetaire/modificationBudgetaire.vue"
+import InformationBordereau from "../page/GestionBudgetaire/InformationBordereau.vue"
+import ImprimerBordereau from "../page/GestionBudgetaire/DossierImpression/ImprimerBordereau.vue"
+
 const gestionutilisateur = [
+  {
+        path: '/ImprimerBordereau/:id',
+        name:"ImprimerBordereau",
+       component: ImprimerBordereau
+     },
+   {
+        path: '/InformationBordereau',
+        name:"InformationBordereau",
+       component: InformationBordereau
+     },
    {
         path: '/modificationBudgetaire/:id',
         name:"modificationBudgetaire",
@@ -133,7 +146,7 @@ const gestionutilisateur = [
        component: Entreprise
      },
      {
-        path: '/OrdrePaiementProvisoire',
+        path: '/OrdrePaiementProvisoire/:id',
         name:"OrdrePaiementProvisoire",
        component: OrdrePaiementProvisoire
      },

@@ -407,9 +407,9 @@
                       >
                         <option selected></option>
                         <option :value="1">Visé</option>
-                  <option :value="2">Visé avec observation</option>
-                  <option :value="3">Différé</option>
-                  <option :value="4">Réjetté</option>
+                        <option :value="2">Visé avec observation</option>
+                        <option :value="3">Différé</option>
+                        <option :value="4">Réjetté</option>
                       </select>
                     </div>
                     <div class="col-6">
@@ -624,7 +624,7 @@
                     </div>
                     <div class="col-2">
                       <label class="form-label"
-                        >Autre montant ( E = C * D)</label
+                        >Cumul des autres taxes ( E = C * D)</label
                       >
                       <money3
                         class="form-control"
@@ -735,7 +735,7 @@
                           border: 1px solid #000 !important;
                         "
                       >
-                        Autre Montant HT
+                        Cumul des autres taxes HT
                       </th>
                       <th
                         scope="col"
@@ -954,7 +954,8 @@
                             source_financement_id == 0 ||
                             nature_economique_id == 0 ||
                             montant_prestation == 0 ||
-                            objet_depense == 0 || montant_prestation < 0
+                            objet_depense == 0 ||
+                            montant_prestation < 0
                           "
                           disabled
                           type="button"
@@ -1132,7 +1133,9 @@
                     />
                   </div>
                   <div class="col-3">
-                    <label class="form-label">Autre montant ( E = C * D)</label>
+                    <label class="form-label"
+                      >Cumul des autres taxes ( E = C * D)</label
+                    >
                     <money3
                       class="form-control"
                       v-bind="config"
@@ -1260,7 +1263,7 @@ export default {
     };
   },
   created() {
-    // this.dossier_id = this.$route.params.id;
+    this.bordereau_id = this.$route.params.id;
     this.getExerciceBudgetaire();
     this.getActivite();
     this.getSousBudget();
@@ -2257,7 +2260,7 @@ export default {
         date_facture: this.date_facture,
         decision_cf: this.decision_cf,
         date_decision: this.date_decision,
-
+        bordereau_id: this.bordereau_id,
         FormDataDossier: this.TableauDossier,
       };
 

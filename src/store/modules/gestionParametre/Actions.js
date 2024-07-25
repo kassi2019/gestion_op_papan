@@ -1125,6 +1125,37 @@ export function ajouterBudgetEclate({ commit,dispatch }, nouveau) {
     }).catch();
 }
 
+export function ReamenagementBudgetEclate({ commit }, nouveau) {
+ 
+    apiGuest.post("/reamenagementBudgetaire", nouveau, { headers: authHeader() })
+    .then(response => {
+      if (response.status == 201) {
+        commit("REAMENAGEMENT_BUDGET_ECLATE", response.data);
+        // dispatch("getBudgetEclate");
+       toast("Enregistrement effectué avec succès!", {
+        "theme": "auto",
+        "type": "success",
+        "dangerouslyHTMLString": true
+})
+      }
+    }).catch();
+}
+
+export function VisaReamenagementBudgetEclate({ commit }, nouveau) {
+ 
+    apiGuest.post("/viseReamenagement", nouveau, { headers: authHeader() })
+    .then(response => {
+      if (response.status == 201) {
+        commit("VISA_REAMENAGEMENT_INFORMATION_BUDGET", response.data);
+        // dispatch("getBudgetEclate");
+       toast("Enregistrement effectué avec succès!", {
+        "theme": "auto",
+        "type": "success",
+        "dangerouslyHTMLString": true
+})
+      }
+    }).catch();
+}
 // export function getAfficherDotation({ commit }, objet1) {
 
 //   return new Promise((resolve, reject) => {

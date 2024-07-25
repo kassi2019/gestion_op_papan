@@ -44,7 +44,7 @@
                 <tr>
                   <th>Exercice</th>
                   <th>Libelle du budget</th>
-                  <th>Dotation global budget</th>
+                  <th>Dotation</th>
                   <th>Décision</th>
                   <th>Date de visa</th>
                 </tr>
@@ -93,23 +93,108 @@
                       >Modification Budget</span
                     >
                     <span
+                      data-bs-toggle="modal"
+                      data-bs-target="#largeModal12"
+                      class="badge badge-secondary"
+                      @click.prevent="ModalAppliqueDecision(item.id)"
+                      style="cursor: pointer"
+                      >Mettre decision</span
+                    >
+                    <span
                       class="badge rounded-pill bg-primary"
                       data-bs-toggle="modal"
                       data-bs-target="#largeModal1"
                       style="cursor: pointer"
+                      title="modifier"
                       @click.prevent="AfficheModalModification(item.id)"
-                      >Modifier</span
-                    >
+                      ><i class="far fa-edit"></i
+                    ></span>
                     <span
+                      v-if="item.decision == 0"
                       class="badge bg-danger"
                       style="cursor: pointer"
+                      title="Supprimer"
                       @click.prevent="supprimerInformationBudget(item.id)"
-                      >Supprimer</span
-                    >
+                      ><i class="fas fa-archive"></i
+                    ></span>
                   </td>
                 </tr>
               </tbody>
             </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- modal de la decision -->
+    <div class="modal fade" id="largeModal12" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Appliquer la décision</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="col-12">
+                <label for="inputNanme4" class="form-label">Exercice</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  :value="exerciceBudgetaire"
+                  style="border: 1px solid #000; background-color: #dcdcdc"
+                  readonly
+                />
+              </div>
+              <div class="col-12">
+                <label for="inputNanme4" class="form-label">Décision</label>
+                <select
+                  class="form-select"
+                  style="border: 1px solid #000"
+                  v-model="DecisionApp.decision"
+                >
+                  <option selected></option>
+                  <option :value="1">Visé</option>
+                  <option :value="2">Visé avec observation</option>
+                  <option :value="3">Différé</option>
+                  <option :value="4">Réjetté</option>
+                  <option :value="0">En attente</option>
+                </select>
+              </div>
+              <div class="col-12">
+                <label for="inputNanme4" class="form-label"
+                  >Date décision</label
+                >
+                <input
+                  type="date"
+                  class="form-control"
+                  style="border: 1px solid #000"
+                  v-model="DecisionApp.date_decision"
+                />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              @click.prevent="this.getActivite()"
+            >
+              Fermer
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              @click.prevent="AppliqueDecision()"
+              data-bs-dismiss="modal"
+            >
+              Appliquer
+            </button>
           </div>
         </div>
       </div>
@@ -140,7 +225,7 @@
                   readonly
                 />
               </div>
-               <div class="col-12">
+              <div class="col-12">
                 <label class="form-label"
                   >Activité
                   <span
@@ -179,43 +264,10 @@
                   >Dotation global budget</label
                 >
                 <money3
-                  :model-value="AfficheMontantGlobalModi"
+                  v-model="modNatureDepense.dotation"
                   class="form-control"
                   style=""
                 ></money3>
-                <!-- <input
-                        type="text"
-                        class="form-control"
-                       
-                      v-model="modNatureDepense.dotation"
-                        style="background-color: #dcdcdc; font-weight: bolder"
-                      /> -->
-              </div>
-              <div class="col-12">
-                <label for="inputNanme4" class="form-label">Décision</label>
-                <select
-                  class="form-select"
-                  style="border: 1px solid #000"
-                  v-model="modNatureDepense.decision"
-                >
-                  <option selected></option>
-                  <option :value="1">Visé</option>
-                  <option :value="2">Visé avec observation</option>
-                  <option :value="3">Différé</option>
-                  <option :value="4">Réjetté</option>
-                  <option :value="0">En attente</option>
-                </select>
-              </div>
-              <div class="col-12">
-                <label for="inputNanme4" class="form-label"
-                  >Date décision</label
-                >
-                <input
-                  type="date"
-                  class="form-control"
-                  style="border: 1px solid #000"
-                  v-model="modNatureDepense.date_decision"
-                />
               </div>
             </form>
           </div>
@@ -356,12 +408,15 @@ export default {
         dotation: "",
         libelle: "",
         activite_id: "",
+        decision: 0,
+      },
+      DecisionApp: {
+        decision: "",
+        date_decision: "",
       },
       modNatureDepense: {
         dotation: "",
         libelle: "",
-        decision: "",
-        date_decision: "",
       },
       config: {
         prefix: "",
@@ -395,8 +450,8 @@ export default {
       "getterExerciceBudgetaire",
       "getterInformationBudget",
     ]),
- AfficherBudgetGlobal() {
-      return this.getterInformationBudget.filter(item=>item.statut==1)
+    AfficherBudgetGlobal() {
+      return this.getterInformationBudget.filter((item) => item.statut == 1);
     },
     // afficher
     libelleActivite() {
@@ -488,6 +543,7 @@ export default {
   methods: {
     ...mapActions("parametrage", [
       "getActivite",
+      "VisaReamenagementBudgetEclate",
       "getDotationNotifie",
       "getDotationReport",
       "ajouterInformationBudget",
@@ -516,7 +572,12 @@ export default {
       }
     },
     AfficheModalModification(id) {
-      this.modNatureDepense = this.getterInformationBudget.find(
+      this.modNatureDepense = this.AfficherBudgetGlobal.find(
+        (items) => items.id == id
+      );
+    },
+    ModalAppliqueDecision(id) {
+      this.DecisionApp = this.AfficherBudgetGlobal.find(
         (items) => items.id == id
       );
     },
@@ -525,8 +586,9 @@ export default {
         exercice: this.exerciceBudgetaire,
         dotation: this.ajouterNatureDepense.dotation,
         libelle: this.ajouterNatureDepense.libelle,
-          activite_id: this.ajouterNatureDepense.activite_id,
-        statut:1
+        activite_id: this.ajouterNatureDepense.activite_id,
+        decision: this.ajouterNatureDepense.decision,
+        statut: 1,
       };
 
       this.ajouterInformationBudget(objetDirect1);
@@ -542,11 +604,23 @@ export default {
         libelle: this.modNatureDepense.libelle,
         date_decision: this.modNatureDepense.date_decision,
         decision: this.modNatureDepense.decision,
-        statut:1
+        statut: 1,
       };
 
       this.modifierInformationBudget(objetDirect1);
       this.modNatureDepense = {};
+    },
+
+    AppliqueDecision() {
+      var objetDirect1 = {
+        id: this.DecisionApp.id,
+        dotation: this.DecisionApp.dotation,
+        date_decision: this.DecisionApp.date_decision,
+        decision: this.DecisionApp.decision,
+      };
+
+      this.VisaReamenagementBudgetEclate(objetDirect1);
+      this.DecisionApp = {};
     },
     formatageSommeSansFCFA: formatageSommeSansFCFA,
     formaterDate(date) {

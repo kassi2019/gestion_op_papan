@@ -133,7 +133,7 @@
                   <a
                     href=""
                     @click.prevent="
-                      activedOptionMenu('OrdrePaiementProvisoire')
+                      activedOptionMenu('InformationBordereau')
                     "
                   >
                     <span class="sub-item">OP Provisoire</span>

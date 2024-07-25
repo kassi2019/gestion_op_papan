@@ -556,7 +556,7 @@
                     </div>
                     <div class="col-2">
                       <label class="form-label"
-                        >Autre montant ( E = C * D)</label
+                        >Cumul des autres taxes ( E = C * D)</label
                       >
                       <money3
                         class="form-control"
@@ -667,7 +667,7 @@
                           border: 1px solid #000 !important;
                         "
                       >
-                        Autre Montant HT
+                        Cumul des autres taxes HT
                       </th>
                       <th
                         scope="col"
@@ -1049,7 +1049,7 @@
                           border: 1px solid #000 !important;
                         "
                       >
-                        Autre Montant HT
+                        Cumul des autres taxes HT
                       </th>
                       <th
                         scope="col"
@@ -1418,7 +1418,7 @@
                   />
                 </div>
                 <div class="col-3">
-                  <label class="form-label">Autre montant(E=C*D)</label>
+                  <label class="form-label">Cumul des autres taxes(E=C*D)</label>
                   <money3
                     class="form-control"
                     v-bind="config"

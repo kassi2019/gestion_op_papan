@@ -191,20 +191,46 @@
                       <label for="inputNanme4" class="form-label"
                         >Dotation Actuelle (A)</label
                       >
-                      <money3 class="form-control" style=""></money3>
+                      <money3
+                        class="form-control"
+                        style=""
+                        :model-value="MontantActuel"
+                        v-bind="config"
+                        readonly
+                      ></money3>
                     </div>
 
                     <div class="col-4">
                       <label for="inputNanme4" class="form-label"
                         >Variation(D)</label
                       >
-                      <money3 class="form-control" style=""></money3>
+                      <money3
+                        class="form-control"
+                        style=""
+                        v-bind="config"
+                        v-model="dotation_actuelle"
+                      ></money3>
                     </div>
                     <div class="col-4">
                       <label for="inputNanme4" class="form-label"
                         >Nouveau montant actuel (E=)</label
                       >
-                      <money3 class="form-control" style=""></money3>
+                      <money3
+                        class="form-control"
+                        style=""
+                        :model-value="MontantGlobal"
+                        v-bind="config"
+                      ></money3>
+                    </div>
+                    <div class="col-10"></div>
+                    <div class="col-2">
+                      <button
+                        type="button"
+                        class="btn btn-success"
+                        @click.prevent="enregistrementSansTypeFiancement2()"
+                      >
+                        Enregistrer
+                      </button>
                     </div>
                   </form>
                 </div>
@@ -300,7 +326,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="item1 in afficheBudgetParActivite" :key="item1.id">
+                  <!-- <tr v-for="item1 in afficheBudgetParActivite" :key="item1.id">
                     <td style="width: 40%; border: 1px solid #000 !important">
                       {{ afficheNatureEconomique(item1.ligneeconomique_id) }}
                     </td>
@@ -356,14 +382,9 @@
                         @click.prevent="AfficheModalModification(item1.id)"
                         >Modifier</span
                       >
-                      <!-- <span
-                      class="badge bg-danger"
-                      style="cursor: pointer"
-                      @click.prevent="supprimerDotationNotifie(item1.id)"
-                      >Supprimer</span
-                    > -->
+                     
                     </td>
-                  </tr>
+                  </tr> -->
                 </tbody>
               </table>
             </TabContent>
@@ -411,7 +432,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(item1, index) in getterActivite" :key="item1.id">
+                  <!-- <tr v-for="(item1, index) in getterActivite" :key="item1.id">
                     <td style="border: 1px solid #000 !important">
                       {{ index + 1 }}
                     </td>
@@ -444,7 +465,7 @@
                         >Composante</span
                       >
                     </td>
-                  </tr>
+                  </tr> -->
                 </tbody>
               </table>
             </TabContent>
@@ -476,7 +497,7 @@ export default {
     return {
       TableauDossier: [],
       ModifierBudget: {},
-
+      dotation_actuelle: 0,
       type_financement_id: 0,
       source_financement_id: 0,
       economique_id: 0,
@@ -516,11 +537,11 @@ export default {
     this.getNatureDepense();
     this.getTypeFinancement();
     this.getBailleur();
-    this.getDotationNotifie();
-    this.getDotationReport();
-    this.getDotationRessourcePropre();
-    this.getDotationAutreRessource();
-    this.getBudgetEclate();
+    // this.getDotationNotifie();
+    // this.getDotationReport();
+    // this.getDotationRessourcePropre();
+    // this.getDotationAutreRessource();
+    // this.getBudgetEclate();
 
     //   // this.getDotationNotifie();
   },
@@ -554,7 +575,44 @@ export default {
       "getterDotationAutreRessource",
       "getterListeBudgetEclate",
     ]),
+    NatureDepense_id() {
+      if (this.sous_budget_id == 0 && this.activite_id != 0) {
+        // return (id) => {
+        //   if (id != null && id != "") {
+        const qtereel = this.getterBudgetViseParActivite.find(
+          (qtreel) =>
+            qtreel.ligneeconomique_id == this.economique_id &&
+            qtreel.type_financement_id == this.type_financement_id &&
+            qtreel.source_financement_id == this.source_financement_id &&
+            qtreel.actuelle == 1
+        );
 
+        if (qtereel) {
+          return qtereel.nature_depense_id;
+        }
+        return 0;
+        //   }
+        // };
+      } else {
+        // return (id) => {
+        //   if (id != null && id != "") {
+        const qtereel = this.getterBudgetViseParActivite.find(
+          (qtreel) =>
+            qtreel.ligneeconomique_id == this.economique_id &&
+            qtreel.sous_budget_id == this.sous_budget_id &&
+            qtreel.type_financement_id == this.type_financement_id &&
+            qtreel.source_financement_id == this.source_financement_id &&
+            qtreel.actuelle == 1
+        );
+
+        if (qtereel) {
+          return qtereel.nature_depense_id;
+        }
+        return 0;
+        //   }
+        // };
+      }
+    },
     libelleNatureDepense() {
       if (this.sous_budget_id == 0 && this.activite_id != 0) {
         // return (id) => {
@@ -845,7 +903,49 @@ export default {
         }
       };
     },
+    MontantGlobal() {
+      return (
+        parseFloat(this.MontantActuel) + parseFloat(this.dotation_actuelle)
+      );
+    },
+    MontantActuel() {
+      if (this.sous_budget_id == 0) {
+        // return (id) => {
+        //   if (id != null && id != "") {
+        const qtereel = this.getterBudgetViseParActivite.find(
+          (qtreel) =>
+            qtreel.sous_budget_id == this.sous_budget_id &&
+            qtreel.nature_depense_id == this.NatureDepense_id &&
+            qtreel.ligneeconomique_id == this.economique_id &&
+            qtreel.type_financement_id == this.type_financement_id &&
+            qtreel.source_financement_id == this.source_financement_id
+        );
 
+        if (qtereel) {
+          return qtereel.dotation_total;
+        }
+        return 0;
+        //   }
+        // };
+      } else {
+        // return (id) => {
+        //   if (id != null && id != "") {
+        const qtereel = this.getterBudgetViseParActivite.find(
+          (qtreel) =>
+            qtreel.nature_depense_id == this.NatureDepense_id &&
+            qtreel.ligneeconomique_id == this.economique_id &&
+            qtreel.type_financement_id == this.type_financement_id &&
+            qtreel.source_financement_id == this.source_financement_id
+        );
+
+        if (qtereel) {
+          return qtereel.dotation_total;
+        }
+        return 0;
+        //   }
+        // };
+      }
+    },
     afficheNatureEconomique() {
       return (id) => {
         if (id != null && id != "") {
@@ -941,6 +1041,7 @@ export default {
       });
       return collet;
     },
+
     libelleNatureEconomique() {
       let collet = [];
       this.getterNatureEconomique.filter((item) => {
@@ -974,8 +1075,31 @@ export default {
       "getNatureEconomique",
       "ajouterBudgetEclate",
       "getDotationAutreRessource",
+      "ReamenagementBudgetEclate",
     ]),
 
+    enregistrementSansTypeFiancement2() {
+      var nouvelObjettrsor = {
+        annebudgetaire: this.exerciceBudgetaire,
+        dotation_variation: this.dotation_actuelle,
+        ligneeconomique_id: this.economique_id,
+        sous_budget_id: this.sous_budget_id,
+        type_financement_id: this.type_financement_id,
+        dotation_total: this.MontantGlobal,
+        source_financement_id: this.source_financement_id,
+        activite_id: this.activite_id,
+        dossier_id: this.dossier_id,
+        unite_operationnelle_id: this.unite_operationnelle_id,
+        nature_depense_id: this.NatureDepense_id,
+      };
+
+      this.ReamenagementBudgetEclate(nouvelObjettrsor);
+      (this.dotation_actuelle = ""),
+        (this.ligneeconomique_id = ""),
+        (this.sous_budget_id = ""),
+        (this.type_financement_id = ""),
+        (this.unite_operationnelle_id = "");
+    },
     voirBudgett(id) {
       this.$router.push({
         name: "VoirBudgetEclate",

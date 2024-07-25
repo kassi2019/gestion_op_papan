@@ -353,7 +353,9 @@ export const GET_INFORMATION_BUDGET = (state, value) => {
 export const AJOUTER_INFORMATION_BUDGET = (state, elementAjouter) => {
     state.stateInformationBudget.unshift(elementAjouter)
 }
-
+export const VISA_REAMENAGEMENT_INFORMATION_BUDGET = (state, elementAjouter) => {
+    state.stateInformationBudget.unshift(elementAjouter)
+}
 export const MODIFIER_INFORMATION_BUDGET = (state, elementModif) => {
     state.stateInformationBudget = state.stateInformationBudget.map(response => {
 
@@ -375,7 +377,9 @@ export const AJOUTER_BUDGET_ECLATE = (state, elementAjouter) => {
     state.stateBudgetEclate.unshift(elementAjouter)
 }
 
-
+export const REAMENAGEMENT_BUDGET_ECLATE = (state, elementAjouter) => {
+    state.stateBudgetEclateMod.unshift(elementAjouter)
+}
 export const GET_AFFICHE_BUDGET_ECLATE = (state, value) => {
     state.stateListeBudgetEclate=value
 }
