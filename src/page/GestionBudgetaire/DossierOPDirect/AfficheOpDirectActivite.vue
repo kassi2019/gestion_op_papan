@@ -21,12 +21,12 @@
                 <i class="icon-arrow-right"></i>
               </li>
               <li class="nav-item">
-                <a href="#">Liste des OP Provisoire</a>
+                <a href="#">Liste des OP Direct</a>
               </li>
             </ul>
           </div>
           <!-- <div class="d-flex align-items-center">
-        
+            
             <span
               class="badge badge-primary"
               style="cursor: pointer"
@@ -54,7 +54,7 @@
               <tbody>
                 <tr v-for="item in afficheListeOPprovisoire" :key="item.id">
                   <td style="border: 1px solid #000">{{ item.numero_ordre_paiement }}</td>
-                  <td style="border: 1px solid #000" class="text-break">{{ item.objet_depense }}</td>
+                  <td style="border: 1px solid #000">{{ item.objet_depense }}</td>
                   <td style="border: 1px solid #000;text-align: right">{{ formatageSommeSansFCFA(parseFloat(item.montant_prestation)) }}</td>
                   <td style="border: 1px solid #000">{{ item.nature_economique }}</td>
                   <td style="border: 1px solid #000">{{ item.beneficiaire }}</td>
@@ -100,21 +100,21 @@
                   data-bs-toggle="modal"
                   data-bs-target="#largeModal1"
                   style="cursor: pointer;color:blue"
-                  
+                  @click.prevent="AfficheModalModification(item.id)"
                   ></span
                 >
                 <span
                 title="Supprimer"
                   class="fas fa-archive"
                   style="cursor: pointer;color:red"
-                  
+                  @click.prevent="supprimerInformationBudget(item.id)"
                   ></span
                 >
                 <span
                 title="Voir facture"
                   class="fas fa-eye"
                   style="cursor: pointer;color:#006D80"
-                 
+                  @click.prevent="supprimerInformationBudget(item.id)"
                   ></span
                 >
                 <span
@@ -318,7 +318,7 @@ import moment from "moment";
 import {
 
   formatageSommeSansFCFA,
-} from "../Repositories/Repository";
+} from "../../Repositories/Repository";
 export default {
   components: {},
   data() {
@@ -363,7 +363,7 @@ export default {
       "getterInformationBudget",
     ]),
       afficheListeOPprovisoire() {
-        return this.getterListeOPParUser.filter(item=>item.activite_id==this.dossier_id && item.type_ordre_paiement==1)
+        return this.getterListeOPParUser.filter(item=>item.bordereau_id==this.dossier_id && item.type_ordre_paiement==2)
     },
     exerciceBudgetaire() {
       //   return (id) => {

@@ -979,37 +979,7 @@
               </div>
             </TabContent>
             <TabContent title="VERIFICATION ORDRE PAIEMENT" icon="ti-printer"
-              ><div class="table-responsive">
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <th>N°</th>
-                      <th>Activite</th>
-                      <th></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr
-                      v-for="(item, index) in GroupeActiviteOPDirect"
-                      :key="item"
-                    >
-                      <td style="border: 1px solid #000">{{ index + 1 }}</td>
-                      <td style="border: 1px solid #000">
-                        {{ afficheLibelleActivite(item) }}
-                      </td>
-
-                      <td style="border: 1px solid #000">
-                        <span
-                          class="badge badge-black"
-                          style="cursor: pointer"
-                          @click.prevent="AfficheVentilationBudget(item)"
-                          >Voir OP Provisoire</span
-                        >
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div></TabContent
+              ><RecapBordereauOpDirect/></TabContent
             >
           </FormWizard>
         </div>
@@ -1194,17 +1164,19 @@ import { FormWizard, TabContent } from "vue3-form-wizard";
 // import moment from "moment";
 import { ModelListSelect } from "vue-search-select";
 import { Money3Component } from "v-money3";
+import RecapBordereauOpDirect from "./RecapBordereauOpDirect.vue"
 
 import {
   formatageSomme,
   formatageSommeSansFCFA,
-} from "../Repositories/Repository";
+} from "../../../page/Repositories/Repository";
 export default {
   components: {
     money3: Money3Component,
     ModelListSelect,
     FormWizard,
     TabContent,
+    RecapBordereauOpDirect
   },
   data() {
     return {
@@ -1261,7 +1233,7 @@ export default {
     };
   },
   created() {
-    // this.dossier_id = this.$route.params.id;
+    this.bordereau_id = this.$route.params.id;
     this.getExerciceBudgetaire();
     this.getActivite();
     this.getSousBudget();
@@ -2258,6 +2230,7 @@ export default {
         date_facture: this.date_facture,
 decision_cf: this.decision_cf,
         date_decision: this.date_decision,
+        bordereau_id: this.bordereau_id,
         FormDataDossier: this.TableauDossier,
       };
 

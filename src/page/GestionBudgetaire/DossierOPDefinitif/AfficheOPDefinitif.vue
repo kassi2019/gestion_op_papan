@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="col-md-12">
-      <div class="card" style="box-shadow: 5px 5px  #f9d531;">
+      <div class="card" style="box-shadow: 5px 5px #f9d531">
         <div class="card-header">
           <div class="page-header">
             <h6 class="fw-bold mb-3">Ordre paiement</h6>
@@ -21,12 +21,12 @@
                 <i class="icon-arrow-right"></i>
               </li>
               <li class="nav-item">
-                <a href="#">Liste des OP Direct</a>
+                <a href="#">Liste des OP Provisoire</a>
               </li>
             </ul>
           </div>
           <!-- <div class="d-flex align-items-center">
-            
+        
             <span
               class="badge badge-primary"
               style="cursor: pointer"
@@ -48,39 +48,53 @@
                   <th>Bénéficiaire</th>
                   <th>Décision</th>
                   <th>Date Décision</th>
-                   <th></th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
                 <tr v-for="item in afficheListeOPprovisoire" :key="item.id">
-                  <td style="border: 1px solid #000">{{ item.numero_ordre_paiement }}</td>
-                  <td style="border: 1px solid #000">{{ item.objet_depense }}</td>
-                  <td style="border: 1px solid #000;text-align: right">{{ formatageSommeSansFCFA(parseFloat(item.montant_prestation)) }}</td>
-                  <td style="border: 1px solid #000">{{ item.nature_economique }}</td>
-                  <td style="border: 1px solid #000">{{ item.beneficiaire }}</td>
                   <td style="border: 1px solid #000">
-                    <span v-if="item.decision==1"
+                    {{ item.numero_ordre_paiement }}
+                  </td>
+                  <td style="border: 1px solid #000" class="text-break">
+                    {{ item.objet_depense }}
+                  </td>
+                  <td style="border: 1px solid #000; text-align: right">
+                    {{
+                      formatageSommeSansFCFA(
+                        parseFloat(item.montant_prestation)
+                      )
+                    }}
+                  </td>
+                  <td style="border: 1px solid #000">
+                    {{ item.nature_economique }}
+                  </td>
+                  <td style="border: 1px solid #000">
+                    {{ item.beneficiaire }}
+                  </td>
+                  <td style="border: 1px solid #000">
+                    <span
+                      v-if="item.decision == 1"
                       class="badge badge-success"
-                      style="cursor: pointer;text-align: center;"
-                      
+                      style="cursor: pointer; text-align: center"
                       >{{ afficheDecision(item.decision) }}</span
                     >
-                    <span v-if="item.decision==2"
+                    <span
+                      v-if="item.decision == 2"
                       class="badge badge-success"
                       style="cursor: pointer"
-                      
                       >{{ afficheDecision(item.decision) }}</span
                     >
-                     <span v-if="item.decision==3"
+                    <span
+                      v-if="item.decision == 3"
                       class="badge badge-warning"
                       style="cursor: pointer"
-                      
                       >{{ afficheDecision(item.decision) }}</span
                     >
-                     <span v-if="item.decision==4"
+                    <span
+                      v-if="item.decision == 4"
                       class="badge badge-danger"
                       style="cursor: pointer"
-                      
                       >{{ afficheDecision(item.decision) }}</span
                     >
                   </td>
@@ -94,36 +108,29 @@
                       @click.prevent="AfficheVentilationBudget(item.id)"
                       >Saisir budget</span
                     > -->
-                     <span
+                    <span
                       title="Modifier"
-                  class="fas fa-edit"
-                  data-bs-toggle="modal"
-                  data-bs-target="#largeModal1"
-                  style="cursor: pointer;color:blue"
-                  @click.prevent="AfficheModalModification(item.id)"
-                  ></span
-                >
-                <span
-                title="Supprimer"
-                  class="fas fa-archive"
-                  style="cursor: pointer;color:red"
-                  @click.prevent="supprimerInformationBudget(item.id)"
-                  ></span
-                >
-                <span
-                title="Voir facture"
-                  class="fas fa-eye"
-                  style="cursor: pointer;color:#006D80"
-                  @click.prevent="supprimerInformationBudget(item.id)"
-                  ></span
-                >
-                <span
-                title="Imprimer OP"
-                  class="fas fa-print"
-                  style="cursor: pointer;color:#77ABD6"
-                  @click.prevent="fonctionImprimer(item.id)"
-                  ></span
-                >
+                      class="fas fa-edit"
+                      data-bs-toggle="modal"
+                      data-bs-target="#largeModal1"
+                      style="cursor: pointer; color: blue"
+                    ></span>
+                    <span
+                      title="Supprimer"
+                      class="fas fa-archive"
+                      style="cursor: pointer; color: red"
+                    ></span>
+                    <span
+                      title="Voir facture"
+                      class="fas fa-eye"
+                      style="cursor: pointer; color: #006d80"
+                    ></span>
+                    <span
+                      title="Imprimer OP"
+                      class="fas fa-print"
+                      style="cursor: pointer; color: #77abd6"
+                      @click.prevent="fonctionImprimer(item.id)"
+                    ></span>
                   </td>
                 </tr>
               </tbody>
@@ -148,37 +155,37 @@
           </div>
           <div class="modal-body">
             <form>
-            
               <div class="col-12">
                 <label for="inputNanme4" class="form-label">Exercice</label>
                 <input
                   type="text"
                   class="form-control"
-                  
                   :value="exerciceBudgetaire"
                   style="border: 1px solid #000; background-color: #dcdcdc"
                   readonly
                 />
               </div>
               <div class="col-12">
-                <label for="inputNanme4" class="form-label">Libelle du budget</label>
+                <label for="inputNanme4" class="form-label"
+                  >Libelle du budget</label
+                >
                 <input
                   type="text"
                   class="form-control"
-                  
                   style="border: 1px solid #000"
                   v-model="modNatureDepense.libelle"
                 />
               </div>
               <div class="col-12">
-                <label for="inputNanme4" class="form-label">Dotation global budget</label>
+                <label for="inputNanme4" class="form-label"
+                  >Dotation global budget</label
+                >
                 <money3
                   v-model="modNatureDepense.dotation"
                   class="form-control"
-                  
                   style=""
                 ></money3>
-                 <!-- <input
+                <!-- <input
                         type="text"
                         class="form-control"
                        
@@ -208,7 +215,6 @@
                 <input
                   type="date"
                   class="form-control"
-                  
                   style="border: 1px solid #000"
                   v-model="modNatureDepense.date_decision"
                 />
@@ -256,7 +262,11 @@
                   type="text"
                   class="form-control"
                   :value="exerciceBudgetaire"
-                  style="border: 1px solid #000 !important; background-color: #dcdcdc !important;color:#000 !important"
+                  style="
+                    border: 1px solid #000 !important;
+                    background-color: #dcdcdc !important;
+                    color: #000 !important;
+                  "
                   readonly
                 />
               </div>
@@ -315,10 +325,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import moment from "moment";
-import {
-
-  formatageSommeSansFCFA,
-} from "../Repositories/Repository";
+import { formatageSommeSansFCFA } from "../../Repositories/Repository";
 export default {
   components: {},
   data() {
@@ -329,9 +336,9 @@ export default {
       },
       modNatureDepense: {
         dotation: "",
-          libelle: "",
-          decision: "",
-          date_decision:""
+        libelle: "",
+        decision: "",
+        date_decision: "",
       },
       config: {
         prefix: "",
@@ -350,20 +357,24 @@ export default {
       },
     };
   },
-    created() {
-          this.dossier_id = this.$route.params.id;
-    this.getListeOrdrePaiementParUtilisateur()
+  created() {
+    this.dossier_id = this.$route.params.id;
+    this.getListeOrdrePaiementParUtilisateur();
     // this.getExerciceBudgetaire();
     // this.getInformationBudget();
   },
   computed: {
     ...mapGetters("parametrage", [
-      "getterActivite","getterListeOPParUser",
+      "getterActivite",
+      "getterListeOPParUser",
       "getterExerciceBudgetaire",
       "getterInformationBudget",
     ]),
-      afficheListeOPprovisoire() {
-        return this.getterListeOPParUser.filter(item=>item.activite_id==this.dossier_id && item.type_ordre_paiement==1)
+    afficheListeOPprovisoire() {
+      return this.getterListeOPParUser.filter(
+        (item) =>
+          item.activite_id == this.dossier_id && item.type_ordre_paiement == 4
+      );
     },
     exerciceBudgetaire() {
       //   return (id) => {
@@ -382,40 +393,41 @@ export default {
   },
   methods: {
     ...mapActions("parametrage", [
-      "getActivite","getListeOrdrePaiementParUtilisateur",
+      "getActivite",
+      "getListeOrdrePaiementParUtilisateur",
       "ajouterInformationBudget",
       "modifierInformationBudget",
       "supprimerInformationBudget",
       "getExerciceBudgetaire",
       "getInformationBudget",
     ]),
-     fonctionImprimer(id) {
+    fonctionImprimer(id) {
       this.$router.push({
         name: "ImprimerOp",
         params: { id: id },
       });
     },
-     AfficheVentilationBudget(id) {
+    AfficheVentilationBudget(id) {
       this.$router.push({
         name: "VentilationBudget",
         params: { id: id },
       });
     },
-      afficheDecision($id) {
-          if ($id == 1) {
-            return 'Visé'
-          } else if ($id == 2) {
-            return 'Visé avec observation'
-          } else if ($id == 3) {
-            return 'Différé'
-          } else if ($id == 4) {
-            return 'Réjetté'
-          } else {
-            return 'En attente'
-        }
+    afficheDecision($id) {
+      if ($id == 1) {
+        return "Visé";
+      } else if ($id == 2) {
+        return "Visé avec observation";
+      } else if ($id == 3) {
+        return "Différé";
+      } else if ($id == 4) {
+        return "Réjetté";
+      } else {
+        return "En attente";
+      }
     },
-  
-formatageSommeSansFCFA: formatageSommeSansFCFA,
+
+    formatageSommeSansFCFA: formatageSommeSansFCFA,
     formaterDate(date) {
       return moment(date, "YYYY-MM-DD").format("DD/MM/YYYY");
     },

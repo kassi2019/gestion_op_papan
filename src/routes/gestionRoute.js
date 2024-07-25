@@ -20,31 +20,49 @@ import VentilationBudget from "../page/GestionBudgetaire/VentilationBudget.vue"
 import AfficheSousBudgetEclate from "../page/GestionBudgetaire/AfficheSousBudgetEclate.vue"
 import VoirBudgetEclate from "../page/GestionBudgetaire/VoirBudgetEclateParActivite.vue"
 import VentilationSousBudget from "../page/GestionBudgetaire/VentilationSousBudget.vue"
-import OrdrePaiementProvisoire from "../page/GestionBudgetaire/OrdrePaiementProvisoire.vue"
-import OrdrePaiementDirect from "../page/GestionBudgetaire/OrdrePaiementDirect.vue"
-import AfficheOpActivite from "../page/GestionBudgetaire/AfficheOpActivite.vue"
-import AfficheOpDirectActivite from "../page/GestionBudgetaire/AfficheOpDirectActivite.vue"
+import OrdrePaiementProvisoire from "../page/GestionBudgetaire/DossierOpProvisoire/OrdrePaiementProvisoire.vue"
+import OrdrePaiementDirect from "../page/GestionBudgetaire/DossierOPDirect/OrdrePaiementDirect.vue"
+import AfficheOpActivite from "../page/GestionBudgetaire/DossierOpProvisoire/AfficheOpActivite.vue"
+import AfficheOpDirectActivite from "../page/GestionBudgetaire/DossierOPDirect/AfficheOpDirectActivite.vue"
 import ImprimerOp from "../page/GestionBudgetaire/ImprimerOp.vue"
 import AfficheActiviteDesOP from "../page/GestionBudgetaire/AfficheActiviteDesOP.vue"
 import listeToutOP from "../page/GestionBudgetaire/listeToutOP.vue"
 import ExecutionBailleur from "../page/GestionRapport/ExecutionBailleur.vue"
 import ExecutionParLigne from "../page/GestionRapport/ExecutionParLigne.vue"
 import PresentationBudgetVise from "../page/GestionBudgetaire/PresentationBudgetVise.vue"
-import OrdrePaiementDefinitif from "../page/GestionBudgetaire/OrdrePaiementDefinitif.vue"
+import OrdrePaiementDefinitif from "../page/GestionBudgetaire/DossierOPDefinitif/OrdrePaiementDefinitif.vue"
 
-import OrdrePaiementAnnulation from "../page/GestionBudgetaire/OrdrePaiementAnnulation.vue"
+import OrdrePaiementAnnulation from "../page/GestionBudgetaire/DossierOPAnnulation/OrdrePaiementAnnulation.vue"
 import Banque from "../page/ParametreGeneraux/Banque.vue"
 import CompteBancaire from "../page/ParametreGeneraux/CompteBancaire.vue"
-import AfficheOPDefinitif from "../page/GestionBudgetaire/AfficheOPDefinitif.vue"
-import AfficheOPAnnulation from "../page/GestionBudgetaire/AfficheOPAnnulation.vue"
+import AfficheOPDefinitif from "../page/GestionBudgetaire/DossierOPDefinitif/AfficheOPDefinitif.vue"
+import AfficheOPAnnulation from "../page/GestionBudgetaire/DossierOPAnnulation/AfficheOPAnnulation.vue"
 
 import InformationBudgetModifier from "../page/GestionBudgetaire/InformationBudgetModifier.vue"
  
 import modificationBudgetaire from "../page/GestionBudgetaire/modificationBudgetaire.vue"
-import InformationBordereau from "../page/GestionBudgetaire/InformationBordereau.vue"
+import InformationBordereau from "../page/GestionBudgetaire/DossierOpProvisoire/InformationBordereau.vue"
 import ImprimerBordereau from "../page/GestionBudgetaire/DossierImpression/ImprimerBordereau.vue"
 
+import InformationBordereauOPDirect from "../page/GestionBudgetaire/DossierOPDirect/InformationBordereauOPDirect.vue"
+import InformationBordereauOPDefinitif from "../page/GestionBudgetaire/DossierOPDefinitif/InformationBordereauOPDefinitif.vue"
+import InformationBordereauOPAnnulation from "../page/GestionBudgetaire/DossierOPAnnulation/InformationBordereauOPAnnulation.vue"
 const gestionutilisateur = [
+  {
+        path: '/InformationBordereauOPAnnulation',
+        name:"InformationBordereauOPAnnulation",
+       component: InformationBordereauOPAnnulation
+     },
+   {
+        path: '/InformationBordereauOPDefinitif',
+        name:"InformationBordereauOPDefinitif",
+       component: InformationBordereauOPDefinitif
+     },
+   {
+        path: '/InformationBordereauOPDirect',
+        name:"InformationBordereauOPDirect",
+       component: InformationBordereauOPDirect
+     },
   {
         path: '/ImprimerBordereau/:id',
         name:"ImprimerBordereau",
@@ -76,12 +94,12 @@ const gestionutilisateur = [
        component: AfficheOPDefinitif
      },
   {
-        path: '/OrdrePaiementAnnulation',
+        path: '/OrdrePaiementAnnulation/:id',
         name:"OrdrePaiementAnnulation",
        component: OrdrePaiementAnnulation
      },
   {
-        path: '/OrdrePaiementDefinitif',
+        path: '/OrdrePaiementDefinitif/:id',
         name:"OrdrePaiementDefinitif",
        component: OrdrePaiementDefinitif
      },
@@ -126,7 +144,7 @@ const gestionutilisateur = [
        component: AfficheOpDirectActivite
      },
   {
-        path: '/OrdrePaiementDirect',
+        path: '/OrdrePaiementDirect/:id',
         name:"OrdrePaiementDirect",
        component: OrdrePaiementDirect
      },

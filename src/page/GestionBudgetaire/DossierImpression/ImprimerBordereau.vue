@@ -1,7 +1,6 @@
 <template>
   <div class="container">
     <div class="col-md-12">
-       
       <div class="card" style="box-shadow: 5px 5px #f9d531">
         <div class="card-header">
           <div class="d-flex align-items-center">
@@ -21,7 +20,7 @@
               <td
                 style="
                   text-align: center;
-                  
+
                   width: 40%;
                 "
               >
@@ -45,7 +44,7 @@
               <td
                 style="
                   text-align: center;
-                 
+
                   width: 20%;
                 "
               >
@@ -64,7 +63,7 @@
               <td
                 style="
                   text-align: center;
-                  
+
                   width: 40%;
                 "
               >
@@ -72,7 +71,7 @@
                   République de Côte d'Ivoire <br />
                   ------------------------- <br />
                   Union-Discipline-Travail<br />
-                  ------------------------- <br /><br /><br /><br />
+                  ------------------------- <br /><br /><br />
                   <p style="font-weight: bolder">Abidjan,le</p>
                 </h6>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -89,26 +88,27 @@
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SOIT
             TRANSMIS
           </h6>
-          <h5 style="text-align: right; font-weight: bolder; font-size: 15px">
+          <h5 style="text-align: right; font-weight: bolder; font-size: 12px">
             MADAME LE CONTROLEUR FINANCIER
           </h5>
-          <h6 style="text-align: center">
+          <br />
+          <h6 style="text-align: center; font-size: 20px">
             OBJET :{{ libelleBordereau(bordereau_id) }}
           </h6>
           <div class="table-responsive">
             <table
               class="table table-bordered"
               id="customers"
-              style="border: 1px solid #000"
+              
             >
               <thead>
                 <tr>
                   <th
                     scope="col"
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: center;
-                      
+
                       font-weight: bold;
                     "
                   >
@@ -117,9 +117,9 @@
                   <th
                     scope="col"
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: center;
-                      width: 10%;
+                      width: 15%;
                       font-weight: bold;
                     "
                   >
@@ -128,49 +128,145 @@
                   <th
                     scope="col"
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: center;
-                      width: 80%;
+                      width: 70%;
                       font-weight: bold;
                     "
                   >
-                  
                     Libelle
                   </th>
                   <th
                     scope="col"
                     style="
-                      border: 1px solid #000 !important;
+                      border: 0.5px solid #000 !important;
                       text-align: center;
-                      width: 20%;
+                      width: 25%;
                       font-weight: bold;
                     "
                   >
                     Montant
                   </th>
-                  
-                 
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(item1,index) in AfficheOPParBordereau" :key="item1.id">
-                    <td style="width: 10%;border: 1px solid #000 !important;">{{ index+1 }}</td>
-                  <td style="border: 1px solid #000 !important;">
+                <tr
+                  v-for="(item1, index) in AfficheOPParBordereau"
+                  :key="item1.id"
+                >
+                  <td style="width: 10%; border: 0.5px solid #000 !important;text-align: center">
+                    {{ index + 1 }}
+                  </td>
+                  <td style="border: 0.5px solid #000 !important">
                     {{ item1.numero_ordre_paiement }}
                   </td>
-                  <td style="border: 1px solid #000 !important;">
+                  <td style="border: 0.5px solid #000 !important">
                     {{ item1.objet_depense }}
                   </td>
-                  <td style=" text-align: right;border: 1px solid #000 !important;">
-                    {{ formatageSommeSansFCFA(parseFloat(item1.montant_prestation)) }}
+                  <td
+                    style="text-align: right; border: 1px solid #000 !important"
+                  >
+                    {{
+                      formatageSommeSansFCFA(
+                        parseFloat(item1.montant_prestation)
+                      )
+                    }}
                   </td>
+                </tr>
+                <tr>
+                  <td
+                    colspan="3"
+                    style="
+                      text-align: right;
+                      border: 0.5px solid #000 !important;
+                    "
+                  >
+                    TOTAL
+                  </td>
+                  <td
+                    style="
+                      text-align: right;
+                      border: 0.5px solid #000 !important;
+                    "
+                  >
                  
+                    {{  formatageSommeSansFCFA(
+                        parseFloat(TotalOP)
+                      ) }}
+                  </td>
                 </tr>
               </tbody>
-            </table>
+            </table><br/><br/><br/><br/><br/>
+            <table
+            id="customers"
+            style="text-align: center;"
+          >
+            <tr>
+              <td
+                style="
+                 
+                  text-align: center;
+                  width: 40%;
+                  font-weight: bold;
+                "
+              >
+                 OBSERVATIONS<br/><br/>
+                {{observation(LibelleObservation(bordereau_id))}} 
+              </td>
+              
+              <td
+                style="
+                 
+                  text-align: center;
+                  width: 40%;
+                  font-weight: bold;
+                "
+              >
+                
+              </td>
+              <td
+                style="
+                 
+                  text-align: center;
+                  width: 100%;
+                  font-weight: bold;
+                "
+              >
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                L'ORDONNATEUR<br/><br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </td>
+            </tr>
+            <tr>
+              <td
+                style="
+                 
+                  text-align: left;
+                  width: 40%;
+                "
+              >
+                 <br /><br /><br />
+              </td>
+              <td
+                style="
+                 
+                  text-align: left;
+                  width: 40%;
+                "
+              >
+                 <br /><br /><br />
+              </td>
+              <td
+                style="
+                  
+                  text-align: left;
+                  width: 40%;
+                "
+              ></td>
+            </tr>
+           
+          </table>
           </div>
-
-          
         </div>
       </div>
     </div>
@@ -217,7 +313,7 @@ export default {
   created() {
     this.bordereau_id = this.$route.params.id;
     this.getInformationBudget();
-     this.getListeOrdrePaiementGlobal();
+    this.getListeOrdrePaiementGlobal();
     // this.getEntreprise();
     // this.getListeFacture();
     // this.getSousBudget();
@@ -252,8 +348,20 @@ export default {
       "getterBudgetViseParActivite",
       "getterNatureDepense",
     ]),
-      AfficheOPParBordereau() {
+    TotalOP() {
+     
         return this.getterListeOPgloba.filter(item=>item.bordereau_id==this.bordereau_id)
+          .reduce(
+            (prec, cur) => parseFloat(prec) + parseFloat(cur.montant_prestation),
+            0
+          )
+          .toFixed(0);
+     // }
+    },
+    AfficheOPParBordereau() {
+      return this.getterListeOPgloba.filter(
+        (item) => item.bordereau_id == this.bordereau_id
+      );
     },
     disponible() {
       return parseFloat(this.afficheDotaion) - parseFloat(this.cumulEnCours);
@@ -272,6 +380,20 @@ export default {
 
           if (qtereel) {
             return qtereel.libelle;
+          }
+          return 0;
+        }
+      };
+    },
+    LibelleObservation() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.getterInformationBudget.find(
+            (qtreel) => qtreel.id == id
+          );
+
+          if (qtereel) {
+            return qtereel.observation;
           }
           return 0;
         }
@@ -299,6 +421,28 @@ export default {
       "getBudgetEclate",
       "getCompteBancaire",
     ]),
+    
+    observation($id) {
+      if ($id == 1) {
+        return "Pour Information";
+      } else if ($id == 2) {
+        return "Pour Visa et Retour";
+      } else if ($id == 3) {
+        return "pour Visa";
+      } else if ($id == 4) {
+        return "Pour Attribution";
+      }else if ($id == 5) {
+        return "Pour Prise en compte";
+      } else if ($id == 6) {
+        return "Pour Observation";
+      } else if ($id == 7) {
+        return "Pour Differé";
+      } else if ($id == 8) {
+        return "Pour Rejet";
+      }   else {
+        return "";
+      }
+    },
     formatageSomme: formatageSomme,
     formatageSommeSansFCFA: formatageSommeSansFCFA,
     genererEnPdf4() {

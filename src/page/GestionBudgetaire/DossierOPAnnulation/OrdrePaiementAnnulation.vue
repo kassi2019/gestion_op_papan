@@ -21,7 +21,7 @@
                 <i class="icon-arrow-right"></i>
               </li>
               <li class="nav-item">
-                <a href="#">OP Définitif</a>
+                <a href="#">OP Annulation</a>
               </li>
             </ul>
           </div>
@@ -80,7 +80,7 @@
                     </div>
                     <div class="col-12">
                       <label class="form-label"
-                        >Numéro OP Provisoire
+                        >Numéro Ordre paiement
                         <span
                           style="
                             color: red !important;
@@ -128,7 +128,7 @@
                 </div>
               </div>
             </TabContent>
-            <TabContent title="INFO SUR OP" icon="ti-write">
+            <TabContent title="INFORMATION SUR OP" icon="ti-write">
               <div class="row">
                 <div class="col-lg-12">
                   <form class="row g-3">
@@ -216,16 +216,18 @@
                       <span style="color: red" v-if="montant_prestation == 0"
                         >Ce champs est obligatoire!
                       </span>
-                      <span style="color: red" v-if="montant_prestation < 0"
-                        >le Montant doit être positif
+                      <span
+                        style="color: red"
+                        v-if="parseFloat(montant_prestation) > 0"
+                        >Montant de l'OP doit est négatif!
                       </span>
                     </div>
                   </form>
                 </div>
               </div>
             </TabContent>
-            <TabContent title="INFO SUR LA DOTATION" icon="ti-search">
-              <div class="row">
+            <TabContent title="INFORMATION SUR DOTATION" icon="ti-search"
+              ><div class="row">
                 <div class="col-lg-12">
                   <form class="row g-3">
                     <div class="col-9">
@@ -354,953 +356,37 @@
                         v-model="date_decision"
                       />
                     </div>
-                  </form>
-                </div>
-              </div>
-            </TabContent>
-            <TabContent title="SAISIR FACTURE DEFINITIVE" icon="ti-files">
-              <div class="row">
-                <div class="col-lg-12">
-                  <form class="row g-3">
-                    <div class="col-3">
-                      <label class="form-label"
-                        >Numéro de la facture
-                        <span
-                          style="
-                            color: red !important;
-                            font-size: 15px !important;
-                          "
-                          >*</span
-                        ></label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        v-model="numero_facture"
-                      />
-                      <span style="color: red" v-if="numero_facture == 0"
-                        >Ce champs est obligatoire!
-                      </span>
-                    </div>
+                    <div class="col-10"></div>
                     <div class="col-2">
-                      <label class="form-label"
-                        >Date de la facture
-                        <span
-                          style="
-                            color: red !important;
-                            font-size: 15px !important;
-                          "
-                          >*</span
-                        ></label
-                      >
-                      <input
-                        type="date"
-                        class="form-control"
-                        v-model="date_facture"
-                      />
-                      <span
-                        style="color: red; font-size: 10px"
-                        v-if="date_facture == ''"
-                        >Ce champs est obligatoire!
-                      </span>
-                    </div>
-                    <div class="col-3">
-                      <label class="form-label">Montant de la OP</label>
-                      <money3
-                        class="form-control"
-                        v-bind="config"
-                        v-model="montant_prestation"
-                        readonly
-                      ></money3>
-                    </div>
-                    <div class="col-2">
-                      <label class="form-label">Montant facture saisie</label>
-                      <money3
-                        class="form-control"
-                        v-bind="config"
-                        readonly
-                        :model-value="CumulMontantSaisi"
-                      ></money3>
-                    </div>
-                    <div class="col-2">
-                      <label class="form-label">Ecart</label>
-                      <money3
-                        v-if="
-                          parseFloat(montant_prestation) !=
-                          parseFloat(CumulMontantSaisi)
-                        "
-                        class="form-control"
-                        v-bind="config"
-                        readonly
-                        :model-value="
-                          parseFloat(montant_prestation) -
-                          parseFloat(CumulMontantSaisi)
-                        "
-                        style="border: 2px solid red !important"
-                      ></money3>
-                      <money3
-                        v-else
-                        class="form-control"
-                        v-bind="config"
-                        readonly
-                        :model-value="
-                          parseFloat(montant_prestation) -
-                          parseFloat(CumulMontantSaisi)
-                        "
-                      ></money3>
-                    </div>
-                    <div class="col-12">
-                      <label class="form-label"
-                        >Désignation
-                        <span
-                          style="
-                            color: red !important;
-                            font-size: 15px !important;
-                          "
-                          >*</span
-                        ></label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        v-model="FormDataDossier.designation"
-                      />
-                      <span
-                        style="color: red"
-                        v-if="FormDataDossier.designation == ''"
-                        >Ce champs est obligatoire!
-                      </span>
-                    </div>
-                    <div class="col-3">
-                      <label class="form-label"
-                        >Quantité ( A )
-                        <span
-                          style="
-                            color: red !important;
-                            font-size: 15px !important;
-                          "
-                          >*</span
-                        ></label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        v-model="FormDataDossier.quantite"
-                      />
-                      <span
-                        style="color: red"
-                        v-if="FormDataDossier.quantite == 0"
-                        >Ce champs est obligatoire!
-                      </span>
-                    </div>
-                    <div class="col-3">
-                      <label class="form-label"
-                        >Prix Unitaire ( B )
-                        <span
-                          style="
-                            color: red !important;
-                            font-size: 15px !important;
-                          "
-                          >*</span
-                        ></label
-                      >
-                      <money3
-                        class="form-control"
-                        v-bind="config"
-                        v-model="FormDataDossier.prix_unitaire"
-                      ></money3>
-                      <span
-                        style="color: red"
-                        v-if="FormDataDossier.prix_unitaire == 0"
-                        >Ce champs est obligatoire!
-                      </span>
-                    </div>
-                    <div class="col-3">
-                      <label class="form-label">Montant HT (C = A * B)</label>
-                      <money3
-                        class="form-control"
-                        v-bind="config"
-                        :model-value="MontantHt"
-                        readonly
-                      ></money3>
-                    </div>
-                    <div class="col-3">
-                      <label class="form-label">Exonéré de la TVA 18%</label>
-                      <select
-                        class="form-select form-control"
-                        id="defaultSelect"
-                        style="border: 1px solid #000 !important"
-                        v-model="FormDataDossier.exonere"
-                      >
-                        <option></option>
-                        <option value="0">Oui</option>
-                        <option value="1">Non</option>
-                      </select>
-                    </div>
-                    <div class="col-2">
-                      <label class="form-label">Autre taux (%) ( D )</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        v-model="autre_taux"
-                      />
-                    </div>
-                    <div class="col-2">
-                      <label class="form-label">Taux TVA (%) ( F )</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        :value="AfficheTauxTVA"
-                        readonly
-                      />
-                    </div>
-                    <div class="col-2">
-                      <label class="form-label"
-                        >Cumul des autres taxes ( E = C * D)</label
-                      >
-                      <money3
-                        class="form-control"
-                        v-bind="config"
-                        :model-value="afficheAutreMontant"
-                        readonly
-                      ></money3>
-                    </div>
-                    <div class="col-2">
-                      <label class="form-label">Montant Tva ( G = C * F)</label>
-                      <money3
-                        class="form-control"
-                        v-bind="config"
-                        :model-value="montantTva"
-                        readonly
-                      ></money3>
-                    </div>
-                    <div class="col-3">
-                      <label class="form-label"
-                        >Montant TTC ( H = E + G + C )</label
-                      >
-                      <money3
-                        class="form-control"
-                        v-bind="config"
-                        :model-value="MontantTTC"
-                        readonly
-                      ></money3>
-                    </div>
-                    <div class="col-1">
-                      <br />
                       <button
                         v-if="
-                          numero_facture == 0 ||
-                          date_facture == '' ||
-                          FormDataDossier.designation == 0 ||
-                          FormDataDossier.quantite == 0 ||
-                          FormDataDossier.prix_unitaire == 0
+                          activite_id == 0 ||
+                          montant_prestation == 0 ||
+                          ordre_paiement_id == 0
                         "
                         disabled
                         type="button"
-                        class="btn btn-primary"
-                        @click.prevent="ajouterPartieRequerante()"
+                        class="btn btn-success"
+                        @click.prevent="enregistrementSansTypeFiancement2()"
                       >
-                        Ajouter
+                        Enregistrer
                       </button>
                       <button
                         v-else
                         type="button"
-                        class="btn btn-primary"
-                        @click.prevent="ajouterPartieRequerante()"
+                        class="btn btn-success"
+                        @click.prevent="enregistrementSansTypeFiancement2()"
                       >
-                        Ajouter
+                        Enregistrer
                       </button>
                     </div>
                   </form>
                 </div>
-              </div>
-              <br />
-              <div class="table-responsive">
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <!-- <th scope="col">#</th> -->
-                      <!-- <th scope="col">N</th> -->
-                      <!-- <th scope="col" style="text-align: center">N°</th> -->
-                      <th
-                        scope="col"
-                        style="
-                          text-align: center;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        Désignation
-                      </th>
-                      <th
-                        scope="col"
-                        style="
-                          text-align: center;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        Quantité
-                      </th>
-                      <th
-                        scope="col"
-                        style="
-                          text-align: center;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        Prix unitaire
-                      </th>
-                      <th
-                        scope="col"
-                        style="
-                          text-align: center;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        Montant HT
-                      </th>
-                      <!-- <th scope="col" style="text-align: center">Rémise</th>
-                      <th scope="col" style="text-align: center">Addition</th>-->
-                      <th
-                        scope="col"
-                        style="
-                          text-align: center;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        Cumul des autres taxes HT
-                      </th>
-                      <th
-                        scope="col"
-                        style="
-                          text-align: center;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        Taux
-                      </th>
-                      <th
-                        scope="col"
-                        style="
-                          text-align: center;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        Montant TVA
-                      </th>
-                      <th
-                        scope="col"
-                        style="
-                          text-align: center;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        Montant TTC
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr
-                      v-for="(item1, index) in TableauDossier"
-                      :key="item1.id"
-                    >
-                      <td style="width: 45%; border: 1px solid #000 !important">
-                        {{ item1.designation }}
-                      </td>
-                      <td style="width: 10%; border: 1px solid #000 !important">
-                        {{ item1.quantite }}
-                      </td>
-                      <td
-                        style="
-                          width: 10%;
-                          text-align: right;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        {{
-                          formatageSommeSansFCFA(
-                            parseFloat(item1.prix_unitaire)
-                          )
-                        }}
-                      </td>
-                      <td
-                        style="
-                          width: 10%;
-                          text-align: right;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        {{
-                          formatageSommeSansFCFA(parseFloat(item1.montant_ht))
-                        }}
-                      </td>
-                      <td
-                        style="
-                          width: 15%;
-                          text-align: right;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        {{ formatageSommeSansFCFA(parseFloat(item1.taux)) }}
-                      </td>
-                      <td
-                        style="
-                          width: 15%;
-                          text-align: right;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        {{
-                          formatageSommeSansFCFA(
-                            parseFloat(item1.autre_montant)
-                          )
-                        }}
-                      </td>
-                      <td
-                        style="
-                          width: 15%;
-                          text-align: right;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        {{
-                          formatageSommeSansFCFA(parseFloat(item1.montant_tva))
-                        }}
-                      </td>
-                      <td
-                        style="
-                          width: 15%;
-                          text-align: right;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        {{
-                          formatageSommeSansFCFA(parseFloat(item1.montant_ttc))
-                        }}
-                      </td>
-                      <td>
-                        <!-- <span
-                          title="Modifier"
-                          class="fas fa-edit"
-                          data-bs-toggle="modal"
-                          data-bs-target="#largeModal1"
-                          style="cursor: pointer; color: blue"
-                          @click.prevent="
-                            AfficheModalModificationFacture(item1.nombre)
-                          "
-                        ></span> -->
-                        <span
-                          title="Supprimer"
-                          class="fas fa-archive"
-                          style="
-                            cursor: pointer;
-                            color: red;
-                            border: 1px solid #000 !important;
-                          "
-                          @click.prevent="deletePartieRequerante(index)"
-                        ></span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td
-                        colspan="3"
-                        style="
-                          text-align: center;
-                          background-color: #f6e8b1 !important;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        TOTAL
-                      </td>
-
-                      <td
-                        style="
-                          text-align: right !important;
-                          background-color: #f6e8b1 !important;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        {{ formatageSommeSansFCFA(parseFloat(CumulMontantHT)) }}
-                      </td>
-                      <td
-                        style="
-                          text-align: right !important;
-                          background-color: #f6e8b1 !important;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        {{ formatageSommeSansFCFA(parseFloat(0)) }}
-                      </td>
-                      <td
-                        style="
-                          text-align: right !important;
-                          background-color: #f6e8b1 !important;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        {{
-                          formatageSommeSansFCFA(
-                            parseFloat(CumulMontantAutreMontant)
-                          )
-                        }}
-                      </td>
-                      <td
-                        style="
-                          text-align: right !important;
-                          background-color: #f6e8b1 !important;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        {{
-                          formatageSommeSansFCFA(parseFloat(CumulMontanttva))
-                        }}
-                      </td>
-                      <td
-                        style="
-                          text-align: right !important;
-                          background-color: #f6e8b1 !important;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        {{
-                          formatageSommeSansFCFA(parseFloat(CumulMontantSaisi))
-                        }}
-                      </td>
-                      <td
-                        style="
-                          text-align: right !important;
-                          background-color: #f6e8b1 !important;
-                          border: 1px solid #000 !important;
-                        "
-                      ></td>
-                    </tr>
-                    <tr>
-                      <td colspan="8"></td>
-                      <td colspan="">
-                        <button
-                          v-if="
-                            activite_id == 0 ||
-                            montant_prestation == 0 ||
-                            ordre_paiement_id == 0  || montant_prestation<0
-                          "
-                          disabled
-                          type="button"
-                          class="btn btn-success"
-                          @click.prevent="enregistrementAvecFacture()"
-                        >
-                          Enregistrer
-                        </button>
-                        <button
-                          v-else
-                          type="button"
-                          class="btn btn-success"
-                          @click.prevent="enregistrementAvecFacture()"
-                        >
-                          Enregistrer
-                        </button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </TabContent>
-            <TabContent title="VOIR FACTURE PRO-FORMA" icon="ti-clipboard">
-              <div class="row">
-                <div class="col-lg-12">
-                  <form class="row g-3">
-                    <div class="col-3">
-                      <label class="form-label"
-                        >Numéro de la facture Définitive
-                        <span
-                          style="
-                            color: red !important;
-                            font-size: 15px !important;
-                          "
-                          >*</span
-                        ></label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        v-model="numero_facture_definitve"
-                      />
-                      <span style="color: red" v-if="numero_facture_definitve == 0"
-                        >Ce champs est obligatoire!
-                      </span>
-                    </div>
-                    <div class="col-3">
-                      <label class="form-label"
-                        >Date de la facture Définitive
-                        <span
-                          style="
-                            color: red !important;
-                            font-size: 15px !important;
-                          "
-                          >*</span
-                        ></label
-                      >
-                      <input
-                        type="date"
-                        class="form-control"
-                        v-model="date_facture_definitve"
-                      />
-                      <span
-                        style="color: red; font-size: 10px"
-                        v-if="date_facture_definitve == ''"
-                        >Ce champs est obligatoire!
-                      </span>
-                    </div>
-                    <div class="col-2">
-                      <label class="form-label">Montant de la OP</label>
-                      <money3
-                        class="form-control"
-                        v-bind="config"
-                        v-model="montant_prestation"
-                        readonly
-                      ></money3>
-                    </div>
-                    <div class="col-2">
-                      <label class="form-label">Montant facture saisie</label>
-                      <money3
-                        class="form-control"
-                        v-bind="config"
-                        readonly
-                        :model-value="CumulMontantSaisiDef"
-                      ></money3>
-                    </div>
-                    <div class="col-2">
-                      <label class="form-label">Ecart</label>
-                      <money3
-                        v-if="
-                          parseFloat(montant_prestation) !=
-                          parseFloat(CumulMontantSaisiDef)
-                        "
-                        class="form-control"
-                        v-bind="config"
-                        readonly
-                        :model-value="
-                          parseFloat(montant_prestation) -
-                          parseFloat(CumulMontantSaisiDef)
-                        "
-                        style="border: 2px solid red !important"
-                      ></money3>
-                      <money3
-                        v-else
-                        class="form-control"
-                        v-bind="config"
-                        readonly
-                        :model-value="
-                          parseFloat(montant_prestation) -
-                          parseFloat(CumulMontantSaisiDef)
-                        "
-                      ></money3>
-                    </div>
-                  </form>
-                </div>
-              </div>
-              <div class="table-responsive">
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <!-- <th scope="col">#</th> -->
-                      <!-- <th scope="col">N</th> -->
-                      <!-- <th scope="col" style="text-align: center">N°</th> -->
-                      <th
-                        scope="col"
-                        style="
-                          text-align: center;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        Désignation
-                      </th>
-                      <th
-                        scope="col"
-                        style="
-                          text-align: center;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        Quantité
-                      </th>
-                      <th
-                        scope="col"
-                        style="
-                          text-align: center;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        Prix unitaire
-                      </th>
-                      <th
-                        scope="col"
-                        style="
-                          text-align: center;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        Montant HT
-                      </th>
-                      <!-- <th scope="col" style="text-align: center">Rémise</th>
-                      <th scope="col" style="text-align: center">Addition</th>-->
-                      <th
-                        scope="col"
-                        style="
-                          text-align: center;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        Cumul des autres taxes HT
-                      </th>
-                      <th
-                        scope="col"
-                        style="
-                          text-align: center;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        Taux
-                      </th>
-                      <th
-                        scope="col"
-                        style="
-                          text-align: center;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        Montant TVA
-                      </th>
-                      <th
-                        scope="col"
-                        style="
-                          text-align: center;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        Montant TTC
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr
-                      v-for="item1 in AfficheFactureParOrdrePaiement"
-                      :key="item1.id"
-                    >
-                      <td style="width: 45%; border: 1px solid #000 !important">
-                        {{ item1.designation }}
-                      </td>
-                      <td style="width: 10%; border: 1px solid #000 !important">
-                        {{ item1.quantite }}
-                      </td>
-                      <td
-                        style="
-                          width: 10%;
-                          text-align: right;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        {{
-                          formatageSommeSansFCFA(
-                            parseFloat(item1.prix_unitaire)
-                          )
-                        }}
-                      </td>
-                      <td
-                        style="
-                          width: 10%;
-                          text-align: right;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        {{
-                          formatageSommeSansFCFA(parseFloat(item1.montant_ht))
-                        }}
-                      </td>
-                      <td
-                        style="
-                          width: 15%;
-                          text-align: right;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        {{ formatageSommeSansFCFA(parseFloat(item1.taux)) }}
-                      </td>
-                      <td
-                        style="
-                          width: 15%;
-                          text-align: right;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        {{
-                          formatageSommeSansFCFA(
-                            parseFloat(item1.autre_montant)
-                          )
-                        }}
-                      </td>
-                      <td
-                        style="
-                          width: 15%;
-                          text-align: right;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        {{
-                          formatageSommeSansFCFA(parseFloat(item1.montant_tva))
-                        }}
-                      </td>
-                      <td
-                        style="
-                          width: 15%;
-                          text-align: right;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        {{
-                          formatageSommeSansFCFA(parseFloat(item1.montant_ttc))
-                        }}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td
-                        colspan="3"
-                        style="
-                          text-align: center;
-                          background-color: #f6e8b1 !important;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        TOTAL
-                      </td>
-
-                      <td
-                        style="
-                          text-align: right !important;
-                          background-color: #f6e8b1 !important;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        {{
-                          formatageSommeSansFCFA(parseFloat(CumulMontantHTDef))
-                        }}
-                      </td>
-                      <td
-                        style="
-                          text-align: right !important;
-                          background-color: #f6e8b1 !important;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        {{ formatageSommeSansFCFA(parseFloat(0)) }}
-                      </td>
-                      <td
-                        style="
-                          text-align: right !important;
-                          background-color: #f6e8b1 !important;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        {{
-                          formatageSommeSansFCFA(
-                            parseFloat(CumulMontantAutreMontantDef)
-                          )
-                        }}
-                      </td>
-                      <td
-                        style="
-                          text-align: right !important;
-                          background-color: #f6e8b1 !important;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        {{
-                          formatageSommeSansFCFA(parseFloat(CumulMontanttvaDef))
-                        }}
-                      </td>
-                      <td
-                        style="
-                          text-align: right !important;
-                          background-color: #f6e8b1 !important;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        {{
-                          formatageSommeSansFCFA(
-                            parseFloat(CumulMontantSaisiDef)
-                          )
-                        }}
-                      </td>
-                      <td
-                        style="
-                          text-align: right !important;
-                          background-color: #f6e8b1 !important;
-                          border: 1px solid #000 !important;
-                        "
-                      ></td>
-                    </tr>
-                    <tr>
-                      <td colspan="7"></td>
-                      <td colspan="">
-                        <button
-                          v-if="
-                            activite_id == 0 ||
-                            montant_prestation == 0 ||
-                            ordre_paiement_id == 0 || date_facture_definitve==0 || numero_facture_definitve==0
-                            
-                          "
-                          disabled
-                          type="button"
-                          class="btn btn-success"
-                          @click.prevent="enregistrementSansTypeFiancement2()"
-                        >
-                          Enregistrer
-                        </button>
-                        <button
-                          v-else
-                          type="button"
-                          class="btn btn-success"
-                          @click.prevent="enregistrementSansTypeFiancement2()"
-                        >
-                          Enregistrer
-                        </button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </TabContent>
-            <TabContent title="VERIFICATION SUR OP" icon="ti-printer">
-              <div class="table-responsive">
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <th>N°</th>
-                      <th>Activite</th>
-                      <th></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr
-                      v-for="(item, index) in GroupeActiviteOPDirect"
-                      :key="item"
-                    >
-                      <td style="border: 1px solid #000">{{ index + 1 }}</td>
-                      <td style="border: 1px solid #000">
-                        {{ afficheLibelleActivite(item) }}
-                      </td>
-
-                      <td style="border: 1px solid #000">
-                        <span
-                          class="badge badge-black"
-                          style="cursor: pointer"
-                          @click.prevent="AfficheVentilationBudget(item)"
-                          >Voir OP Définitif</span
-                        >
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </TabContent>
+              </div></TabContent
+            >
+            <TabContent title="VERIFICATION OP" icon="ti-printer"
+              ><RecapBordereauAnnulation/></TabContent
+            >
           </FormWizard>
         </div>
       </div>
@@ -1418,7 +504,7 @@
                   />
                 </div>
                 <div class="col-3">
-                  <label class="form-label">Cumul des autres taxes(E=C*D)</label>
+                  <label class="form-label">Autre montant ( E = C * D)</label>
                   <money3
                     class="form-control"
                     v-bind="config"
@@ -1478,16 +564,18 @@ import { mapActions, mapGetters } from "vuex";
 import { ModelListSelect } from "vue-search-select";
 import { Money3Component } from "v-money3";
 import { FormWizard, TabContent } from "vue3-form-wizard";
+import RecapBordereauAnnulation from "./RecapBordereauAnnulation.vue"
 import {
   formatageSomme,
   formatageSommeSansFCFA,
-} from "../Repositories/Repository";
+} from "../../Repositories/Repository";
 export default {
   components: {
     money3: Money3Component,
     ModelListSelect,
     FormWizard,
     TabContent,
+    RecapBordereauAnnulation
   },
   data() {
     return {
@@ -1526,8 +614,6 @@ export default {
       montant_facture: 0,
       date_facture: "",
       numero_facture: 0,
-      numero_facture_definitve: 0,
-      date_facture_definitve: "",
 
       config: {
         prefix: "",
@@ -1547,7 +633,7 @@ export default {
     };
   },
   created() {
-    // this.dossier_id = this.$route.params.id;
+    this.bordereau_id = this.$route.params.id;
     this.getExerciceBudgetaire();
     this.getActivite();
     this.getSousBudget();
@@ -1573,7 +659,6 @@ export default {
   computed: {
     ...mapGetters("parametrage", [
       "getterProjet",
-      "getterstateFactureParOp",
       "getterCompteBancaire",
       "getterActiviteSurOP",
       "getterTaux",
@@ -1596,13 +681,6 @@ export default {
       "getterOpParActivite",
       "getterInfoOrdrePaiement",
     ]),
-    AfficheFactureParOrdrePaiement() {
-      if (this.ordre_paiement_id == 0) {
-        return "";
-      } else {
-        return this.getterstateFactureParOp;
-      }
-    },
     afficheDotaionOPdef() {
       if (this.sous_budget_id == 0 && this.activite_id != 0) {
         const qtereel = this.getterInfoOrdrePaiement.find(
@@ -1915,33 +993,15 @@ export default {
       if (this.sous_budget_id == 0 && this.activite_id != 0) {
         // return (id) => {
         //     if (id != null && id != "") {
-        return this.getterOpParActivite.filter(
-          (qtreel) =>
-            qtreel.type_ordre_paiement == 1 && qtreel.regularisation == 0
-        );
+        return this.getterOpParActivite;
       } else {
         return this.getterOpParActivite.filter(
-          (qtreel) =>
-            qtreel.type_ordre_paiement == 1 &&
-            qtreel.sous_budget_id == this.sous_budget_id &&
-            qtreel.regularisation == 0
+          (qtreel) => qtreel.sous_budget_id == this.sous_budget_id
         );
       }
     },
     taillerTableau() {
       return this.TableauDossier.length;
-    },
-    CumulMontantAutreMontantDef() {
-      if (this.ordre_paiement_id == 0) {
-        return 0;
-      } else {
-        return this.getterstateFactureParOp
-          .reduce(
-            (prec, cur) => parseFloat(prec) + parseFloat(cur.autre_montant),
-            0
-          )
-          .toFixed(0);
-      }
     },
     CumulMontantAutreMontant() {
       return this.TableauDossier.filter(
@@ -1953,18 +1013,6 @@ export default {
         )
         .toFixed(0);
     },
-    CumulMontanttvaDef() {
-      if (this.ordre_paiement_id == 0) {
-        return 0;
-      } else {
-        return this.getterstateFactureParOp
-          .reduce(
-            (prec, cur) => parseFloat(prec) + parseFloat(cur.montant_tva),
-            0
-          )
-          .toFixed(0);
-      }
-    },
     CumulMontanttva() {
       return this.TableauDossier.filter(
         (item) => item.numero_ordre_paiement == this.automatiseNumeroOP
@@ -1975,19 +1023,6 @@ export default {
         )
         .toFixed(0);
     },
-    CumulMontantHTDef() {
-      if (this.ordre_paiement_id == 0) {
-        return 0;
-      } else {
-        return this.getterstateFactureParOp
-          .reduce(
-            (prec, cur) => parseFloat(prec) + parseFloat(cur.montant_ht),
-            0
-          )
-          .toFixed(0);
-      }
-    },
-
     CumulMontantHT() {
       return this.TableauDossier.filter(
         (item) => item.numero_ordre_paiement == this.automatiseNumeroOP
@@ -1995,31 +1030,15 @@ export default {
         .reduce((prec, cur) => parseFloat(prec) + parseFloat(cur.montant_ht), 0)
         .toFixed(0);
     },
-    CumulMontantSaisiDef() {
-      if (this.ordre_paiement_id == 0) {
-        return 0;
-      } else {
-        return this.getterstateFactureParOp
-          .reduce(
-            (prec, cur) => parseFloat(prec) + parseFloat(cur.montant_ttc),
-            0
-          )
-          .toFixed(0);
-      }
-    },
     CumulMontantSaisi() {
-      if (this.ordre_paiement_id == 0) {
-        return 0;
-      } else {
-        return this.TableauDossier.filter(
-          (item) => item.numero_ordre_paiement == this.automatiseNumeroOP
+      return this.TableauDossier.filter(
+        (item) => item.numero_ordre_paiement == this.automatiseNumeroOP
+      )
+        .reduce(
+          (prec, cur) => parseFloat(prec) + parseFloat(cur.montant_ttc),
+          0
         )
-          .reduce(
-            (prec, cur) => parseFloat(prec) + parseFloat(cur.montant_ttc),
-            0
-          )
-          .toFixed(0);
-      }
+        .toFixed(0);
     },
     MontantTTCMod() {
       return (
@@ -2087,7 +1106,7 @@ export default {
       }
     },
     AfficheTauxTVA() {
-      if (this.FormDataDossier.exonere == 0) {
+      if (this.FormDataDossier.exonere == 1) {
         return 0;
       } else {
         // return (id) => {
@@ -2129,6 +1148,16 @@ export default {
                 qtreel.nature_depense_id ==
                   this.afficheNatureDepense_id(this.ordre_paiement_id) &&
                 qtreel.annulation == 0 &&
+                qtreel.type_ordre_paiement == 2) ||
+              (qtreel.nature_economique_id ==
+                this.afficheNatureEconomique_id(this.ordre_paiement_id) &&
+                qtreel.type_financement_id ==
+                  this.afficheTypeFiancement_id(this.ordre_paiement_id) &&
+                qtreel.source_financement_id ==
+                  this.afficheSourceFiancement_id(this.ordre_paiement_id) &&
+                qtreel.nature_depense_id ==
+                  this.afficheNatureDepense_id(this.ordre_paiement_id) &&
+                qtreel.annulation == 0 &&
                 qtreel.type_ordre_paiement == 4) ||
               (qtreel.nature_economique_id ==
                 this.afficheNatureEconomique_id(this.ordre_paiement_id) &&
@@ -2139,7 +1168,8 @@ export default {
                 qtreel.nature_depense_id ==
                   this.afficheNatureDepense_id(this.ordre_paiement_id) &&
                 qtreel.annulation == 0 &&
-                qtreel.type_ordre_paiement == 2)
+                qtreel.regularisation == 0 &&
+                qtreel.type_ordre_paiement == 1)
           )
           .reduce(
             (prec, cur) =>
@@ -2161,7 +1191,7 @@ export default {
                   this.afficheNatureDepense_id(this.ordre_paiement_id) &&
                 qtreel.sous_budget_id == this.sous_budget_id &&
                 qtreel.annulation == 0 &&
-                qtreel.type_ordre_paiement == 2) ||
+                qtreel.type_ordre_paiement == 4) ||
               (qtreel.nature_economique_id ==
                 this.afficheNatureEconomique_id(this.ordre_paiement_id) &&
                 qtreel.type_financement_id ==
@@ -2172,7 +1202,18 @@ export default {
                   this.afficheNatureDepense_id(this.ordre_paiement_id) &&
                 qtreel.sous_budget_id == this.sous_budget_id &&
                 qtreel.annulation == 0 &&
-                qtreel.type_ordre_paiement == 4)
+                qtreel.type_ordre_paiement == 2) ||
+              (qtreel.nature_economique_id ==
+                this.afficheNatureEconomique_id(this.ordre_paiement_id) &&
+                qtreel.type_financement_id ==
+                  this.afficheTypeFiancement_id(this.ordre_paiement_id) &&
+                qtreel.source_financement_id ==
+                  this.afficheSourceFiancement_id(this.ordre_paiement_id) &&
+                qtreel.nature_depense_id ==
+                  this.afficheNatureDepense_id(this.ordre_paiement_id) &&
+                qtreel.annulation == 0 &&
+                qtreel.regularisation == 0 &&
+                qtreel.type_ordre_paiement == 1)
           )
           .reduce(
             (prec, cur) =>
@@ -2214,7 +1255,7 @@ export default {
       // return (id) => {
 
       let objet = this.getterActiviteSurOP.filter(
-        (item) => item.type_ordre_paiement == 4
+        (item) => item.type_ordre_paiement == 3
       );
       //  let vm=this
       let array_exercie = [];
@@ -2704,7 +1745,6 @@ export default {
   methods: {
     ...mapActions("parametrage", [
       "getActivite",
-      "getFactureParOP",
       "getListeOrdrePaiementGlobal",
       "getCompteBancaire",
       "getActiviteOp",
@@ -2725,9 +1765,8 @@ export default {
       "ajouterBudgetEclate",
       "getDotationAutreRessource",
       "getEntreprise",
-      "ajouterOrdrePaiementDefinitif",
+      "ajouterOrdrePaiementAnnulation",
       "getOpParActvite",
-      "ajouterOrdrePaiement",
       "getInformationOp",
     ]),
     AfficheModalModificationFacture(id) {
@@ -2737,7 +1776,7 @@ export default {
     },
     AfficheVentilationBudget(id) {
       this.$router.push({
-        name: "AfficheOPDefinitif",
+        name: "AfficheOPAnnulation",
         params: { id: id },
       });
     },
@@ -2836,7 +1875,7 @@ export default {
         compte_id: this.afficheCompteBancaire_id(this.ordre_paiement_id),
         objet_depense: this.afficheObjet(this.ordre_paiement_id),
         numero_ordre_paiement: this.automatiseNumeroOP,
-        type_ordre_paiement: 4,
+        type_ordre_paiement: 3,
         montant_prestation: this.montant_prestation,
         nature_economique_id: this.afficheNatureEconomique_id(
           this.ordre_paiement_id
@@ -2849,74 +1888,13 @@ export default {
           this.ordre_paiement_id
         ),
         cumul_anterieure: this.afficheMontantCumul,
-        numero_facture_definitve: this.numero_facture_definitve,
-        date_facture_definitve: this.date_facture_definitve,
         parent_id: this.ordre_paiement_id,
         decision_cf: this.decision_cf,
         date_decision: this.date_decision,
+        bordereau_id: this.bordereau_id,
       };
 
-      this.ajouterOrdrePaiementDefinitif(nouvelObjettrsor);
-
-      (this.objet_depense = ""),
-        (this.activite_id = 0),
-        (this.unite_operationnelle_id = 0),
-        (this.nature_depense_id = 0),
-        (this.entreprise_id = 0),
-        (this.sous_budget_id = 0),
-        (this.type_financement_id = 0),
-        (this.source_financement_id = 0),
-        (this.numero_ordre_paiement = ""),
-        (this.nature_economique_id = 0),
-        (this.type_ordre_paiement = 0),
-        (this.montant_prestation = 0),
-        (this.cumul_anterieure = 0),
-        (this.montant_facture = 0),
-        (this.date_facture = ""),
-        (this.numero_facture = 0);
-    },
-
-    enregistrementAvecFacture() {
-      var nouvelObjettrsor = {
-        exercice: this.exerciceBudgetaire,
-        unite_operationnelle_id: this.afficheNomProjet_id(
-          this.ordre_paiement_id
-        ),
-        activite_id: this.activite_id,
-        sous_budget_id: this.sous_budget_id,
-        entreprise_id: this.afficheBeneficiaire_id(this.ordre_paiement_id),
-        compte_id: this.afficheCompteBancaire_id(this.ordre_paiement_id),
-        objet_depense: this.afficheObjet(this.ordre_paiement_id),
-        numero_ordre_paiement: this.automatiseNumeroOP,
-        type_ordre_paiement: 4,
-        montant_prestation: this.montant_prestation,
-        nature_economique_id: this.afficheNatureEconomique_id(
-          this.ordre_paiement_id
-        ),
-        nature_depense_id: this.afficheNatureDepense_id(this.ordre_paiement_id),
-        type_financement_id: this.afficheTypeFiancement_id(
-          this.ordre_paiement_id
-        ),
-        source_financement_id: this.afficheSourceFiancement_id(
-          this.ordre_paiement_id
-        ),
-        cumul_anterieure: this.afficheMontantCumul,
-
-        parent_id: this.ordre_paiement_id,
-        numero_facture: this.numero_facture,
-        date_facture: this.date_facture,
-        decision_cf: this.decision_cf,
-        date_decision: this.date_decision,
-        FormDataDossier: this.TableauDossier,
-      };
-
-      this.ajouterOrdrePaiement(nouvelObjettrsor);
-      (this.TableauDossier = []),
-        (this.FormDataDossier.designation = ""),
-        (this.FormDataDossier.quantite = ""),
-        (this.FormDataDossier.prix_unitaire = 0),
-        (this.FormDataDossier.exonere = 0);
-      this.FormDataDossier.taux = 0;
+      this.ajouterOrdrePaiementAnnulation(nouvelObjettrsor);
       (this.objet_depense = ""),
         (this.activite_id = 0),
         (this.unite_operationnelle_id = 0),
@@ -2943,15 +1921,11 @@ export default {
       this.getBudgetViseParActvite(objet);
       this.getOpParActvite(objet);
     },
-
     ordre_paiement_id: function (value) {
-      if (value != 0) {
-        let objet = {
-          id: value,
-        };
-        this.getInformationOp(objet);
-        this.getFactureParOP(objet);
-      }
+      let objet = {
+        id: value,
+      };
+      this.getInformationOp(objet);
     },
   },
 };

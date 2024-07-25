@@ -979,37 +979,9 @@
               </div>
             </TabContent>
             <TabContent title="VERIFICATION ORDRE PAIEMENT" icon="ti-printer"
-              ><div class="table-responsive">
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <th>N°</th>
-                      <th>Activite</th>
-                      <th></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr
-                      v-for="(item, index) in GroupeActiviteOPDirect"
-                      :key="item"
-                    >
-                      <td style="border: 1px solid #000">{{ index + 1 }}</td>
-                      <td style="border: 1px solid #000">
-                        {{ afficheLibelleActivite(item) }}
-                      </td>
-
-                      <td style="border: 1px solid #000">
-                        <span
-                          class="badge badge-black"
-                          style="cursor: pointer"
-                          @click.prevent="AfficheVentilationBudget(item)"
-                          >Voir OP Provisoire</span
-                        >
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div></TabContent
+              >
+              <RecapBordereau/>
+              </TabContent
             >
           </FormWizard>
         </div>
@@ -1193,6 +1165,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import { FormWizard, TabContent } from "vue3-form-wizard";
+import RecapBordereau from "./RecapBordereau.vue"
 // import moment from "moment";
 import { ModelListSelect } from "vue-search-select";
 import { Money3Component } from "v-money3";
@@ -1200,13 +1173,14 @@ import { Money3Component } from "v-money3";
 import {
   formatageSomme,
   formatageSommeSansFCFA,
-} from "../Repositories/Repository";
+} from "../../Repositories/Repository";
 export default {
   components: {
     money3: Money3Component,
     ModelListSelect,
     FormWizard,
     TabContent,
+    RecapBordereau
   },
   data() {
     return {

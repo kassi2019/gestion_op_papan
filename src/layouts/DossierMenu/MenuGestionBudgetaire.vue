@@ -142,20 +142,20 @@
                 <li>
                   <a
                     href=""
-                    @click.prevent="activedOptionMenu('OrdrePaiementDirect')"
+                    @click.prevent="activedOptionMenu('InformationBordereauOPDirect')"
                   >
                     <span class="sub-item">OP Direct</span>
                   </a>
                 </li>
                 <li>
-                  <a href="" @click.prevent="activedOptionMenu('OrdrePaiementAnnulation')">
+                  <a href="" @click.prevent="activedOptionMenu('InformationBordereauOPAnnulation')">
                     <span class="sub-item">OP Annulation</span>
                   </a>
                 </li>
                 <li>
                   <a
                     href=""
-                    @click.prevent="activedOptionMenu('OrdrePaiementDefinitif')"
+                    @click.prevent="activedOptionMenu('InformationBordereauOPDefinitif')"
                   >
                     <span class="sub-item">OP Définitif</span>
                   </a>

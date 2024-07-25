@@ -325,7 +325,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import moment from "moment";
-import { formatageSommeSansFCFA } from "../Repositories/Repository";
+import { formatageSommeSansFCFA } from "../../Repositories/Repository";
 export default {
   components: {},
   data() {

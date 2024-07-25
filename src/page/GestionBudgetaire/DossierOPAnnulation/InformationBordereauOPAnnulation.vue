@@ -21,7 +21,7 @@
                 <i class="icon-arrow-right"></i>
               </li>
               <li class="nav-item">
-                <a href="#">Bordereau OP Provisoire</a>
+                <a href="#">Bordereau OP Annulation</a>
               </li>
             </ul>
           </div>
@@ -90,7 +90,7 @@
                       class="badge badge-black"
                       style="cursor: pointer"
                       @click.prevent="AfficheVentilationBudget(item.id)"
-                      >Saisir OP Provisoire</span
+                      >Saisir OP Annulation</span
                     >
                     <span
                       data-bs-toggle="modal"
@@ -114,7 +114,9 @@
                       class="badge bg-warning"
                       style="cursor: pointer; color: #77abd6"
                       @click.prevent="fonctionImprimer(item.id)"
-                    > <i class="fas fa-print" style="color:#dcdcdc"></i></span>
+                    >
+                      <i class="fas fa-print" style="color: #dcdcdc"></i
+                    ></span>
                     <span
                       v-if="item.decision == 0"
                       class="badge bg-danger"
@@ -211,7 +213,7 @@
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Modifier budget global</h5>
+            <h5 class="modal-title">Modifier le bordereau</h5>
             <button
               type="button"
               class="btn-close"
@@ -256,7 +258,7 @@
               </div>
               <div class="col-12">
                 <label for="inputNanme4" class="form-label"
-                  >Libelle du budget</label
+                  >Objet du bordéreau</label
                 >
                 <input
                   type="text"
@@ -267,13 +269,31 @@
               </div>
               <div class="col-12">
                 <label for="inputNanme4" class="form-label"
-                  >Dotation global budget</label
+                  >Montant du bordereau</label
                 >
                 <money3
                   v-model="modNatureDepense.dotation"
                   class="form-control"
                   style=""
                 ></money3>
+              </div>
+              <div class="col-12">
+                <label for="inputNanme4" class="form-label">Observation</label>
+                <select
+                  class="form-select"
+                  style="border: 1px solid #000"
+                  v-model="modNatureDepense.observation"
+                >
+                  <option selected></option>
+                  <option :value="1">Pour Information</option>
+                  <option :value="2">Pour Visa et Retour</option>
+                  <option :value="3">pour Visa</option>
+                  <option :value="4">Pour Attribution</option>
+                  <option :value="5">Pour Prise en compte</option>
+                  <option :value="6">Pour Observation</option>
+                  <option :value="7">Pour Differé</option>
+                  <option :value="8">Pour Rejet</option>
+                </select>
               </div>
             </form>
           </div>
@@ -302,7 +322,7 @@
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Ajouter budget global</h5>
+            <h5 class="modal-title">Ajouter le bordereau</h5>
             <button
               type="button"
               class="btn-close"
@@ -362,7 +382,7 @@
               </div>
               <div class="col-12">
                 <label for="inputNanme4" class="form-label"
-                  >Dotation global budget</label
+                  >Montant du bordereau</label
                 >
                 <money3
                   v-model="ajouterNatureDepense.dotation"
@@ -376,6 +396,24 @@
                   v-model="ajouterNatureDepense.dotation"
                   style="background-color: #dcdcdc; font-weight: bolder"
                 /> -->
+              </div>
+              <div class="col-12">
+                <label for="inputNanme4" class="form-label">Observation</label>
+                <select
+                  class="form-select"
+                  style="border: 1px solid #000"
+                  v-model="ajouterNatureDepense.observation"
+                >
+                  <option selected></option>
+                  <option :value="1">Pour Information</option>
+                  <option :value="2">Pour Visa et Retour</option>
+                  <option :value="3">pour Visa</option>
+                  <option :value="4">Pour Attribution</option>
+                  <option :value="5">Pour Prise en compte</option>
+                  <option :value="6">Pour Observation</option>
+                  <option :value="7">Pour Differé</option>
+                  <option :value="8">Pour Rejet</option>
+                </select>
               </div>
             </form>
           </div>
@@ -405,7 +443,7 @@
 import { mapActions, mapGetters } from "vuex";
 import moment from "moment";
 import { ModelListSelect } from "vue-search-select";
-import { formatageSommeSansFCFA } from "../Repositories/Repository";
+import { formatageSommeSansFCFA } from "../../../page/Repositories/Repository";
 export default {
   components: { ModelListSelect },
   data() {
@@ -415,6 +453,7 @@ export default {
         libelle: "",
         activite_id: "",
         decision: 0,
+        observation: "",
       },
       DecisionApp: {
         decision: "",
@@ -457,7 +496,7 @@ export default {
       "getterInformationBudget",
     ]),
     AfficherBudgetGlobal() {
-      return this.getterInformationBudget.filter((item) => item.statut == 2);
+      return this.getterInformationBudget.filter((item) => item.statut == 5);
     },
     // afficher
     libelleActivite() {
@@ -566,7 +605,7 @@ export default {
     },
     AfficheVentilationBudget(id) {
       this.$router.push({
-        name: "OrdrePaiementProvisoire",
+        name: "OrdrePaiementAnnulation",
         params: { id: id },
       });
     },
@@ -598,9 +637,10 @@ export default {
         exercice: this.exerciceBudgetaire,
         dotation: this.ajouterNatureDepense.dotation,
         libelle: this.ajouterNatureDepense.libelle,
-          activite_id: this.ajouterNatureDepense.activite_id,
+        activite_id: this.ajouterNatureDepense.activite_id,
         decision: this.ajouterNatureDepense.decision,
-        statut: 2,
+        statut: 5,
+        observation: this.ajouterNatureDepense.observation,
       };
 
       this.ajouterInformationBudget(objetDirect1);
@@ -616,7 +656,8 @@ export default {
         libelle: this.modNatureDepense.libelle,
         date_decision: this.modNatureDepense.date_decision,
         decision: this.modNatureDepense.decision,
-        statut: 2,
+        statut: 5,
+        observation: this.modNatureDepense.observation,
       };
 
       this.modifierInformationBudget(objetDirect1);
