@@ -4,7 +4,7 @@
       <div class="card" style="box-shadow: 5px 5px #f9d531">
         <div class="card-header">
           <div class="page-header">
-            <h6 class="fw-bold mb-3">Information du budget global</h6>
+            <h6 class="fw-bold mb-3">Information Sur le Bordereau</h6>
             <ul class="breadcrumbs mb-3">
               <li class="nav-home">
                 <a href="#">
@@ -21,21 +21,11 @@
                 <i class="icon-arrow-right"></i>
               </li>
               <li class="nav-item">
-                <a href="#">Dotation Global modification</a>
+                <a href="#">Bordereau des Ordres de paiements</a>
               </li>
             </ul>
           </div>
-          <div class="d-flex align-items-center">
-            <!-- <h4 class="card-title">Information du budget global</h4> -->
-
-            <span
-              class="badge badge-primary"
-              style="cursor: pointer"
-              data-bs-toggle="modal"
-              data-bs-target="#largeModal"
-              >Ajouter</span
-            >
-          </div>
+          
         </div>
         <div class="card-body">
           <div class="table-responsive">
@@ -43,7 +33,7 @@
               <thead>
                 <tr>
                   <th>Exercice</th>
-                  <th>Libelle du budget</th>
+                  <th>Objet du bordereau</th>
                   <th>Dotation</th>
                   <th>Décision</th>
                   <th>Date de visa</th>
@@ -90,7 +80,7 @@
                       class="badge badge-black"
                       style="cursor: pointer"
                       @click.prevent="AfficheVentilationBudget(item.id)"
-                      >Modification Budget</span
+                      >Voir OP</span
                     >
                     <span
                       data-bs-toggle="modal"
@@ -108,6 +98,14 @@
                       title="modifier"
                       @click.prevent="AfficheModalModification(item.id)"
                       ><i class="far fa-edit"></i
+                    ></span>
+                    <span
+                      title="Imprimer Bordereau"
+                      class="badge bg-warning"
+                      style="cursor: pointer; color: #77abd6"
+                      @click.prevent="fonctionImprimer(item.id)"
+                    >
+                      <i class="fas fa-print" style="color: #dcdcdc"></i
                     ></span>
                     <span
                       v-if="item.decision == 0"
@@ -205,7 +203,7 @@
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Modifier budget global</h5>
+            <h5 class="modal-title">Modifier le bordereau</h5>
             <button
               type="button"
               class="btn-close"
@@ -250,7 +248,7 @@
               </div>
               <div class="col-12">
                 <label for="inputNanme4" class="form-label"
-                  >Libelle du budget</label
+                  >Objet du bordéreau</label
                 >
                 <input
                   type="text"
@@ -261,13 +259,31 @@
               </div>
               <div class="col-12">
                 <label for="inputNanme4" class="form-label"
-                  >Dotation global budget</label
+                  >Montant du bordereau</label
                 >
                 <money3
                   v-model="modNatureDepense.dotation"
                   class="form-control"
                   style=""
                 ></money3>
+              </div>
+              <div class="col-12">
+                <label for="inputNanme4" class="form-label">Observation</label>
+                <select
+                  class="form-select"
+                  style="border: 1px solid #000"
+                  v-model="modNatureDepense.observation"
+                >
+                  <option selected></option>
+                  <option :value="1">Pour Information</option>
+                  <option :value="2">Pour Visa et Retour</option>
+                  <option :value="3">pour Visa</option>
+                  <option :value="4">Pour Attribution</option>
+                  <option :value="5">Pour Prise en compte</option>
+                  <option :value="6">Pour Observation</option>
+                  <option :value="7">Pour Differé</option>
+                  <option :value="8">Pour Rejet</option>
+                </select>
               </div>
             </form>
           </div>
@@ -296,7 +312,7 @@
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Ajouter budget global</h5>
+            <h5 class="modal-title">Ajouter le bordereau</h5>
             <button
               type="button"
               class="btn-close"
@@ -345,7 +361,7 @@
               </div>
               <div class="col-12">
                 <label for="inputNanme4" class="form-label"
-                  >Libelle du budget</label
+                  >Objet du bordéreau</label
                 >
                 <input
                   type="text"
@@ -356,7 +372,7 @@
               </div>
               <div class="col-12">
                 <label for="inputNanme4" class="form-label"
-                  >Dotation global budget</label
+                  >Montant du bordereau</label
                 >
                 <money3
                   v-model="ajouterNatureDepense.dotation"
@@ -370,6 +386,24 @@
                   v-model="ajouterNatureDepense.dotation"
                   style="background-color: #dcdcdc; font-weight: bolder"
                 /> -->
+              </div>
+              <div class="col-12">
+                <label for="inputNanme4" class="form-label">Observation</label>
+                <select
+                  class="form-select"
+                  style="border: 1px solid #000"
+                  v-model="ajouterNatureDepense.observation"
+                >
+                  <option selected></option>
+                  <option :value="1">Pour Information</option>
+                  <option :value="2">Pour Visa et Retour</option>
+                  <option :value="3">pour Visa</option>
+                  <option :value="4">Pour Attribution</option>
+                  <option :value="5">Pour Prise en compte</option>
+                  <option :value="6">Pour Observation</option>
+                  <option :value="7">Pour Differé</option>
+                  <option :value="8">Pour Rejet</option>
+                </select>
               </div>
             </form>
           </div>
@@ -399,7 +433,7 @@
 import { mapActions, mapGetters } from "vuex";
 import moment from "moment";
 import { ModelListSelect } from "vue-search-select";
-import { formatageSommeSansFCFA } from "../Repositories/Repository";
+import { formatageSommeSansFCFA } from "../../Repositories/Repository";
 export default {
   components: { ModelListSelect },
   data() {
@@ -409,6 +443,7 @@ export default {
         libelle: "",
         activite_id: "",
         decision: 0,
+        observation: "",
       },
       DecisionApp: {
         decision: "",
@@ -451,7 +486,7 @@ export default {
       "getterInformationBudget",
     ]),
     AfficherBudgetGlobal() {
-      return this.getterInformationBudget.filter((item) => item.statut == 1);
+        return this.getterInformationBudget.filter((item) => item.statut  == 2 || item.statut  == 3 || item.statut  == 4 || item.statut  == 5);
     },
     // afficher
     libelleActivite() {
@@ -552,9 +587,15 @@ export default {
       "getExerciceBudgetaire",
       "getInformationBudget",
     ]),
+    fonctionImprimer(id) {
+      this.$router.push({
+        name: "ImprimerBordereau",
+        params: { id: id },
+      });
+    },
     AfficheVentilationBudget(id) {
       this.$router.push({
-        name: "modificationBudgetaire",
+        name: "listeToutOP",
         params: { id: id },
       });
     },
@@ -588,7 +629,8 @@ export default {
         libelle: this.ajouterNatureDepense.libelle,
         activite_id: this.ajouterNatureDepense.activite_id,
         decision: this.ajouterNatureDepense.decision,
-        statut: 1,
+        statut: 2,
+        observation: this.ajouterNatureDepense.observation,
       };
 
       this.ajouterInformationBudget(objetDirect1);
@@ -604,7 +646,8 @@ export default {
         libelle: this.modNatureDepense.libelle,
         date_decision: this.modNatureDepense.date_decision,
         decision: this.modNatureDepense.decision,
-        statut: 1,
+        statut: 2,
+        observation: this.modNatureDepense.observation,
       };
 
       this.modifierInformationBudget(objetDirect1);

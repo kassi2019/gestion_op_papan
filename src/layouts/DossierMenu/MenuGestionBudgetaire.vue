@@ -163,7 +163,7 @@
                 <li>
                   <a
                     href=""
-                    @click.prevent="activedOptionMenu('AfficheActiviteDesOP')"
+                    @click.prevent="activedOptionMenu('infoBordereauTotal')"
                   >
                     <span class="sub-item">Voir ordre paiement</span>
                   </a>

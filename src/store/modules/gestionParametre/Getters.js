@@ -21,7 +21,7 @@ export const getterListeBudgetEclate = state => state.stateListeBudgetEclate;
 export const getterEntreprise = state => state.stateEntreprise;
 export const getterBudgetViseParActivite = state => state.stateBudgetViseParActivite;
 export const getterBudgetViseGroupeParActivite = state => state.stateBudgetViseGroupeParActivite;
-export const getterTaux = state => state.stateTaux;
+export const getterTaux = state => state.stateTaux.sort((a, b) => (a.taux < b.taux) ? -1 : 1);
 export const getterActiviteSurOP = state => state.stateActiviteSurOP;
 export const getterListeOPParUser = state => state.stateListeOPParUser;
 export const getterFacture = state => state.stateFacture;
@@ -36,4 +36,11 @@ export const getterBanque = state => state.stateBanque.sort((a, b) => (a.code < 
 export const getterCompteBancaire = state => state.stateCompteBancaire.sort((a, b) => (a.code < b.code) ? -1 : 1);
 
 export const getterstateFactureParOp = state => state.stateFactureParOp;
+export const gettersBudgetModifierEnProjet = state => state.stateBudgetModifierEnProjet;
+
+export const gettersSignataire = state => state.stateSignataire;
+export const gettersSecteurActivite = state => state.stateSecteurActivite;
+export const gettersRegimeImpossition = state => state.stateRegimeImpossition;
+export const gettersFormeJuridique = state => state.stateFormeJuridique;
+
 // export const getterAfficheDotation = state => state.stateAfficheDotation;

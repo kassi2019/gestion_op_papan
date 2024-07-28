@@ -38,6 +38,11 @@ const defaultstate = {
     stateInfoOrdrePaiement: [],
     stateFactureParOp: [],
     stateBudgetEclateMod: [],
+    stateBudgetModifierEnProjet: [],
+    stateSignataire: [],
+    stateSecteurActivite: [],
+    stateRegimeImpossition: [],
+    stateFormeJuridique:[]
     // stateAfficheDotation:[]
     
 };

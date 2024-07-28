@@ -3,9 +3,16 @@
     <div class="col-md-12">
       <div class="card" style="box-shadow: 5px 5px #f9d531">
         <div class="card-header">
-          <div class="d-flex align-items-center">
+          <div class="d-flex align-items-left">
             <h4 class="card-title">Présentation du budget par Activité</h4>
+            
             <span
+                  class="badge badge-warning"
+                  style="cursor: pointer; color: #000"
+                  @click.prevent="retour(dossier_id)"
+                  ><i class="fas fa-arrow-alt-circle-left"></i> Retour</span
+                >
+                <span
               class="badge rounded-pill bg-primary"
               style="cursor: pointer"
               @click.prevent="genererEnPdf4()"
@@ -23,7 +30,7 @@
                   ------------------------- <br />
                   Fonds d'Aide à la Production Avicole Nationale <br />
                   <img
-                    src="../../../public/csslogin/images/logo1.jpg"
+                    src="../../../../public/csslogin/images/logo1.jpg"
                     width="80px;"
                   />
                 </h6>
@@ -33,7 +40,7 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <img
-                  src="../../../public/assets/img/amoirie.png"
+                  src="../../../../public/assets/img/amoirie.png"
                   width="70px;"
                 />
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -701,7 +708,7 @@ import { mapActions, mapGetters } from "vuex";
 import {
   formatageSomme,
   formatageSommeSansFCFA,
-} from "../Repositories/Repository";
+} from "../../Repositories/Repository";
 export default {
   components: {},
   data() {
@@ -734,6 +741,7 @@ export default {
   },
   created() {
     this.Activite_id = this.$route.params.id;
+    this.dossier_id = this.$route.params.id1;
     this.getSousBudget();
     this.getBudgetEclate();
     this.getBailleur();
@@ -1065,6 +1073,13 @@ export default {
       "getGroupeActivitebudgetNotifie",
       "getBudgetEclate",
     ]),
+    
+    retour(id) {
+      this.$router.push({
+        name: "VentilationBudget",
+        params: { id: id },
+      });
+    },
     genererEnPdf4() {
       this.$htmlToPaper("printMe45");
     },

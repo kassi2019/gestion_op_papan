@@ -93,6 +93,14 @@
                       >Saisir budget</span
                     >
                     <span
+                      data-bs-toggle="modal"
+                      data-bs-target="#largeModal12"
+                      class="badge badge-secondary"
+                      @click.prevent="AfficheModalModification(item.id)"
+                      style="cursor: pointer"
+                      >Mettre decision</span
+                    >
+                    <span
                       class="badge rounded-pill bg-primary"
                       data-bs-toggle="modal"
                       data-bs-target="#largeModal1"
@@ -110,6 +118,81 @@
                 </tr>
               </tbody>
             </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- modal de la decision -->
+    <div class="modal fade" id="largeModal12" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Appliquer Décision</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="col-12">
+                <label for="inputNanme4" class="form-label">Exercice</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  :value="exerciceBudgetaire"
+                  style="border: 1px solid #000 !important;"
+                  readonly
+                />
+              </div>
+              <div class="col-12">
+                <label for="inputNanme4" class="form-label">Décision</label>
+                <select
+                  class="form-select"
+                  style="border: 1px solid #000"
+                  v-model="modNatureDepense.decision"
+                >
+                  <option selected></option>
+                  <option :value="1">Visé</option>
+                  <option :value="2">Visé avec observation</option>
+                  <option :value="3">Différé</option>
+                  <option :value="4">Réjetté</option>
+                  <option :value="0">En attente</option>
+                </select>
+              </div>
+              <div class="col-12">
+                <label for="inputNanme4" class="form-label"
+                  >Date décision</label
+                >
+                <input
+                  type="date"
+                  class="form-control"
+                  style="border: 1px solid #000"
+                  v-model="modNatureDepense.date_decision"
+                />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              @click.prevent="this.getInformationBudget()"
+            >
+              Fermer
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              @click.prevent="modificationSection()"
+              data-bs-dismiss="modal"
+            >
+              Appliquer
+            </button>
           </div>
         </div>
       </div>
@@ -140,7 +223,7 @@
                   readonly
                 />
               </div>
-               <div class="col-12">
+              <div class="col-12">
                 <label class="form-label"
                   >Activité
                   <span
@@ -191,7 +274,7 @@
                         style="background-color: #dcdcdc; font-weight: bolder"
                       /> -->
               </div>
-              <div class="col-12">
+              <!-- <div class="col-12">
                 <label for="inputNanme4" class="form-label">Décision</label>
                 <select
                   class="form-select"
@@ -216,7 +299,7 @@
                   style="border: 1px solid #000"
                   v-model="modNatureDepense.date_decision"
                 />
-              </div>
+              </div> -->
             </form>
           </div>
           <div class="modal-footer">
@@ -224,7 +307,7 @@
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
-              @click.prevent="this.getActivite()"
+              @click.prevent="this.getInformationBudget()"
             >
               Fermer
             </button>
@@ -311,6 +394,7 @@
                   class="form-control"
                   v-bind="config"
                   style="border: 1px solid #000"
+                  readonly
                 ></money3>
                 <!-- <input
                   type="text"
@@ -347,7 +431,7 @@
 import { mapActions, mapGetters } from "vuex";
 import moment from "moment";
 import { ModelListSelect } from "vue-search-select";
-import { formatageSommeSansFCFA } from "../Repositories/Repository";
+import { formatageSommeSansFCFA } from "../../Repositories/Repository";
 export default {
   components: { ModelListSelect },
   data() {
@@ -397,7 +481,7 @@ export default {
       "getterInformationBudget",
     ]),
     AfficherBudgetGlobal() {
-      return this.getterInformationBudget.filter(item=>item.statut==0)
+      return this.getterInformationBudget.filter((item) => item.statut == 0);
     },
     libelleActivite() {
       let collet = [];
@@ -543,7 +627,7 @@ export default {
         libelle: this.modNatureDepense.libelle,
         date_decision: this.modNatureDepense.date_decision,
         decision: this.modNatureDepense.decision,
-         statut: 0,
+        statut: 0,
       };
 
       this.modifierInformationBudget(objetDirect1);

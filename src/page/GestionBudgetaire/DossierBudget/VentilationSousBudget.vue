@@ -7,6 +7,12 @@
           <div class="d-flex align-items-center">
             <h4 class="card-title">Présentation du budget par composante</h4>
             <span
+                  class="badge badge-warning"
+                  style="cursor: pointer; color: #000"
+                  @click.prevent="retour(Activite_id1,dossier_id1)"
+                  ><i class="fas fa-arrow-alt-circle-left"></i> Retour</span
+                >
+            <span
             class="badge rounded-pill bg-primary"
             style="cursor: pointer"
             @click.prevent="genererEnPdf4()"
@@ -23,7 +29,7 @@
                   ------------------------- <br />
                   Fonds d'Aide à la Production Avicole Nationale <br />
                   <img
-                    src="../../../public/csslogin/images/logo1.jpg"
+                    src="../../../../public/csslogin/images/logo1.jpg"
                     width="80px;"
                   />
                 </h6>
@@ -33,9 +39,10 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <img
-                  src="../../../public/assets/img/amoirie.png"
+                  src="../../../../public/assets/img/amoirie.png"
                   width="70px;"
                 />
+               
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               </td>
@@ -701,7 +708,7 @@ import moment from "moment";
 import {
   formatageSomme,
   formatageSommeSansFCFA,
-} from "../Repositories/Repository";
+} from "../../Repositories/Repository";
 export default {
   components: {},
   data() {
@@ -734,6 +741,8 @@ export default {
   },
   created() {
     this.Activite_id = this.$route.params.id;
+    this.Activite_id1 = this.$route.params.id1;
+     this.dossier_id= this.$route.params.id2;
     this.getSousBudget();
     this.getBudgetEclate();
     this.getBailleur();
@@ -1076,6 +1085,12 @@ export default {
       "getGroupeActivitebudgetNotifie",
       "getBudgetEclate",
     ]),
+    retour(id,id1) {
+      this.$router.push({
+        name: "AfficheSousBudgetEclate",
+        params: { id: id,id1: id1 },
+      });
+    },
     genererEnPdf4() {
       this.$htmlToPaper("printMe45");
     },
@@ -1413,9 +1428,9 @@ export default {
         )
         .toFixed(0);
     },
-    Retour() {
-      this.$router.push({ name: "VentilationBudget" });
-    },
+    // Retour() {
+    //   this.$router.push({ name: "VentilationBudget" });
+    // },
 
     AfficheMontantBudget($id) {
       return this.getterListeBudgetEclate

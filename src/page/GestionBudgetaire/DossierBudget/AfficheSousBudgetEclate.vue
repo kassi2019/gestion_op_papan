@@ -23,10 +23,27 @@
 							<li class="nav-item">
 								<a href="#">Info sur budget par Sous budget</a>
 							</li>
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             
+              <li>
+                <span
+                  class="badge badge-warning"
+                  style="cursor: pointer; color: #000"
+                  @click.prevent="retour(dossier_id1)"
+                  ><i class="fas fa-arrow-alt-circle-left"></i> Retour</span
+                >
+              </li>
 						</ul>
 					</div>
           <div class="d-flex align-items-center">
             <!-- <h4 class="card-title">Liste Sous budget</h4> -->
+             
           </div>
         </div>
         <div class="card-body">
@@ -56,7 +73,7 @@
               }}
             </td>
             <td>
-              <span class="badge bg-dark" style="cursor: pointer"   @click.prevent="voirBudgett(item1.id)">Budget</span>
+              <span class="badge bg-dark" style="cursor: pointer"   @click.prevent="voirBudgett(item1.id,dossier_id,dossier_id1)">Budget</span>
             </td>
             <!-- <td style="width: 15%; text-align: right">
               {{ formatageSommeSansFCFA(parseFloat(item1.dotation)) }}
@@ -92,7 +109,7 @@ import moment from "moment";
 import {
   formatageSomme,
   formatageSommeSansFCFA,
-} from "../Repositories/Repository";
+} from "../../Repositories/Repository";
 export default {
   components: {},
   data() {
@@ -125,6 +142,7 @@ export default {
   },
   created() {
     this.dossier_id = this.$route.params.id;
+     this.dossier_id1 = this.$route.params.id1;
     this.getSousBudget();
     
     //   this.getActivite();
@@ -173,16 +191,21 @@ export default {
       "getGroupeActivitebudgetNotifie",
       "getBudgetEclate",
     ]),
-     voirBudgett(id) {
+     voirBudgett(id,id1,id2) {
       this.$router.push({
         name: "VentilationSousBudget",
+        params: { id: id ,id1: id1,id2: id2},
+      });
+    },
+    // Retour() {
+    //   this.$router.push({ name: "VentilationBudget" });
+    // },
+  retour(id) {
+      this.$router.push({
+        name: "VentilationBudget",
         params: { id: id },
       });
     },
-    Retour() {
-      this.$router.push({ name: "VentilationBudget" });
-    },
-  
     AfficheMontantBudget($id) {
       return this.getterListeBudgetEclate
         .filter((item) => item.sous_budget_id == $id)

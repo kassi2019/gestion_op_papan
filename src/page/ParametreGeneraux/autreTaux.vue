@@ -4,32 +4,30 @@
       <div class="card" style="box-shadow: 5px 5px #f9d531">
         <div class="card-header">
           <!-- <div class="page-inner"> -->
-					<div class="page-header">
-						<h6 class="fw-bold mb-3">Liste exercice budgétaire</h6>
-						<ul class="breadcrumbs mb-3">
-							<li class="nav-home">
-								<a href="#">
-									<i class="icon-home"></i>
-								</a>
-							</li>
-							<li class="separator">
-								<i class="icon-arrow-right"></i>
-							</li>
-							<li class="nav-item">
-								<a href="#">Paramétre généraux</a>
-							</li>
-							<li class="separator">
-								<i class="icon-arrow-right"></i>
-							</li>
-							<li class="nav-item">
-								<a href="#">Exercice budgétaire</a>
-							</li>
-						</ul>
-					</div>
+          <div class="page-header">
+            <h6 class="fw-bold mb-3">Liste Taux</h6>
+            <ul class="breadcrumbs mb-3">
+              <li class="nav-home">
+                <a href="#">
+                  <i class="icon-home"></i>
+                </a>
+              </li>
+              <li class="separator">
+                <i class="icon-arrow-right"></i>
+              </li>
+              <li class="nav-item">
+                <a href="#">Paramétre généraux</a>
+              </li>
+              <li class="separator">
+                <i class="icon-arrow-right"></i>
+              </li>
+              <li class="nav-item">
+                <a href="#">Taux</a>
+              </li>
+            </ul>
+          </div>
           <!-- </div> -->
           <div class="d-flex align-items-center">
-           
-
             <span
               class="badge badge-primary"
               style="cursor: pointer"
@@ -45,16 +43,16 @@
               <thead>
                 <tr>
                   <!-- <th scope="col">#</th> -->
-                  <th scope="col">Année</th>
-                  <th scope="col" style="width: 30%">Date debut</th>
-                  <th scope="col" style="width: 30%">Date fin</th>
+                  <th scope="col" style=" text-align: center;">Taux</th>
+                  <th scope="col" style="width: 30%;text-align: center;">Arrondit</th>
+                  
                   <th scope="col">Status</th>
                   <th></th>
                 </tr>
               </thead>
               <tbody>
                 <tr
-                  v-for="item in getterExerciceBudgetaire"
+                  v-for="item in getterTaux"
                   :key="item.id"
                   style="text-align: center"
                 >
@@ -66,11 +64,11 @@
                       text-align: center;
                     "
                   >
-                    {{ item.annee }}
+                    {{ item.taux }} %
                   </td>
-                  <td v-else>{{ item.annee }}</td>
-                  <td>{{ formaterDate(item.date_debut) }}</td>
-                  <td>{{ formaterDate(item.date_fin) }}</td>
+                  <td v-else>{{ item.taux }} %</td>
+                  <td>{{ item.arrondit }}</td>
+                  
                   <td v-if="item.encours == 1">en cours</td>
                   <td v-if="item.encours != 1"></td>
                   <td>
@@ -85,9 +83,7 @@
                     <span
                       class="badge rounded-pill bg-dark"
                       style="cursor: pointer"
-                      @click.prevent="
-                        ModifierExerciceEncours(item.id)
-                      "
+                      @click.prevent="ModifierExerciceEncours(item.id)"
                       v-else
                       >Activer</span
                     >
@@ -103,7 +99,7 @@
                     <span
                       class="badge bg-danger"
                       style="cursor: pointer"
-                      @click.prevent="supprimerExerciceBudgetaire(item.id)"
+                      @click.prevent="supprimerTaux(item.id)"
                       >Supprimer</span
                     >
                     <!-- <button
@@ -138,37 +134,29 @@
             ></button>
           </div>
           <div class="modal-body">
-            <form>
+           <form>
               <div class="col-12">
-                <label for="inputNanme4" class="form-label">Année</label>
+                <label for="inputNanme4" class="form-label">Taux (%)</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="inputNanme4"
+                  style="border: 1px solid #000"
+                  v-model="modifierExercice.taux"
+                />
+              </div>
+              <div class="col-12">
+                <label for="inputNanme4" class="form-label">Arrondit</label>
                 <input
                   type="text"
                   class="form-control"
                   id="inputNanme4"
-                  style="border: 1px solid #000"
-                  v-model="modifierExercice.annee"
+                  style="border: 1px solid #000 !important"
+                  :value="afficherArronditModifier"
+                  readonly
                 />
               </div>
-              <div class="col-12">
-                <label for="inputNanme4" class="form-label">Date début</label>
-                <input
-                  type="date"
-                  class="form-control"
-                  id="inputNanme4"
-                  style="border: 1px solid #000"
-                  v-model="modifierExercice.date_debut"
-                />
-              </div>
-              <div class="col-12">
-                <label for="inputNanme4" class="form-label">Date Fin</label>
-                <input
-                  type="date"
-                  class="form-control"
-                  id="inputNanme4"
-                  style="border: 1px solid #000"
-                  v-model="modifierExercice.date_fin"
-                />
-              </div>
+             
             </form>
           </div>
           <div class="modal-footer">
@@ -176,14 +164,14 @@
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
-              @click.prevent="this.getExerciceBudgetaire()"
+              @click.prevent="this.getTaux()"
             >
               Fermer
             </button>
             <button
               type="button"
               class="btn btn-primary"
-              @click.prevent="ModifierExerciceBudgetaire()"
+              @click.prevent="modificationTaux()"
               data-bs-dismiss="modal"
             >
               Modifier
@@ -196,7 +184,7 @@
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Ajouter Exercice budgétaire</h5>
+            <h5 class="modal-title">Ajouter Taux</h5>
             <button
               type="button"
               class="btn-close"
@@ -207,35 +195,27 @@
           <div class="modal-body">
             <form>
               <div class="col-12">
-                <label for="inputNanme4" class="form-label">Année</label>
+                <label for="inputNanme4" class="form-label">Taux (%)</label>
                 <input
                   type="number"
                   class="form-control"
                   id="inputNanme4"
                   style="border: 1px solid #000"
-                  v-model="ajouterExercice.annee"
+                  v-model="ajouterExercice.taux"
                 />
               </div>
               <div class="col-12">
-                <label for="inputNanme4" class="form-label">Date début</label>
+                <label for="inputNanme4" class="form-label">Arrondit</label>
                 <input
-                  type="date"
+                  type="text"
                   class="form-control"
                   id="inputNanme4"
-                  style="border: 1px solid #000"
-                  v-model="ajouterExercice.date_debut"
+                  style="border: 1px solid #000 !important"
+                  :value="afficherArrondit"
+                  readonly
                 />
               </div>
-              <div class="col-12">
-                <label for="inputNanme4" class="form-label">Date Fin</label>
-                <input
-                  type="date"
-                  class="form-control"
-                  id="inputNanme4"
-                  style="border: 1px solid #000"
-                  v-model="ajouterExercice.date_fin"
-                />
-              </div>
+             
             </form>
           </div>
           <div class="modal-footer">
@@ -264,82 +244,84 @@
 import { mapActions, mapGetters } from "vuex";
 import moment from "moment";
 export default {
+     name: "App",
   components: {},
   data() {
     return {
       ajouterExercice: {
-        annee: "",
-        date_debut: "",
-        date_fin: "",
-        encours: 0,
+        taux: 0,
+        
       },
       modifierExercice: {
-        annee: "",
-        date_debut: "",
-        date_fin: "",
+        taux: "",
+       
       },
     };
   },
   created() {
     // this.getUtilisateur();
-    this.getExerciceBudgetaire();
+    this.getTaux();
     // this.getProfileUsers();
     // this.getUsers();
     // this.getStructureGeoGraphique();
   },
   computed: {
     ...mapGetters("parametrage", [
-      "getterExerciceBudgetaire",
+      "getterTaux",
       "getterUtilisateur",
     ]),
+      
+    afficherArronditModifier() {
+        return (parseFloat(this.modifierExercice.taux)/100).toFixed(2)
+    },
+      afficherArrondit() {
+        return (parseFloat(this.ajouterExercice.taux)/100).toFixed(2)
+    }
   },
   methods: {
     ...mapActions("parametrage", [
-      "getExerciceBudgetaire",
+      "getTaux",
       "getUtilisateur",
-      "ajouterExerciceBudgetaire",
-      "modifierExerciceBudgetaire",
-      "supprimerExerciceBudgetaire",
-      "encoursExerciceBudgetaire",
+      "ajouterTaux",
+      "modifierTaux",
+      "supprimerTaux",
+      "encoursTaux",
     ]),
     AfficheModalModification(id) {
-      this.modifierExercice = this.getterExerciceBudgetaire.find(
+      this.modifierExercice = this.getterTaux.find(
         (items) => items.id == id
       );
     },
     EnregistrerExercice() {
       var objetDirect1 = {
-        annee: this.ajouterExercice.annee,
-        date_debut: this.ajouterExercice.date_debut,
-        date_fin: this.ajouterExercice.date_fin,
-        encours: this.ajouterExercice.encours,
+        taux: this.ajouterExercice.taux,
+        arrondit: this.afficherArrondit,
+       
       };
 
-      this.ajouterExerciceBudgetaire(objetDirect1);
+      this.ajouterTaux(objetDirect1);
       this.ajouterExercice = {
-        annee: "",
-        date_debut: "",
-        date_fin: "",
+        taux: 0,
+        
       };
     },
 
-    ModifierExerciceBudgetaire() {
+    modificationTaux() {
       var objetDirect1 = {
         id: this.modifierExercice.id,
-        annee: this.modifierExercice.annee,
-        date_debut: this.modifierExercice.date_debut,
-        date_fin: this.modifierExercice.date_fin,
+       taux: this.modifierExercice.taux,
+        arrondit: this.afficherArronditModifier,
       };
 
-      this.modifierExerciceBudgetaire(objetDirect1);
+      this.modifierTaux(objetDirect1);
       this.modifierExercice = {};
     },
 
     ModifierExerciceEncours(id) {
       let ob = {
-        id: id
+        id: id,
       };
-      this.encoursExerciceBudgetaire(ob);
+      this.encoursTaux(ob);
     },
     formaterDate(date) {
       return moment(date, "YYYY-MM-DD").format("DD/MM/YYYY");

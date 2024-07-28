@@ -458,7 +458,7 @@ import { mapActions, mapGetters } from "vuex";
 import moment from "moment";
 import { ModelListSelect } from "vue-search-select";
 // import { Money3Component } from "v-money3";
-import { formatageSommeSansFCFA } from "../Repositories/Repository";
+import { formatageSommeSansFCFA } from "../../Repositories/Repository";
 export default {
   components: { ModelListSelect },
   data() {
@@ -886,7 +886,7 @@ export default {
     },
     afficheListeOPprovisoire() {
       return this.getterListeOPgloba.filter(
-        (item) => item.activite_id == this.dossier_id
+        (item) => item.bordereau_id == this.dossier_id
       );
     },
     exerciceBudgetaire() {

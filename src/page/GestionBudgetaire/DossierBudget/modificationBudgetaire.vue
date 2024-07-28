@@ -23,6 +23,23 @@
               <li class="nav-item">
                 <a href="#">Modification Budgétaire</a>
               </li>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               
+              <li class="nav-item">
+               <span
+              class="badge badge-warning"
+              style="cursor: pointer;color:#000"
+             @click.prevent="retour"
+              ><i class="fas fa-arrow-alt-circle-left"></i>   Retour</span
+            >
+              </li>
             </ul>
           </div>
         </div>
@@ -105,7 +122,7 @@
                       >
                       </model-list-select>
                     </div>
-                    <div class="col-9">
+                    <div class="col-6">
                       <label class="form-label"
                         >Nature économique
                         <span
@@ -163,7 +180,7 @@
                         >Ce champs est obligatoire!
                       </span>
                     </div>
-                    <div class="col-9">
+                    <div class="col-6">
                       <label class="form-label"
                         >Source de financement
                         <span
@@ -187,7 +204,7 @@
                         >Ce champs est obligatoire!
                       </span>
                     </div>
-                    <div class="col-4">
+                    <div class="col-2">
                       <label for="inputNanme4" class="form-label"
                         >Dotation Actuelle (A)</label
                       >
@@ -200,7 +217,7 @@
                       ></money3>
                     </div>
 
-                    <div class="col-4">
+                    <div class="col-2">
                       <label for="inputNanme4" class="form-label"
                         >Variation(D)</label
                       >
@@ -211,15 +228,16 @@
                         v-model="dotation_actuelle"
                       ></money3>
                     </div>
-                    <div class="col-4">
+                    <div class="col-2">
                       <label for="inputNanme4" class="form-label"
-                        >Nouveau montant actuel (E=)</label
+                        >Montant actuel (E=A+B)</label
                       >
                       <money3
                         class="form-control"
                         style=""
                         :model-value="MontantGlobal"
                         v-bind="config"
+                        readonly
                       ></money3>
                     </div>
                     <div class="col-10"></div>
@@ -267,7 +285,7 @@
                         border: 1px solid #000 !important;
                       "
                     >
-                      Nature economique{{ activite_id }}
+                      Nature economique
                     </th>
                     <th
                       scope="col"
@@ -326,7 +344,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <!-- <tr v-for="item1 in afficheBudgetParActivite" :key="item1.id">
+                  <tr v-for="item1 in afficheBudgetParActivite" :key="item1.id">
                     <td style="width: 40%; border: 1px solid #000 !important">
                       {{ afficheNatureEconomique(item1.ligneeconomique_id) }}
                     </td>
@@ -382,9 +400,8 @@
                         @click.prevent="AfficheModalModification(item1.id)"
                         >Modifier</span
                       >
-                     
                     </td>
-                  </tr> -->
+                  </tr>
                 </tbody>
               </table>
             </TabContent>
@@ -432,7 +449,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <!-- <tr v-for="(item1, index) in getterActivite" :key="item1.id">
+                  <tr v-for="(item1, index) in getterActivite" :key="item1.id">
                     <td style="border: 1px solid #000 !important">
                       {{ index + 1 }}
                     </td>
@@ -455,7 +472,7 @@
                       <span
                         class="badge bg-dark"
                         style="cursor: pointer"
-                        @click.prevent="voirBudgett(item1.id)"
+                        @click.prevent="voirBudgett(item1.id,dossier_id)"
                         >Budget</span
                       >
                       <span
@@ -465,7 +482,7 @@
                         >Composante</span
                       >
                     </td>
-                  </tr> -->
+                  </tr>
                 </tbody>
               </table>
             </TabContent>
@@ -486,7 +503,7 @@ import { FormWizard, TabContent } from "vue3-form-wizard";
 import {
   formatageSomme,
   formatageSommeSansFCFA,
-} from "../Repositories/Repository";
+} from "../../Repositories/Repository";
 export default {
   components: {
     ModelListSelect,
@@ -537,6 +554,8 @@ export default {
     this.getNatureDepense();
     this.getTypeFinancement();
     this.getBailleur();
+    this.getBudgetEclate();
+    this.getBudgetModifierEnProjet();
     // this.getDotationNotifie();
     // this.getDotationReport();
     // this.getDotationRessourcePropre();
@@ -560,6 +579,7 @@ export default {
   computed: {
     ...mapGetters("parametrage", [
       "getterProjet",
+      "gettersBudgetModifierEnProjet",
       "getterActivite",
       "getterBudgetViseParActivite",
       "getterTypeFinancement",
@@ -575,6 +595,11 @@ export default {
       "getterDotationAutreRessource",
       "getterListeBudgetEclate",
     ]),
+    afficheBudgetParActivite() {
+      return this.getterListeBudgetEclate.filter(
+        (item) => item.dossier_id == this.dossier_id
+      );
+    },
     NatureDepense_id() {
       if (this.sous_budget_id == 0 && this.activite_id != 0) {
         // return (id) => {
@@ -833,10 +858,11 @@ export default {
     },
     GroupeParNatureEconomique() {
       // return (id) => {
-      if (this.sous_budget_id == 0 && this.activite_id != 0) {
+      if (this.sous_budget_id == 0) {
         let objet = this.getterBudgetViseParActivite.filter(
-          (item) => item.activite_id == this.activite_id && item.actuelle == 1
+          (item) => item.actuelle == 1
         );
+        console.log(objet);
         //  let vm=this
         let array_exercie = [];
         if (objet.length > 0) {
@@ -1061,6 +1087,7 @@ export default {
     },
     ...mapActions("parametrage", [
       "getActivite",
+      "getBudgetModifierEnProjet",
       "getBudgetViseParActvite",
       "getSousBudget",
       "getBudgetEclate",
@@ -1077,7 +1104,11 @@ export default {
       "getDotationAutreRessource",
       "ReamenagementBudgetEclate",
     ]),
-
+retour() {
+      this.$router.push({
+        name: "InformationBudgetModifier"
+      });
+    },
     enregistrementSansTypeFiancement2() {
       var nouvelObjettrsor = {
         annebudgetaire: this.exerciceBudgetaire,
@@ -1100,10 +1131,10 @@ export default {
         (this.type_financement_id = ""),
         (this.unite_operationnelle_id = "");
     },
-    voirBudgett(id) {
+    voirBudgett(id,id1) {
       this.$router.push({
-        name: "VoirBudgetEclate",
-        params: { id: id },
+        name: "VoirBudgetModifierEnProjet",
+        params:  {id: id,id1:id1 },
       });
     },
     voirSousBudget(id) {

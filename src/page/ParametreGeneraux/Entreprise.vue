@@ -147,6 +147,83 @@
                   v-model="modNatureDepense.adresse"
                 />
               </div>
+              <div class="col-12">
+                      <label class="form-label"
+                        >Secteur Activité
+                        <span
+                          style="
+                            color: red !important;
+                            font-size: 15px !important;
+                          "
+                          ></span
+                        ></label
+                      >
+
+                      <model-list-select
+                        :list="gettersSecteurActivite"
+                        v-model="modNatureDepense.secteur_activite_id"
+                        option-value="id"
+                        option-text="libelle"
+                        placeholder="select item"
+                        style="border: 1px solid #000"
+                      >
+                      </model-list-select>
+                      <!-- <span
+                        style="color: red"
+                        v-if="unite_operationnelle_id == 0"
+                        >Ce champs est obligatoire!
+                      </span> -->
+                    </div>
+                    <div class="col-12">
+                      <label class="form-label"
+                        >Forme Juridique
+                        <span
+                          style="
+                            color: red !important;
+                            font-size: 15px !important;
+                          "
+                          ></span
+                        ></label
+                      >
+
+                      <model-list-select
+                        :list="gettersFormeJuridique"
+                        v-model="modNatureDepense.forme_juridique_id"
+                        option-value="id"
+                        option-text="libelle"
+                        placeholder="select item"
+                        style="border: 1px solid #000"
+                      >
+                      </model-list-select>
+                      <!-- <span
+                        style="color: red"
+                        v-if="unite_operationnelle_id == 0"
+                        >Ce champs est obligatoire!
+                      </span> -->
+                    </div>
+                    <div class="col-12">
+                      <label class="form-label"
+                        >Régime d'impossition
+                        <span
+                          style="
+                            color: red !important;
+                            font-size: 15px !important;
+                          "
+                          ></span
+                        ></label
+                      >
+
+                      <model-list-select
+                        :list="gettersRegimeImpossition"
+                        v-model="modNatureDepense.regime_impossition_id"
+                        option-value="id"
+                        option-text="libelle"
+                        placeholder="select item"
+                        style="border: 1px solid #000"
+                      >
+                      </model-list-select>
+                     
+                    </div>
             </form>
           </div>
           <div class="modal-footer">
@@ -223,13 +300,90 @@
                   >Adresse</label
                 >
                 <input
-                  type="number"
+                  type="text"
                   class="form-control"
                   id="inputNanme4"
                   style="border: 1px solid #000"
-                  v-model="modNatureDepense.adresse"
+                  v-model="ajouterNatureDepense.adresse"
                 />
               </div>
+              <div class="col-12">
+                      <label class="form-label"
+                        >Secteur Activité
+                        <span
+                          style="
+                            color: red !important;
+                            font-size: 15px !important;
+                          "
+                          ></span
+                        ></label
+                      >
+
+                      <model-list-select
+                        :list="gettersSecteurActivite"
+                        v-model="ajouterNatureDepense.secteur_activite_id"
+                        option-value="id"
+                        option-text="libelle"
+                        placeholder="select item"
+                        style="border: 1px solid #000"
+                      >
+                      </model-list-select>
+                      <!-- <span
+                        style="color: red"
+                        v-if="unite_operationnelle_id == 0"
+                        >Ce champs est obligatoire!
+                      </span> -->
+                    </div>
+                    <div class="col-12">
+                      <label class="form-label"
+                        >Forme Juridique
+                        <span
+                          style="
+                            color: red !important;
+                            font-size: 15px !important;
+                          "
+                          ></span
+                        ></label
+                      >
+
+                      <model-list-select
+                        :list="gettersFormeJuridique"
+                        v-model="ajouterNatureDepense.forme_juridique_id"
+                        option-value="id"
+                        option-text="libelle"
+                        placeholder="select item"
+                        style="border: 1px solid #000"
+                      >
+                      </model-list-select>
+                      <!-- <span
+                        style="color: red"
+                        v-if="unite_operationnelle_id == 0"
+                        >Ce champs est obligatoire!
+                      </span> -->
+                    </div>
+                    <div class="col-12">
+                      <label class="form-label"
+                        >Régime d'impossition
+                        <span
+                          style="
+                            color: red !important;
+                            font-size: 15px !important;
+                          "
+                          ></span
+                        ></label
+                      >
+
+                      <model-list-select
+                        :list="gettersRegimeImpossition"
+                        v-model="ajouterNatureDepense.regime_impossition_id"
+                        option-value="id"
+                        option-text="libelle"
+                        placeholder="select item"
+                        style="border: 1px solid #000"
+                      >
+                      </model-list-select>
+                     
+                    </div>
             </form>
           </div>
           <div class="modal-footer">
@@ -257,34 +411,44 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import moment from "moment";
+import { ModelListSelect } from "vue-search-select";
 export default {
   name: "TheDefault",
-  components: {},
+  components: {ModelListSelect},
   data() {
     return {
       ajouterNatureDepense: {
         numero_cc: "",
         raison_sociale: "",
             telephone: "",
-        adresse:""
+        adresse: "",
+        secteur_activite_id: "",
+        forme_juridique_id: "",
+        regime_impossition_id:""
       },
       modNatureDepense: {
         numero_cc: "",
         raison_sociale: "",
           telephone: "",
-        adresse:""
+        adresse:"",
+        secteur_activite_id: "",
+        forme_juridique_id: "",
+        regime_impossition_id:""
       },
     };
   },
   created() {
+    this.getRegimeImposition();
+    this.getFormeJuridique();
+    this.getSecteurActivite();
     this.getEntreprise();
   },
   computed: {
-    ...mapGetters("parametrage", ["getterEntreprise"]),
+    ...mapGetters("parametrage", ["getterEntreprise",'gettersSecteurActivite','gettersRegimeImpossition','gettersFormeJuridique']),
   },
   methods: {
     ...mapActions("parametrage", [
-      "getEntreprise",
+      "getEntreprise","getRegimeImposition","getFormeJuridique","getSecteurActivite",
       "ajouterEntreprise",
       "modifierEntreprise",
       "supprimerEntreprise",
@@ -299,7 +463,11 @@ export default {
         numero_cc: this.ajouterNatureDepense.numero_cc,
         raison_sociale: this.ajouterNatureDepense.raison_sociale,
           telephone: this.ajouterNatureDepense.telephone,
-        adresse:this.ajouterNatureDepense.adresse
+        adresse: this.ajouterNatureDepense.adresse,
+        regime_impossition_id: this.ajouterNatureDepense.regime_impossition_id,
+        secteur_activite_id: this.ajouterNatureDepense.secteur_activite_id,
+        forme_juridique_id: this.ajouterNatureDepense.forme_juridique_id,
+        
       };
 
       this.ajouterEntreprise(objetDirect1);
@@ -317,7 +485,10 @@ export default {
         numero_cc: this.modNatureDepense.numero_cc,
         raison_sociale: this.modNatureDepense.raison_sociale,
           telephone: this.modNatureDepense.telephone,
-        adresse:this.modNatureDepense.adresse
+        adresse: this.modNatureDepense.adresse,
+        regime_impossition_id: this.modNatureDepense.regime_impossition_id,
+        secteur_activite_id: this.modNatureDepense.secteur_activite_id,
+        forme_juridique_id: this.modNatureDepense.forme_juridique_id,
       };
 
       this.modifierEntreprise(objetDirect1);

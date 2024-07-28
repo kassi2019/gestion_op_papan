@@ -2,7 +2,8 @@
  import ExerciceBudgetaire from "../page/ParametreGeneraux/ExerciceBudgetaire.vue"
  import NatureDepense from "../page/ParametreGeneraux/NatureDepense.vue"
  import Section from "../page/ParametreGeneraux/Section.vue"
- import typeFinancement from "../page/ParametreGeneraux/typeFinancement.vue"
+import typeFinancement from "../page/ParametreGeneraux/typeFinancement.vue"
+  import autreTaux from "../page/ParametreGeneraux/autreTaux.vue"
  import Entreprise from "../page/ParametreGeneraux/Entreprise.vue"
  import bailleur from "../page/ParametreGeneraux/bailleur.vue"
 import Activite from "../page/ParametreGeneraux/Activite.vue"
@@ -13,23 +14,25 @@ import BudgetNotifie from "../page/GestionBudgetaire/BudgetNotifie.vue"
 import BudgetReport from "../page/GestionBudgetaire/BudgetReport.vue"
 // import BudgetAutreRessource from "../page/GestionBudgetaire/BudgetAutreRessource.vue"
 // import BudgetRessourcePropre from "../page/GestionBudgetaire/BudgetRessourcePropre.vue"
- import Budget from "../page/GestionBudgetaire/InformationBudget.vue"
-import VentilationBudget from "../page/GestionBudgetaire/VentilationBudget.vue"
+ import Budget from "../page/GestionBudgetaire/DossierBudget/InformationBudget.vue"
+import VentilationBudget from "../page/GestionBudgetaire/DossierBudget/VentilationBudget.vue"
 
 
-import AfficheSousBudgetEclate from "../page/GestionBudgetaire/AfficheSousBudgetEclate.vue"
-import VoirBudgetEclate from "../page/GestionBudgetaire/VoirBudgetEclateParActivite.vue"
-import VentilationSousBudget from "../page/GestionBudgetaire/VentilationSousBudget.vue"
+import AfficheSousBudgetEclate from "../page/GestionBudgetaire/DossierBudget/AfficheSousBudgetEclate.vue"
+import VoirBudgetEclate from "../page/GestionBudgetaire/DossierBudget/VoirBudgetEclateParActivite.vue"
+import VoirBudgetModifierEnProjet from "../page/GestionBudgetaire/DossierBudget/VoirBudgetModifierEnProjet.vue"
+
+import VentilationSousBudget from "../page/GestionBudgetaire/DossierBudget/VentilationSousBudget.vue"
 import OrdrePaiementProvisoire from "../page/GestionBudgetaire/DossierOpProvisoire/OrdrePaiementProvisoire.vue"
 import OrdrePaiementDirect from "../page/GestionBudgetaire/DossierOPDirect/OrdrePaiementDirect.vue"
 import AfficheOpActivite from "../page/GestionBudgetaire/DossierOpProvisoire/AfficheOpActivite.vue"
 import AfficheOpDirectActivite from "../page/GestionBudgetaire/DossierOPDirect/AfficheOpDirectActivite.vue"
-import ImprimerOp from "../page/GestionBudgetaire/ImprimerOp.vue"
+import ImprimerOp from "../page/GestionRapport/ImprimerOp.vue"
 import AfficheActiviteDesOP from "../page/GestionBudgetaire/AfficheActiviteDesOP.vue"
-import listeToutOP from "../page/GestionBudgetaire/listeToutOP.vue"
+import listeToutOP from "../page/GestionBudgetaire/VoirOPTotal/listeToutOP.vue"
 import ExecutionBailleur from "../page/GestionRapport/ExecutionBailleur.vue"
 import ExecutionParLigne from "../page/GestionRapport/ExecutionParLigne.vue"
-import PresentationBudgetVise from "../page/GestionBudgetaire/PresentationBudgetVise.vue"
+import PresentationBudgetVise from "../page/GestionBudgetaire/DossierBudget/PresentationBudgetVise.vue"
 import OrdrePaiementDefinitif from "../page/GestionBudgetaire/DossierOPDefinitif/OrdrePaiementDefinitif.vue"
 
 import OrdrePaiementAnnulation from "../page/GestionBudgetaire/DossierOPAnnulation/OrdrePaiementAnnulation.vue"
@@ -38,16 +41,52 @@ import CompteBancaire from "../page/ParametreGeneraux/CompteBancaire.vue"
 import AfficheOPDefinitif from "../page/GestionBudgetaire/DossierOPDefinitif/AfficheOPDefinitif.vue"
 import AfficheOPAnnulation from "../page/GestionBudgetaire/DossierOPAnnulation/AfficheOPAnnulation.vue"
 
-import InformationBudgetModifier from "../page/GestionBudgetaire/InformationBudgetModifier.vue"
+import InformationBudgetModifier from "../page/GestionBudgetaire/DossierBudget/InformationBudgetModifier.vue"
  
-import modificationBudgetaire from "../page/GestionBudgetaire/modificationBudgetaire.vue"
+import modificationBudgetaire from "../page/GestionBudgetaire/DossierBudget/modificationBudgetaire.vue"
 import InformationBordereau from "../page/GestionBudgetaire/DossierOpProvisoire/InformationBordereau.vue"
 import ImprimerBordereau from "../page/GestionBudgetaire/DossierImpression/ImprimerBordereau.vue"
 
 import InformationBordereauOPDirect from "../page/GestionBudgetaire/DossierOPDirect/InformationBordereauOPDirect.vue"
 import InformationBordereauOPDefinitif from "../page/GestionBudgetaire/DossierOPDefinitif/InformationBordereauOPDefinitif.vue"
 import InformationBordereauOPAnnulation from "../page/GestionBudgetaire/DossierOPAnnulation/InformationBordereauOPAnnulation.vue"
+import infoBordereauTotal from "../page/GestionBudgetaire/VoirOPTotal/infoBordereauTotal.vue"
+import signataire from "../page/ParametreGeneraux/signataire.vue"
+
+import SecteurActivite from "../page/ParametreGeneraux/SecteurActivite.vue"
+import FormeJuridique from "../page/ParametreGeneraux/FormeJuridique.vue"
+import RegimeImpossition from "../page/ParametreGeneraux/RegimeImpossition.vue"
 const gestionutilisateur = [
+   {
+        path: '/SecteurActivite',
+        name:"SecteurActivite",
+       component: SecteurActivite
+  },
+      {
+        path: '/FormeJuridique',
+        name:"FormeJuridique",
+       component: FormeJuridique
+  },
+      {
+        path: '/RegimeImpossition',
+        name:"RegimeImpossition",
+       component: RegimeImpossition
+     },
+  {
+        path: '/signataire',
+        name:"signataire",
+       component: signataire
+     },
+  {
+        path: '/autreTaux',
+        name:"autreTaux",
+       component: autreTaux
+     },
+   {
+        path: '/infoBordereauTotal',
+        name:"infoBordereauTotal",
+       component: infoBordereauTotal
+     },
   {
         path: '/InformationBordereauOPAnnulation',
         name:"InformationBordereauOPAnnulation",
@@ -169,17 +208,23 @@ const gestionutilisateur = [
        component: OrdrePaiementProvisoire
      },
      {
-        path: '/VentilationSousBudget/:id',
+        path: '/VentilationSousBudget/:id/:id1/:id2',
         name:"VentilationSousBudget",
        component: VentilationSousBudget
+  },
+  
+     {
+        path: '/VoirBudgetModifierEnProjet/:id/:id1',
+        name:"VoirBudgetModifierEnProjet",
+       component: VoirBudgetModifierEnProjet
      },
      {
-        path: '/VoirBudgetEclate/:id',
+        path: '/VoirBudgetEclate/:id/:id1',
         name:"VoirBudgetEclate",
        component: VoirBudgetEclate
      },
       {
-        path: '/AfficheSousBudgetEclate/:id',
+        path: '/AfficheSousBudgetEclate/:id/:id1',
         name:"AfficheSousBudgetEclate",
        component: AfficheSousBudgetEclate
      },

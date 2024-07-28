@@ -384,6 +384,21 @@ export const GET_AFFICHE_BUDGET_ECLATE = (state, value) => {
     state.stateListeBudgetEclate=value
 }
 
+export const SUPPRIMER_BUDGET_ECLATE = (state, id) => {
+    state.stateListeBudgetEclate = state.stateListeBudgetEclate.filter(titre => titre.id != id)
+};
+export const MODIFIER_BUDGET_ECLATE = (state, elementModif) => {
+    state.stateListeBudgetEclate = state.stateListeBudgetEclate.map(response => {
+
+        if (response.id == elementModif.id) {
+            response = { ...elementModif }
+        }
+        return response
+    })
+}
+export const GET_AFFICHE_BUDGET_MODIFIER_EN_PROJET = (state, value) => {
+    state.stateBudgetModifierEnProjet=value
+}
 export const GET_BUDGET_VISE_PAR_ACTIVITE = (state,value)=>{
     state.stateBudgetViseParActivite=value
 }
@@ -440,6 +455,16 @@ export const MODIFIER_TAUX = (state, elementModif) => {
 export const SUPPRIMER_TAUX = (state, id) => {
     state.stateTaux = state.stateTaux.filter(titre => titre.id != id)
 };
+
+export const ENCOURS_TAUX = (state, elementModif) => {
+    state.stateTaux = state.stateTaux.map(response => {
+
+        if (response.id == elementModif.id) {
+            response = { ...elementModif }
+        }
+        return response
+    })
+}
 // ORDRE PAIEMENT
 export const AJOUTER_ORDRE_PAIEMENT= (state, elementAjouter) => {
     state.stateOrdrePaiement.unshift(elementAjouter)
@@ -542,3 +567,98 @@ export const SUPPRIMER_COMPTE_BANCAIRE = (state, id) => {
     state.stateCompteBancaire = state.stateCompteBancaire.filter(titre => titre.id != id)
 };
 
+// SIGNATAIRE
+export const GET_SIGNATAIRE = (state,value)=>{
+    state.stateSignataire=value
+}
+
+export const AJOUTER_SIGNATAIRE = (state, elementAjouter) => {
+    state.stateSignataire.unshift(elementAjouter)
+}
+
+export const MODIFIER_SIGNATAIRE = (state, elementModif) => {
+    state.stateSignataire = state.stateSignataire.map(response => {
+
+        if (response.id == elementModif.id) {
+            response = { ...elementModif }
+        }
+        return response
+    })
+}
+
+export const SUPPRIMER_SIGNATAIRE = (state, id) => {
+    state.stateSignataire = state.stateSignataire.filter(titre => titre.id != id)
+};
+
+// SECTEUR ACTIVITE 
+
+export const GET_SECTEUR_ACTIVITE = (state,value)=>{
+    state.stateSecteurActivite=value
+}
+
+export const AJOUTER_SECTEUR_ACTIVITE = (state, elementAjouter) => {
+    state.stateSecteurActivite.unshift(elementAjouter)
+}
+
+export const MODIFIER_SECTEUR_ACTIVITE = (state, elementModif) => {
+    state.stateSecteurActivite = state.stateSecteurActivite.map(response => {
+
+        if (response.id == elementModif.id) {
+            response = { ...elementModif }
+        }
+        return response
+    })
+}
+
+export const SUPPRIMER_SECTEUR_ACTIVITE = (state, id) => {
+    state.stateSecteurActivite = state.stateSecteurActivite.filter(titre => titre.id != id)
+};
+
+
+// FORME JURIDIQUE
+
+export const GET_FORME_JURIDIQUE = (state,value)=>{
+    state.stateFormeJuridique=value
+}
+
+export const AJOUTER_FORME_JURIDIQUE = (state, elementAjouter) => {
+    state.stateFormeJuridique.unshift(elementAjouter)
+}
+
+export const MODIFIER_FORME_JURIDIQUE = (state, elementModif) => {
+    state.stateFormeJuridique = state.stateFormeJuridique.map(response => {
+
+        if (response.id == elementModif.id) {
+            response = { ...elementModif }
+        }
+        return response
+    })
+}
+
+export const SUPPRIMER_FORME_JURIDIQUE = (state, id) => {
+    state.stateFormeJuridique = state.stateFormeJuridique.filter(titre => titre.id != id)
+};
+
+// REGIME IMPOSITION
+
+export const GET_REGIME_IMPOSSITION = (state,value)=>{
+    state.stateRegimeImpossition=value
+}
+
+export const AJOUTER_REGIME_IMPOSSITION = (state, elementAjouter) => {
+    state.stateRegimeImpossition.unshift(elementAjouter)
+}
+
+export const MODIFIER_REGIME_IMPOSSITION = (state, elementModif) => {
+    state.stateRegimeImpossition = state.stateRegimeImpossition.map(response => {
+
+        if (response.id == elementModif.id) {
+            response = { ...elementModif }
+        }
+        return response
+    })
+}
+
+export const SUPPRIMER_REGIME_IMPOSSITION = (state, id) => {
+    state.stateRegimeImpossition = state.stateRegimeImpossition.filter(titre => titre.id != id)
+};

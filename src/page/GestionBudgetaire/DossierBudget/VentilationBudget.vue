@@ -23,12 +23,30 @@
               <li class="nav-item">
                 <a href="#">Eclatement du budget</a>
               </li>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+              <li class="nav-item">
+                <span
+                  class="badge badge-warning"
+                  style="cursor: pointer; color: #000"
+                  @click.prevent="retour"
+                  ><i class="fas fa-arrow-alt-circle-left"></i> Retour</span
+                >
+              </li>
             </ul>
           </div>
           <div class="d-flex align-items-center">
             <!-- <h4 class="card-title">Eclatement du budget</h4> -->
           </div>
         </div>
+
         <div class="card-body">
           <FormWizard @on-complete="onComplete" color="#e67e22">
             <TabContent title="SAISIR BUDGET" icon="ti-pencil-alt2">
@@ -130,7 +148,7 @@
 
                     <div class="col-3">
                       <label class="form-label"
-                        >Budget global ( E = A + B)</label
+                        >Budget global ( C = A + B)</label
                       >
                       <money3
                         class="form-control"
@@ -142,7 +160,8 @@
                     </div>
                     <div class="col-3">
                       <label class="form-label"
-                        >Montant affecté ( {{ AfficheTauxBudget }} % Budget global)</label
+                        >Montant affecté ( {{ AfficheTauxBudget }} % Budget
+                        global)</label
                       >
 
                       <money3
@@ -264,8 +283,8 @@
                         >Ce champs est obligatoire!
                       </span>
                     </div>
-                    <div class="col-3">
-                      <label class="form-label">Dotation Actuelle</label>
+                    <div class="col-2">
+                      <label class="form-label">Dotation Actuelle ( D )</label>
                       <money3
                         v-model="FormDataDossier.dotation_actuelle"
                         class="form-control"
@@ -273,8 +292,8 @@
                         v-bind="config"
                       ></money3>
                     </div>
-                    <div class="col-3">
-                      <label class="form-label">Dotation réport</label>
+                    <div class="col-2">
+                      <label class="form-label">Dotation réport ( E )</label>
 
                       <money3
                         v-model="FormDataDossier.dotation_report"
@@ -283,7 +302,23 @@
                         v-bind="config"
                       ></money3>
                     </div>
-                    <div class="col-4">
+                    <div class="col-3">
+                      <label class="form-label"
+                        >Dotation Actuelle (F= D+E)</label
+                      >
+
+                      <money3
+                        :model-value="
+                          parseFloat(FormDataDossier.dotation_actuelle) +
+                          parseFloat(FormDataDossier.dotation_report)
+                        "
+                        class="form-control"
+                        style="border: 1px solid #000 !important"
+                        v-bind="config"
+                        readonly
+                      ></money3>
+                    </div>
+                    <div class="col-3">
                       <label class="form-label">Cumul dotation saisie</label>
 
                       <money3
@@ -296,7 +331,7 @@
                       <span
                         style="color: red"
                         v-if="MontantSaisir != MontantRecuParSousBudget"
-                        >Ce champs est obligatoire!
+                        >Cumul dotation saisie est différent Montant affecté
                       </span>
                     </div>
                     <div class="col-2">
@@ -462,143 +497,216 @@
                 </model-list-select>
               </div>
               <br />
-              <table class="table table-bordered border-primary">
-                <thead>
-                  <tr style="border: 1px solid #000 !important">
-                    <!-- <th scope="col">#</th> -->
-                    <!-- <th scope="col">N</th> -->
-                    <th
-                      scope="col"
-                      style="
-                        text-align: center;
-                        border: 1px solid #000 !important;
-                      "
-                    >
-                      Nature economique{{ activite_id }}
-                    </th>
-                    <th
-                      scope="col"
-                      style="
-                        text-align: center;
-                        border: 1px solid #000 !important;
-                      "
-                    >
-                      type financement
-                    </th>
-                    <th
-                      scope="col"
-                      style="
-                        text-align: center;
-                        border: 1px solid #000 !important;
-                      "
-                    >
-                      Bailleur
-                    </th>
-                    <th
-                      scope="col"
-                      style="
-                        text-align: center;
-                        border: 1px solid #000 !important;
-                      "
-                    >
-                      nature depense
-                    </th>
-                    <th
-                      scope="col"
-                      style="
-                        text-align: center;
-                        border: 1px solid #000 !important;
-                      "
-                    >
-                      Dotation Actuelle
-                    </th>
-                    <th
-                      scope="col"
-                      style="
-                        text-align: center;
-                        border: 1px solid #000 !important;
-                      "
-                    >
-                      Report
-                    </th>
-                    <th
-                      scope="col"
-                      style="
-                        text-align: center;
-                        border: 1px solid #000 !important;
-                      "
-                    >
-                      Action
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="item1 in afficheBudgetParActivite" :key="item1.id">
-                    <td style="width: 40%; border: 1px solid #000 !important">
-                      {{ afficheNatureEconomique(item1.ligneeconomique_id) }}
-                    </td>
-                    <td style="width: 10%; border: 1px solid #000 !important">
-                      {{ afficheTypeFinancement(item1.type_financement_id) }}
-                    </td>
-                    <td style="width: 20%; border: 1px solid #000 !important">
-                      {{
-                        afficheSourceFinancement(item1.source_financement_id)
-                      }}
-                    </td>
-                    <td style="width: 10%; border: 1px solid #000 !important">
-                      {{ afficheGrandeNature(item1.nature_depense_id) }}
-                    </td>
-                    <td
-                      style="
-                        width: 10%;
-                        text-align: right;
-                        border: 1px solid #000 !important;
-                      "
-                    >
-                      {{
-                        formatageSommeSansFCFA(
-                          parseFloat(item1.dotation_actuelle)
-                        )
-                      }}
-                    </td>
-                    <td
-                      style="
-                        width: 15%;
-                        text-align: right;
-                        border: 1px solid #000 !important;
-                      "
-                    >
-                      {{
-                        formatageSommeSansFCFA(
-                          parseFloat(item1.dotation_report)
-                        )
-                      }}
-                    </td>
-                    <td
-                      style="
-                        width: 15%;
-                        text-align: right;
-                        border: 1px solid #000 !important;
-                      "
-                    >
-                      <span
-                        class="badge rounded-pill bg-primary"
-                        data-bs-toggle="modal"
-                        data-bs-target="#largeModal1"
-                        style="cursor: pointer"
-                        @click.prevent="AfficheModalModification(item1.id)"
-                        >Modifier</span
+              <div class="table-responsive">
+                <table class="table table-bordered border-primary">
+                  <thead>
+                    <tr style="border: 1px solid #000 !important">
+                      <!-- <th scope="col">#</th> -->
+                      <!-- <th scope="col">N</th> -->
+                      <th
+                        scope="col"
+                        style="
+                          text-align: center;
+                          border: 1px solid #000 !important;
+                        "
                       >
-                      <!-- <span
-                      class="badge bg-danger"
-                      style="cursor: pointer"
-                      @click.prevent="supprimerDotationNotifie(item1.id)"
-                      >Supprimer</span
-                    > -->
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+                        Nature economique
+                      </th>
+                      <th
+                        scope="col"
+                        style="
+                          text-align: center;
+                          border: 1px solid #000 !important;
+                        "
+                      >
+                        type financement
+                      </th>
+                      <th
+                        scope="col"
+                        style="
+                          text-align: center;
+                          border: 1px solid #000 !important;
+                        "
+                      >
+                        Bailleur
+                      </th>
+                      <th
+                        scope="col"
+                        style="
+                          text-align: center;
+                          border: 1px solid #000 !important;
+                        "
+                      >
+                        nature depense
+                      </th>
+                      <th
+                        scope="col"
+                        style="
+                          text-align: center;
+                          border: 1px solid #000 !important;
+                        "
+                      >
+                        Sous budget
+                      </th>
+                      <th
+                        scope="col"
+                        style="
+                          text-align: center;
+                          border: 1px solid #000 !important;
+                        "
+                      >
+                        Dotation Actuelle
+                      </th>
+                      <th
+                        scope="col"
+                        style="
+                          text-align: center;
+                          border: 1px solid #000 !important;
+                        "
+                      >
+                        Report
+                      </th>
+                      <th
+                        scope="col"
+                        style="
+                          text-align: center;
+                          border: 1px solid #000 !important;
+                        "
+                      >
+                        Total
+                      </th>
+                      <th
+                        scope="col"
+                        style="
+                          text-align: center;
+                          border: 1px solid #000 !important;
+                        "
+                      >
+                        Action
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      v-for="item1 in afficheBudgetParActivite"
+                      :key="item1.id"
+                    >
+                      <td style="width: 40%; border: 1px solid #000 !important">
+                        {{ afficheNatureEconomique(item1.ligneeconomique_id) }}
+                      </td>
+                      <td style="width: 10%; border: 1px solid #000 !important">
+                        {{ afficheTypeFinancement(item1.type_financement_id) }}
+                      </td>
+                      <td style="width: 20%; border: 1px solid #000 !important">
+                        {{
+                          afficheSourceFinancement(item1.source_financement_id)
+                        }}
+                      </td>
+                      <td style="width: 10%; border: 1px solid #000 !important">
+                        {{ afficheGrandeNature(item1.nature_depense_id) }}
+                      </td>
+                      <td style="width: 10%; border: 1px solid #000 !important">
+                        {{ AfficheSousBudget(item1.sous_budget_id) }}
+                      </td>
+                      <td
+                        style="
+                          width: 10%;
+                          text-align: right;
+                          border: 1px solid #000 !important;
+                        "
+                      >
+                        {{
+                          formatageSommeSansFCFA(
+                            parseFloat(item1.dotation_actuelle)
+                          )
+                        }}
+                      </td>
+                      <td
+                        style="
+                          width: 15%;
+                          text-align: right;
+                          border: 1px solid #000 !important;
+                        "
+                      >
+                        {{
+                          formatageSommeSansFCFA(
+                            parseFloat(item1.dotation_report)
+                          )
+                        }}
+                      </td>
+                      <td
+                        style="
+                          width: 15%;
+                          text-align: right;
+                          border: 1px solid #000 !important;
+                        "
+                      >
+                        {{
+                          formatageSommeSansFCFA(
+                            parseFloat(item1.dotation_total)
+                          )
+                        }}
+                      </td>
+                      <td
+                        style="
+                          width: 15%;
+                          text-align: right;
+                          border: 1px solid #000 !important;
+                        "
+                      >
+                        <span
+                          class="badge rounded-pill bg-primary"
+                          data-bs-toggle="modal"
+                          data-bs-target="#largeModal1"
+                          style="cursor: pointer"
+                          @click.prevent="AfficheModalModification(item1.id)"
+                          >Modifier</span
+                        >
+                        <span
+                          class="badge bg-danger"
+                          style="cursor: pointer"
+                          @click.prevent="supprimerBudgetEclate(item1.id)"
+                          >Supprimer</span
+                        >
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="5" style="
+                          text-align: right;
+                          border: 1px solid #000 !important;
+                        ">TOTAL</td>
+                      <td
+                        style="
+                          text-align: right;
+                          border: 1px solid #000 !important;
+                        "
+                      >
+                        {{ formatageSommeSansFCFA(parseFloat(sommeBudgetActuelle)) }}
+                      </td>
+                      <td
+                        style="
+                          text-align: right;
+                          border: 1px solid #000 !important;
+                        "
+                      >
+                        {{ formatageSommeSansFCFA(parseFloat(sommeBudgetReport)) }}
+                      </td>
+                      <td
+                        style="
+                          text-align: right;
+                          border: 1px solid #000 !important;
+                        "
+                      >
+                        {{ formatageSommeSansFCFA(parseFloat(sommeBudgetTotal)) }}
+                      </td>
+                      <td style="
+                          text-align: right;
+                          border: 1px solid #000 !important;
+                        "></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </TabContent>
             <TabContent title="IMPRIMER BUDGET PRIMITIF" icon="ti-printer">
               <table class="table table-bordered border-primary">
@@ -667,13 +775,13 @@
                       <span
                         class="badge bg-dark"
                         style="cursor: pointer"
-                        @click.prevent="voirBudgett(item1.id)"
+                        @click.prevent="voirBudgett(item1.id,dossier_id)"
                         >Budget</span
                       >
                       <span
                         class="badge bg-info"
                         style="cursor: pointer"
-                        @click.prevent="voirSousBudget(item1.id)"
+                        @click.prevent="voirSousBudget(item1.id,dossier_id)"
                         >Composante</span
                       >
                     </td>
@@ -682,6 +790,176 @@
               </table>
             </TabContent>
           </FormWizard>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="largeModal1" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Modifier Budget</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form class="row g-3">
+              <div class="col-9">
+                <label class="form-label"
+                  >Nature économique
+                  <span
+                    style="color: red !important; font-size: 15px !important"
+                    >*</span
+                  ></label
+                >
+                <model-list-select
+                  :list="getterNatureEconomique"
+                  v-model="ModifierBudget.ligneeconomique_id"
+                  option-value="id"
+                  option-text="libelle_code"
+                  placeholder="select item"
+                  style="border: 1px solid #000"
+                >
+                </model-list-select>
+              </div>
+              <div class="col-3">
+                <label class="form-label"
+                  >Nature dépense
+                  <span
+                    style="color: red !important; font-size: 15px !important"
+                    >*</span
+                  ></label
+                >
+                <model-list-select
+                  :list="getterNatureDepense"
+                  v-model="ModifierBudget.nature_depense_id"
+                  option-value="id"
+                  option-text="libelle"
+                  placeholder="select item"
+                  style="border: 1px solid #000"
+                >
+                </model-list-select>
+                <span
+                  style="color: red"
+                  v-if="ModifierBudget.nature_depense_id == 0"
+                  >Ce champs est obligatoire!
+                </span>
+              </div>
+              <div class="col-3">
+                <label class="form-label"
+                  >Type financement
+                  <span
+                    style="color: red !important; font-size: 15px !important"
+                    >*</span
+                  ></label
+                >
+                <model-list-select
+                  :list="getterTypeFinancement"
+                  v-model="ModifierBudget.type_financement_id"
+                  option-value="id"
+                  option-text="libelle"
+                  placeholder="select item"
+                  style="border: 1px solid #000"
+                >
+                </model-list-select>
+                <span
+                  style="color: red"
+                  v-if="ModifierBudget.type_financement_id == 0"
+                  >Ce champs est obligatoire!
+                </span>
+              </div>
+              <div class="col-9">
+                <label class="form-label"
+                  >Source de financement
+                  <span
+                    style="color: red !important; font-size: 15px !important"
+                    >*</span
+                  ></label
+                >
+                <model-list-select
+                  :list="AfficheBailleurParTypeModifier"
+                  v-model="ModifierBudget.source_financement_id"
+                  option-value="id"
+                  option-text="libelle"
+                  placeholder="select item"
+                  style="border: 1px solid #000"
+                >
+                </model-list-select>
+                <span
+                  style="color: red"
+                  v-if="ModifierBudget.source_financement_id == 0"
+                  >Ce champs est obligatoire!
+                </span>
+              </div>
+              <div class="col-12">
+                <label class="form-label">Sous budget</label>
+                <model-list-select
+                  :list="libelleSousBudgetModifier"
+                  v-model="ModifierBudget.sous_budget_id"
+                  option-value="id"
+                  option-text="libelle"
+                  placeholder="select item"
+                  style="border: 1px solid #000"
+                >
+                </model-list-select>
+              </div>
+              <div class="col-4">
+                <label class="form-label">Dotation Actuelle ( D )</label>
+                <money3
+                  v-model="ModifierBudget.dotation_actuelle"
+                  class="form-control"
+                  style="border: 1px solid #000 !important"
+                  v-bind="config"
+                ></money3>
+              </div>
+              <div class="col-4">
+                <label class="form-label">Dotation réport ( E )</label>
+
+                <money3
+                  v-model="ModifierBudget.dotation_report"
+                  class="form-control"
+                  style="border: 1px solid #000 !important"
+                  v-bind="config"
+                ></money3>
+              </div>
+              <div class="col-4">
+                <label class="form-label">Dotation Actuelle (F= D+E)</label>
+
+                <money3
+                  :model-value="
+                    parseFloat(ModifierBudget.dotation_actuelle) +
+                    parseFloat(ModifierBudget.dotation_report)
+                  "
+                  class="form-control"
+                  style="border: 1px solid #000 !important"
+                  v-bind="config"
+                  readonly
+                ></money3>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              @click.prevent="this.getBudgetEclate()"
+            >
+              Fermer
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              @click.prevent="modificationSection()"
+              data-bs-dismiss="modal"
+            >
+              Modifier
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -698,7 +976,7 @@ import { FormWizard, TabContent } from "vue3-form-wizard";
 import {
   formatageSomme,
   formatageSommeSansFCFA,
-} from "../Repositories/Repository";
+} from "../../Repositories/Repository";
 export default {
   components: {
     ModelListSelect,
@@ -708,7 +986,15 @@ export default {
   data() {
     return {
       TableauDossier: [],
-      ModifierBudget: {},
+      ModifierBudget: {
+        type_financement_id: 0,
+        source_financement_id: 0,
+        ligneeconomique_id: 0,
+        nature_depense_id: 0,
+        sous_budget_id: 0,
+        dotation_report: 0,
+        dotation_actuelle: 0,
+      },
       FormDataDossier: {
         dotation_report: 0,
         dotation_actuelle: 0,
@@ -789,6 +1075,34 @@ export default {
       "getterDotationAutreRessource",
       "getterListeBudgetEclate",
     ]),
+
+    sommeBudgetActuelle() {
+  return this.afficheBudgetParActivite
+          
+          .reduce(
+            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_actuelle),
+            0
+          )
+          .toFixed(0);
+},
+    sommeBudgetReport() {
+  return this.afficheBudgetParActivite
+          
+          .reduce(
+            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_report),
+            0
+          )
+          .toFixed(0);
+    },
+sommeBudgetTotal() {
+  return this.afficheBudgetParActivite
+          
+          .reduce(
+            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
+            0
+          )
+          .toFixed(0);
+},
     verificationBailleurSurNatureEconomique() {
       if (this.sous_budget_id == 0) {
         const qtereel = this.getterListeBudgetEclate.find(
@@ -898,6 +1212,20 @@ export default {
       //     }
       //   };
     },
+    AfficheSousBudget() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.getterSousBudget.find(
+            (qtreel) => qtreel.id == id
+          );
+
+          if (qtereel) {
+            return qtereel.libelle;
+          }
+          return 0;
+        }
+      };
+    },
     TauxDuBudgetGlobal() {
       return (
         (parseFloat(this.TotalGlobal) * parseFloat(this.AfficheTauxBudget)) /
@@ -910,7 +1238,7 @@ export default {
     },
     afficheBudgetParActivite() {
       return this.getterListeBudgetEclate.filter(
-        (item) => item.activite_id == this.activite_id
+        (item) => item.dossier_id == this.dossier_id
       );
     },
     ResultatDotation() {
@@ -1032,7 +1360,35 @@ export default {
         }
       };
     },
-
+    AfficheBailleurParTypeModifier() {
+      if (this.ModifierBudget.type_financement_id == 4) {
+        let collet = [];
+        this.getterBailleur.filter((item) => {
+          if (
+            item.type_financement_id == this.ModifierBudget.type_financement_id
+          ) {
+            let data = {
+              id: item.id,
+              libelle: item.libelle,
+            };
+            collet.push(data);
+          }
+        });
+        return collet;
+      } else {
+        let collet = [];
+        this.getterBailleur.filter((item) => {
+          if (item.type_financement_id == 0) {
+            let data = {
+              id: item.id,
+              libelle: item.libelle,
+            };
+            collet.push(data);
+          }
+        });
+        return collet;
+      }
+    },
     AfficheBailleurParType() {
       if (this.FormDataDossier.type_financement_id == 4) {
         let collet = [];
@@ -1061,6 +1417,19 @@ export default {
         });
         return collet;
       }
+    },
+    libelleSousBudgetModifier() {
+      let collet = [];
+      this.getterSousBudget.filter((item) => {
+        if (item.activite_id == this.ModifierBudget.activite_id) {
+          let data = {
+            id: item.id,
+            libelle: item.libelle,
+          };
+          collet.push(data);
+        }
+      });
+      return collet;
     },
     libelleSousBudget() {
       let collet = [];
@@ -1106,6 +1475,7 @@ export default {
     },
     ...mapActions("parametrage", [
       "getActivite",
+      "supprimerBudgetEclate",
       "getSousBudget",
       "getBudgetEclate",
       "getDotationRessourcePropre",
@@ -1119,18 +1489,43 @@ export default {
       "getNatureEconomique",
       "ajouterBudgetEclate",
       "getDotationAutreRessource",
+      "modifierBudget",
     ]),
+    modificationSection() {
+      var objetDirect1 = {
+        id: this.ModifierBudget.id,
+        dotation_report: this.ModifierBudget.dotation_report,
 
-    voirBudgett(id) {
+        dotation_actuelle: this.ModifierBudget.dotation_actuelle,
+        ligneeconomique_id: this.ModifierBudget.ligneeconomique_id,
+        type_financement_id: this.ModifierBudget.type_financement_id,
+        source_financement_id: this.ModifierBudget.source_financement_id,
+        dotation_total:
+          parseFloat(this.ModifierBudget.dotation_actuelle) +
+          parseFloat(this.ModifierBudget.dotation_report),
+        sous_budget_id: this.ModifierBudget.sous_budget_id,
+        nature_depense_id: this.ModifierBudget.nature_depense_id,
+      };
+
+      this.modifierBudget(objetDirect1);
+      this.modNatureDepense = {};
+    },
+    voirBudgett(id,id1) {
       this.$router.push({
         name: "VoirBudgetEclate",
-        params: { id: id },
+        params: { id: id, id1: id1},
       });
     },
-    voirSousBudget(id) {
+
+    retour() {
+      this.$router.push({
+        name: "Budget",
+      });
+    },
+    voirSousBudget(id,id1) {
       this.$router.push({
         name: "AfficheSousBudgetEclate",
-        params: { id: id },
+        params: { id: id , id1: id1},
       });
     },
     AfficheMontantBudget($id) {
@@ -1143,7 +1538,7 @@ export default {
         .toFixed(0);
     },
     AfficheModalModification(id) {
-      this.ModifierBudget = this.getterListeBudgetEclate.find(
+      this.ModifierBudget = this.afficheBudgetParActivite.find(
         (items) => items.id == id
       );
     },
