@@ -21,7 +21,24 @@
                 <i class="icon-arrow-right"></i>
               </li>
               <li class="nav-item">
-                <a href="#">Liste des OP Provisoire</a>
+                <a href="#">Liste des OP Définitif</a>
+              </li>
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+              <li class="nav-item">
+                <span
+                  class="badge badge-warning"
+                  style="cursor: pointer; color: #000"
+                  @click.prevent="retour(dossier_id)"
+                  ><i class="fas fa-arrow-alt-circle-left"></i> Retour</span
+                >
               </li>
             </ul>
           </div>
@@ -129,7 +146,7 @@
                       title="Imprimer OP"
                       class="fas fa-print"
                       style="cursor: pointer; color: #77abd6"
-                      @click.prevent="fonctionImprimer(item.id)"
+                      @click.prevent="fonctionImprimer(item.id,dossier_id)"
                     ></span>
                   </td>
                 </tr>
@@ -373,7 +390,7 @@ export default {
     afficheListeOPprovisoire() {
       return this.getterListeOPParUser.filter(
         (item) =>
-          item.activite_id == this.dossier_id && item.type_ordre_paiement == 4
+          item.bordereau_id == this.dossier_id && item.type_ordre_paiement == 4
       );
     },
     exerciceBudgetaire() {
@@ -401,10 +418,17 @@ export default {
       "getExerciceBudgetaire",
       "getInformationBudget",
     ]),
-    fonctionImprimer(id) {
+     retour(id) {
+      this.$router.push({
+        name: "OrdrePaiementDefinitif",
+        
+        params: { id: id },
+      });
+    },
+    fonctionImprimer(id,id1) {
       this.$router.push({
         name: "ImprimerOp",
-        params: { id: id },
+        params: { id: id,id1: id1 },
       });
     },
     AfficheVentilationBudget(id) {

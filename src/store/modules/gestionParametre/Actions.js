@@ -1167,6 +1167,22 @@ export function VisaReamenagementBudgetEclate({ commit }, nouveau) {
       }
     }).catch();
 }
+
+export function AjouterNouvelleNature({ commit }, nouveau) {
+ 
+    apiGuest.post("/AjouterNouvelleNature", nouveau, { headers: authHeader() })
+    .then(response => {
+      if (response.status == 201) {
+        commit("AJOUTER_NOUVELLE_NATURE", response.data);
+        // dispatch("getBudgetEclate");
+       toast("Enregistrement effectué avec succès!", {
+        "theme": "auto",
+        "type": "success",
+        "dangerouslyHTMLString": true
+})
+      }
+    }).catch();
+}
 // export function getAfficherDotation({ commit }, objet1) {
 
 //   return new Promise((resolve, reject) => {
@@ -1209,7 +1225,20 @@ export function getBudgetViseParActvite({ commit }, objet) {
   });
 
 }
+export function getBudgetViseModifierParActvite({ commit }, objet) {
 
+  return new Promise((resolve, reject) => {
+    apiGuest
+      .get("/listeBudgetModifierViseParActivite/" + objet.id, { headers: authHeader() })
+      .then(response => {
+        resolve(response);
+        commit("GET_BUDGET_MODIFIER_VISE_PAR_ACTIVITE", response.data);
+      }).catch(error => {
+        reject(error);
+      });
+  });
+
+}
 export function getBudgetEclateViseGroupeParActivte({ commit }) {
   apiGuest.get("/AfficheBudgetViseGroupeParActivite", { headers: authHeader() })
     .then(response => {

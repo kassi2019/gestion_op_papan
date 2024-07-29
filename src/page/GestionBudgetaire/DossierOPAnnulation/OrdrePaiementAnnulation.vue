@@ -23,6 +23,23 @@
               <li class="nav-item">
                 <a href="#">OP Annulation</a>
               </li>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+              <li class="nav-item">
+                <span
+                  class="badge badge-warning"
+                  style="cursor: pointer; color: #000"
+                  @click.prevent="retour"
+                  ><i class="fas fa-arrow-alt-circle-left"></i> Retour</span
+                >
+              </li>
             </ul>
           </div>
         </div>
@@ -99,7 +116,7 @@
                       >
                       </model-list-select>
                       <span style="color: red" v-if="ordre_paiement_id == 0"
-                        >Ce champs est obligatoire!
+                        >veuillez sélectionner le numéro de l'OP annulé ?
                       </span>
                     </div>
                     <div class="col-12">
@@ -211,16 +228,17 @@
                       <money3
                         class="form-control"
                         v-bind="config"
-                        v-model="montant_prestation"
+                        :model-value="montantPrestation"
+                        readonly
                       ></money3>
-                      <span style="color: red" v-if="montant_prestation == 0"
+                      <!-- <span style="color: red" v-if="montant_prestation == 0"
                         >Ce champs est obligatoire!
-                      </span>
-                      <span
+                      </span> -->
+                      <!-- <span
                         style="color: red"
                         v-if="parseFloat(montant_prestation) > 0"
                         >Montant de l'OP doit est négatif!
-                      </span>
+                      </span> -->
                     </div>
                   </form>
                 </div>
@@ -302,7 +320,7 @@
                       <money3
                         class="form-control"
                         v-bind="config"
-                        v-model="montant_prestation"
+                        :model-value="montantPrestation"
                         readonly
                       ></money3>
                     </div>
@@ -359,11 +377,7 @@
                     <div class="col-10"></div>
                     <div class="col-2">
                       <button
-                        v-if="
-                          activite_id == 0 ||
-                          montant_prestation == 0 ||
-                          ordre_paiement_id == 0
-                        "
+                        v-if="activite_id == 0 || ordre_paiement_id == 0"
                         disabled
                         type="button"
                         class="btn btn-success"
@@ -385,8 +399,8 @@
               </div></TabContent
             >
             <TabContent title="VERIFICATION OP" icon="ti-printer"
-              ><RecapBordereauAnnulation/></TabContent
-            >
+              ><RecapBordereauAnnulation
+            /></TabContent>
           </FormWizard>
         </div>
       </div>
@@ -564,7 +578,7 @@ import { mapActions, mapGetters } from "vuex";
 import { ModelListSelect } from "vue-search-select";
 import { Money3Component } from "v-money3";
 import { FormWizard, TabContent } from "vue3-form-wizard";
-import RecapBordereauAnnulation from "./RecapBordereauAnnulation.vue"
+import RecapBordereauAnnulation from "./RecapBordereauAnnulation.vue";
 import {
   formatageSomme,
   formatageSommeSansFCFA,
@@ -575,7 +589,7 @@ export default {
     ModelListSelect,
     FormWizard,
     TabContent,
-    RecapBordereauAnnulation
+    RecapBordereauAnnulation,
   },
   data() {
     return {
@@ -945,6 +959,23 @@ export default {
         }
       };
     },
+    montantPrestation() {
+      return -this.AfficheMontantOrdrePaiement(this.ordre_paiement_id);
+    },
+    AfficheMontantOrdrePaiement() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.getterInfoOrdrePaiement.find(
+            (qtreel) => qtreel.id == id
+          );
+
+          if (qtereel) {
+            return qtereel.montant_prestation;
+          }
+          return 0;
+        }
+      };
+    },
     afficheTypeFiancement_id() {
       return (id) => {
         if (id != null && id != "") {
@@ -1302,7 +1333,7 @@ export default {
     CumulDepense() {
       return (
         parseFloat(this.afficheMontantCumul) +
-        parseFloat(this.montant_prestation)
+        parseFloat(this.montantPrestation)
       );
     },
     afficheDotaion() {
@@ -1769,6 +1800,11 @@ export default {
       "getOpParActvite",
       "getInformationOp",
     ]),
+    retour() {
+      this.$router.push({
+        name: "InformationBordereauOPAnnulation",
+      });
+    },
     AfficheModalModificationFacture(id) {
       this.FormDataDossierMod = this.TableauDossier.find(
         (items) => items.nombre == id
@@ -1876,7 +1912,7 @@ export default {
         objet_depense: this.afficheObjet(this.ordre_paiement_id),
         numero_ordre_paiement: this.automatiseNumeroOP,
         type_ordre_paiement: 3,
-        montant_prestation: this.montant_prestation,
+        montant_prestation: this.montantPrestation,
         nature_economique_id: this.afficheNatureEconomique_id(
           this.ordre_paiement_id
         ),

@@ -1,83 +1,103 @@
 <template>
   <div class="container">
     <div class="col-md-12">
-      <div class="card" style="box-shadow: 5px 5px  #f9d531;">
+      <div class="card" style="box-shadow: 5px 5px #f9d531">
         <div class="card-header">
-            <div class="page-header">
-						<h6 class="fw-bold mb-3">Liste des Budgets Notifiés</h6>
-						<ul class="breadcrumbs mb-3">
-							<li class="nav-home">
-								<a href="#">
-									<i class="icon-home"></i>
-								</a>
-							</li>
-							<li class="separator">
-								<i class="icon-arrow-right"></i>
-							</li>
-							<li class="nav-item">
-								<a href="#">Gestion budgétaire</a>
-							</li>
-							<li class="separator">
-								<i class="icon-arrow-right"></i>
-							</li>
-							<li class="nav-item">
-								<a href="#">Budget Notifié</a>
-							</li>
-						</ul>
-					</div>
-          <div class="d-flex align-items-center">
-            <!-- <h4 class="card-title">Liste Budget notifié</h4> -->
-
-            <span
-              class="badge badge-primary"
-              style="cursor: pointer"
-              data-bs-toggle="modal"
-              data-bs-target="#largeModal"
-              >Ajouter</span
-            >
+          <div class="page-header">
+            <h6 class="fw-bold mb-3">Liste Budgets Visé</h6>
+            <ul class="breadcrumbs mb-3">
+              <li class="nav-home">
+                <a href="#">
+                  <i class="icon-home"></i>
+                </a>
+              </li>
+              <li class="separator">
+                <i class="icon-arrow-right"></i>
+              </li>
+              <li class="nav-item">
+                <a href="#">Gestion budgétaire</a>
+              </li>
+              <li class="separator">
+                <i class="icon-arrow-right"></i>
+              </li>
+              <li class="nav-item">
+                <a href="#">Budget Visé</a>
+              </li>
+            </ul>
           </div>
         </div>
         <div class="card-body">
           <div class="table-responsive">
-            <table class="table table-bordered">
+            <table class="table table-bordered border-primary">
               <thead>
                 <tr>
-                  <!-- <th scope="col">#</th> -->
-                  <!-- <th scope="col">N</th> -->
-                  <th scope="col" style="text-align: center">Exercice</th>
-                  <th scope="col" style="text-align: center">Activité</th>
-                  <th scope="col" style="text-align: center">
-                    Dotation (FCFA)
+                  <th
+                    scope="col"
+                    style="
+                      text-align: center;
+                      border: 1px solid #000 !important;
+                    "
+                  >
+                    Numéro
                   </th>
-                  <th scope="col" style="text-align: center">Action</th>
+                  <th
+                    scope="col"
+                    style="
+                      text-align: center;
+                      border: 1px solid #000 !important;
+                    "
+                  >
+                    Activité
+                  </th>
+
+                  <th
+                    scope="col"
+                    style="
+                      text-align: center;
+                      border: 1px solid #000 !important;
+                    "
+                  >
+                    Total (FCFA)
+                  </th>
+                  <th
+                    scope="col"
+                    style="
+                      text-align: center;
+                      border: 1px solid #000 !important;
+                    "
+                  >
+                    Action
+                  </th>
                 </tr>
               </thead>
               <tbody>
-                <!-- <tr v-for="item1 in getterDotationNotifie" :key="item1.id">
-                  <td style="width: 10%">{{ item1.exercice }}</td>
-                  <td style="width: 55%">
-                    {{ libelleActiviteTableau(item1.activite_id) }}
+                <tr v-for="(item1, index) in getterActivite" :key="item1.id">
+                  <td style="border: 1px solid #000 !important">
+                    {{ index + 1 }}
                   </td>
-                  <td style="width: 15%; text-align: right">
-                    {{ formatageSommeSansFCFA(parseFloat(item1.dotation)) }}
+                  <td style="width: 55%; border: 1px solid #000 !important">
+                    {{ item1.code }}-{{ item1.libelle }}
                   </td>
-                  <td>
+                  <td
+                    style="text-align: right; border: 1px solid #000 !important"
+                  >
+                    {{ formatageSommeSansFCFA(parseFloat(52)) }}
+                  </td>
+                  <td style="border: 1px solid #000 !important">
                     <span
-                      class="badge rounded-pill bg-primary"
-                      data-bs-toggle="modal"
-                      data-bs-target="#largeModal1"
+                      class="badge bg-dark"
                       style="cursor: pointer"
-                      @click.prevent="AfficheModalModification(item1.id)"
-                      >Modifier</span
+                      @click.prevent="voirBudgett(item1.id)"
+                      >Budget</span
                     >
                     <span
-                      class="badge bg-danger"
+                      class="badge bg-info"
                       style="cursor: pointer"
-                      @click.prevent="supprimerDotationNotifie(item1.id)"
-                      >Supprimer</span
+                      @click.prevent="voirSousBudget(item1.id)"
+                      >Composante</span
                     >
                   </td>
-                </tr> -->
+                </tr>
               </tbody>
             </table>
           </div>
@@ -87,9 +107,6 @@
     <!-- modal de modification -->
 
     <!-- modal de modification -->
-
-    
-  
   </div>
 </template>
 
@@ -102,7 +119,7 @@ import {
   formatageSommeSansFCFA,
 } from "../../Repositories/Repository";
 export default {
-//   components: { ModelListSelect },
+  //   components: { ModelListSelect },
   data() {
     return {
       ajouterNatureDepense: {
@@ -132,10 +149,10 @@ export default {
     };
   },
   created() {
-     this.getActivite();
-      this.getExerciceBudgetaire();
+    this.getActivite();
+    //this.getExerciceBudgetaire();
     //  // this.getGroupeActivitebudgetNotifie()
-      this.getDotationNotifie();
+    // this.getDotationNotifie();
   },
   computed: {
     ...mapGetters("parametrage", [
@@ -144,6 +161,15 @@ export default {
       "getterDotationNotifie",
       "getterGrpeActiviteBudgetNotifie",
     ]),
+    AfficheMontantBudget($id) {
+      return this.getterListeBudgetEclate
+        .filter((item) => item.activite_id == $id)
+        .reduce(
+          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
+          0
+        )
+        .toFixed(0);
+    },
     libelleActivite() {
       let collet = [];
       this.getterActivite.filter((item) => {
@@ -202,7 +228,18 @@ export default {
       "supprimerDotationNotifie",
       "getGroupeActivitebudgetNotifie",
     ]),
-
+    voirSousBudget(id,id1) {
+      this.$router.push({
+        name: "afficheBudgetDesComposante",
+        params: { id: id , id1: id1},
+      });
+    },
+  voirBudgett(id) {
+      this.$router.push({
+        name: "afficheBudgetViseParActivite",
+        params: { id: id},
+      });
+    },
     AfficheModalModification(id) {
       this.modNatureDepense = this.getterDotationNotifie.find(
         (items) => items.id == id

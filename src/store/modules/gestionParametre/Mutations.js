@@ -387,6 +387,9 @@ export const GET_AFFICHE_BUDGET_ECLATE = (state, value) => {
 export const SUPPRIMER_BUDGET_ECLATE = (state, id) => {
     state.stateListeBudgetEclate = state.stateListeBudgetEclate.filter(titre => titre.id != id)
 };
+export const AJOUTER_NOUVELLE_NATURE = (state, elementAjouter) => {
+    state.stateListeBudgetEclate.unshift(elementAjouter)
+}
 export const MODIFIER_BUDGET_ECLATE = (state, elementModif) => {
     state.stateListeBudgetEclate = state.stateListeBudgetEclate.map(response => {
 
@@ -401,6 +404,9 @@ export const GET_AFFICHE_BUDGET_MODIFIER_EN_PROJET = (state, value) => {
 }
 export const GET_BUDGET_VISE_PAR_ACTIVITE = (state,value)=>{
     state.stateBudgetViseParActivite=value
+}
+export const GET_BUDGET_MODIFIER_VISE_PAR_ACTIVITE = (state,value)=>{
+    state.stateAfficheNouvelleNature=value
 }
 export const GET_BUDGET_VISE_GROUPE_PAR_ACTIVITE = (state,value)=>{
     state.stateBudgetViseGroupeParActivite=value

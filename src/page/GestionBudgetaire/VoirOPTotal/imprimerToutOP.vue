@@ -36,7 +36,7 @@
                   ------------------------- <br />
                   Fonds d'Aide à la Production Avicole Nationale <br />
                   <img
-                    src="../../../public/csslogin/images/logo1.jpg"
+                    src="../../../../public/csslogin/images/logo1.jpg"
                     width="150px;"
                   />
                 </h6>
@@ -52,7 +52,7 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                 <img
-                  src="../../../public/assets/img/amoirie.png"
+                  src="../../../../public/assets/img/amoirie.png"
                   width="50px;"
                   style="text-align: center"
                 />
@@ -757,7 +757,7 @@ import { mapActions, mapGetters } from "vuex";
 import {
   formatageSomme,
   formatageSommeSansFCFA,
-} from "../Repositories/Repository";
+} from "../../Repositories/Repository";
 export default {
   components: {},
   data() {
@@ -1216,27 +1216,12 @@ export default {
       "getCompteBancaire",
     ]),
     retour(id) {
-      if (this.typeOrdrePaiement == 1) {
+    
         this.$router.push({
-        name: "AfficheOpActivite",
+        name: "listeToutOP",
         params: { id: id},
       });
-      } else if (this.typeOrdrePaiement == 2) {
-          this.$router.push({
-        name: "AfficheOpDirectActivite",
-        params: { id: id},
-      });
-      }else if (this.typeOrdrePaiement == 3) {
-          this.$router.push({
-        name: "AfficheOPAnnulation",
-        params: { id: id},
-      });
-      }else if (this.typeOrdrePaiement == 4) {
-          this.$router.push({
-        name: "AfficheOPDefinitif",
-        params: { id: id},
-      });
-      }
+      
       
     },
     formaterDate(date) {

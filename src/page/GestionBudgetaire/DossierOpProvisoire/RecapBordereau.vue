@@ -4,7 +4,7 @@
       <div class="card" style="box-shadow: 5px 5px #f9d531">
         <div class="card-header">
           <div class="page-header">
-            <h6 class="fw-bold mb-3">Information Sur le Bordereau</h6>
+            <h6 class="fw-bold mb-3">Information Sur le Bordereau{{ id_dossier }}</h6>
             <ul class="breadcrumbs mb-3">
               <li class="nav-home">
                 <a href="#">
@@ -482,6 +482,10 @@ export default {
     this.getDotationReport();
     this.getInformationBudget();
   },
+  props: [
+    "id_dossier",
+    
+  ],
   computed: {
     ...mapGetters("parametrage", [
       "getterActivite",

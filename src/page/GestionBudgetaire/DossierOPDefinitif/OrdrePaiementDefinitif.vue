@@ -23,6 +23,23 @@
               <li class="nav-item">
                 <a href="#">OP Définitif</a>
               </li>
+                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+              <li class="nav-item">
+                <span
+                  class="badge badge-warning"
+                  style="cursor: pointer; color: #000"
+                  @click.prevent="retour"
+                  ><i class="fas fa-arrow-alt-circle-left"></i> Retour</span
+                >
+              </li>
             </ul>
           </div>
         </div>
@@ -99,7 +116,7 @@
                       >
                       </model-list-select>
                       <span style="color: red" v-if="ordre_paiement_id == 0"
-                        >Ce champs est obligatoire!
+                        >veuillez sélectionner le numéro de l'OP a régularisé ?
                       </span>
                     </div>
                     <div class="col-12">
@@ -361,7 +378,7 @@
             <TabContent title="SAISIR FACTURE DEFINITIVE" icon="ti-files">
               <div class="row">
                 <div class="col-lg-12">
-                  <form class="row g-3">
+                   <form class="row g-3">
                     <div class="col-3">
                       <label class="form-label"
                         >Numéro de la facture
@@ -483,7 +500,7 @@
                         ></label
                       >
                       <input
-                        type="text"
+                        type="number"
                         class="form-control"
                         v-model="FormDataDossier.quantite"
                       />
@@ -525,7 +542,9 @@
                       ></money3>
                     </div>
                     <div class="col-3">
-                      <label class="form-label">Exonéré de la TVA 18%</label>
+                      <label class="form-label"
+                        >Exonéré de la TVA {{ AfficheTauxTVA }}% ?</label
+                      >
                       <select
                         class="form-select form-control"
                         id="defaultSelect"
@@ -537,12 +556,40 @@
                         <option value="1">Non</option>
                       </select>
                     </div>
-                    <div class="col-2">
-                      <label class="form-label">Autre taux (%) ( D )</label>
+                    <div class="col-3">
+                      <label class="form-label">Type de Forfait</label>
+                      <select
+                        class="form-select form-control"
+                        id="defaultSelect"
+                        style="border: 1px solid #000 !important"
+                        v-model="FormDataDossier.type_forfait"
+                      >
+                        <option value="taux">Taux</option>
+                        <option value="montant">Montant</option>
+                      </select>
+                    </div>
+                    <div class="col-3">
+                      <label class="form-label"
+                        >Autre {{ FormDataDossier.type_forfait }}
+                        <span v-if="FormDataDossier.type_forfait == 'taux'"
+                          >%</span
+                        >
+                        ( D )</label
+                      >
+                      <input
+                        type="number"
+                        class="form-control"
+                        v-model="autre_taux"
+                      />
+                    </div>
+                    <div class="col-6">
+                      <label class="form-label"
+                        >Libelle Autre {{ FormDataDossier.type_forfait }}</label
+                      >
                       <input
                         type="text"
                         class="form-control"
-                        v-model="autre_taux"
+                        v-model="FormDataDossier.libelle_taux"
                       />
                     </div>
                     <div class="col-2">
@@ -554,7 +601,7 @@
                         readonly
                       />
                     </div>
-                    <div class="col-2">
+                    <div class="col-3">
                       <label class="form-label"
                         >Cumul des autres taxes ( E = C * D)</label
                       >
@@ -1471,6 +1518,8 @@ export default {
         quantite: 0,
         prix_unitaire: 0,
         exonere: 0,
+        type_forfait: "taux",
+        libelle_taux: "",
       },
       FormDataDossierMod: {
         designation: "",
@@ -2039,7 +2088,11 @@ export default {
       );
     },
     afficheAutreMontant() {
-      return (parseFloat(this.autre_taux) / 100) * parseFloat(this.MontantHt);
+      if (this.FormDataDossier.type_forfait == "taux") {
+        return (parseFloat(this.autre_taux) / 100) * parseFloat(this.MontantHt);
+      } else {
+        return parseFloat(this.MontantHt) + parseFloat(this.autre_taux);
+      }
     },
 
     AfficheTauxTVAMod() {
@@ -2702,6 +2755,11 @@ export default {
       "ajouterOrdrePaiement",
       "getInformationOp",
     ]),
+     retour() {
+      this.$router.push({
+        name: "InformationBordereauOPDefinitif",
+      });
+    },
     AfficheModalModificationFacture(id) {
       this.FormDataDossierMod = this.TableauDossier.find(
         (items) => items.nombre == id

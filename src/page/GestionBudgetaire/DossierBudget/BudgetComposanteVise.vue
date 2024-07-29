@@ -742,7 +742,10 @@ export default {
   created() {
     this.Activite_id = this.$route.params.id;
     this.Activite_id1 = this.$route.params.id1;
-     this.dossier_id= this.$route.params.id2;
+    let objet = {
+      id: this.Activite_id1,
+    };
+    this.getBudgetViseParActvite(objet);
     this.getSousBudget();
     this.getBudgetEclate();
     this.getBailleur();
@@ -759,14 +762,14 @@ export default {
       "getterBailleur",
       "getterNatureEconomique",
       "getterSousBudget",
-      "getterListeBudgetEclate",
+      "getterBudgetViseParActivite",
       "getterExerciceBudgetaire",
       "getterDotationNotifie",
 
       "getterNatureDepense",
     ]),
     TotalDotationBailleur() {
-      return this.getterListeBudgetEclate
+      return this.getterBudgetViseParActivite
         .filter(
           (item) =>
             item.activite_id == this.Activite_id &&
@@ -847,7 +850,7 @@ export default {
     GroupeNatureEconomiqueInvestissements() {
       // return (id) => {
 
-      let objet = this.getterListeBudgetEclate.filter(
+      let objet = this.getterBudgetViseParActivite.filter(
         (item) =>
           this.afficheCodeNatureDepense(item.nature_depense_id) == 4 &&
           item.sous_budget_id == this.Activite_id
@@ -871,7 +874,7 @@ export default {
     GroupeNatureEconomiquePersonnel() {
       // return (id) => {
 
-      let objet = this.getterListeBudgetEclate.filter(
+      let objet = this.getterBudgetViseParActivite.filter(
         (item) =>
           this.afficheCodeNatureDepense(item.nature_depense_id) == 1 &&
           item.sous_budget_id == this.Activite_id
@@ -895,7 +898,7 @@ export default {
     GroupeBailleur() {
       // return (id) => {
 
-      let objet = this.getterListeBudgetEclate.filter(
+      let objet = this.getterBudgetViseParActivite.filter(
         (item) => item.activite_id == this.Activite_id1
       );
       //  let vm=this
@@ -936,7 +939,7 @@ export default {
 
     // 2-presonnel
     TotalDotationBailleurPersonnel() {
-      return this.getterListeBudgetEclate
+      return this.getterBudgetViseParActivite
         .filter(
           (item) =>
             item.sous_budget_id == this.Activite_id &&
@@ -963,7 +966,7 @@ export default {
     // 3 biens service
 
     TotalDotationBailleurBiensService() {
-      return this.getterListeBudgetEclate
+      return this.getterBudgetViseParActivite
         .filter(
           (item) =>
             item.sous_budget_id == this.Activite_id &&
@@ -989,7 +992,7 @@ export default {
     GroupeNatureEconomiqueBiensService() {
       // return (id) => {
 
-      let objet = this.getterListeBudgetEclate.filter(
+      let objet = this.getterBudgetViseParActivite.filter(
         (item) =>
           this.afficheCodeNatureDepense(item.nature_depense_id) == 2 &&
           item.sous_budget_id == this.Activite_id
@@ -1013,7 +1016,7 @@ export default {
 
     // transfert
     TotalDotationBailleurTransfert() {
-      return this.getterListeBudgetEclate
+      return this.getterBudgetViseParActivite
         .filter(
           (item) =>
             item.sous_budget_id == this.Activite_id &&
@@ -1037,7 +1040,7 @@ export default {
       return "";
     },
     totalGlobal() {
-      return this.getterListeBudgetEclate
+      return this.getterBudgetViseParActivite
         .filter((item) => item.sous_budget_id == this.Activite_id)
         .reduce(
           (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
@@ -1048,7 +1051,7 @@ export default {
     GroupeNatureEconomiqueTransfert() {
       // return (id) => {
 
-      let objet = this.getterListeBudgetEclate.filter(
+      let objet = this.getterBudgetViseParActivite.filter(
         (item) =>
           this.afficheCodeNatureDepense(item.nature_depense_id) == 3 &&
           item.sous_budget_id == this.Activite_id
@@ -1083,12 +1086,12 @@ export default {
       "modifierDotationNotifie",
       "supprimerDotationNotifie",
       "getGroupeActivitebudgetNotifie",
-      "getBudgetEclate",
+      "getBudgetEclate","getBudgetViseParActvite"
     ]),
-    retour(id,id1) {
+    retour(id) {
       this.$router.push({
-        name: "AfficheSousBudgetEclate",
-        params: { id: id,id1: id1 },
+        name: "afficheBudgetDesComposante",
+        params: { id: id },
       });
     },
     genererEnPdf4() {
@@ -1096,7 +1099,7 @@ export default {
     },
 
     totalGlobalReport($id1) {
-      return this.getterListeBudgetEclate
+      return this.getterBudgetViseParActivite
         .filter(
           (item) =>
             item.sous_budget_id == this.Activite_id &&
@@ -1109,7 +1112,7 @@ export default {
         .toFixed(0);
     },
     totalGlobalNotifie($id1) {
-      return this.getterListeBudgetEclate
+      return this.getterBudgetViseParActivite
         .filter(
           (item) =>
             item.sous_budget_id == this.Activite_id &&
@@ -1123,7 +1126,7 @@ export default {
     },
 
     TotalNotifierBailleur($id1) {
-      return this.getterListeBudgetEclate
+      return this.getterBudgetViseParActivite
         .filter(
           (item) =>
             item.sous_budget_id == this.Activite_id &&
@@ -1137,7 +1140,7 @@ export default {
         .toFixed(0);
     },
     TotalReportBailleur($id1) {
-      return this.getterListeBudgetEclate
+      return this.getterBudgetViseParActivite
         .filter(
           (item) =>
             item.sous_budget_id == this.Activite_id &&
@@ -1151,7 +1154,7 @@ export default {
         .toFixed(0);
     },
     MontantParLigneInvestissements($id) {
-      return this.getterListeBudgetEclate
+      return this.getterBudgetViseParActivite
         .filter(
           (item) =>
             item.sous_budget_id == this.Activite_id &&
@@ -1165,7 +1168,7 @@ export default {
         .toFixed(0);
     },
     TotalReportParLigneInvestissements($id) {
-      return this.getterListeBudgetEclate
+      return this.getterBudgetViseParActivite
         .filter(
           (item) =>
             item.sous_budget_id == this.Activite_id &&
@@ -1179,7 +1182,7 @@ export default {
         .toFixed(0);
     },
     MontantReportParLigneInvestissements($id, $id1) {
-      return this.getterListeBudgetEclate
+      return this.getterBudgetViseParActivite
         .filter(
           (item) =>
             item.sous_budget_id == this.Activite_id &&
@@ -1194,7 +1197,7 @@ export default {
         .toFixed(0);
     },
     MontantNotifieParLigneInvestissements($id, $id1) {
-      return this.getterListeBudgetEclate
+      return this.getterBudgetViseParActivite
         .filter(
           (item) =>
             item.sous_budget_id == this.Activite_id &&
@@ -1210,7 +1213,7 @@ export default {
     },
     // 2 personnel
     TotalNotifierBailleurPersonnel($id1) {
-      return this.getterListeBudgetEclate
+      return this.getterBudgetViseParActivite
         .filter(
           (item) =>
             item.sous_budget_id == this.Activite_id &&
@@ -1224,7 +1227,7 @@ export default {
         .toFixed(0);
     },
     TotalReportBailleurPersonnel($id1) {
-      return this.getterListeBudgetEclate
+      return this.getterBudgetViseParActivite
         .filter(
           (item) =>
             item.sous_budget_id == this.Activite_id &&
@@ -1238,7 +1241,7 @@ export default {
         .toFixed(0);
     },
     MontantReportParLignePersonnel($id, $id1) {
-      return this.getterListeBudgetEclate
+      return this.getterBudgetViseParActivite
         .filter(
           (item) =>
             item.sous_budget_id == this.Activite_id &&
@@ -1253,7 +1256,7 @@ export default {
         .toFixed(0);
     },
     MontantNotifieParLignePersonnel($id, $id1) {
-      return this.getterListeBudgetEclate
+      return this.getterBudgetViseParActivite
         .filter(
           (item) =>
             item.sous_budget_id == this.Activite_id &&
@@ -1268,7 +1271,7 @@ export default {
         .toFixed(0);
     },
     MontantParLignePersonnel($id) {
-      return this.getterListeBudgetEclate
+      return this.getterBudgetViseParActivite
         .filter(
           (item) =>
             item.sous_budget_id == this.Activite_id &&
@@ -1283,7 +1286,7 @@ export default {
     },
     // 2 biens service
     TotalNotifierBailleurBienService($id1) {
-      return this.getterListeBudgetEclate
+      return this.getterBudgetViseParActivite
         .filter(
           (item) =>
             item.sous_budget_id == this.Activite_id &&
@@ -1297,7 +1300,7 @@ export default {
         .toFixed(0);
     },
     TotalReportBailleurBienService($id1) {
-      return this.getterListeBudgetEclate
+      return this.getterBudgetViseParActivite
         .filter(
           (item) =>
             item.sous_budget_id == this.Activite_id &&
@@ -1311,7 +1314,7 @@ export default {
         .toFixed(0);
     },
     MontantParLigneBiensService($id) {
-      return this.getterListeBudgetEclate
+      return this.getterBudgetViseParActivite
         .filter(
           (item) =>
             item.sous_budget_id == this.Activite_id &&
@@ -1325,7 +1328,7 @@ export default {
         .toFixed(0);
     },
     MontantNotifieParLigneBiensService($id, $id1) {
-      return this.getterListeBudgetEclate
+      return this.getterBudgetViseParActivite
         .filter(
           (item) =>
             item.sous_budget_id == this.Activite_id &&
@@ -1340,7 +1343,7 @@ export default {
         .toFixed(0);
     },
     MontantReportParLigneBiensService($id, $id1) {
-      return this.getterListeBudgetEclate
+      return this.getterBudgetViseParActivite
         .filter(
           (item) =>
             item.sous_budget_id == this.Activite_id &&
@@ -1357,7 +1360,7 @@ export default {
 
     /// transfert
     TotalNotifierBailleurTransfert($id1) {
-      return this.getterListeBudgetEclate
+      return this.getterBudgetViseParActivite
         .filter(
           (item) =>
             item.sous_budget_id == this.Activite_id &&
@@ -1371,7 +1374,7 @@ export default {
         .toFixed(0);
     },
     TotalReportBailleurTransfert($id1) {
-      return this.getterListeBudgetEclate
+      return this.getterBudgetViseParActivite
         .filter(
           (item) =>
             item.sous_budget_id == this.Activite_id &&
@@ -1385,7 +1388,7 @@ export default {
         .toFixed(0);
     },
     MontantParLigneTransfert($id) {
-      return this.getterListeBudgetEclate
+      return this.getterBudgetViseParActivite
         .filter(
           (item) =>
             item.sous_budget_id == this.Activite_id &&
@@ -1399,7 +1402,7 @@ export default {
         .toFixed(0);
     },
     MontantNotifieParLigneTransfert($id, $id1) {
-      return this.getterListeBudgetEclate
+      return this.getterBudgetViseParActivite
         .filter(
           (item) =>
             item.sous_budget_id == this.Activite_id &&
@@ -1414,7 +1417,7 @@ export default {
         .toFixed(0);
     },
     MontantReportParLigneTransfert($id, $id1) {
-      return this.getterListeBudgetEclate
+      return this.getterBudgetViseParActivite
         .filter(
           (item) =>
             item.sous_budget_id == this.Activite_id &&
@@ -1433,7 +1436,7 @@ export default {
     // },
 
     AfficheMontantBudget($id) {
-      return this.getterListeBudgetEclate
+      return this.getterBudgetViseParActivite
         .filter((item) => item.sous_budget_id == $id)
         .reduce(
           (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),

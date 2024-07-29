@@ -5,12 +5,19 @@
         <div class="card-header">
           <div class="d-flex align-items-center">
             <h4 class="card-title">Imprimer Ordre de paiement</h4>
+             <span
+                  class="badge badge-warning"
+                  style="cursor: pointer; color: #000"
+                  @click.prevent="retour"
+                  ><i class="fas fa-arrow-alt-circle-left"></i> Retour</span
+                >
             <span
               class="badge rounded-pill bg-primary"
               style="cursor: pointer"
               @click.prevent="genererEnPdf4()"
               >Exporter en Pdf</span
             >
+           
           </div>
         </div>
         <div class="card-body" id="printMe45" ref="table">
@@ -21,7 +28,7 @@
                 style="
                   text-align: center;
 
-                  width: 40%;
+                  width: 30%;
                 "
               >
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -35,9 +42,8 @@
                     src="../../../../public/csslogin/images/logo1.jpg"
                     width="150px;"
                   /><br /><br />
-                  N°
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/24
-                  MIRAH-PAPAN/KL
+                  <span> {{numeroBordereau(bordereau_id)}}</span>
+                 
                 </h6>
                 <!-- <img src="/optimisation/skin/img/log3.png" width="80px;"  /> -->
               </td>
@@ -45,7 +51,7 @@
                 style="
                   text-align: center;
 
-                  width: 20%;
+                  width: 10%;
                 "
               >
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -64,7 +70,7 @@
                 style="
                   text-align: center;
 
-                  width: 40%;
+                  width: 30%;
                 "
               >
                 <h6 style="font-size: 12px">
@@ -72,7 +78,7 @@
                   ------------------------- <br />
                   Union-Discipline-Travail<br />
                   ------------------------- <br /><br /><br />
-                  <p style="font-weight: bolder">Abidjan,le</p>
+                  <p style="font-weight: bolder">Abidjan,le {{ retourneDateJour }}</p>
                 </h6>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
@@ -91,8 +97,8 @@
           <h5 style="text-align: right; font-weight: bolder; font-size: 12px">
             MADAME LE CONTROLEUR FINANCIER
           </h5>
-          <br />
-          <h6 style="text-align: center; font-size: 20px">
+          
+          <h6 style="text-align: center; font-size: 15px">
             OBJET :{{ libelleBordereau(bordereau_id) }}
           </h6>
           <div class="table-responsive">
@@ -181,7 +187,7 @@
                       border: 0.5px solid #000 !important;
                     "
                   >
-                    TOTAL
+                    TOTAL <span v-if="parseFloat(MontantBordereau(bordereau_id))!=parseFloat(TotalOP)">( A )</span>
                   </td>
                   <td
                     style="
@@ -195,8 +201,55 @@
                       ) }}
                   </td>
                 </tr>
+                 <tr v-if="parseFloat(MontantBordereau(bordereau_id))!=parseFloat(TotalOP)">
+                  <td
+                    colspan="3"
+                    style="
+                      text-align: right;
+                      border: 0.5px solid #000 !important;
+                    "
+                  >
+                     MONTANT BORDEREAU ( B )
+                  </td>
+                  <td
+                    style="
+                      text-align: right;
+                      border: 0.5px solid #000 !important;
+                    "
+                  >
+                 
+                    {{  formatageSommeSansFCFA(
+                        MontantBordereau(bordereau_id)
+                      ) }}
+                  </td>
+                </tr>
+                <tr v-if="parseFloat(MontantBordereau(bordereau_id))!=parseFloat(TotalOP)">
+                  <td
+                    colspan="3"
+                    style="
+                      text-align: right;
+                      border: 0.5px solid #000 !important;
+                    "
+                  >
+                     ECART (C=A-B)
+                  </td>
+                  <td
+                    style="
+                      text-align: right;
+                      border: 0.5px solid #000 !important;
+                      color:red !important
+                    "
+                  >
+                 
+                    {{  formatageSommeSansFCFA(
+                        parseFloat(TotalOP)-parseFloat(MontantBordereau(bordereau_id))
+                      ) }}
+                  </td>
+                </tr>
+                <tr v-if="parseFloat(MontantBordereau(bordereau_id))!=parseFloat(TotalOP)"><td colspan="5" style="text-align: right!important;color:red">Le montant du bordereau est différent des montants cumulés des OP</td></tr>
               </tbody>
             </table><br/><br/><br/><br/><br/>
+            
             <table
             id="customers"
             style="text-align: center;"
@@ -284,6 +337,7 @@ export default {
   components: {},
   data() {
     return {
+      ladate:new Date(),
       ajouterNatureDepense: {
         activite_id: "",
         dotation: "",
@@ -348,6 +402,11 @@ export default {
       "getterBudgetViseParActivite",
       "getterNatureDepense",
     ]),
+    retourneDateJour() {
+      
+    
+      return this.ladate.getDate()+"/"+(this.ladate.getMonth()+1)+"/"+this.ladate.getFullYear()
+    },
     TotalOP() {
      
         return this.getterListeOPgloba.filter(item=>item.bordereau_id==this.bordereau_id)
@@ -380,6 +439,48 @@ export default {
 
           if (qtereel) {
             return qtereel.libelle;
+          }
+          return 0;
+        }
+      };
+    },
+     MontantBordereau() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.getterInformationBudget.find(
+            (qtreel) => qtreel.id == id
+          );
+
+          if (qtereel) {
+            return qtereel.dotation;
+          }
+          return 0;
+        }
+      };
+    },
+     typeBordereau() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.getterInformationBudget.find(
+            (qtreel) => qtreel.id == id
+          );
+
+          if (qtereel) {
+            return qtereel.statut;
+          }
+          return 0;
+        }
+      };
+    },
+    numeroBordereau() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.getterInformationBudget.find(
+            (qtreel) => qtreel.id == id
+          );
+
+          if (qtereel) {
+            return qtereel.numero_dossier;
           }
           return 0;
         }
@@ -421,7 +522,26 @@ export default {
       "getBudgetEclate",
       "getCompteBancaire",
     ]),
-    
+    retour() {
+      if (this.typeBordereau(this.bordereau_id)==2) {
+         this.$router.push({
+        name: "InformationBordereau",
+      });
+      } else if (this.typeBordereau(this.bordereau_id)==3) {
+         this.$router.push({
+        name: "InformationBordereauOPDirect",
+      });
+      } else if(this.typeBordereau(this.bordereau_id)==5) {
+         this.$router.push({
+        name: "InformationBordereauOPAnnulation",
+      });
+      }else if(this.typeBordereau(this.bordereau_id)==4) {
+         this.$router.push({
+        name: "InformationBordereauOPDefinitif",
+      });
+      }
+     
+    },
     observation($id) {
       if ($id == 1) {
         return "Pour Information";

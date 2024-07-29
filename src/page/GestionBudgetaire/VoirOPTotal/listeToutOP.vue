@@ -23,6 +23,24 @@
               <li class="nav-item">
                 <a href="#">Liste des OP</a>
               </li>
+
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+              <li class="nav-item">
+                <span
+                  class="badge badge-warning"
+                  style="cursor: pointer; color: #000"
+                  @click.prevent="retour(dossier_id)"
+                  ><i class="fas fa-arrow-alt-circle-left"></i> Retour</span
+                >
+              </li>
             </ul>
           </div>
           <!-- <div class="d-flex align-items-center">
@@ -132,7 +150,7 @@
                       title="Imprimer OP"
                       class="fas fa-print"
                       style="cursor: pointer; color: #77abd6"
-                      @click.prevent="fonctionImprimer(item.id)"
+                      @click.prevent="fonctionImprimer(item.id,dossier_id)"
                     ></span>
                   </td>
                 </tr>
@@ -932,7 +950,11 @@ export default {
       "getProjet",
       "getNatureDepense",
     ]),
-
+retour() {
+      this.$router.push({
+        name: "infoBordereauTotal",
+      });
+    },
     modificationOrdrePaiement() {
       var objetDirect1 = {
         id: this.modNatureDepense.id,
@@ -962,10 +984,10 @@ export default {
         (items) => items.id == id
       );
     },
-    fonctionImprimer(id) {
+     fonctionImprimer(id,id1) {
       this.$router.push({
-        name: "ImprimerOp",
-        params: { id: id },
+        name: "imprimerToutOP",
+        params: { id: id,id1: id1 },
       });
     },
     AfficheVentilationBudget(id) {

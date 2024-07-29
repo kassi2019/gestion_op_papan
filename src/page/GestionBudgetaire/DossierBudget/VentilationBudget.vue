@@ -1508,7 +1508,7 @@ sommeBudgetTotal() {
       };
 
       this.modifierBudget(objetDirect1);
-      this.modNatureDepense = {};
+     
     },
     voirBudgett(id,id1) {
       this.$router.push({

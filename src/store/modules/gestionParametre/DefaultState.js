@@ -21,6 +21,7 @@ const defaultstate = {
     stateInformationBudget: [],
     stateBudgetEclate: [],
     stateListeBudgetEclate: [],
+    stateAfficheNouvelleNature: [],
     stateEntreprise: [],
     stateBudgetViseParActivite: [],
     stateBudgetViseGroupeParActivite: [],

@@ -19,15 +19,19 @@ import VentilationBudget from "../page/GestionBudgetaire/DossierBudget/Ventilati
 
 
 import AfficheSousBudgetEclate from "../page/GestionBudgetaire/DossierBudget/AfficheSousBudgetEclate.vue"
+import afficheBudgetDesComposante from "../page/GestionBudgetaire/DossierBudget/afficheBudgetDesComposante.vue"
+
 import VoirBudgetEclate from "../page/GestionBudgetaire/DossierBudget/VoirBudgetEclateParActivite.vue"
 import VoirBudgetModifierEnProjet from "../page/GestionBudgetaire/DossierBudget/VoirBudgetModifierEnProjet.vue"
 
 import VentilationSousBudget from "../page/GestionBudgetaire/DossierBudget/VentilationSousBudget.vue"
+import BudgetComposanteVise from "../page/GestionBudgetaire/DossierBudget/BudgetComposanteVise.vue"
 import OrdrePaiementProvisoire from "../page/GestionBudgetaire/DossierOpProvisoire/OrdrePaiementProvisoire.vue"
 import OrdrePaiementDirect from "../page/GestionBudgetaire/DossierOPDirect/OrdrePaiementDirect.vue"
 import AfficheOpActivite from "../page/GestionBudgetaire/DossierOpProvisoire/AfficheOpActivite.vue"
 import AfficheOpDirectActivite from "../page/GestionBudgetaire/DossierOPDirect/AfficheOpDirectActivite.vue"
 import ImprimerOp from "../page/GestionRapport/ImprimerOp.vue"
+import imprimerToutOP from "../page/GestionBudgetaire/VoirOPTotal/imprimerToutOP.vue"
 import AfficheActiviteDesOP from "../page/GestionBudgetaire/AfficheActiviteDesOP.vue"
 import listeToutOP from "../page/GestionBudgetaire/VoirOPTotal/listeToutOP.vue"
 import ExecutionBailleur from "../page/GestionRapport/ExecutionBailleur.vue"
@@ -56,7 +60,14 @@ import signataire from "../page/ParametreGeneraux/signataire.vue"
 import SecteurActivite from "../page/ParametreGeneraux/SecteurActivite.vue"
 import FormeJuridique from "../page/ParametreGeneraux/FormeJuridique.vue"
 import RegimeImpossition from "../page/ParametreGeneraux/RegimeImpossition.vue"
+
+import afficheBudgetViseParActivite from "../page/GestionBudgetaire/DossierBudget/afficheBudgetViseParActivite.vue"
 const gestionutilisateur = [
+  {
+        path: '/afficheBudgetViseParActivite/:id',
+        name:"afficheBudgetViseParActivite",
+       component: afficheBudgetViseParActivite
+     },
    {
         path: '/SecteurActivite',
         name:"SecteurActivite",
@@ -186,9 +197,15 @@ const gestionutilisateur = [
         path: '/OrdrePaiementDirect/:id',
         name:"OrdrePaiementDirect",
        component: OrdrePaiementDirect
+  },
+  
+     {
+        path: '/imprimerToutOP/:id/:id1',
+        name:"imprimerToutOP",
+       component: imprimerToutOP
      },
   {
-        path: '/ImprimerOp/:id',
+        path: '/ImprimerOp/:id/:id1',
         name:"ImprimerOp",
        component: ImprimerOp
      },
@@ -206,7 +223,13 @@ const gestionutilisateur = [
         path: '/OrdrePaiementProvisoire/:id',
         name:"OrdrePaiementProvisoire",
        component: OrdrePaiementProvisoire
-     },
+  },
+  
+      {
+        path: '/BudgetComposanteVise/:id/:id1',
+        name:"BudgetComposanteVise",
+       component: BudgetComposanteVise
+  },
      {
         path: '/VentilationSousBudget/:id/:id1/:id2',
         name:"VentilationSousBudget",
@@ -222,6 +245,12 @@ const gestionutilisateur = [
         path: '/VoirBudgetEclate/:id/:id1',
         name:"VoirBudgetEclate",
        component: VoirBudgetEclate
+  },
+  
+      {
+        path: '/afficheBudgetDesComposante/:id',
+        name:"afficheBudgetDesComposante",
+       component: afficheBudgetDesComposante
      },
       {
         path: '/AfficheSousBudgetEclate/:id/:id1',

@@ -600,7 +600,7 @@ export default {
     },
     AfficheVentilationBudget(id) {
       this.$router.push({
-        name: "AfficheOpDirectActivite",
+        name: "AfficheOPAnnulation",
         params: { id: id },
       });
     },

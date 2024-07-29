@@ -33,7 +33,7 @@
               style="cursor: pointer"
               data-bs-toggle="modal"
               data-bs-target="#largeModal"
-              >Ajouter</span
+              ><i class="fas fa-plus"></i> Ajouter</span
             >
           </div>
         </div>
@@ -43,6 +43,7 @@
               <thead>
                 <tr>
                   <th>Exercice</th>
+                  <th>N° bordereau</th>
                   <th>Objet du bordereau</th>
                   <th>Dotation</th>
                   <th>Décision</th>
@@ -52,6 +53,7 @@
               <tbody>
                 <tr v-for="item in AfficherBudgetGlobal" :key="item.id">
                   <td style="border: 1px solid #000">{{ item.exercice }}</td>
+                   <td style="border: 1px solid #000">{{ item.numero_dossier }}</td>
                   <td style="border: 1px solid #000">{{ item.libelle }}</td>
                   <td style="border: 1px solid #000; text-align: right">
                     {{ formatageSommeSansFCFA(parseFloat(item.dotation)) }}
@@ -234,6 +236,20 @@
                 />
               </div>
               <div class="col-12">
+                <label for="inputNanme4" class="form-label">Numéro de bordereau</label>
+                <input
+                  type="text"
+                  class="form-control"
+                   v-model="modNatureDepense.numero_dossier"
+                  style="
+                    border: 1px solid #000 !important;
+                    background-color: #dcdcdc !important;
+                    color: #000 !important;
+                  "
+                  readonly
+                />
+              </div>
+              <div class="col-12">
                 <label class="form-label"
                   >Activité
                   <span
@@ -347,6 +363,20 @@
                 />
               </div>
               <div class="col-12">
+                <label for="inputNanme4" class="form-label">Numéro de bordereau</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  :value="automatiseBordereau"
+                  style="
+                    border: 1px solid #000 !important;
+                    background-color: #dcdcdc !important;
+                    color: #000 !important;
+                  "
+                  readonly
+                />
+              </div>
+              <div class="col-12">
                 <label class="form-label"
                   >Activité
                   <span
@@ -443,7 +473,7 @@
 import { mapActions, mapGetters } from "vuex";
 import moment from "moment";
 import { ModelListSelect } from "vue-search-select";
-import { formatageSommeSansFCFA } from "../../../page/Repositories/Repository";
+import { formatageSommeSansFCFA } from "../../Repositories/Repository";
 export default {
   components: { ModelListSelect },
   data() {
@@ -495,8 +525,21 @@ export default {
       "getterExerciceBudgetaire",
       "getterInformationBudget",
     ]),
+    automatiseBordereau() {
+      return (
+        "N°" +
+        "" +
+        (this.AfficherTailleBordereau + 1) +
+        "" +
+        "/24 MIRAH-PAPAN/KL"
+      );
+    },
     AfficherBudgetGlobal() {
       return this.getterInformationBudget.filter((item) => item.statut == 5);
+    },
+
+    AfficherTailleBordereau() {
+      return this.getterInformationBudget.filter((item) => item.statut  == 2 || item.statut  == 3 || item.statut  == 4 || item.statut  == 5).length;
     },
     // afficher
     libelleActivite() {
@@ -641,6 +684,7 @@ export default {
         decision: this.ajouterNatureDepense.decision,
         statut: 5,
         observation: this.ajouterNatureDepense.observation,
+        numero_dossier:this.automatiseBordereau
       };
 
       this.ajouterInformationBudget(objetDirect1);

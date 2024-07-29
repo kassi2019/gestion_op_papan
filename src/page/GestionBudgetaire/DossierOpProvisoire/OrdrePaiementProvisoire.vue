@@ -23,6 +23,23 @@
               <li class="nav-item">
                 <a href="#">OP Provisoire</a>
               </li>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+              <li class="nav-item">
+                <span
+                  class="badge badge-warning"
+                  style="cursor: pointer; color: #000"
+                  @click.prevent="retour"
+                  ><i class="fas fa-arrow-alt-circle-left"></i> Retour</span
+                >
+              </li>
             </ul>
           </div>
         </div>
@@ -249,15 +266,7 @@
                         >le Montant doit être positif
                       </span>
                     </div>
-                  </form>
-                </div>
-              </div>
-            </TabContent>
-            <TabContent title="INFO SUR LA DOTATION" icon="ti-search">
-              <div class="row">
-                <div class="col-lg-12">
-                  <form class="row g-3">
-                    <div class="col-9">
+                    <div class="col-12">
                       <label class="form-label"
                         >Nature économique / Imputation
                         <span
@@ -281,16 +290,7 @@
                         >Ce champs est obligatoire!
                       </span>
                     </div>
-                    <div class="col-3">
-                      <label class="form-label">Nature de depense</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        style="border: 1px solid #000 !important"
-                        :value="libelleNatureDepense"
-                        readonly
-                      />
-                    </div>
+
                     <div class="col-3">
                       <label class="form-label"
                         >Type financement
@@ -316,7 +316,7 @@
                         >Ce champs est obligatoire!
                       </span>
                     </div>
-                    <div class="col-9">
+                    <div class="col-6">
                       <label class="form-label"
                         >Source de financement
                         <span
@@ -341,6 +341,24 @@
                         >Ce champs est obligatoire!
                       </span>
                     </div>
+                    <div class="col-3">
+                      <label class="form-label">Nature de depense</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        style="border: 1px solid #000 !important"
+                        :value="libelleNatureDepense"
+                        readonly
+                      />
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </TabContent>
+            <TabContent title="INFO SUR LA DOTATION" icon="ti-search">
+              <div class="row">
+                <div class="col-lg-12">
+                  <form class="row g-3">
                     <div class="col-6">
                       <label class="form-label">Dotation ( A )</label>
 
@@ -551,7 +569,7 @@
                         ></label
                       >
                       <input
-                        type="text"
+                        type="number"
                         class="form-control"
                         v-model="FormDataDossier.quantite"
                       />
@@ -593,7 +611,9 @@
                       ></money3>
                     </div>
                     <div class="col-3">
-                      <label class="form-label">Exonéré de la TVA 18%</label>
+                      <label class="form-label"
+                        >Exonéré de la TVA {{ AfficheTauxTVA }}% ?</label
+                      >
                       <select
                         class="form-select form-control"
                         id="defaultSelect"
@@ -605,12 +625,40 @@
                         <option value="1">Non</option>
                       </select>
                     </div>
-                    <div class="col-2">
-                      <label class="form-label">Autre taux (%) ( D )</label>
+                    <div class="col-3">
+                      <label class="form-label">Type de Forfait</label>
+                      <select
+                        class="form-select form-control"
+                        id="defaultSelect"
+                        style="border: 1px solid #000 !important"
+                        v-model="FormDataDossier.type_forfait"
+                      >
+                        <option value="taux">Taux</option>
+                        <option value="montant">Montant</option>
+                      </select>
+                    </div>
+                    <div class="col-3">
+                      <label class="form-label"
+                        >Autre {{ FormDataDossier.type_forfait }}
+                        <span v-if="FormDataDossier.type_forfait == 'taux'"
+                          >%</span
+                        >
+                        ( D )</label
+                      >
+                      <input
+                        type="number"
+                        class="form-control"
+                        v-model="autre_taux"
+                      />
+                    </div>
+                    <div class="col-6">
+                      <label class="form-label"
+                        >Libelle Autre {{ FormDataDossier.type_forfait }}</label
+                      >
                       <input
                         type="text"
                         class="form-control"
-                        v-model="autre_taux"
+                        v-model="FormDataDossier.libelle_taux"
                       />
                     </div>
                     <div class="col-2">
@@ -622,7 +670,7 @@
                         readonly
                       />
                     </div>
-                    <div class="col-2">
+                    <div class="col-3">
                       <label class="form-label"
                         >Cumul des autres taxes ( E = C * D)</label
                       >
@@ -858,13 +906,13 @@
                         ></span> -->
                         <span
                           title="Supprimer"
-                          class="fas fa-archive"
                           style="
                             cursor: pointer;
                             color: red;
                             border: 1px solid #000 !important;
                           "
                           @click.prevent="deletePartieRequerante(index)"
+                          ><i class="fas fa-archive"></i
                         ></span>
                       </td>
                     </tr>
@@ -978,11 +1026,9 @@
                 </table>
               </div>
             </TabContent>
-            <TabContent title="VERIFICATION ORDRE PAIEMENT" icon="ti-printer"
-              >
-              <RecapBordereau/>
-              </TabContent
-            >
+            <TabContent title="VERIFICATION ORDRE PAIEMENT" icon="ti-printer">
+              <RecapBordereau :id_dossier="bordereau_id"/>
+            </TabContent>
           </FormWizard>
         </div>
       </div>
@@ -1165,7 +1211,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import { FormWizard, TabContent } from "vue3-form-wizard";
-import RecapBordereau from "./RecapBordereau.vue"
+import RecapBordereau from "./RecapBordereau.vue";
 // import moment from "moment";
 import { ModelListSelect } from "vue-search-select";
 import { Money3Component } from "v-money3";
@@ -1180,7 +1226,7 @@ export default {
     ModelListSelect,
     FormWizard,
     TabContent,
-    RecapBordereau
+    RecapBordereau,
   },
   data() {
     return {
@@ -1191,6 +1237,8 @@ export default {
         quantite: 0,
         prix_unitaire: 0,
         exonere: 0,
+        type_forfait: "taux",
+        libelle_taux: "",
       },
       FormDataDossierMod: {
         designation: "",
@@ -1202,7 +1250,7 @@ export default {
       date_decision: "",
       autre_taux: 0,
       compte_id: "",
-      objet_depense: 0,
+      objet_depense: "",
       activite_id: 0,
       unite_operationnelle_id: 0,
       nature_depense_id: 0,
@@ -1371,7 +1419,11 @@ export default {
       );
     },
     afficheAutreMontant() {
-      return (parseFloat(this.autre_taux) / 100) * parseFloat(this.MontantHt);
+      if (this.FormDataDossier.type_forfait == "taux") {
+        return (parseFloat(this.autre_taux) / 100) * parseFloat(this.MontantHt);
+      } else {
+        return parseFloat(this.MontantHt) + parseFloat(this.autre_taux);
+      }
     },
 
     AfficheTauxTVAMod() {
@@ -2119,6 +2171,11 @@ export default {
       "ajouterOrdrePaiement",
       "getOpParActvite",
     ]),
+     retour() {
+      this.$router.push({
+        name: "InformationBordereau",
+      });
+    },
     AfficheModalModificationFacture(id) {
       this.FormDataDossierMod = this.TableauDossier.find(
         (items) => items.nombre == id

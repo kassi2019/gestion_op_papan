@@ -12,6 +12,7 @@ export const getterSousBudget = state => state.stateSousBudget;
 export const getterDotationNotifie= state => state.stateDotationNotifie;
 
 export const getterDotationReport = state => state.stateDotationReport;
+export const getterAfficheNouvelleNature = state => state.stateAfficheNouvelleNature;
 
 export const getterDotationRessourcePropre = state => state.stateDotationRessourcePropre;
 
