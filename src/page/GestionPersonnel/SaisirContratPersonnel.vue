@@ -23,23 +23,6 @@
               <li class="nav-item">
                 <a href="#">Contrat</a>
               </li>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-              <li class="nav-item">
-                <span
-                  class="badge badge-warning"
-                  style="cursor: pointer; color: #000"
-                  @click.prevent="retour"
-                  ><i class="fas fa-arrow-alt-circle-left"></i> Retour</span
-                >
-              </li>
             </ul>
           </div>
           <div class="d-flex align-items-center">
@@ -700,33 +683,34 @@
                         {{ formatageSommeSansFCFA(parseFloat(item1.montant)) }}
                       </td> -->
                       <td>
-                       
-
                         <div
                           class="btn-group"
                           role="group"
                           aria-label="Basic mixed styles example"
                         >
                           <span
-                          class="badge bg-danger"
-                          style="cursor: pointer"
-                          title="Supprimer"
-                          @click.prevent="supprimerPersonnelParUser(item1.id)"
-                          ><i class="fas fa-trash"></i
-                        ></span>
-                        <span
-                          class="badge bg-info"
-                          style="cursor: pointer"
-                          title="Plus détail"
-                          @click="AfficheVentilationBudget(item1.id)"
-                          ><i class="fas fa-tasks"></i
-                        ></span>
-                        <span
-                          class="badge bg-primary"
-                          style="cursor: pointer"
-                          title="Modifier"
-                          ><i class="fas fa-edit"></i
-                        ></span>
+                            class="badge bg-danger"
+                            style="cursor: pointer"
+                            title="Supprimer"
+                            @click.prevent="supprimerPersonnelParUser(item1.id)"
+                            ><i class="fas fa-trash"></i
+                          ></span>
+                          <span
+                            class="badge bg-info"
+                            style="cursor: pointer"
+                            title="Plus détail"
+                            @click="AfficheVentilationBudget(item1.id)"
+                            ><i class="fas fa-tasks"></i
+                          ></span>
+                          <span
+                            class="badge bg-primary"
+                            data-bs-toggle="modal"
+                            data-bs-target="#largeModal1"
+                            style="cursor: pointer"
+                            title="Modifier"
+                            @click="AfficheModalModification(item1.id)"
+                            ><i class="fas fa-edit"></i
+                          ></span>
                         </div>
                       </td>
                     </tr>
@@ -738,6 +722,758 @@
              888888888888888888888888888888888888888888888
             </TabContent> -->
           </FormWizard>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="largeModal1"
+      tabindex="-1"
+      data-bs-target="#staticBackdrop"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      aria-labelledby="staticBackdropLabel"
+    >
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Modifier Personnel</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <FormWizard @on-complete="onComplete" color="#e67e22">
+              <TabContent title="INFO SUR CONTRAT" icon="ti-pencil-alt2">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <form class="row g-3">
+                      <div class="col-3">
+                        <label class="form-label">Exercice</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          readonly
+                          v-model="modNatureDepense.exercice"
+                          style="border: 1px solid #000 !important"
+                        />
+                      </div>
+                      <div class="col-9">
+                        <label class="form-label"
+                          >Unité Opérationnelle
+                          <span
+                            style="
+                              color: red !important;
+                              font-size: 15px !important;
+                            "
+                            >*</span
+                          ></label
+                        >
+
+                        <model-list-select
+                          :list="getterBudgetViseGroupeParActivite"
+                          v-model="modNatureDepense.unite_operationnelle_id"
+                          option-value="unite_operationnelle_id"
+                          option-text="nom_projet"
+                          placeholder="select item"
+                          style="border: 1px solid #000"
+                        >
+                        </model-list-select>
+                        <span
+                          style="color: red"
+                          v-if="modNatureDepense.unite_operationnelle_id == 0"
+                          >Ce champs est obligatoire!
+                        </span>
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label"
+                          >Activité
+                          <span
+                            style="
+                              color: red !important;
+                              font-size: 15px !important;
+                            "
+                            >*</span
+                          ></label
+                        >
+                        <model-list-select
+                          :list="getterBudgetViseGroupeParActivite"
+                          v-model="modNatureDepense.activite_id"
+                          option-value="activite_id"
+                          option-text="plan_activite"
+                          placeholder="select item"
+                          style="border: 1px solid #000"
+                        >
+                        </model-list-select>
+                        <span
+                          style="color: red"
+                          v-if="modNatureDepense.activite_id == 0"
+                          >Ce champs est obligatoire!
+                        </span>
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label"
+                          >Composante
+                          <span
+                            style="
+                              color: red !important;
+                              font-size: 15px !important;
+                            "
+                            >*</span
+                          ></label
+                        >
+                        <model-list-select
+                          :list="libelleSousBudgetModifier"
+                          v-model="modNatureDepense.sous_budget_id"
+                          option-value="id"
+                          option-text="libelle"
+                          placeholder="select item"
+                          style="border: 1px solid #000"
+                        >
+                        </model-list-select>
+                        <span
+                          style="color: red"
+                          v-if="modNatureDepense.sous_budget_id == 0"
+                          >Ce champs est obligatoire!
+                        </span>
+                      </div>
+                      <div class="col-3">
+                        <label class="form-label"
+                          >Fonction
+                          <span
+                            style="
+                              color: red !important;
+                              font-size: 15px !important;
+                            "
+                            >*</span
+                          ></label
+                        >
+                        <model-list-select
+                          :list="gettersFonction"
+                          v-model="modNatureDepense.fonction_id"
+                          option-value="id"
+                          option-text="libelle"
+                          placeholder="select item"
+                          style="border: 1px solid #000"
+                        >
+                        </model-list-select>
+                        <span
+                          style="color: red"
+                          v-if="modNatureDepense.fonction_id == 0"
+                          >Ce champs est obligatoire!
+                        </span>
+                      </div>
+                      <div class="col-3">
+                        <label class="form-label"
+                          >Service
+                          <span
+                            style="
+                              color: red !important;
+                              font-size: 15px !important;
+                            "
+                            >*</span
+                          ></label
+                        >
+                        <model-list-select
+                          :list="gettersService"
+                          v-model="modNatureDepense.service_id"
+                          option-value="id"
+                          option-text="libelle"
+                          placeholder="select item"
+                          style="border: 1px solid #000"
+                        >
+                        </model-list-select>
+                        <span
+                          style="color: red"
+                          v-if="modNatureDepense.service_id == 0"
+                          >Ce champs est obligatoire!
+                        </span>
+                      </div>
+                      <div class="col-3">
+                        <label class="form-label"
+                          >Emploi
+                          <span
+                            style="
+                              color: red !important;
+                              font-size: 15px !important;
+                            "
+                            >*</span
+                          ></label
+                        >
+                        <model-list-select
+                          :list="gettersEmploi"
+                          v-model="modNatureDepense.emploi_id"
+                          option-value="id"
+                          option-text="libelle"
+                          placeholder="select item"
+                          style="border: 1px solid #000"
+                        >
+                        </model-list-select>
+                        <span
+                          style="color: red"
+                          v-if="modNatureDepense.emploi_id == 0"
+                          >Ce champs est obligatoire!
+                        </span>
+                      </div>
+                      <div class="col-3">
+                        <label class="form-label"
+                          >Diplôme
+                          <span
+                            style="
+                              color: red !important;
+                              font-size: 15px !important;
+                            "
+                            >*</span
+                          ></label
+                        >
+                        <model-list-select
+                          :list="gettersDiplome"
+                          v-model="modNatureDepense.diplome_id"
+                          option-value="id"
+                          option-text="libelle"
+                          placeholder="select item"
+                          style="border: 1px solid #000"
+                        >
+                        </model-list-select>
+                        <span
+                          style="color: red"
+                          v-if="modNatureDepense.diplome_id == 0"
+                          >Ce champs est obligatoire!
+                        </span>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </TabContent>
+              <TabContent title="INFO SUR PERSONNEL" icon="ti-printer">
+                <div class="col-lg-12">
+                  <form class="row g-3">
+                    <div class="col-3">
+                      <label class="form-label"
+                        >Tyep Personnel
+                        <span
+                          style="
+                            color: red !important;
+                            font-size: 15px !important;
+                          "
+                        ></span
+                      ></label>
+                      <model-list-select
+                        :list="objetTypePersonnel"
+                        v-model="modNatureDepense.type_personnel_id"
+                        option-value="id"
+                        option-text="libelle"
+                        placeholder="select item"
+                        style="border: 1px solid #000"
+                      >
+                      </model-list-select>
+                    </div>
+                    <div class="col-3">
+                      <label class="form-label">N° du Contrat</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        style="border: 1px solid #000 !important"
+                        v-model="modNatureDepense.numero_contrat"
+                        readonly
+                      />
+                    </div>
+                    <div class="col-6">
+                      <label class="form-label">Matricule</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        style="border: 1px solid #000 !important"
+                        v-model="modNatureDepense.matricule"
+                        v-if="modNatureDepense.type_personnel_id == 1"
+                        readonly
+                      />
+                      <input
+                        v-else
+                        type="text"
+                        class="form-control"
+                        style="border: 1px solid #000 !important"
+                        v-model="modNatureDepense.matricule"
+                      />
+                      <span
+                        style="color: red"
+                        v-if="
+                          modNatureDepense.matricule == 0 &&
+                          modNatureDepense.type_personnel_id != 1
+                        "
+                        >Ce champs est obligatoire!
+                      </span>
+                    </div>
+                    <div class="col-3">
+                      <label class="form-label">Nom</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        style="border: 1px solid #000 !important"
+                        v-model="modNatureDepense.nom"
+                      />
+                      <span style="color: red" v-if="modNatureDepense.nom == 0"
+                        >Ce champs est obligatoire!
+                      </span>
+                    </div>
+                    <div class="col-9">
+                      <label class="form-label">Prénoms</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        style="border: 1px solid #000 !important"
+                        v-model="modNatureDepense.prenom"
+                      />
+                      <span
+                        style="color: red"
+                        v-if="modNatureDepense.prenom == 0"
+                        >Ce champs est obligatoire!
+                      </span>
+                    </div>
+                    <div class="col-3">
+                      <label class="form-label">Date Naissance</label>
+                      <input
+                        type="date"
+                        class="form-control"
+                        style="border: 1px solid #000 !important"
+                        v-model="modNatureDepense.date_naissance"
+                      />
+                    </div>
+                    <div class="col-3">
+                      <label class="form-label"
+                        >Type de piece
+                        <span
+                          style="
+                            color: red !important;
+                            font-size: 15px !important;
+                          "
+                          >*</span
+                        ></label
+                      >
+                      <model-list-select
+                        :list="gettersTypePiece"
+                        v-model="modNatureDepense.type_piece_id"
+                        option-value="id"
+                        option-text="libelle"
+                        placeholder="select item"
+                        style="border: 1px solid #000"
+                      >
+                      </model-list-select>
+                      <span
+                        style="color: red"
+                        v-if="modNatureDepense.type_piece_id == 0"
+                        >Ce champs est obligatoire!
+                      </span>
+                    </div>
+                    <div class="col-3">
+                      <label class="form-label">Lieu de Naissance</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        style="border: 1px solid #000 !important"
+                        v-model="modNatureDepense.lieu_naissance"
+                      />
+                    </div>
+                    <div class="col-3">
+                      <label class="form-label">Numéro de la piece</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        style="border: 1px solid #000 !important"
+                        v-model="modNatureDepense.numero_piece"
+                      />
+                    </div>
+                    <div class="col-3">
+                      <label class="form-label">N° de télephone</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        style="border: 1px solid #000 !important"
+                        v-model="modNatureDepense.numero_telephone"
+                      />
+                    </div>
+                    <div class="col-3">
+                      <label class="form-label"
+                        >Nature contrat
+                        <span
+                          style="
+                            color: red !important;
+                            font-size: 15px !important;
+                          "
+                          >*</span
+                        ></label
+                      >
+                      <model-list-select
+                        :list="gettersNatureContrat"
+                        v-model="modNatureDepense.nature_contrat_id"
+                        option-value="id"
+                        option-text="libelle"
+                        placeholder="select item"
+                        style="border: 1px solid #000"
+                      >
+                      </model-list-select>
+                      <span
+                        style="color: red"
+                        v-if="modNatureDepense.nature_contrat_id == 0"
+                        >Ce champs est obligatoire!
+                      </span>
+                    </div>
+                    <div class="col-2">
+                      <label class="form-label">Date début contrat</label>
+                      <input
+                        type="date"
+                        class="form-control"
+                        style="border: 1px solid #000 !important"
+                        v-model="modNatureDepense.date_debut"
+                      />
+                    </div>
+                    <div
+                      class="col-2"
+                      v-if="modNatureDepense.nature_contrat_id == 1"
+                    >
+                      <label class="form-label">Date fin contrat</label>
+                      <input
+                        type="date"
+                        class="form-control"
+                        style="border: 1px solid #000 !important"
+                        v-model="modNatureDepense.date_fin"
+                      />
+                    </div>
+                    <div class="col-2" v-else>
+                      <label class="form-label">Date fin contrat</label>
+                      <input
+                        readonly
+                        type="date"
+                        class="form-control"
+                        style="border: 1px solid #000 !important"
+                        v-model="modNatureDepense.date_fin"
+                      />
+                    </div>
+                    <div class="col-2">
+                      <label class="form-label">Durée</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        style="border: 1px solid #000 !important"
+                        readonly
+                        :value="DureContratModifier"
+                      />
+                    </div>
+                  </form>
+                </div>
+              </TabContent>
+              <TabContent title="SATUT DU PERSONNEL " icon="ti-search">
+                <div class="col-lg-12">
+                  <div class="table-responsive">
+                    <table class="table table-bordered border-primary">
+                      <thead>
+                        <tr>
+                          <th
+                            scope="col"
+                            style="background-color: #eeeec6 !important"
+                          >
+                            Type dépense
+                          </th>
+                          <th
+                            scope="col"
+                            style="background-color: #eeeec6 !important"
+                          >
+                            Nature économique
+                          </th>
+                          <th
+                            scope="col"
+                            style="background-color: #eeeec6 !important"
+                          >
+                            Type financement
+                          </th>
+                          <th
+                            scope="col"
+                            style="background-color: #eeeec6 !important"
+                          >
+                            Source de financement
+                          </th>
+                          <th
+                            scope="col"
+                            style="background-color: #eeeec6 !important"
+                          >
+                            Montant
+                          </th>
+
+                          <th
+                            scope="col"
+                            style="
+                              text-align: center;
+                              background-color: #eeeec6 !important;
+                            "
+                          >
+                            Action
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr
+                          v-for="item in gettersDetailDepensePerso"
+                          :key="item.id"
+                        >
+                          <td>{{ item.type_depense }}</td>
+                          <td>{{ item.nature_economique }}</td>
+                          <td>{{ item.type_financement }}</td>
+                          <td>{{ item.source_finacement }}</td>
+                          <td>
+                            {{
+                              formatageSommeSansFCFA(parseFloat(item.montant))
+                            }}
+                          </td>
+                          <td>
+                            <div
+                              class="btn-group"
+                              role="group"
+                              aria-label="Basic mixed styles example"
+                            >
+                              <span
+                                class="badge bg-danger"
+                                style="cursor: pointer"
+                                title="Supprimer"
+                                @click.prevent="
+                                  supprimerPersonnelParUser(item.id)
+                                "
+                                ><i class="fas fa-trash"></i
+                              ></span>
+
+                              <!-- <span
+                                class="badge bg-primary"
+                                data-bs-toggle="modal"
+                                data-bs-target="#largeModal14"
+                                style="cursor: pointer"
+                                title="Modifier"
+                                @click.prevent="AfficheModalDetail(item.id)"
+                                ><i class="fas fa-edit"></i
+                              ></span> -->
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colspan="4" style="text-align: right">TOTAL</td>
+                          <td style="text-align: right">
+                            {{ formatageSommeSansFCFA(parseFloat(total)) }}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </TabContent>
+
+              <!-- <TabContent title="IMPRIMER BUDGET PRIMITIF" icon="ti-printer">
+             888888888888888888888888888888888888888888888
+            </TabContent> -->
+            </FormWizard>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Fermer
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              @click.prevent="modificationSection()"
+              data-bs-dismiss="modal"
+            >
+              Modifier
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="largeModal14"
+      tabindex="-1"
+      data-bs-target="#staticBackdrop"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      aria-labelledby="staticBackdropLabel"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Modifier Depense Personnel</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-lg-12">
+                <form class="row g-3">
+                  <div class="col-3">
+                    <label class="form-label"
+                      >Type dépense
+                      <span
+                        style="
+                          color: red !important;
+                          font-size: 15px !important;
+                        "
+                        >*</span
+                      ></label
+                    >
+                    <model-list-select
+                      :list="gettersTypeIndemnite"
+                      v-model="modDetail.type_indemnite_id"
+                      option-value="id"
+                      option-text="libelle"
+                      placeholder="select item"
+                      style="border: 1px solid #000"
+                    >
+                    </model-list-select>
+                    <span
+                      style="color: red"
+                      v-if="modDetail.type_indemnite_id == 0"
+                      >Ce champs est obligatoire!
+                    </span>
+                  </div>
+                  <div class="col-9">
+                    <label class="form-label"
+                      >Nature économique / Imputation
+                      <span
+                        style="
+                          color: red !important;
+                          font-size: 15px !important;
+                        "
+                        >*</span
+                      ></label
+                    >
+                    <model-list-select
+                      :list="AfficheNatureEconomique"
+                      v-model="modDetail.nature_economique_id"
+                      option-value="id"
+                      option-text="objet"
+                      placeholder="select item"
+                      style="border: 1px solid #000"
+                    >
+                    </model-list-select>
+                    <span
+                      style="color: red"
+                      v-if="modDetail.nature_economique_id == 0"
+                      >Ce champs est obligatoire!
+                    </span>
+                  </div>
+                  <div class="col-3">
+                    <label class="form-label"
+                      >Type financement
+                      <span
+                        style="
+                          color: red !important;
+                          font-size: 15px !important;
+                        "
+                        >*</span
+                      ></label
+                    >
+
+                    <model-list-select
+                      :list="AfficheTypeFinancement"
+                      v-model="modDetail.type_financement_id"
+                      option-value="id"
+                      option-text="objet"
+                      placeholder="select item"
+                      style="border: 1px solid #000"
+                    >
+                    </model-list-select>
+                    <span
+                      style="color: red"
+                      v-if="modDetail.type_financement_id == 0"
+                      >Ce champs est obligatoire!
+                    </span>
+                  </div>
+                  <div class="col-9">
+                    <label class="form-label"
+                      >Source de financement
+                      <span
+                        style="
+                          color: red !important;
+                          font-size: 15px !important;
+                        "
+                        >*</span
+                      ></label
+                    >
+
+                    <model-list-select
+                      :list="AfficheSourceFinancement"
+                      v-model="modDetail.source_financement_id"
+                      option-value="id"
+                      option-text="objet"
+                      placeholder="select item"
+                      style="border: 1px solid #000"
+                    >
+                    </model-list-select>
+                    <span
+                      style="color: red"
+                      v-if="modDetail.source_financement_id == 0"
+                      >Ce champs est obligatoire!
+                    </span>
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label"
+                      >Montant
+                      <span
+                        style="
+                          color: red !important;
+                          font-size: 15px !important;
+                        "
+                        >*</span
+                      ></label
+                    >
+                    <money3
+                      class="form-control"
+                      v-bind="config"
+                      v-model="modDetail.montant"
+                    ></money3>
+                    <span style="color: red" v-if="modDetail.montant == 0"
+                      >Ce champs est obligatoire!
+                    </span>
+                  </div>
+                  <!-- <div class="col-3">
+                    <label class="form-label">Dotation </label>
+                    <money3
+                      class="form-control"
+                      v-bind="config"
+                      readonly
+                      :model-value="afficheDotaion"
+                    ></money3>
+                  </div> -->
+                 
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Fermer
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              @click.prevent="EnregistrerSection()"
+            >
+              Enregistrer
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -763,6 +1499,8 @@ export default {
   },
   data() {
     return {
+      modNatureDepense: {},
+      modDetail:{},
       TableauDossier: [],
       ModifierBudget: {
         type_financement_id: 0,
@@ -847,6 +1585,13 @@ export default {
     this.getTypeFinancement();
     this.getBailleur();
     this.getPersonnelUtilisateur();
+    // if (this.modNatureDepense!=0) {
+
+    //   let objet = {
+    //     id: this.modNatureDepense.id,
+    //   };
+    //   this.getDetailDepensePersonnel(objet);
+    // }
   },
 
   computed: {
@@ -862,9 +1607,11 @@ export default {
       "gettersDiplome",
       "gettersTypeIndemnite",
       "gettersTypePiece",
+      "gettersDetailDepensePerso",
     ]),
     ...mapGetters("parametrage", [
       "getterProjet",
+
       "getterBudgetViseGroupeParActivite",
       "getterActivite",
       "getterTypeFinancement",
@@ -879,6 +1626,12 @@ export default {
       "getterDotationAutreRessource",
       "getterListeBudgetEclate",
     ]),
+    total() {
+      return this.gettersDetailDepensePerso
+
+        .reduce((prec, cur) => parseFloat(prec) + parseFloat(cur.montant), 0)
+        .toFixed(0);
+    },
     afficheDotaion() {
       if (this.sous_budget_id == 0 && this.activite_id != 0) {
         // return (id) => {
@@ -918,6 +1671,30 @@ export default {
         }
         return 0;
       }
+    },
+
+    DureContratModifier() {
+      if (
+        this.modNatureDepense.date_debut == this.modNatureDepense.date_fin &&
+        this.modNatureDepense.date_fin !== "" &&
+        this.modNatureDepense.date_debut !== ""
+      )
+        return 1;
+      if (
+        this.modNatureDepense.date_fin == "" &&
+        this.modNatureDepense.date_debut == ""
+      )
+        return null;
+      var dateR = new Date(this.modNatureDepense.date_fin).getTime();
+      var dateD = new Date(this.modNatureDepense.date_debut).getTime();
+      var diffTime = dateR - dateD;
+
+      var diffJours = diffTime / (1000 * 3600 * 24);
+      if (isNaN(diffJours)) return null;
+
+      if (parseFloat(diffJours) < 0) return "durée invalide";
+
+      return diffJours;
     },
     DureContrat() {
       if (
@@ -1215,6 +1992,20 @@ export default {
         // };
       }
     },
+
+    libelleSousBudgetModifier() {
+      let collet = [];
+      this.getterSousBudget.filter((item) => {
+        if (item.activite_id == this.modNatureDepense.activite_id) {
+          let data = {
+            id: item.id,
+            libelle: item.libelle,
+          };
+          collet.push(data);
+        }
+      });
+      return collet;
+    },
     libelleSousBudget() {
       let collet = [];
       this.getterSousBudget.filter((item) => {
@@ -1282,6 +2073,7 @@ export default {
     ]),
     ...mapActions("Personnel", [
       "getService",
+      "getDetailDepensePersonnel",
       "getPersonnelUtilisateur",
       "supprimerPersonnel",
       "supprimerPersonnelParUser",
@@ -1295,6 +2087,21 @@ export default {
       "getBudgetViseParActvite",
       "AjouterPersonnel",
     ]),
+    AfficheModalModification(id1) {
+      this.modNatureDepense = this.gettersPersonnelParUtilisateur.find(
+        (items) => items.id == id1
+      );
+      let objet = {
+        id: id1,
+      };
+      this.getDetailDepensePersonnel(objet);
+    },
+    AfficheModalDetail(id1) {
+      this.modDetail = this.gettersDetailDepensePerso.find(
+        (items) => items.id == id1
+      );
+      
+    },
     AfficheVentilationBudget(id) {
       this.$router.push({
         name: "DetailPersonnel",

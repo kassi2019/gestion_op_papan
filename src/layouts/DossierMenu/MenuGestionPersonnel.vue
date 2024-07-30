@@ -85,7 +85,7 @@
             <a
               class="nav-link collapsed"
               href=""
-              @click.prevent="activedOptionMenu('SaisirContratPersonnel')"
+              @click.prevent="activedOptionMenu('ListeDuPersonnel')"
             >
               <i class="fas fa-arrow-right"></i>
 

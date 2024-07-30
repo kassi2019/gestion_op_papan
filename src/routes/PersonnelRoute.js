@@ -11,7 +11,13 @@ import TypeIndemnite from "../page/GestionPersonnel/TypeIndemnite.vue"
 import TypePiece from "../page/GestionPersonnel/TypePiece.vue"
 import SaisirContratPersonnel from "../page/GestionPersonnel/SaisirContratPersonnel.vue"
 import DetailPersonnel from "../page/GestionPersonnel/DetailPersonnel.vue"
+import ListeDuPersonnel from "../page/GestionPersonnel/ListeDuPersonnel.vue"
 const gestionutilisateur = [
+      {
+        path: '/ListeDuPersonnel',
+        name:"ListeDuPersonnel",
+       component: ListeDuPersonnel
+  },
      {
         path: '/DetailPersonnel/:id',
         name:"DetailPersonnel",

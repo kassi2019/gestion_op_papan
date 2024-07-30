@@ -171,8 +171,8 @@
                   <td>{{ formatageSommeSansFCFA(parseFloat(item.montant)) }}</td>
                 </tr>
                 <tr>
-                    <td colspan="4">TOTAL</td>
-                    <td>{{ formatageSommeSansFCFA(parseFloat(total)) }}</td>
+                    <td colspan="4" style="text-align: right;">TOTAL</td>
+                    <td style="text-align: right;">{{ formatageSommeSansFCFA(parseFloat(total)) }}</td>
                 </tr>
               </tbody>
             </table>
@@ -682,7 +682,11 @@ total() {
       "getBudgetViseParActvite",
       "AjouterPersonnel",
     ]),
-
+ retour() {
+      this.$router.push({
+        name: "SaisirContratPersonnel",
+      });
+    },
       affichonsTypePersonne($id) {
           if ($id == 0) {
             return 'Fonctionnaire'
