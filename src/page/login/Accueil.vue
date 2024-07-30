@@ -60,10 +60,11 @@
             width: 80%;
             cursor: pointer;
           "
+          @click="ParametreGeneraux(3)"
         >
           <div class="card-body curves-shadow">
              <i class="icon-people" style="  font-size: 50px;"></i>
-            <h2 class="op-8">Gestion du Personnel</h2>
+            <h2 class="op-8" @click="ParametreGeneraux(3)">Gestion du Personnel</h2>
             <!-- <div class="pull-right">
               <h3 class="fw-bold op-8">70%</h3>
             </div> -->

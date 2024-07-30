@@ -62,7 +62,9 @@ import FormeJuridique from "../page/ParametreGeneraux/FormeJuridique.vue"
 import RegimeImpossition from "../page/ParametreGeneraux/RegimeImpossition.vue"
 
 import afficheBudgetViseParActivite from "../page/GestionBudgetaire/DossierBudget/afficheBudgetViseParActivite.vue"
+
 const gestionutilisateur = [
+   
   {
         path: '/afficheBudgetViseParActivite/:id',
         name:"afficheBudgetViseParActivite",

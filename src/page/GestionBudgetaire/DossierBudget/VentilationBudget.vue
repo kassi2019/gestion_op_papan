@@ -671,17 +671,14 @@
                       </td>
                     </tr>
                     <tr>
-                      <td colspan="5" style="
-                          text-align: right;
-                          border: 1px solid #000 !important;
-                        ">TOTAL</td>
                       <td
+                        colspan="5"
                         style="
                           text-align: right;
                           border: 1px solid #000 !important;
                         "
                       >
-                        {{ formatageSommeSansFCFA(parseFloat(sommeBudgetActuelle)) }}
+                        TOTAL
                       </td>
                       <td
                         style="
@@ -689,7 +686,11 @@
                           border: 1px solid #000 !important;
                         "
                       >
-                        {{ formatageSommeSansFCFA(parseFloat(sommeBudgetReport)) }}
+                        {{
+                          formatageSommeSansFCFA(
+                            parseFloat(sommeBudgetActuelle)
+                          )
+                        }}
                       </td>
                       <td
                         style="
@@ -697,12 +698,26 @@
                           border: 1px solid #000 !important;
                         "
                       >
-                        {{ formatageSommeSansFCFA(parseFloat(sommeBudgetTotal)) }}
+                        {{
+                          formatageSommeSansFCFA(parseFloat(sommeBudgetReport))
+                        }}
                       </td>
-                      <td style="
+                      <td
+                        style="
                           text-align: right;
                           border: 1px solid #000 !important;
-                        "></td>
+                        "
+                      >
+                        {{
+                          formatageSommeSansFCFA(parseFloat(sommeBudgetTotal))
+                        }}
+                      </td>
+                      <td
+                        style="
+                          text-align: right;
+                          border: 1px solid #000 !important;
+                        "
+                      ></td>
                     </tr>
                   </tbody>
                 </table>
@@ -775,13 +790,13 @@
                       <span
                         class="badge bg-dark"
                         style="cursor: pointer"
-                        @click.prevent="voirBudgett(item1.id,dossier_id)"
+                        @click.prevent="voirBudgett(item1.id, dossier_id)"
                         >Budget</span
                       >
                       <span
                         class="badge bg-info"
                         style="cursor: pointer"
-                        @click.prevent="voirSousBudget(item1.id,dossier_id)"
+                        @click.prevent="voirSousBudget(item1.id, dossier_id)"
                         >Composante</span
                       >
                     </td>
@@ -1077,32 +1092,32 @@ export default {
     ]),
 
     sommeBudgetActuelle() {
-  return this.afficheBudgetParActivite
-          
-          .reduce(
-            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_actuelle),
-            0
-          )
-          .toFixed(0);
-},
-    sommeBudgetReport() {
-  return this.afficheBudgetParActivite
-          
-          .reduce(
-            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_report),
-            0
-          )
-          .toFixed(0);
+      return this.afficheBudgetParActivite
+
+        .reduce(
+          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_actuelle),
+          0
+        )
+        .toFixed(0);
     },
-sommeBudgetTotal() {
-  return this.afficheBudgetParActivite
-          
-          .reduce(
-            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
-            0
-          )
-          .toFixed(0);
-},
+    sommeBudgetReport() {
+      return this.afficheBudgetParActivite
+
+        .reduce(
+          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_report),
+          0
+        )
+        .toFixed(0);
+    },
+    sommeBudgetTotal() {
+      return this.afficheBudgetParActivite
+
+        .reduce(
+          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
+          0
+        )
+        .toFixed(0);
+    },
     verificationBailleurSurNatureEconomique() {
       if (this.sous_budget_id == 0) {
         const qtereel = this.getterListeBudgetEclate.find(
@@ -1508,12 +1523,11 @@ sommeBudgetTotal() {
       };
 
       this.modifierBudget(objetDirect1);
-     
     },
-    voirBudgett(id,id1) {
+    voirBudgett(id, id1) {
       this.$router.push({
         name: "VoirBudgetEclate",
-        params: { id: id, id1: id1},
+        params: { id: id, id1: id1 },
       });
     },
 
@@ -1522,10 +1536,10 @@ sommeBudgetTotal() {
         name: "Budget",
       });
     },
-    voirSousBudget(id,id1) {
+    voirSousBudget(id, id1) {
       this.$router.push({
         name: "AfficheSousBudgetEclate",
-        params: { id: id , id1: id1},
+        params: { id: id, id1: id1 },
       });
     },
     AfficheMontantBudget($id) {

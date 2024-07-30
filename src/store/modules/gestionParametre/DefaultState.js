@@ -43,8 +43,21 @@ const defaultstate = {
     stateSignataire: [],
     stateSecteurActivite: [],
     stateRegimeImpossition: [],
-    stateFormeJuridique:[]
+    stateFormeJuridique:[],
     // stateAfficheDotation:[]
+    
+
+    // GESTION PERSONNEL
+
+    stateFonction: [],
+    stateService: [],
+    stateSituationMatrimonial: [],
+    stateEmploi: [],
+    stateNatureContrat: [],
+    stateDiplome: [] ,
+    stateTypeIndemnite: [],
+    stateTypePiece:[]
+    
     
 };
 
