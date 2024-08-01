@@ -545,6 +545,14 @@ export function supprimerTypePiece({ commit}, id) {
 }
 
 // PERSONNEL
+
+export function getCumulMontantContrat({ commit }) {
+  apiGuest.get("/AfficheDetailPersonnelParSousBudget", { headers: authHeader() })
+    .then(response => {
+      commit("GET_DETAIL_CUMUL_MONTANT_PERSONNEL", response.data);
+    })
+    .catch(error => console.log(error));
+}
 export function getListePersonnelOp({ commit }, objet) {
 
   return new Promise((resolve, reject) => {
@@ -675,6 +683,121 @@ export function supprimerPersonnelParUser({ commit}, id) {
    
     apiGuest.delete('/supprimerPersonnel/' + id, { headers: authHeader() })
      commit('SUPPRIMER_PERSONNEL_USER', id)
+ 
+    Swal.fire({
+      title: "Suppression",
+      text: "effectué avec succès.",
+      icon: "success"
+    });
+
+    
+  }
+});
+}
+
+
+
+// ORDRE MISSION
+
+
+export function getOrdreMission({ commit }) {
+  apiGuest.get("/listeOrdreMission", { headers: authHeader() })
+    .then(response => {
+      commit("GET_ORDRE_MISSION", response.data);
+    })
+    .catch(error => console.log(error));
+}
+
+export function getOrdreMissionUser({ commit }) {
+  apiGuest.get("/listeOrdreMissionPerUtilisateur", { headers: authHeader() })
+    .then(response => {
+      commit("GET_ORDRE_MISSION_USER", response.data);
+    })
+    .catch(error => console.log(error));
+}
+export function AjouterOrdreMission({ commit }, nouveau) {
+ 
+    apiGuest.post("/AjouterOrdreMission", nouveau, { headers: authHeader() })
+    .then(response => {
+      if (response.status == 201) {
+        commit("AJOUTER_ORDRE_MISSION", response.data);
+       toast("Enregistrement effectué avec succès!", {
+        "theme": "auto",
+        "type": "success",
+        "dangerouslyHTMLString": true
+})
+      }
+    }).catch();
+}
+
+export function ModifierOrdreMissionUser({ commit }, nouveau) {
+  apiGuest.
+    put("/ModifierOrdreMission/" + nouveau.id, nouveau, { headers: authHeader() })
+    .then(response => {
+      commit("MODIFIER_ORDRE_MISSION_USER", response.data);
+      toast("Modification effectué avec succès!", {
+        "theme": "auto",
+        "type": "success",
+        "dangerouslyHTMLString": true
+})
+    });
+}
+
+export function supprimerOrdreMissionUser({ commit}, id) {
+
+  Swal.fire({
+  // title: "Are you sure?",
+  text: "Voulez vous vraiment supprimer ?",
+  icon: "question",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Confimer"
+}).then((result) => {
+  if (result.isConfirmed) {
+   
+    apiGuest.delete('/supprimerOrdreMission/' + id, { headers: authHeader() })
+     commit('SUPPRIMER_ORDRE_MISSION_USER', id)
+ 
+    Swal.fire({
+      title: "Suppression",
+      text: "effectué avec succès.",
+      icon: "success"
+    });
+
+    
+  }
+});
+}
+
+export function ModifierOrdreMission({ commit }, nouveau) {
+  apiGuest.
+    put("/ModifierOrdreMission/" + nouveau.id, nouveau, { headers: authHeader() })
+    .then(response => {
+      commit("MODIFIER_ORDRE_MISSION", response.data);
+      toast("Modification effectué avec succès!", {
+        "theme": "auto",
+        "type": "success",
+        "dangerouslyHTMLString": true
+})
+    });
+}
+
+export function supprimerOrdreMission({ commit}, id) {
+
+  Swal.fire({
+  // title: "Are you sure?",
+  text: "Voulez vous vraiment supprimer ?",
+  icon: "question",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Confimer"
+}).then((result) => {
+  if (result.isConfirmed) {
+   
+    apiGuest.delete('/supprimerOrdreMission/' + id, { headers: authHeader() })
+     commit('SUPPRIMER_ORDRE_MISSION', id)
  
     Swal.fire({
       title: "Suppression",

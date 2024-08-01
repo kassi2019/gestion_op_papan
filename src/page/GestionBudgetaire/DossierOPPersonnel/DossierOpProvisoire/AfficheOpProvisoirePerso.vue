@@ -117,37 +117,76 @@
                   <td style="border: 1px solid #000">
                     {{ formaterDate(item.date_decision) }}
                   </td>
-                  <td style="border: 1px solid #000">
-                    <!-- <span
-                      class="badge badge-black"
-                      style="cursor: pointer"
-                      @click.prevent="AfficheVentilationBudget(item.id)"
-                      >Saisir budget</span
-                    > -->
-                    <span
-                      title="Modifier"
-                      class="fas fa-edit"
-                      data-bs-toggle="modal"
-                      data-bs-target="#largeModal1"
-                      style="cursor: pointer; color: blue"
-                    ></span>
-                    <span
-                      title="Supprimer"
-                      class="fas fa-archive"
-                      style="cursor: pointer; color: red"
-                    ></span>
-                    <span
-                      title="Voir facture"
-                      class="fas fa-eye"
-                      style="cursor: pointer; color: #006d80"
-                    ></span>
-                    <span
-                      title="Imprimer OP"
-                      class="fas fa-print"
-                      style="cursor: pointer; color: #77abd6"
-                      @click.prevent="fonctionImprimer(item.id, dossier_id)"
-                    ></span>
-                  </td>
+
+                <td>
+                    <div
+                      class="btn-group"
+                      role="group"
+                      aria-label="Basic mixed styles example"
+                    >
+                      <span
+                        title="Modifier"
+                         class="badge bg-primary"
+                        data-bs-toggle="modal"
+                        data-bs-target="#largeModal1"
+                        style="cursor: pointer"
+                        @click.prevent="AfficheModalModification(item.id)"
+                      ><i class="fas fa-edit"></i> Modifier</span>
+                      <span
+                        title="Supprimer"
+                         class="badge bg-danger"
+                        
+                        style="cursor: pointer;"
+                        @click.prevent="supprimerInformationBudget(item.id)"
+                      ><i class="fas fa-archive"></i> Supprimer</span>
+                      <span
+                        v-if="afficherTypeDepense(dossier_id) == 0"
+                        title="Voir facture"
+                        class="fas fa-eye"
+                        style="cursor: pointer; color: #006d80"
+                        @click.prevent=""
+                      ></span>
+                      <span
+                        v-if="afficherTypeDepense(dossier_id) == 1"
+                        title="Voir Personnel"
+                         class="badge bg-info"
+                        style="cursor: pointer; color: #000;
+                          font-weight: bolder;"
+                        @click.prevent="fonctionImprimerListePersonnel(item.id)"
+                        ><i class="fas fa-user-friends" style="color: #000"> Imprimer Personnel</i
+                        > </span
+                      >
+
+                      <span
+                        v-if="afficherTypeDepense(dossier_id) == 0"
+                         class="badge bg-warning"
+                        title="Imprimer OP"
+                        style="cursor: pointer; color: #000;
+                          font-weight: bolder;"
+                        @click.prevent="fonctionImprimer(item.id, dossier_id)"
+                      >
+                        <i class="fas fa-print" style="color: #000"></i>Imprimer
+                        OP</span
+                      >
+
+                      <span
+                        v-if="afficherTypeDepense(dossier_id) == 1"
+                        title="Imprimer OP"
+                         class="badge bg-warning"
+                        style="
+                          cursor: pointer;
+                          color: #000;
+                          font-weight: bolder;
+                        "
+                        @click.prevent="
+                          fonctionImprimerPersonnel(item.id, dossier_id)
+                        "
+                      >
+                        <i class="fas fa-print" style="color: #000"></i>
+                        Imprimer OP</span
+                      >
+                    </div>
+                </td>
                 </tr>
               </tbody>
             </table>
@@ -386,6 +425,20 @@ export default {
       "getterExerciceBudgetaire",
       "getterInformationBudget",
     ]),
+     afficherTypeDepense() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.getterOpPersonnelParUser.find(
+            (qtreel) => qtreel.bordereau_id == id
+          );
+
+          if (qtereel) {
+            return qtereel.type_depense;
+          }
+          return "8";
+        }
+      };
+    },
     afficheListeOPprovisoire() {
       return this.getterOpPersonnelParUser.filter(
         (item) =>
@@ -421,6 +474,18 @@ export default {
       this.$router.push({
         name: "OrdrePaiementProvisoire",
 
+        params: { id: id },
+      });
+    },
+     fonctionImprimerPersonnel(id, id1) {
+      this.$router.push({
+        name: "ImprimerOpPersonnel",
+        params: { id: id, id1: id1 },
+      });
+    },
+     fonctionImprimerListePersonnel(id) {
+      this.$router.push({
+        name: "ImprimerPersonnelOP",
         params: { id: id },
       });
     },

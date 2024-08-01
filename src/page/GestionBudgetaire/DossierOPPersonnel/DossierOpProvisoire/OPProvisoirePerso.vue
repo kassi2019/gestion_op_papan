@@ -381,7 +381,7 @@
                   <form class="row g-3">
                     <div class="col-3">
                       <label class="form-label"
-                        >Type dépense {{ FormDataDossier.type_indemnite_id }}
+                        >Type dépense
                         <span
                           style="
                             color: red !important;

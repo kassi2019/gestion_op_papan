@@ -96,7 +96,7 @@
             <a
               class="nav-link collapsed"
               href=""
-              @click.prevent="activedOptionMenu('ListeDuPersonnel')"
+              @click.prevent="activedOptionMenu('OrdreMission')"
             >
               <i class="fas fa-arrow-right"></i>
 

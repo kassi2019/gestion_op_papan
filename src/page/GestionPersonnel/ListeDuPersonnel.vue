@@ -105,14 +105,14 @@
                             ><i class="fas fa-edit"></i
                           ></span>
                           <span
-                            class="badge bg-primary"
+                            class="badge bg-info"
                             data-bs-toggle="modal"
                             data-bs-target="#decision"
                             style="cursor: pointer"
                             title="Appliquer décision"
                             @click="AfficheModalModificationApplique(item1.id)"
                             ><i class="fas fa-stamp"></i
-                          ></span>
+                          > Appliquer décision</span>
                         </div>
                       </td>
                     </tr>
@@ -194,6 +194,15 @@
                             @click="AfficheModalModification(item1.id)"
                             ><i class="fas fa-edit"></i
                           ></span>
+                          <span
+                            class="badge bg-info"
+                            data-bs-toggle="modal"
+                            data-bs-target="#decision"
+                            style="cursor: pointer"
+                            title="Appliquer décision"
+                            @click="AfficheModalModificationAppliqueVise(item1.id)"
+                            ><i class="fas fa-stamp"></i
+                          > Appliquer décision</span>
                         </div>
                       </td>
                     </tr>
@@ -1013,6 +1022,15 @@ export default {
         name: "DetailPersonnel",
         params: { id: id },
       });
+    },
+    AfficheModalModificationAppliqueVise(id1) {
+      this.modNatureDepense = this.AfficheContratVise.find(
+        (items) => items.id == id1
+      );
+      let objet = {
+        id: id1,
+      };
+      this.getDetailDepensePersonnel(objet);
     },
     AfficheModalModificationApplique(id1) {
       this.modNatureDepense = this.AfficheContratAttente.find(

@@ -226,7 +226,7 @@
                 <form class="row g-3">
                   <div class="col-3">
                     <label class="form-label"
-                      >Tyep Personnel
+                      >Type Personnel
                       <span
                         style="
                           color: red !important;
@@ -535,7 +535,7 @@
                       >Ce champs est obligatoire!
                     </span>
                   </div>
-                  <div class="col-6">
+                  <div class="col-3">
                     <label class="form-label"
                       >Montant
                       <span
@@ -565,8 +565,47 @@
                     ></money3>
                   </div>
                   <div class="col-3">
-                    <br />
-
+                    <label class="form-label">Cumul des montants </label>
+                    <money3
+                      class="form-control"
+                      v-bind="config"
+                      readonly
+                      :model-value="
+                        DotaionCumulerContrat + FormDataDossier.montant
+                      "
+                    ></money3>
+                  </div>
+                  <div class="col-3">
+                    <label class="form-label">Disponible </label>
+                    <money3
+                      class="form-control"
+                      v-bind="config"
+                      readonly
+                      :model-value="
+                        parseFloat(afficheDotaion) -
+                        parseFloat(
+                          parseFloat(DotaionCumulerContrat) +
+                            parseFloat(FormDataDossier.montant)
+                        )
+                      "
+                    ></money3>
+                  </div>
+                 
+                  
+                   <div class="col-9">
+                    <span
+                      style="color: red"
+                      v-if="
+                        parseFloat(afficheDotaion) <
+                        parseFloat(
+                          parseFloat(DotaionCumulerContrat) +
+                            parseFloat(FormDataDossier.montant)
+                        )
+                      "
+                      >Cumul des montants est supperieure a la dotation
+                    </span>
+                  </div>
+                  <div class="col-3">
                     <button
                       type="button"
                       class="btn btn-primary"
@@ -1453,7 +1492,6 @@
                       :model-value="afficheDotaion"
                     ></money3>
                   </div> -->
-                 
                 </form>
               </div>
             </div>
@@ -1500,7 +1538,7 @@ export default {
   data() {
     return {
       modNatureDepense: {},
-      modDetail:{},
+      modDetail: {},
       TableauDossier: [],
       ModifierBudget: {
         type_financement_id: 0,
@@ -1586,6 +1624,7 @@ export default {
     this.getTypeFinancement();
     this.getBailleur();
     this.getPersonnelUtilisateur();
+    this.getCumulMontantContrat();
     // if (this.modNatureDepense!=0) {
 
     //   let objet = {
@@ -1609,6 +1648,7 @@ export default {
       "gettersTypeIndemnite",
       "gettersTypePiece",
       "gettersDetailDepensePerso",
+      "gettersCumulMontant",
     ]),
     ...mapGetters("parametrage", [
       "getterProjet",
@@ -1632,6 +1672,45 @@ export default {
 
         .reduce((prec, cur) => parseFloat(prec) + parseFloat(cur.montant), 0)
         .toFixed(0);
+    },
+
+    DotaionCumulerContrat() {
+      if (this.sous_budget_id == 0 && this.activite_id != 0) {
+        // return (id) => {
+        //     if (id != null && id != "") {
+        const qtereel = this.gettersCumulMontant.find(
+          (qtreel) =>
+            qtreel.nature_economique_id ==
+              this.FormDataDossier.nature_economique_id &&
+            qtreel.type_financement_id ==
+              this.FormDataDossier.type_financement_id &&
+            qtreel.source_financement_id ==
+              this.FormDataDossier.source_financement_id
+        );
+
+        if (qtereel) {
+          return qtereel.cumul_montant;
+        }
+        return 0;
+        //   }
+        // };
+      } else {
+        const qtereel = this.gettersCumulMontant.find(
+          (qtreel) =>
+            qtreel.nature_economique_id ==
+              this.FormDataDossier.nature_economique_id &&
+            qtreel.type_financement_id ==
+              this.FormDataDossier.type_financement_id &&
+            qtreel.source_financement_id ==
+              this.FormDataDossier.source_financement_id &&
+            qtreel.sous_budget_id == this.sous_budget_id
+        );
+
+        if (qtereel) {
+          return qtereel.cumul_montant;
+        }
+        return 0;
+      }
     },
     afficheDotaion() {
       if (this.sous_budget_id == 0 && this.activite_id != 0) {
@@ -2074,6 +2153,7 @@ export default {
     ]),
     ...mapActions("Personnel", [
       "getService",
+      "getCumulMontantContrat",
       "getDetailDepensePersonnel",
       "getPersonnelUtilisateur",
       "supprimerPersonnel",
@@ -2101,7 +2181,6 @@ export default {
       this.modDetail = this.gettersDetailDepensePerso.find(
         (items) => items.id == id1
       );
-      
     },
     AfficheVentilationBudget(id) {
       this.$router.push({

@@ -345,19 +345,21 @@ export const SUPPRIMER_DOTATION_AUTRE_RESSOURCE = (state, id) => {
 
 // INFORMATION SUR LE BUDGET
 
-
+export const GET_BORDEREAU_PAR_USER = (state, value) => {
+    state.stateBordereauParUser=value
+}
 export const GET_INFORMATION_BUDGET = (state, value) => {
     state.stateInformationBudget=value
 }
 
 export const AJOUTER_INFORMATION_BUDGET = (state, elementAjouter) => {
-    state.stateInformationBudget.unshift(elementAjouter)
+    state.stateBordereauParUser.unshift(elementAjouter)
 }
 export const VISA_REAMENAGEMENT_INFORMATION_BUDGET = (state, elementAjouter) => {
     state.stateInformationBudget.unshift(elementAjouter)
 }
 export const MODIFIER_INFORMATION_BUDGET = (state, elementModif) => {
-    state.stateInformationBudget = state.stateInformationBudget.map(response => {
+    state.stateBordereauParUser = state.stateBordereauParUser.map(response => {
 
         if (response.id == elementModif.id) {
             response = { ...elementModif }
@@ -367,7 +369,7 @@ export const MODIFIER_INFORMATION_BUDGET = (state, elementModif) => {
 }
 
 export const SUPPRIMER_INFORMATION_BUDGET = (state, id) => {
-    state.stateInformationBudget = state.stateInformationBudget.filter(titre => titre.id != id)
+    state.stateBordereauParUser = state.stateBordereauParUser.filter(titre => titre.id != id)
 };
 
 

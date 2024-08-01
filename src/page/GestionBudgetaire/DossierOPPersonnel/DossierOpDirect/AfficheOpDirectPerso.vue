@@ -389,7 +389,7 @@ export default {
     afficheListeOPprovisoire() {
       return this.getterOpPersonnelParUser.filter(
         (item) =>
-          item.bordereau_id == this.dossier_id && item.type_ordre_paiement == 1
+          item.bordereau_id == this.dossier_id && item.type_ordre_paiement == 2
       );
     },
     exerciceBudgetaire() {

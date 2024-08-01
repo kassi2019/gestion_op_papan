@@ -521,7 +521,7 @@ export default {
     this.getActivite();
     this.getDotationNotifie();
     this.getDotationReport();
-    this.getInformationBudget();
+    this.getBordereauParUser();
   },
   computed: {
     ...mapGetters("parametrage", [
@@ -529,7 +529,7 @@ export default {
       "getterDotationReport",
       "getterDotationNotifie",
       "getterExerciceBudgetaire",
-      "getterInformationBudget",
+      "gettersBordereauParUser",
     ]),
     automatiseBordereau() {
       return (
@@ -541,11 +541,11 @@ export default {
       );
     },
     AfficherBudgetGlobal() {
-      return this.getterInformationBudget.filter((item) => item.statut == 11);
+      return this.gettersBordereauParUser.filter((item) => item.statut == 11);
     },
 
     AfficherTailleBordereau() {
-      return this.getterInformationBudget.filter(
+      return this.gettersBordereauParUser.filter(
         (item) =>
           item.statut == 2 ||
           item.statut == 3 ||
@@ -650,7 +650,7 @@ export default {
       "modifierInformationBudget",
       "supprimerInformationBudget",
       "getExerciceBudgetaire",
-      "getInformationBudget",
+      "getBordereauParUser",
     ]),
     fonctionImprimer(id) {
       this.$router.push({

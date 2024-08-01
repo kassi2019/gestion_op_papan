@@ -1044,7 +1044,13 @@ export function supprimerDotationAutreRessource({ commit}, id) {
 
 // INFORMATION SUR LE BUDGET
 
-
+export function getBordereauParUser({ commit }) {
+  apiGuest.get("/listeBordereauParUser", { headers: authHeader() })
+    .then(response => {
+      commit("GET_BORDEREAU_PAR_USER", response.data);
+    })
+    .catch(error => console.log(error));
+}
 
 export function getInformationBudget({ commit }) {
   apiGuest.get("/listeInformationBudget", { headers: authHeader() })

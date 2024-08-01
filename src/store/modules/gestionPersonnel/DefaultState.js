@@ -15,8 +15,10 @@ const defaultstate = {
     statePersonnelParUtilisateur: [],
     stateDetailDepensePerso: [],
     statePersonnelParActivite: [],
-    stateListePersonnelOP:[]
-    
+    stateListePersonnelOP: [],
+    stateCumulMontant: [],
+    stateOrdreMission:[],
+    stateOrdreMissionParUser:[]
     
 };
 

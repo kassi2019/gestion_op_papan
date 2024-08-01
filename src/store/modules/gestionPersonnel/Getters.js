@@ -14,3 +14,6 @@ export const gettersPersonnelParUtilisateur = state => state.statePersonnelParUt
 export const gettersDetailDepensePerso = state => state.stateDetailDepensePerso;
 export const gettersPersonnelParActivite = state => state.statePersonnelParActivite;
 export const gettersListePersonnelOP = state => state.stateListePersonnelOP;
+export const gettersCumulMontant = state => state.stateCumulMontant;
+export const gettersOrdreMission = state => state.stateOrdreMission;
+export const gettersOrdreMissionParUser = state => state.stateOrdreMissionParUser;

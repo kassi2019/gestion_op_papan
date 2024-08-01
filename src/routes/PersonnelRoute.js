@@ -17,8 +17,14 @@ import InfoBordOpDirectPerso from "../page/GestionBudgetaire/DossierOPPersonnel/
 
 import OPProvisoirePerso from "../page/GestionBudgetaire/DossierOPPersonnel/DossierOpProvisoire/OPProvisoirePerso.vue"
 import OPDirectPerso from "../page/GestionBudgetaire/DossierOPPersonnel/DossierOpDirect/OPDirectPerso.vue"
+import OrdreMission from "../page/GestionPersonnel/OrdreMission.vue"
 
 const gestionutilisateur = [
+      {
+        path: '/OrdreMission',
+        name:"OrdreMission",
+       component: OrdreMission
+  },
        {
         path: '/InfoBordOpDirectPerso',
         name:"InfoBordOpDirectPerso",

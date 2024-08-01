@@ -45,7 +45,8 @@ const defaultstate = {
     stateRegimeImpossition: [],
     stateFormeJuridique: [],
     stateOpPersonnel: [],
-    stateOpPersonnelParUser:[]
+    stateOpPersonnelParUser: [],
+    stateBordereauParUser:[]
     // stateAfficheDotation:[]
 
 };

@@ -1,6 +1,5 @@
 <template>
   <div class="container">
- 
     <div class="col-md-12">
       <div class="card" style="box-shadow: 5px 5px #f9d531">
         <div class="card-header">
@@ -95,7 +94,7 @@
           </h5> -->
 
           <h6 style="text-align: center; font-size: 15px">
-            OBJET :{{ libelleBordereau(ordrePaiement_id) }}
+            OBJET : {{ libelleBordereau(ordrePaiement_id) }}
           </h6>
           <div class="table-responsive">
             <table class="table table-bordered" id="customers">
@@ -182,7 +181,6 @@
                     "
                   >
                     TOTAL
-                    
                   </td>
                   <td
                     style="
@@ -389,10 +387,7 @@ export default {
     TotalOP() {
       return this.gettersListePersonnelOP
         .filter((item) => item.id_op == this.ordrePaiement_id)
-        .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.montant),
-          0
-        )
+        .reduce((prec, cur) => parseFloat(prec) + parseFloat(cur.montant), 0)
         .toFixed(0);
       // }
     },

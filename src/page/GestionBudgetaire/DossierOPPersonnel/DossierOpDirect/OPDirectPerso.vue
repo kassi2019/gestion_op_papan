@@ -381,7 +381,7 @@
                   <form class="row g-3">
                     <div class="col-3">
                       <label class="form-label"
-                        >Type dépense {{ FormDataDossier.type_indemnite_id }}
+                        >Type dépense 
                         <span
                           style="
                             color: red !important;
@@ -1685,7 +1685,7 @@ export default {
         compte_id: this.compte_id,
         objet_depense: this.objet_depense,
         numero_ordre_paiement: this.automatiseNumeroOP,
-        type_ordre_paiement: 1,
+        type_ordre_paiement: 2,
         montant_prestation: this.montant_prestation,
         nature_economique_id: this.nature_economique_id,
         nature_depense_id: this.NatureDepense_id,

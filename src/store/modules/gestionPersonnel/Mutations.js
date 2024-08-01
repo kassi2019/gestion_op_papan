@@ -205,7 +205,9 @@ export const SUPPRIMER_TYEP_PIECE = (state, id) => {
 
 
 //PERSONNEL
-
+export const GET_DETAIL_CUMUL_MONTANT_PERSONNEL = (state,value)=>{
+    state.stateCumulMontant=value
+}
 export const GET_PERSONNEL = (state,value)=>{
     state.statePersonnel=value
 }
@@ -225,11 +227,11 @@ export const SUPPRIMER_PERSONNEL_USER = (state, id) => {
     state.statePersonnelParUtilisateur = state.statePersonnelParUtilisateur.filter(titre => titre.id != id)
 };
 export const AJOUTER_PERSONNEL = (state, elementAjouter) => {
-    state.statePersonnel.unshift(elementAjouter)
+    state.statePersonnelParUtilisateur.unshift(elementAjouter)
 }
 
 export const MODIFIER_PERSONNEL = (state, elementModif) => {
-    state.statePersonnel = state.statePersonnel.map(response => {
+    state.statePersonnelParUtilisateur = state.statePersonnelParUtilisateur.map(response => {
 
         if (response.id == elementModif.id) {
             response = { ...elementModif }
@@ -240,4 +242,49 @@ export const MODIFIER_PERSONNEL = (state, elementModif) => {
 
 export const SUPPRIMER_PERSONNEL = (state, id) => {
     state.statePersonnel = state.statePersonnel.filter(titre => titre.id != id)
+};
+
+
+
+// ORDRE MISSION
+
+
+export const GET_ORDRE_MISSION = (state,value)=>{
+    state.stateOrdreMission=value
+}
+export const GET_ORDRE_MISSION_USER = (state,value)=>{
+    state.stateOrdreMissionParUser=value
+}
+export const AJOUTER_ORDRE_MISSION = (state, elementAjouter) => {
+    state.stateOrdreMissionParUser.unshift(elementAjouter)
+}
+
+
+export const MODIFIER_ORDRE_MISSION_USER = (state, elementModif) => {
+    state.stateOrdreMissionParUser = state.stateOrdreMissionParUser.map(response => {
+
+        if (response.id == elementModif.id) {
+            response = { ...elementModif }
+        }
+        return response
+    })
+}
+
+export const SUPPRIMER_ORDRE_MISSION_USER = (state, id) => {
+    state.stateOrdreMissionParUser = state.stateOrdreMissionParUser.filter(titre => titre.id != id)
+};
+
+
+export const MODIFIER_ORDRE_MISSION = (state, elementModif) => {
+    state.stateOrdreMission = state.stateOrdreMission.map(response => {
+
+        if (response.id == elementModif.id) {
+            response = { ...elementModif }
+        }
+        return response
+    })
+}
+
+export const SUPPRIMER_ORDRE_MISSION = (state, id) => {
+    state.stateOrdreMission = state.stateOrdreMission.filter(titre => titre.id != id)
 };

@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+   
     <div class="col-md-12">
       <div class="card" style="box-shadow: 5px 5px #f9d531">
         <div class="card-header">
@@ -521,7 +522,7 @@ export default {
     this.getActivite();
     this.getDotationNotifie();
     this.getDotationReport();
-    this.getInformationBudget();
+    this.getBordereauParUser();
   },
   computed: {
     ...mapGetters("parametrage", [
@@ -529,7 +530,7 @@ export default {
       "getterDotationReport",
       "getterDotationNotifie",
       "getterExerciceBudgetaire",
-      "getterInformationBudget",
+      "gettersBordereauParUser",
     ]),
     automatiseBordereau() {
       return (
@@ -541,11 +542,11 @@ export default {
       );
     },
     AfficherBudgetGlobal() {
-      return this.getterInformationBudget.filter((item) => item.statut == 10);
+      return this.gettersBordereauParUser.filter((item) => item.statut == 10);
     },
 
     AfficherTailleBordereau() {
-      return this.getterInformationBudget.filter(
+      return this.gettersBordereauParUser.filter(
         (item) =>
           item.statut == 2 ||
           item.statut == 3 ||
@@ -650,7 +651,7 @@ export default {
       "modifierInformationBudget",
       "supprimerInformationBudget",
       "getExerciceBudgetaire",
-      "getInformationBudget",
+      "getBordereauParUser",
     ]),
     fonctionImprimer(id) {
       this.$router.push({

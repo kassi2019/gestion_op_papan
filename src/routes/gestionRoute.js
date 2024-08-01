@@ -33,6 +33,8 @@ import AfficheOpActivite from "../page/GestionBudgetaire/DossierOpProvisoire/Aff
 import AfficheOpProvisoirePerso from "../page/GestionBudgetaire/DossierOPPersonnel/DossierOpProvisoire/AfficheOpProvisoirePerso.vue"
 import AfficheOpDirectActivite from "../page/GestionBudgetaire/DossierOPDirect/AfficheOpDirectActivite.vue"
 import ImprimerOp from "../page/GestionRapport/ImprimerOp.vue"
+import ImprimerOrdreMission from "../page/GestionRapport/ImprimerOrdreMission.vue"
+
 import ImprimerOpPersonnel from "../page/GestionRapport/ImprimerOpPersonnel.vue"
 import imprimerToutOP from "../page/GestionBudgetaire/VoirOPTotal/imprimerToutOP.vue"
 import AfficheActiviteDesOP from "../page/GestionBudgetaire/AfficheActiviteDesOP.vue"
@@ -223,6 +225,11 @@ const gestionutilisateur = [
        component: imprimerToutOP
   },
   
+   {
+        path: '/ImprimerOrdreMission/:id',
+        name:"ImprimerOrdreMission",
+       component: ImprimerOrdreMission
+  },
       {
         path: '/ImprimerOpPersonnel/:id/:id1',
         name:"ImprimerOpPersonnel",

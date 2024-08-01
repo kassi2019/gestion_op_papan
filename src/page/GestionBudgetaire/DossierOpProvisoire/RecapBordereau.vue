@@ -480,7 +480,7 @@ export default {
     this.getActivite();
     this.getDotationNotifie();
     this.getDotationReport();
-    this.getInformationBudget();
+    this.getBordereauParUser();
   },
   props: [
     "id_dossier",
@@ -492,10 +492,10 @@ export default {
       "getterDotationReport",
       "getterDotationNotifie",
       "getterExerciceBudgetaire",
-      "getterInformationBudget",
+      "gettersBordereauParUser",
     ]),
     AfficherBudgetGlobal() {
-      return this.getterInformationBudget.filter((item) => item.statut == 2);
+      return this.gettersBordereauParUser.filter((item) => item.statut == 2);
     },
     // afficher
     libelleActivite() {
@@ -594,7 +594,7 @@ export default {
       "modifierInformationBudget",
       "supprimerInformationBudget",
       "getExerciceBudgetaire",
-      "getInformationBudget",
+      "getBordereauParUser",
     ]),
     fonctionImprimer(id) {
       this.$router.push({
