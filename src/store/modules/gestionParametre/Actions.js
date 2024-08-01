@@ -1522,7 +1522,13 @@ export function getListeOrdrePaiementParUtilisateur({ commit }) {
     })
     .catch(error => console.log(error));
 }
-
+export function getListeOrdrePaiementPersonnnelParUtilisateur({ commit }) {
+  apiGuest.get("/listeOrdrePaiementPersonnelParUtilisateur", { headers: authHeader() })
+    .then(response => {
+      commit("GET_LISTE_OP_PERSONNEL_PAR_UTILISATEUR", response.data);
+    })
+    .catch(error => console.log(error));
+}
 export function getListeFacture({ commit }) {
   apiGuest.get("/listeFacture", { headers: authHeader() })
     .then(response => {
@@ -2558,3 +2564,17 @@ export function supprimerTypePiece({ commit}, id) {
 });
 }
 
+export function AjouterOpPersonnel({ commit }, nouveau) {
+ 
+    apiGuest.post("/EnregistrementOrdrePaiementOpPersonnel", nouveau, { headers: authHeader() })
+    .then(response => {
+      if (response.status == 201) {
+        commit("AJOUTER_OP_PERSONNEL", response.data);
+       toast("Enregistrement effectué avec succès!", {
+        "theme": "auto",
+        "type": "success",
+        "dangerouslyHTMLString": true
+})
+      }
+    }).catch();
+}

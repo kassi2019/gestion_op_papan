@@ -487,7 +487,9 @@ export const GET_ACTIVITE_OP= (state,value)=>{
 export const GET_LISTE_OP_PAR_UTILISATEUR= (state,value)=>{
     state.stateListeOPParUser=value
 }
-
+export const GET_LISTE_OP_PERSONNEL_PAR_UTILISATEUR= (state,value)=>{
+    state.stateOpPersonnelParUser=value
+}
 export const GET_LISTE_FACTURE= (state,value)=>{
     state.stateFacture=value
 }
@@ -873,3 +875,7 @@ export const MODIFIER_TYEP_PIECE = (state, elementModif) => {
 export const SUPPRIMER_TYEP_PIECE = (state, id) => {
     state.stateTypePiece = state.stateTypePiece.filter(titre => titre.id != id)
 };
+
+export const AJOUTER_OP_PERSONNEL = (state, elementAjouter) => {
+    state.stateOpPersonnel.unshift(elementAjouter)
+}

@@ -12,3 +12,4 @@ export const gettersTypePiece = state => state.stateTypePiece;
 export const gettersPersonnel = state => state.statePersonnel;
 export const gettersPersonnelParUtilisateur = state => state.statePersonnelParUtilisateur;
 export const gettersDetailDepensePerso = state => state.stateDetailDepensePerso;
+export const gettersPersonnelParActivite = state => state.statePersonnelParActivite;

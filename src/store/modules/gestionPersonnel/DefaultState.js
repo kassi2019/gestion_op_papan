@@ -13,7 +13,9 @@ const defaultstate = {
     stateTypePiece: [],
     statePersonnel:[],
     statePersonnelParUtilisateur: [],
-    stateDetailDepensePerso:[]
+    stateDetailDepensePerso: [],
+    statePersonnelParActivite: [],
+    
     
 };
 

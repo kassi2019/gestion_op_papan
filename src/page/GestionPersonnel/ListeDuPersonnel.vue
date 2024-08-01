@@ -27,79 +27,181 @@
           </div>
         </div>
         <div class="card-body">
-          <div class="table-responsive">
-            <table class="table table-bordered border-primary">
-              <thead>
-                <tr>
-                  <!-- <th scope="col">#</th> -->
-                  <!-- <th scope="col">N</th> -->
-                  <th scope="col" style="text-align: center">N°contrat</th>
-                  <th scope="col" style="text-align: center">Matricule</th>
-                  <th scope="col" style="text-align: center">Nom</th>
-                  <th scope="col" style="text-align: center">prénoms</th>
-                  <!-- <th scope="col" style="text-align: center">
-                        Type dépense
+          <FormWizard @on-complete="onComplete" color="#e67e22">
+            <TabContent
+              title="CONTRAT EN ATTENTE DE DECISION"
+              icon="fas fa-hourglass-half"
+            >
+              <div class="table-responsive">
+                <table class="table table-bordered border-primary">
+                  <thead>
+                    <tr>
+                      <!-- <th scope="col">#</th> -->
+                      <th scope="col">N°</th>
+                      <th scope="col" style="text-align: center">N°contrat</th>
+                      <th scope="col" style="text-align: center">Matricule</th>
+                      <th scope="col" style="text-align: center">Nom</th>
+                      <th scope="col" style="text-align: center">prénoms</th>
+                      <th scope="col" style="text-align: center">Décision</th>
+                      <th scope="col" style="text-align: center">
+                        Date Décision
                       </th>
-                      <th scope="col" style="text-align: center">Montant</th> -->
-                  <th scope="col" style="text-align: center">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="item1 in gettersPersonnel" :key="item1.id">
-                  <td style="width: 10%">
-                    {{ item1.numero_contrat }}
-                  </td>
-                  <td style="width: 10%">
-                    {{ item1.matricule }}
-                  </td>
-                  <td style="width: 10%; text-align: ">
-                    {{ item1.nom }}
-                  </td>
-                  <td style="width: 40%; text-align: ">
-                    {{ item1.prenom }}
-                  </td>
-
-                  <!-- <td style="width: 15%; text-align: ">
-                        {{ typeIndemnite(item1.type_indemnite_id) }}
-                      </td>
-                      <td style="width: 10%; text-align: right">
-                        {{ formatageSommeSansFCFA(parseFloat(item1.montant)) }}
-                      </td> -->
-                  <td>
-                    <div
-                      class="btn-group"
-                      role="group"
-                      aria-label="Basic mixed styles example"
+                      <th scope="col" style="text-align: center">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      v-for="(item1, index) in AfficheContratAttente"
+                      :key="item1.id"
                     >
-                      <span
-                        class="badge bg-danger"
-                        style="cursor: pointer"
-                        title="Supprimer"
-                        @click.prevent="supprimerPersonnelParUser(item1.id)"
-                        ><i class="fas fa-trash"></i
-                      ></span>
-                      <span
-                        class="badge bg-info"
-                        style="cursor: pointer"
-                        title="Plus détail"
-                        @click="AfficheVentilationBudget(item1.id)"
-                        ><i class="fas fa-tasks"></i
-                      ></span>
-                      <span
-                        class="badge bg-primary"
-                        data-bs-toggle="modal"
-                        data-bs-target="#largeModal1"
-                        style="cursor: pointer"
-                        title="Modifier"
-                        @click="AfficheModalModification(item1.id)"
-                        ><i class="fas fa-edit"></i
-                      ></span>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+                      <td style="width: 10%">
+                        {{ index + 1 }}
+                      </td>
+                      <td style="width: 10%">
+                        {{ item1.numero_contrat }}
+                      </td>
+                      <td style="width: 10%">
+                        {{ item1.matricule }}
+                      </td>
+                      <td style="width: 10%; text-align: ">
+                        {{ item1.nom }}
+                      </td>
+                      <td style="width: 40%; text-align: ">
+                        {{ item1.prenom }}
+                      </td>
+                      <td style="width: 40%; text-align: ">
+                        {{ afficheDecision(item1.decision_cf) }}
+                      </td>
+                      <td style="width: 40%; text-align: ">
+                        {{ formaterDate(item1.date_decision) }}
+                      </td>
+                      <td>
+                        <div
+                          class="btn-group"
+                          role="group"
+                          aria-label="Basic mixed styles example"
+                        >
+                          <span
+                            class="badge bg-danger"
+                            style="cursor: pointer"
+                            title="Supprimer"
+                            @click.prevent="supprimerPersonnelParUser(item1.id)"
+                            ><i class="fas fa-trash"></i
+                          ></span>
+                          <span
+                            class="badge bg-info"
+                            style="cursor: pointer"
+                            title="Plus détail"
+                            @click="AfficheVentilationBudget(item1.id)"
+                            ><i class="fas fa-tasks"></i
+                          ></span>
+                          <span
+                            class="badge bg-primary"
+                            data-bs-toggle="modal"
+                            data-bs-target="#largeModal1"
+                            style="cursor: pointer"
+                            title="Modifier"
+                            @click="AfficheModalModification(item1.id)"
+                            ><i class="fas fa-edit"></i
+                          ></span>
+                          <span
+                            class="badge bg-primary"
+                            data-bs-toggle="modal"
+                            data-bs-target="#decision"
+                            style="cursor: pointer"
+                            title="Appliquer décision"
+                            @click="AfficheModalModificationApplique(item1.id)"
+                            ><i class="fas fa-stamp"></i
+                          ></span>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </TabContent>
+            <TabContent title="CONTRAT VISE" icon="fas fa-hourglass-end">
+              <div class="table-responsive">
+                <table class="table table-bordered border-primary">
+                  <thead>
+                    <tr>
+                      <!-- <th scope="col">#</th> -->
+                      <th scope="col">N°</th>
+                      <th scope="col" style="text-align: center">N°contrat</th>
+                      <th scope="col" style="text-align: center">Matricule</th>
+                      <th scope="col" style="text-align: center">Nom</th>
+                      <th scope="col" style="text-align: center">prénoms</th>
+                      <th scope="col" style="text-align: center">Décision</th>
+                      <th scope="col" style="text-align: center">
+                        Date Décision
+                      </th>
+                      <th scope="col" style="text-align: center">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      v-for="(item1, index) in AfficheContratVise"
+                      :key="item1.id"
+                    >
+                      <td style="width: 10%">
+                        {{ index + 1 }}
+                      </td>
+                      <td style="width: 10%">
+                        {{ item1.numero_contrat }}
+                      </td>
+                      <td style="width: 10%">
+                        {{ item1.matricule }}
+                      </td>
+                      <td style="width: 10%; text-align: ">
+                        {{ item1.nom }}
+                      </td>
+                      <td style="width: 40%; text-align: ">
+                        {{ item1.prenom }}
+                      </td>
+
+                      <td style="width: 40%; text-align: ">
+                        {{ afficheDecision(item1.decision_cf) }}
+                      </td>
+                      <td style="width: 40%; text-align: ">
+                        {{ formaterDate(item1.date_decision) }}
+                      </td>
+                      <td>
+                        <div
+                          class="btn-group"
+                          role="group"
+                          aria-label="Basic mixed styles example"
+                        >
+                          <span
+                            class="badge bg-danger"
+                            style="cursor: pointer"
+                            title="Supprimer"
+                            @click.prevent="supprimerPersonnelParUser(item1.id)"
+                            ><i class="fas fa-trash"></i
+                          ></span>
+                          <span
+                            class="badge bg-info"
+                            style="cursor: pointer"
+                            title="Plus détail"
+                            @click="AfficheVentilationBudget(item1.id)"
+                            ><i class="fas fa-tasks"></i
+                          ></span>
+                          <span
+                            class="badge bg-primary"
+                            data-bs-toggle="modal"
+                            data-bs-target="#largeModal1"
+                            style="cursor: pointer"
+                            title="Modifier"
+                            @click="AfficheModalModification(item1.id)"
+                            ><i class="fas fa-edit"></i
+                          ></span>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </TabContent>
+          </FormWizard>
         </div>
       </div>
     </div>
@@ -656,6 +758,7 @@
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
+              @click.prevent="this.getPersonnel()"
             >
               Fermer
             </button>
@@ -666,6 +769,78 @@
               data-bs-dismiss="modal"
             >
               Modifier
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="decision"
+      tabindex="-1"
+      data-bs-target="#staticBackdrop"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      aria-labelledby="staticBackdropLabel"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Appliquer décision</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="col-12">
+                <label for="inputNanme4" class="form-label">Décision</label>
+                <select
+                  class="form-select"
+                  style="border: 1px solid #000"
+                  v-model="modNatureDepense.decision_cf"
+                >
+                  <option selected></option>
+                  <option :value="1">Visé</option>
+                  <option :value="2">Visé avec observation</option>
+                  <option :value="3">Différé</option>
+                  <option :value="4">Réjetté</option>
+                  <option :value="0">En attente</option>
+                </select>
+              </div>
+              <div class="col-12">
+                <label for="inputNanme4" class="form-label"
+                  >Date décision</label
+                >
+                <input
+                  type="date"
+                  class="form-control"
+                  style="border: 1px solid #000"
+                  v-model="modNatureDepense.date_decision"
+                />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              @click.prevent="this.getPersonnel()"
+            >
+              Fermer
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              @click.prevent="modificationSection()"
+              data-bs-dismiss="modal"
+            >
+              Appliquer
             </button>
           </div>
         </div>
@@ -724,7 +899,7 @@ export default {
       "getterNatureDepense",
       "gettersPersonnel",
       "gettersPersonnelParUtilisateur",
-      "gettersPersonnel",
+
       "gettersFonction",
       "gettersService",
       "gettersSituationMatrimonial",
@@ -752,6 +927,18 @@ export default {
       "getterDotationAutreRessource",
       "getterListeBudgetEclate",
     ]),
+
+    AfficheContratVise() {
+      return this.gettersPersonnel.filter(
+        (item) => item.decision_cf == 1 || item.decision_cf == 2
+      );
+    },
+    AfficheContratAttente() {
+      return this.gettersPersonnel.filter(
+        (item) => item.decision_cf == 0 || item.decision_cf == 3  || item.decision_cf == 4
+      );
+    },
+
     libelleSousBudgetModifier() {
       let collet = [];
       this.getterSousBudget.filter((item) => {
@@ -799,11 +986,26 @@ export default {
       "getNatureContrat",
       "getSituationMatrimonial",
       "getDiplome",
+      "ModifierPersonnel",
       "getTypeIndemnite",
       "getTypePiece",
       "getBudgetViseParActvite",
       "AjouterPersonnel",
     ]),
+    afficheDecision($id) {
+      if ($id == 1) {
+        return "Visé";
+      } else if ($id == 2) {
+        return "Visé avec observation";
+      } else if ($id == 3) {
+        return "Différé";
+      } else if ($id == 4) {
+        return "Réjetté";
+      } else {
+        return "En attente";
+      }
+    },
+
     formatageSomme: formatageSomme,
     formatageSommeSansFCFA: formatageSommeSansFCFA,
     AfficheVentilationBudget(id) {
@@ -812,7 +1014,15 @@ export default {
         params: { id: id },
       });
     },
-
+    AfficheModalModificationApplique(id1) {
+      this.modNatureDepense = this.AfficheContratAttente.find(
+        (items) => items.id == id1
+      );
+      let objet = {
+        id: id1,
+      };
+      this.getDetailDepensePersonnel(objet);
+    },
     AfficheModalModification(id1) {
       this.modNatureDepense = this.gettersPersonnel.find(
         (items) => items.id == id1
@@ -837,10 +1047,32 @@ export default {
       var objetDirect1 = {
         id: this.modNatureDepense.id,
 
-        libelle: this.modNatureDepense.libelle,
+        type_piece_id: this.modNatureDepense.libelle,
+        nature_contrat_id: this.modNatureDepense.nature_contrat_id,
+        diplome_id: this.modNatureDepense.diplome_id,
+        emploi_id: this.modNatureDepense.emploi_id,
+        service_id: this.modNatureDepense.service_id,
+        fonction_id: this.modNatureDepense.fonction_id,
+        activite_id: this.modNatureDepense.activite_id,
+        unite_operationnelle_id: this.modNatureDepense.unite_operationnelle_id,
+        sous_budget_id: this.modNatureDepense.sous_budget_id,
+        date_debut: this.modNatureDepense.date_debut,
+        date_fin: this.modNatureDepense.date_fin,
+        type_personnel_id: this.modNatureDepense.type_personnel_id,
+        dure: this.modNatureDepense.dure,
+        numero_contrat: this.modNatureDepense.numero_contrat,
+        matricule: this.modNatureDepense.matricule,
+        nom: this.modNatureDepense.nom,
+        prenom: this.modNatureDepense.prenom,
+        date_naissance: this.modNatureDepense.date_naissance,
+        lieu_naissance: this.modNatureDepense.lieu_naissance,
+        numero_piece: this.modNatureDepense.numero_piece,
+        numero_telephone: this.modNatureDepense.numero_telephone,
+        decision_cf: this.modNatureDepense.decision_cf,
+        date_decision: this.modNatureDepense.date_decision,
       };
 
-      this.ModifierDiplome(objetDirect1);
+      this.ModifierPersonnel(objetDirect1);
       this.modNatureDepense = {};
     },
 

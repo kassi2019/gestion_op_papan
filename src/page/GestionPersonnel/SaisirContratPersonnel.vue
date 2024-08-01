@@ -1534,6 +1534,7 @@ export default {
       sous_budget_id: 0,
       numero_contrat: 0,
       matricule: 0,
+      decision_cf: 0,
       nom: "",
       prenom: "",
       date_naissance: 0,

@@ -12,7 +12,33 @@ import TypePiece from "../page/GestionPersonnel/TypePiece.vue"
 import SaisirContratPersonnel from "../page/GestionPersonnel/SaisirContratPersonnel.vue"
 import DetailPersonnel from "../page/GestionPersonnel/DetailPersonnel.vue"
 import ListeDuPersonnel from "../page/GestionPersonnel/ListeDuPersonnel.vue"
+import InfoBordOpProvisoirePerso from "../page/GestionBudgetaire/DossierOPPersonnel/DossierOpProvisoire/InfoBordOpProvisoirePerso.vue"
+import InfoBordOpDirectPerso from "../page/GestionBudgetaire/DossierOPPersonnel/DossierOpDirect/InfoBordOpDirectPerso.vue"
+
+import OPProvisoirePerso from "../page/GestionBudgetaire/DossierOPPersonnel/DossierOpProvisoire/OPProvisoirePerso.vue"
+import OPDirectPerso from "../page/GestionBudgetaire/DossierOPPersonnel/DossierOpDirect/OPDirectPerso.vue"
+
 const gestionutilisateur = [
+       {
+        path: '/InfoBordOpDirectPerso',
+        name:"InfoBordOpDirectPerso",
+       component: InfoBordOpDirectPerso
+  },
+     {
+        path: '/OPDirectPerso/:id',
+        name:"OPDirectPerso",
+       component: OPDirectPerso
+  },
+    {
+        path: '/OPProvisoirePerso/:id',
+        name:"OPProvisoirePerso",
+       component: OPProvisoirePerso
+  },
+   {
+        path: '/InfoBordOpProvisoirePerso',
+        name:"InfoBordOpProvisoirePerso",
+       component: InfoBordOpProvisoirePerso
+  },
       {
         path: '/ListeDuPersonnel',
         name:"ListeDuPersonnel",

@@ -93,6 +93,17 @@
             </a>
           </li>
           <li class="nav-item">
+            <a
+              class="nav-link collapsed"
+              href=""
+              @click.prevent="activedOptionMenu('ListeDuPersonnel')"
+            >
+              <i class="fas fa-arrow-right"></i>
+
+              <p>Ordre de Mission</p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a data-bs-toggle="collapse" href="#forms">
               <i class="fas fa-book-reader"></i>
               <p>Salaire et Indemnité</p>
@@ -103,7 +114,7 @@
                 <li>
                   <a
                     href=""
-                    @click.prevent="activedOptionMenu('InformationBordereau')"
+                    @click.prevent="activedOptionMenu('InfoBordOpProvisoirePerso')"
                   >
                     <span class="sub-item">OP Provisoire</span>
                   </a>
@@ -112,7 +123,7 @@
                   <a
                     href=""
                     @click.prevent="
-                      activedOptionMenu('InformationBordereauOPDirect')
+                      activedOptionMenu('InfoBordOpDirectPerso')
                     "
                   >
                     <span class="sub-item">OP Direct</span>
@@ -141,7 +152,7 @@
                 <li>
                   <a
                     href=""
-                    @click.prevent="activedOptionMenu('infoBordereauTotal')"
+                    @click.prevent="activedOptionMenu('infoBordereauTotalOpPerso')"
                   >
                     <span class="sub-item">Voir ordre paiement</span>
                   </a>

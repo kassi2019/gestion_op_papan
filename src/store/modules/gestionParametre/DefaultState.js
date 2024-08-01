@@ -43,22 +43,11 @@ const defaultstate = {
     stateSignataire: [],
     stateSecteurActivite: [],
     stateRegimeImpossition: [],
-    stateFormeJuridique:[],
+    stateFormeJuridique: [],
+    stateOpPersonnel: [],
+    stateOpPersonnelParUser:[]
     // stateAfficheDotation:[]
-    
 
-    // GESTION PERSONNEL
-
-    stateFonction: [],
-    stateService: [],
-    stateSituationMatrimonial: [],
-    stateEmploi: [],
-    stateNatureContrat: [],
-    stateDiplome: [] ,
-    stateTypeIndemnite: [],
-    stateTypePiece:[]
-    
-    
 };
 
 export default defaultstate

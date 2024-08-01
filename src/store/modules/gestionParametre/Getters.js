@@ -25,6 +25,8 @@ export const getterBudgetViseGroupeParActivite = state => state.stateBudgetViseG
 export const getterTaux = state => state.stateTaux.sort((a, b) => (a.taux < b.taux) ? -1 : 1);
 export const getterActiviteSurOP = state => state.stateActiviteSurOP;
 export const getterListeOPParUser = state => state.stateListeOPParUser;
+export const getterOpPersonnelParUser = state => state.stateOpPersonnelParUser;
+
 export const getterFacture = state => state.stateFacture;
 export const getterActiviteglobal = state => state.stateActiviteglobal;
 export const getterListeOPgloba = state => state.stateListeOPgloba;

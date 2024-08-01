@@ -215,6 +215,9 @@ export const GET_PERSONNEL_UTILISATEUR = (state,value)=>{
 export const GET_DETAIL_DEPENSE_PERSONNEL = (state,value)=>{
     state.stateDetailDepensePerso=value
 }
+export const GET_PERSONNEL_PAR_ACTIVITE = (state,value)=>{
+    state.statePersonnelParActivite=value
+}
 export const SUPPRIMER_PERSONNEL_USER = (state, id) => {
     state.statePersonnelParUtilisateur = state.statePersonnelParUtilisateur.filter(titre => titre.id != id)
 };

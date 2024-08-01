@@ -29,8 +29,11 @@ import BudgetComposanteVise from "../page/GestionBudgetaire/DossierBudget/Budget
 import OrdrePaiementProvisoire from "../page/GestionBudgetaire/DossierOpProvisoire/OrdrePaiementProvisoire.vue"
 import OrdrePaiementDirect from "../page/GestionBudgetaire/DossierOPDirect/OrdrePaiementDirect.vue"
 import AfficheOpActivite from "../page/GestionBudgetaire/DossierOpProvisoire/AfficheOpActivite.vue"
+
+import AfficheOpProvisoirePerso from "../page/GestionBudgetaire/DossierOPPersonnel/DossierOpProvisoire/AfficheOpProvisoirePerso.vue"
 import AfficheOpDirectActivite from "../page/GestionBudgetaire/DossierOPDirect/AfficheOpDirectActivite.vue"
 import ImprimerOp from "../page/GestionRapport/ImprimerOp.vue"
+import ImprimerOpPersonnel from "../page/GestionRapport/ImprimerOpPersonnel.vue"
 import imprimerToutOP from "../page/GestionBudgetaire/VoirOPTotal/imprimerToutOP.vue"
 import AfficheActiviteDesOP from "../page/GestionBudgetaire/AfficheActiviteDesOP.vue"
 import listeToutOP from "../page/GestionBudgetaire/VoirOPTotal/listeToutOP.vue"
@@ -55,6 +58,7 @@ import InformationBordereauOPDirect from "../page/GestionBudgetaire/DossierOPDir
 import InformationBordereauOPDefinitif from "../page/GestionBudgetaire/DossierOPDefinitif/InformationBordereauOPDefinitif.vue"
 import InformationBordereauOPAnnulation from "../page/GestionBudgetaire/DossierOPAnnulation/InformationBordereauOPAnnulation.vue"
 import infoBordereauTotal from "../page/GestionBudgetaire/VoirOPTotal/infoBordereauTotal.vue"
+import infoBordereauTotalOpPerso from "../page/GestionBudgetaire/VoirOPTotal/infoBordereauTotalOpPerso.vue"
 import signataire from "../page/ParametreGeneraux/signataire.vue"
 
 import SecteurActivite from "../page/ParametreGeneraux/SecteurActivite.vue"
@@ -94,6 +98,12 @@ const gestionutilisateur = [
         path: '/autreTaux',
         name:"autreTaux",
        component: autreTaux
+  },
+  
+     {
+        path: '/infoBordereauTotalOpPerso',
+        name:"infoBordereauTotalOpPerso",
+       component: infoBordereauTotalOpPerso
      },
    {
         path: '/infoBordereauTotal',
@@ -205,11 +215,23 @@ const gestionutilisateur = [
         path: '/imprimerToutOP/:id/:id1',
         name:"imprimerToutOP",
        component: imprimerToutOP
-     },
+  },
+  
+      {
+        path: '/ImprimerOpPersonnel/:id/:id1',
+        name:"ImprimerOpPersonnel",
+       component: ImprimerOpPersonnel
+  },
   {
         path: '/ImprimerOp/:id/:id1',
         name:"ImprimerOp",
        component: ImprimerOp
+  },
+  
+      {
+        path: '/AfficheOpProvisoirePerso/:id',
+        name:"AfficheOpProvisoirePerso",
+       component: AfficheOpProvisoirePerso
      },
   {
         path: '/AfficheOpActivite/:id',
