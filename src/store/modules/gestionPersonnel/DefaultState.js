@@ -15,6 +15,7 @@ const defaultstate = {
     statePersonnelParUtilisateur: [],
     stateDetailDepensePerso: [],
     statePersonnelParActivite: [],
+    stateListePersonnelOP:[]
     
     
 };

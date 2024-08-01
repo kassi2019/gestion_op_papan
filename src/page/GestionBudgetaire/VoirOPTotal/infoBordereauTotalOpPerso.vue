@@ -25,7 +25,6 @@
               </li>
             </ul>
           </div>
-          
         </div>
         <div class="card-body">
           <div class="table-responsive">
@@ -76,45 +75,51 @@
                     {{ formaterDate(item.date_decision) }}
                   </td>
                   <td style="border: 1px solid #000">
-                    <span
-                      class="badge badge-black"
-                      style="cursor: pointer"
-                      @click.prevent="AfficheVentilationBudget(item.id)"
-                      >Voir OP</span
+                    <div
+                      class="btn-group"
+                      role="group"
+                      aria-label="Basic mixed styles example"
                     >
-                    <span
-                      data-bs-toggle="modal"
-                      data-bs-target="#largeModal12"
-                      class="badge badge-secondary"
-                      @click.prevent="ModalAppliqueDecision(item.id)"
-                      style="cursor: pointer"
-                      >Mettre decision</span
-                    >
-                    <span
-                      class="badge rounded-pill bg-primary"
-                      data-bs-toggle="modal"
-                      data-bs-target="#largeModal1"
-                      style="cursor: pointer"
-                      title="modifier"
-                      @click.prevent="AfficheModalModification(item.id)"
-                      ><i class="far fa-edit"></i
-                    ></span>
-                    <span
-                      title="Imprimer Bordereau"
-                      class="badge bg-warning"
-                      style="cursor: pointer; color: #77abd6"
-                      @click.prevent="fonctionImprimer(item.id)"
-                    >
-                      <i class="fas fa-print" style="color: #dcdcdc"></i
-                    ></span>
-                    <span
-                      v-if="item.decision == 0"
-                      class="badge bg-danger"
-                      style="cursor: pointer"
-                      title="Supprimer"
-                      @click.prevent="supprimerInformationBudget(item.id)"
-                      ><i class="fas fa-archive"></i
-                    ></span>
+                      <span
+                        class="badge badge-black"
+                        style="cursor: pointer"
+                        @click.prevent="AfficheVentilationBudget(item.id)"
+                        >Voir OP</span
+                      >
+                      <span
+                        data-bs-toggle="modal"
+                        data-bs-target="#largeModal12"
+                        class="badge badge-secondary"
+                        @click.prevent="ModalAppliqueDecision(item.id)"
+                        style="cursor: pointer"
+                        >Mettre decision</span
+                      >
+                      <span
+                        class="badge rounded-pill bg-primary"
+                        data-bs-toggle="modal"
+                        data-bs-target="#largeModal1"
+                        style="cursor: pointer"
+                        title="modifier"
+                        @click.prevent="AfficheModalModification(item.id)"
+                        ><i class="far fa-edit"></i
+                      ></span>
+                      <span
+                        title="Imprimer Bordereau"
+                        class="badge bg-warning"
+                        style="cursor: pointer; color: #000;font-weight: bolder;"
+                        @click.prevent="fonctionImprimer(item.id)"
+                      >
+                        <i class="fas fa-print" style="color: #000"></i
+                      > Imprimer Bordereau</span>
+                      <span
+                        v-if="item.decision == 0"
+                        class="badge bg-danger"
+                        style="cursor: pointer"
+                        title="Supprimer"
+                        @click.prevent="supprimerInformationBudget(item.id)"
+                        ><i class="fas fa-archive"></i
+                      ></span>
+                    </div>
                   </td>
                 </tr>
               </tbody>
@@ -486,7 +491,9 @@ export default {
       "getterInformationBudget",
     ]),
     AfficherBudgetGlobal() {
-        return this.getterInformationBudget.filter((item) => item.statut  == 10 || item.statut  == 11);
+      return this.getterInformationBudget.filter(
+        (item) => item.statut == 10 || item.statut == 11
+      );
     },
     // afficher
     libelleActivite() {

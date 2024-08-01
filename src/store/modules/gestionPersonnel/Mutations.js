@@ -218,6 +218,9 @@ export const GET_DETAIL_DEPENSE_PERSONNEL = (state,value)=>{
 export const GET_PERSONNEL_PAR_ACTIVITE = (state,value)=>{
     state.statePersonnelParActivite=value
 }
+export const GET_LISTE_PERSONNEL_OP = (state,value)=>{
+    state.stateListePersonnelOP=value
+}
 export const SUPPRIMER_PERSONNEL_USER = (state, id) => {
     state.statePersonnelParUtilisateur = state.statePersonnelParUtilisateur.filter(titre => titre.id != id)
 };

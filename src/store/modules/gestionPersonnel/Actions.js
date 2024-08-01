@@ -545,7 +545,20 @@ export function supprimerTypePiece({ commit}, id) {
 }
 
 // PERSONNEL
+export function getListePersonnelOp({ commit }, objet) {
 
+  return new Promise((resolve, reject) => {
+    apiGuest
+      .get("/AfficheListePersonnelOP/" + objet.id, { headers: authHeader() })
+      .then(response => {
+        resolve(response);
+        commit("GET_LISTE_PERSONNEL_OP", response.data);
+      }).catch(error => {
+        reject(error);
+      });
+  });
+
+}
 export function getPersonnelParActivite({ commit }, objet) {
 
   return new Promise((resolve, reject) => {

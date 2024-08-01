@@ -53,7 +53,7 @@ import InformationBudgetModifier from "../page/GestionBudgetaire/DossierBudget/I
 import modificationBudgetaire from "../page/GestionBudgetaire/DossierBudget/modificationBudgetaire.vue"
 import InformationBordereau from "../page/GestionBudgetaire/DossierOpProvisoire/InformationBordereau.vue"
 import ImprimerBordereau from "../page/GestionBudgetaire/DossierImpression/ImprimerBordereau.vue"
-
+import ImprimerPersonnelOP from "../page/GestionBudgetaire/DossierImpression/ImprimerListePersonnelOP.vue"
 import InformationBordereauOPDirect from "../page/GestionBudgetaire/DossierOPDirect/InformationBordereauOPDirect.vue"
 import InformationBordereauOPDefinitif from "../page/GestionBudgetaire/DossierOPDefinitif/InformationBordereauOPDefinitif.vue"
 import InformationBordereauOPAnnulation from "../page/GestionBudgetaire/DossierOPAnnulation/InformationBordereauOPAnnulation.vue"
@@ -124,6 +124,12 @@ const gestionutilisateur = [
         path: '/InformationBordereauOPDirect',
         name:"InformationBordereauOPDirect",
        component: InformationBordereauOPDirect
+  },
+  
+     {
+        path: '/ImprimerPersonnelOP/:id',
+        name:"ImprimerPersonnelOP",
+       component: ImprimerPersonnelOP
      },
   {
         path: '/ImprimerBordereau/:id',
