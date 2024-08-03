@@ -8,7 +8,7 @@
             <span
               class="badge badge-warning"
               style="cursor: pointer; color: #000"
-              @click.prevent="retour"
+              @click.prevent="retour1"
               ><i class="fas fa-arrow-alt-circle-left"></i> Retour</span
             >
             <span
@@ -497,6 +497,9 @@ export default {
       "getCompteBancaire",
     ]),
     ...mapActions("Personnel", ["getListePersonnelOp"]),
+    retour1() {
+      window.history.back();
+    },
     retour() {
       if (this.typeBordereau(this.bordereau_id) == 2) {
         this.$router.push({

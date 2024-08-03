@@ -8,7 +8,7 @@
              <span
                   class="badge badge-warning"
                   style="cursor: pointer; color: #000"
-                  @click.prevent="retour"
+                  @click.prevent="pagePrecedent"
                   ><i class="fas fa-arrow-alt-circle-left"></i> Retour</span
                 >
             <span
@@ -522,6 +522,9 @@ export default {
       "getBudgetEclate",
       "getCompteBancaire",
     ]),
+    pagePrecedent() {
+      window.history.back();
+    },
     retour() {
       if (this.typeBordereau(this.bordereau_id)==2) {
          this.$router.push({

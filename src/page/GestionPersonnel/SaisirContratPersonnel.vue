@@ -571,7 +571,9 @@
                       v-bind="config"
                       readonly
                       :model-value="
-                        DotaionCumulerContrat + FormDataDossier.montant
+                        parseFloat(DotaionCumulerContrat) +
+                        parseFloat(FormDataDossier.montant) +
+                        parseFloat(TotalTableau)
                       "
                     ></money3>
                   </div>
@@ -585,14 +587,14 @@
                         parseFloat(afficheDotaion) -
                         parseFloat(
                           parseFloat(DotaionCumulerContrat) +
-                            parseFloat(FormDataDossier.montant)
+                            parseFloat(FormDataDossier.montant) +
+                            parseFloat(TotalTableau)
                         )
                       "
                     ></money3>
                   </div>
-                 
-                  
-                   <div class="col-9">
+
+                  <div class="col-9">
                     <span
                       style="color: red"
                       v-if="
@@ -1667,6 +1669,18 @@ export default {
       "getterDotationAutreRessource",
       "getterListeBudgetEclate",
     ]),
+    
+    TotalTableau() {
+      return this.TableauDossier.filter(
+        (item) =>
+          item.nature_economique_id == this.FormDataDossier.nature_economique_id && 
+          item.type_financement_id == this.FormDataDossier.type_financement_id &&
+          item.source_financement_id == this.FormDataDossier.source_financement_id
+      )
+
+        .reduce((prec, cur) => parseFloat(prec) + parseFloat(cur.montant), 0)
+        .toFixed(0);
+    },
     total() {
       return this.gettersDetailDepensePerso
 
@@ -2165,7 +2179,7 @@ export default {
       "getDiplome",
       "getTypeIndemnite",
       "getTypePiece",
-      "getBudgetViseParActvite",
+
       "AjouterPersonnel",
     ]),
     AfficheModalModification(id1) {

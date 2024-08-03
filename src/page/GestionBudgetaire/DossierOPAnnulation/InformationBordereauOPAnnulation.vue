@@ -53,7 +53,9 @@
               <tbody>
                 <tr v-for="item in AfficherBudgetGlobal" :key="item.id">
                   <td style="border: 1px solid #000">{{ item.exercice }}</td>
-                   <td style="border: 1px solid #000">{{ item.numero_dossier }}</td>
+                  <td style="border: 1px solid #000">
+                    {{ item.numero_dossier }}
+                  </td>
                   <td style="border: 1px solid #000">{{ item.libelle }}</td>
                   <td style="border: 1px solid #000; text-align: right">
                     {{ formatageSommeSansFCFA(parseFloat(item.dotation)) }}
@@ -236,11 +238,13 @@
                 />
               </div>
               <div class="col-12">
-                <label for="inputNanme4" class="form-label">Numéro de bordereau</label>
+                <label for="inputNanme4" class="form-label"
+                  >Numéro de bordereau</label
+                >
                 <input
                   type="text"
                   class="form-control"
-                   v-model="modNatureDepense.numero_dossier"
+                  v-model="modNatureDepense.numero_dossier"
                   style="
                     border: 1px solid #000 !important;
                     background-color: #dcdcdc !important;
@@ -363,7 +367,9 @@
                 />
               </div>
               <div class="col-12">
-                <label for="inputNanme4" class="form-label">Numéro de bordereau</label>
+                <label for="inputNanme4" class="form-label"
+                  >Numéro de bordereau</label
+                >
                 <input
                   type="text"
                   class="form-control"
@@ -539,7 +545,13 @@ export default {
     },
 
     AfficherTailleBordereau() {
-      return this.gettersBordereauParUser.filter((item) => item.statut  == 2 || item.statut  == 3 || item.statut  == 4 || item.statut  == 5).length;
+      return this.gettersBordereauParUser.filter(
+        (item) =>
+          item.statut == 2 ||
+          item.statut == 3 ||
+          item.statut == 4 ||
+          item.statut == 5
+      ).length;
     },
     // afficher
     libelleActivite() {
@@ -631,7 +643,7 @@ export default {
   methods: {
     ...mapActions("parametrage", [
       "getActivite",
-      "VisaReamenagementBudgetEclate",
+      "appliqueDecision",
       "getDotationNotifie",
       "getDotationReport",
       "ajouterInformationBudget",
@@ -684,7 +696,7 @@ export default {
         decision: this.ajouterNatureDepense.decision,
         statut: 5,
         observation: this.ajouterNatureDepense.observation,
-        numero_dossier:this.automatiseBordereau
+        numero_dossier: this.automatiseBordereau,
       };
 
       this.ajouterInformationBudget(objetDirect1);
@@ -711,12 +723,11 @@ export default {
     AppliqueDecision() {
       var objetDirect1 = {
         id: this.DecisionApp.id,
-        dotation: this.DecisionApp.dotation,
         date_decision: this.DecisionApp.date_decision,
         decision: this.DecisionApp.decision,
       };
 
-      this.VisaReamenagementBudgetEclate(objetDirect1);
+      this.appliqueDecision(objetDirect1);
       this.DecisionApp = {};
     },
     formatageSommeSansFCFA: formatageSommeSansFCFA,

@@ -4,7 +4,7 @@
       <div class="card" style="box-shadow: 5px 5px #f9d531">
         <div class="card-header">
           <div class="page-header">
-            <h6 class="fw-bold mb-3">Information Sur le Bordereau{{ id_dossier }}</h6>
+            <h6 class="fw-bold mb-3">Information Sur le Bordereau</h6>
             <ul class="breadcrumbs mb-3">
               <li class="nav-home">
                 <a href="#">
@@ -15,20 +15,15 @@
                 <i class="icon-arrow-right"></i>
               </li>
               <li class="nav-item">
-                <a href="#">Gestion budgétaire</a>
+                <a href="#">Gestion Personnel</a>
               </li>
               <li class="separator">
                 <i class="icon-arrow-right"></i>
               </li>
               <li class="nav-item">
-                <a href="#">Bordereau OP Provisoire</a>
+                <a href="#">Bordereau OP Annulation Personnel</a>
               </li>
             </ul>
-          </div>
-          <div class="d-flex align-items-center">
-            <!-- <h4 class="card-title">Information du budget global</h4> -->
-
-           
           </div>
         </div>
         <div class="card-body">
@@ -37,6 +32,7 @@
               <thead>
                 <tr>
                   <th>Exercice</th>
+                  <th>N° bordereau</th>
                   <th>Objet du bordereau</th>
                   <th>Dotation</th>
                   <th>Décision</th>
@@ -46,6 +42,9 @@
               <tbody>
                 <tr v-for="item in AfficherBudgetGlobal" :key="item.id">
                   <td style="border: 1px solid #000">{{ item.exercice }}</td>
+                  <td style="border: 1px solid #000">
+                    {{ item.numero_dossier }}
+                  </td>
                   <td style="border: 1px solid #000">{{ item.libelle }}</td>
                   <td style="border: 1px solid #000; text-align: right">
                     {{ formatageSommeSansFCFA(parseFloat(item.dotation)) }}
@@ -80,16 +79,21 @@
                     {{ formaterDate(item.date_decision) }}
                   </td>
                   <td style="border: 1px solid #000">
-                    
-                    <span
+                    <!-- <span
+                      class="badge badge-black"
+                      style="cursor: pointer"
+                      @click.prevent="AfficheVentilationBudget(item.id)"
+                      >Saisir OP Annulation</span
+                    > -->
+                    <!-- <span
                       data-bs-toggle="modal"
                       data-bs-target="#largeModal12"
                       class="badge badge-secondary"
                       @click.prevent="ModalAppliqueDecision(item.id)"
                       style="cursor: pointer"
                       >Mettre decision</span
-                    >
-                     <span
+                    > -->
+                    <span
                           class="badge badge-black"
                           style="cursor: pointer"
                           @click.prevent="AfficheVentilationBudget(item.bordereau_id)"
@@ -229,6 +233,22 @@
                 />
               </div>
               <div class="col-12">
+                <label for="inputNanme4" class="form-label"
+                  >Numéro de bordereau</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  v-model="modNatureDepense.numero_dossier"
+                  style="
+                    border: 1px solid #000 !important;
+                    background-color: #dcdcdc !important;
+                    color: #000 !important;
+                  "
+                  readonly
+                />
+              </div>
+              <div class="col-12">
                 <label class="form-label"
                   >Activité
                   <span
@@ -342,6 +362,22 @@
                 />
               </div>
               <div class="col-12">
+                <label for="inputNanme4" class="form-label"
+                  >Numéro de bordereau</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  :value="automatiseBordereau"
+                  style="
+                    border: 1px solid #000 !important;
+                    background-color: #dcdcdc !important;
+                    color: #000 !important;
+                  "
+                  readonly
+                />
+              </div>
+              <div class="col-12">
                 <label class="form-label"
                   >Activité
                   <span
@@ -438,7 +474,7 @@
 import { mapActions, mapGetters } from "vuex";
 import moment from "moment";
 import { ModelListSelect } from "vue-search-select";
-import { formatageSommeSansFCFA } from "../../Repositories/Repository";
+import { formatageSommeSansFCFA } from "../../../Repositories/Repository";
 export default {
   components: { ModelListSelect },
   data() {
@@ -482,10 +518,6 @@ export default {
     this.getDotationReport();
     this.getBordereauParUser();
   },
-  props: [
-    "id_dossier",
-    
-  ],
   computed: {
     ...mapGetters("parametrage", [
       "getterActivite",
@@ -494,8 +526,27 @@ export default {
       "getterExerciceBudgetaire",
       "gettersBordereauParUser",
     ]),
+    automatiseBordereau() {
+      return (
+        "N°" +
+        "" +
+        (this.AfficherTailleBordereau + 1) +
+        "" +
+        "/24 MIRAH-PAPAN/KL"
+      );
+    },
     AfficherBudgetGlobal() {
-      return this.gettersBordereauParUser.filter((item) => item.statut == 2);
+      return this.gettersBordereauParUser.filter((item) => item.statut == 12);
+    },
+
+    AfficherTailleBordereau() {
+      return this.gettersBordereauParUser.filter(
+        (item) =>
+          item.statut == 2 ||
+          item.statut == 3 ||
+          item.statut == 4 ||
+          item.statut == 5
+      ).length;
     },
     // afficher
     libelleActivite() {
@@ -587,7 +638,7 @@ export default {
   methods: {
     ...mapActions("parametrage", [
       "getActivite",
-      "VisaReamenagementBudgetEclate",
+      "appliqueDecision",
       "getDotationNotifie",
       "getDotationReport",
       "ajouterInformationBudget",
@@ -604,7 +655,7 @@ export default {
     },
     AfficheVentilationBudget(id) {
       this.$router.push({
-        name: "AfficheOpActivite",
+        name: "AfficheOPAnnulationPerso",
         params: { id: id },
       });
     },
@@ -638,8 +689,9 @@ export default {
         libelle: this.ajouterNatureDepense.libelle,
         activite_id: this.ajouterNatureDepense.activite_id,
         decision: this.ajouterNatureDepense.decision,
-        statut: 2,
+        statut: 12,
         observation: this.ajouterNatureDepense.observation,
+        numero_dossier: this.automatiseBordereau,
       };
 
       this.ajouterInformationBudget(objetDirect1);
@@ -655,7 +707,7 @@ export default {
         libelle: this.modNatureDepense.libelle,
         date_decision: this.modNatureDepense.date_decision,
         decision: this.modNatureDepense.decision,
-        statut: 2,
+        statut: 12,
         observation: this.modNatureDepense.observation,
       };
 
@@ -666,12 +718,11 @@ export default {
     AppliqueDecision() {
       var objetDirect1 = {
         id: this.DecisionApp.id,
-        dotation: this.DecisionApp.dotation,
         date_decision: this.DecisionApp.date_decision,
         decision: this.DecisionApp.decision,
       };
 
-      this.VisaReamenagementBudgetEclate(objetDirect1);
+      this.appliqueDecision(objetDirect1);
       this.DecisionApp = {};
     },
     formatageSommeSansFCFA: formatageSommeSansFCFA,

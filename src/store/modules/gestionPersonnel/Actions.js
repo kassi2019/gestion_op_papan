@@ -715,12 +715,13 @@ export function getOrdreMissionUser({ commit }) {
     })
     .catch(error => console.log(error));
 }
-export function AjouterOrdreMission({ commit }, nouveau) {
+export function AjouterOrdreMission({ commit,dispatch }, nouveau) {
  
     apiGuest.post("/AjouterOrdreMission", nouveau, { headers: authHeader() })
     .then(response => {
       if (response.status == 201) {
         commit("AJOUTER_ORDRE_MISSION", response.data);
+        dispatch("getOrdreMissionUser");
        toast("Enregistrement effectué avec succès!", {
         "theme": "auto",
         "type": "success",

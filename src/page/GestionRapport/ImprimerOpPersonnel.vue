@@ -8,7 +8,7 @@
             <span
                   class="badge badge-warning"
                   style="cursor: pointer; color: #000"
-                  @click.prevent="retour(id_dossier)"
+                  @click.prevent="retour1"
                   ><i class="fas fa-arrow-alt-circle-left"></i> Retour</span
                 >
             <span
@@ -1215,6 +1215,9 @@ export default {
       "getBudgetEclate",
       "getCompteBancaire",
     ]),
+    retour1() {
+      window.history.back();
+    },
     retour(id) {
       if (this.typeOrdrePaiement == 1) {
         this.$router.push({

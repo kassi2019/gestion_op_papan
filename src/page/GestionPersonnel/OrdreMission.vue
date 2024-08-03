@@ -1,6 +1,5 @@
 <template>
   <div class="container">
- 
     <div class="col-md-12">
       <div class="card" style="box-shadow: 5px 5px #f9d531">
         <div class="card-header">
@@ -323,7 +322,7 @@
                         type="text"
                         class="form-control"
                         style="border: 1px solid #000 !important"
-                        :value="DureContrat"
+                        :value="totalDuree"
                         readonly
                       />
                     </div>
@@ -351,13 +350,13 @@
                     <tr>
                       <th scope="col">N°</th>
 
-                      <th scope="col" style="width:10px ">N°ordre mission</th>
-                      <th scope="col" style="width:15px ">Nom et prénoms</th>
-                      <th scope="col" style="width: 50% !important; ">Objet</th>
+                      <th scope="col" style="width: 10px">N°ordre mission</th>
+                      <th scope="col" style="width: 15px">Nom et prénoms</th>
+                      <th scope="col" style="width: 50% !important">Objet</th>
                       <!-- <th scope="col" style="width: ">lieu mission</th> -->
-                      <th scope="col" style="width:10px ">date depart</th>
+                      <th scope="col" style="width: 10px">date depart</th>
                       <th scope="col" style="width: 10px">date retour</th>
-                      <th scope="col" style="width:5px ">Durée</th>
+                      <th scope="col" style="width: 5px">Durée (Jours)</th>
                       <th></th>
                     </tr>
                   </thead>
@@ -368,46 +367,49 @@
                     >
                       <td>{{ index + 1 }}</td>
                       <td>{{ item.numero_mission }}</td>
-                      <td>{{ item.nom_personnel }}</td>
-                      <td style="width: 50px !important; ">{{ item.objet_depense }}</td>
+                      <td>{{ AfficheNomPersonnel(item.personnel_id) }}</td>
+                      <td style="width: 50px !important">
+                        {{ item.objet_depense }}
+                      </td>
                       <!-- <td>{{ item.lieu_ordre_mission }}</td> -->
-                      <td>{{ item.date_depart }}</td>
-                      <td>{{ item.date_retour }}</td>
+                      <td>{{ formaterDate(item.date_depart) }}</td>
+                      <td>{{ formaterDate(item.date_retour) }}</td>
                       <td>{{ item.duree }}</td>
 
                       <td>
                         <div
-                      class="btn-group"
-                      role="group"
-                      aria-label="Basic mixed styles example"
-                    >
-                  <span
-                          class="badge rounded-pill bg-primary"
-                          data-bs-toggle="modal"
-                          data-bs-target="#largeModal1"
-                          style="cursor: pointer"
-                          @click.prevent="AfficheModalModification(item.id)"
-                          >Modifier</span
+                          class="btn-group"
+                          role="group"
+                          aria-label="Basic mixed styles example"
                         >
-                        <span
-                          class="badge bg-danger"
-                          style="cursor: pointer"
-                          @click.prevent="supprimerOrdreMissionUser(item.id)"
-                          >Supprimer</span
-                        >
-                         <span
-                       
-                         class="badge bg-warning"
-                        title="Imprimer OP"
-                        style="cursor: pointer; color: #000;
-                          font-weight: bolder;"
-                        @click.prevent="fonctionImprimer(item.id)"
-                      >
-                        <i class="fas fa-print" style="color: #000"></i>Imprimer
-                        OP</span
-                      >
-                  </div>
-                        
+                          <span
+                            class="badge rounded-pill bg-primary"
+                            data-bs-toggle="modal"
+                            data-bs-target="#largeModal1"
+                            style="cursor: pointer"
+                            @click.prevent="AfficheModalModification(item.id)"
+                            >Modifier</span
+                          >
+                          <span
+                            class="badge bg-danger"
+                            style="cursor: pointer"
+                            @click.prevent="supprimerOrdreMissionUser(item.id)"
+                            >Supprimer</span
+                          >
+                          <span
+                            class="badge bg-warning"
+                            title="Imprimer OP"
+                            style="
+                              cursor: pointer;
+                              color: #000;
+                              font-weight: bolder;
+                            "
+                            @click.prevent="fonctionImprimer(item.id)"
+                          >
+                            <i class="fas fa-print" style="color: #000"></i
+                            >Imprimer OP</span
+                          >
+                        </div>
                       </td>
                     </tr>
                   </tbody>
@@ -588,7 +590,7 @@ export default {
     ]),
     automatiseNumeroOP() {
       return (
-        this.gettersOrdreMission.length + 1 + "/" + "MIRAH" + "/" + "" + "PAPAN"
+        this.gettersOrdreMissionParUser.length + 1 + "/" + "MIRAH" + "/" + "" + "PAPAN"
       );
     },
     dateDuJours() {
@@ -637,6 +639,28 @@ export default {
       return 0;
       //     }
       //   };
+    },
+
+    AfficheNomPersonnel() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.gettersOrdreMissionParUser.find(
+            (qtreel) => qtreel.personnel_id == id
+          );
+
+          if (qtereel) {
+            return qtereel.nom_personnel;
+          }
+          return 0;
+        }
+      };
+    },
+    totalDuree() {
+      if (this.date_retour == "") {
+        return 0;
+      } else {
+        return this.DureContrat + 1;
+      }
     },
     DureContrat() {
       if (
@@ -792,7 +816,8 @@ export default {
       "getBudgetViseParActvite",
     ]),
     ...mapActions("Personnel", [
-      "getService","supprimerOrdreMissionUser",
+      "getService",
+      "supprimerOrdreMissionUser",
       "getOrdreMissionUser",
       "getOrdreMission",
       "AjouterOrdreMission",
@@ -828,7 +853,7 @@ export default {
         return "En attente";
       }
     },
- fonctionImprimer(id) {
+    fonctionImprimer(id) {
       this.$router.push({
         name: "ImprimerOrdreMission",
         params: { id: id },
@@ -874,7 +899,7 @@ export default {
         moyen_transport: this.moyen_transport,
         date_depart: this.date_depart,
         date_retour: this.date_retour,
-        duree: this.DureContrat,
+        duree: this.totalDuree,
       };
 
       this.AjouterOrdreMission(objetDirect1);

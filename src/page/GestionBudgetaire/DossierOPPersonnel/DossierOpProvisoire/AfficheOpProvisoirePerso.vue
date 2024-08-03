@@ -15,7 +15,7 @@
                 <i class="icon-arrow-right"></i>
               </li>
               <li class="nav-item">
-                <a href="#">Gestion budgétaire</a>
+                <a href="#">Gestion Personnel</a>
               </li>
               <li class="separator">
                 <i class="icon-arrow-right"></i>
@@ -124,21 +124,21 @@
                       role="group"
                       aria-label="Basic mixed styles example"
                     >
-                      <span
+                      <!-- <span
                         title="Modifier"
                          class="badge bg-primary"
                         data-bs-toggle="modal"
                         data-bs-target="#largeModal1"
                         style="cursor: pointer"
                         @click.prevent="AfficheModalModification(item.id)"
-                      ><i class="fas fa-edit"></i> Modifier</span>
-                      <span
+                      ><i class="fas fa-edit"></i> Modifier</span> -->
+                      <!-- <span
                         title="Supprimer"
                          class="badge bg-danger"
                         
                         style="cursor: pointer;"
                         @click.prevent="supprimerInformationBudget(item.id)"
-                      ><i class="fas fa-archive"></i> Supprimer</span>
+                      ><i class="fas fa-archive"></i> Supprimer</span> -->
                       <span
                         v-if="afficherTypeDepense(dossier_id) == 0"
                         title="Voir facture"
@@ -472,7 +472,7 @@ export default {
     ]),
     retour(id) {
       this.$router.push({
-        name: "OrdrePaiementProvisoire",
+        name: "OPProvisoirePerso",
 
         params: { id: id },
       });

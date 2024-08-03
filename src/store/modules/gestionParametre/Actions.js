@@ -1059,6 +1059,13 @@ export function getInformationBudget({ commit }) {
     })
     .catch(error => console.log(error));
 }
+export function getInformationBudgetUser({ commit }) {
+  apiGuest.get("/listeInformationBudget", { headers: authHeader() })
+    .then(response => {
+      commit("GET_INFORMATION_BUDGET_USER", response.data);
+    })
+    .catch(error => console.log(error));
+}
 
 export function ajouterInformationBudget({ commit }, nouveau) {
  
@@ -1173,7 +1180,21 @@ export function VisaReamenagementBudgetEclate({ commit }, nouveau) {
       }
     }).catch();
 }
-
+export function appliqueDecision({ commit }, nouveau) {
+ 
+    apiGuest.post("/AppliqueDecision", nouveau, { headers: authHeader() })
+    .then(response => {
+      if (response.status == 201) {
+        commit("APPLICATION_DECISION", response.data);
+        // dispatch("getBudgetEclate");
+       toast("Enregistrement effectué avec succès!", {
+        "theme": "auto",
+        "type": "success",
+        "dangerouslyHTMLString": true
+})
+      }
+    }).catch();
+}
 export function AjouterNouvelleNature({ commit }, nouveau) {
  
     apiGuest.post("/AjouterNouvelleNature", nouveau, { headers: authHeader() })

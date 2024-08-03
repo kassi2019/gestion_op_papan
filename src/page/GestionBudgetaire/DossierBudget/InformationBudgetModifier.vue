@@ -183,7 +183,7 @@
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
-              @click.prevent="this.getInformationBudget()"
+              @click.prevent="this.getInformationBudgetUser()"
             >
               Fermer
             </button>
@@ -276,7 +276,7 @@
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
-              @click.prevent="this.getInformationBudget()"
+              @click.prevent="this.getInformationBudgetUser()"
             >
               Fermer
             </button>
@@ -440,7 +440,7 @@ export default {
     this.getActivite();
     this.getDotationNotifie();
     this.getDotationReport();
-    this.getInformationBudget();
+    this.getInformationBudgetUser();
   },
   computed: {
     ...mapGetters("parametrage", [
@@ -448,10 +448,10 @@ export default {
       "getterDotationReport",
       "getterDotationNotifie",
       "getterExerciceBudgetaire",
-      "getterInformationBudget",
+      "getterBordereauParUser",
     ]),
     AfficherBudgetGlobal() {
-      return this.getterInformationBudget.filter((item) => item.statut == 1);
+      return this.getterBordereauParUser.filter((item) => item.statut == 1);
     },
     // afficher
     libelleActivite() {
@@ -550,7 +550,7 @@ export default {
       "modifierInformationBudget",
       "supprimerInformationBudget",
       "getExerciceBudgetaire",
-      "getInformationBudget",
+      "getInformationBudgetUser",
     ]),
     AfficheVentilationBudget(id) {
       this.$router.push({

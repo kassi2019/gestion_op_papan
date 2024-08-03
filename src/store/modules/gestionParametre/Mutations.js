@@ -351,11 +351,16 @@ export const GET_BORDEREAU_PAR_USER = (state, value) => {
 export const GET_INFORMATION_BUDGET = (state, value) => {
     state.stateInformationBudget=value
 }
-
+export const GET_INFORMATION_BUDGET_USER = (state, value) => {
+    state.stateBordereauParUser=value
+}
 export const AJOUTER_INFORMATION_BUDGET = (state, elementAjouter) => {
     state.stateBordereauParUser.unshift(elementAjouter)
 }
 export const VISA_REAMENAGEMENT_INFORMATION_BUDGET = (state, elementAjouter) => {
+    state.stateInformationBudget.unshift(elementAjouter)
+}
+export const APPLICATION_DECISION = (state, elementAjouter) => {
     state.stateInformationBudget.unshift(elementAjouter)
 }
 export const MODIFIER_INFORMATION_BUDGET = (state, elementModif) => {

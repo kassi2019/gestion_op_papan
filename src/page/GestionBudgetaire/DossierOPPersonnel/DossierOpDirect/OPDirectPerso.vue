@@ -15,7 +15,7 @@
                 <i class="icon-arrow-right"></i>
               </li>
               <li class="nav-item">
-                <a href="#">Gestion budgétaire</a>
+                <a href="#">Gestion Personnel</a>
               </li>
               <li class="separator">
                 <i class="icon-arrow-right"></i>
@@ -44,6 +44,11 @@
         </div>
         <div class="card-body">
           <FormWizard @on-complete="onComplete" color="#e67e22">
+             <TabContent title="LISTE DES ORDRES PAIEMENTS" icon="ti-printer">
+              <RecapBordereauPersoDirect :id_dossier="bordereau_id"/>
+
+              
+            </TabContent>
             <TabContent title="INFO SUR LE PROJET" icon="ti-home">
               <div class="row">
                 <div class="col-lg-12">
@@ -509,11 +514,11 @@
                   </thead>
                   <tbody>
                     <tr v-for="item in TableauDossier" :key="item.id">
-                      <td>
+                      <td style="border: 1px solid #000 !important;">
                         {{ afficheLibelleTypeDepense(item.type_depense_id) }}
                       </td>
-                      <td>{{ affichePersonnel(item.personnel_id) }}</td>
-                      <td style="text-align: right">
+                      <td style=" border: 1px solid #000 !important;">{{ affichePersonnel(item.personnel_id) }}</td>
+                      <td style="text-align: right; border: 1px solid #000 !important;">
                         {{ formatageSommeSansFCFA(parseFloat(item.montant)) }}
                       </td>
                       <td>
@@ -521,13 +526,13 @@
                           class="badge bg-danger"
                           style="cursor: pointer"
                           @click.prevent="deletePartieRequerante(index)"
-                          >Supprimer</span
+                          ><i class="fas fa-archive"></i> Supprimer</span
                         >
                       </td>
                     </tr>
                     <tr>
-                      <td colspan="2">TOTAL</td>
-                      <td style="text-align: right">
+                      <td colspan="2" style="text-align: right; border: 1px solid #000 !important;">TOTAL</td>
+                      <td style="text-align: right; border: 1px solid #000 !important;">
                         {{
                           formatageSommeSansFCFA(
                             parseFloat(CumulMontantAutreMontant)
@@ -571,11 +576,7 @@
                 </table>
               </div>
             </TabContent>
-            <TabContent title="VERIFICATION ORDRE PAIEMENT" icon="ti-printer">
-              <RecapBordereauPersoDirect :id_dossier="bordereau_id"/>
-
-              
-            </TabContent>
+           
           </FormWizard>
         </div>
       </div>
@@ -1609,7 +1610,7 @@ export default {
     ]),
     retour() {
       this.$router.push({
-        name: "InformationBordereau",
+        name: "InfoBordOpDirectPerso",
       });
     },
     AfficheModalModificationFacture(id) {

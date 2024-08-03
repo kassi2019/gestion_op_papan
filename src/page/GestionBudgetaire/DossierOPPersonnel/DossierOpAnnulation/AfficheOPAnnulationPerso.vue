@@ -15,15 +15,14 @@
                 <i class="icon-arrow-right"></i>
               </li>
               <li class="nav-item">
-                <a href="#">Gestion budgétaire</a>
+                <a href="#">Gestion Personnel</a>
               </li>
               <li class="separator">
                 <i class="icon-arrow-right"></i>
               </li>
               <li class="nav-item">
-                <a href="#">Liste des OP Définitif</a>
+                <a href="#">Liste des OP Annulation Personnel</a>
               </li>
-               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -146,7 +145,7 @@
                       title="Imprimer OP"
                       class="fas fa-print"
                       style="cursor: pointer; color: #77abd6"
-                      @click.prevent="fonctionImprimer(item.id,dossier_id)"
+                      @click.prevent="fonctionImprimer(item.id, dossier_id)"
                     ></span>
                   </td>
                 </tr>
@@ -342,7 +341,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import moment from "moment";
-import { formatageSommeSansFCFA } from "../../Repositories/Repository";
+import { formatageSommeSansFCFA } from "../../../Repositories/Repository";
 export default {
   components: {},
   data() {
@@ -390,7 +389,7 @@ export default {
     afficheListeOPprovisoire() {
       return this.getterListeOPParUser.filter(
         (item) =>
-          item.bordereau_id == this.dossier_id && item.type_ordre_paiement == 4
+          item.bordereau_id == this.dossier_id && item.type_ordre_paiement == 3
       );
     },
     exerciceBudgetaire() {
@@ -418,17 +417,17 @@ export default {
       "getExerciceBudgetaire",
       "getInformationBudget",
     ]),
-     retour(id) {
+    retour(id) {
       this.$router.push({
-        name: "OrdrePaiementDefinitif",
-        
+        name: "OPAnnulationPerso",
+
         params: { id: id },
       });
     },
-    fonctionImprimer(id,id1) {
+    fonctionImprimer(id, id1) {
       this.$router.push({
         name: "ImprimerOp",
-        params: { id: id,id1: id1 },
+        params: { id: id, id1: id1 },
       });
     },
     AfficheVentilationBudget(id) {

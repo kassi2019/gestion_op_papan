@@ -8,7 +8,7 @@
             <span
                   class="badge badge-warning"
                   style="cursor: pointer; color: #000"
-                  @click.prevent="retour(id_dossier)"
+                  @click.prevent="retour()"
                   ><i class="fas fa-arrow-alt-circle-left"></i> Retour</span
                 >
             <span
@@ -1215,30 +1215,33 @@ export default {
       "getBudgetEclate",
       "getCompteBancaire",
     ]),
-    retour(id) {
-      if (this.typeOrdrePaiement == 1) {
-        this.$router.push({
-        name: "AfficheOpActivite",
-        params: { id: id},
-      });
-      } else if (this.typeOrdrePaiement == 2) {
-          this.$router.push({
-        name: "AfficheOpDirectActivite",
-        params: { id: id},
-      });
-      }else if (this.typeOrdrePaiement == 3) {
-          this.$router.push({
-        name: "AfficheOPAnnulation",
-        params: { id: id},
-      });
-      }else if (this.typeOrdrePaiement == 4) {
-          this.$router.push({
-        name: "AfficheOPDefinitif",
-        params: { id: id},
-      });
-      }
-      
+    retour() {
+      window.history.back();
     },
+    // retour(id) {
+    //   if (this.typeOrdrePaiement == 1) {
+    //     this.$router.push({
+    //     name: "AfficheOpActivite",
+    //     params: { id: id},
+    //   });
+    //   } else if (this.typeOrdrePaiement == 2) {
+    //       this.$router.push({
+    //     name: "AfficheOpDirectActivite",
+    //     params: { id: id},
+    //   });
+    //   }else if (this.typeOrdrePaiement == 3) {
+    //       this.$router.push({
+    //     name: "AfficheOPAnnulation",
+    //     params: { id: id},
+    //   });
+    //   }else if (this.typeOrdrePaiement == 4) {
+    //       this.$router.push({
+    //     name: "AfficheOPDefinitif",
+    //     params: { id: id},
+    //   });
+    //   }
+      
+    // },
     formaterDate(date) {
       return moment(date, "YYYY-MM-DD").format("DD/MM/YYYY");
     },

@@ -631,7 +631,7 @@ export default {
   methods: {
     ...mapActions("parametrage", [
       "getActivite",
-      "VisaReamenagementBudgetEclate",
+      "appliqueDecision",
       "getDotationNotifie",
       "getDotationReport",
       "ajouterInformationBudget",
@@ -711,12 +711,11 @@ export default {
     AppliqueDecision() {
       var objetDirect1 = {
         id: this.DecisionApp.id,
-        dotation: this.DecisionApp.dotation,
         date_decision: this.DecisionApp.date_decision,
         decision: this.DecisionApp.decision,
       };
 
-      this.VisaReamenagementBudgetEclate(objetDirect1);
+      this.appliqueDecision(objetDirect1);
       this.DecisionApp = {};
     },
     formatageSommeSansFCFA: formatageSommeSansFCFA,

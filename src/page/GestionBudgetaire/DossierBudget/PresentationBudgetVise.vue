@@ -50,7 +50,7 @@
                     Activité
                   </th>
 
-                  <th
+                  <!-- <th
                     scope="col"
                     style="
                       text-align: center;
@@ -58,7 +58,7 @@
                     "
                   >
                     Total (FCFA)
-                  </th>
+                  </th> -->
                   <th
                     scope="col"
                     style="
@@ -78,11 +78,11 @@
                   <td style="width: 55%; border: 1px solid #000 !important">
                     {{ item1.code }}-{{ item1.libelle }}
                   </td>
-                  <td
+                  <!-- <td
                     style="text-align: right; border: 1px solid #000 !important"
                   >
                     {{ formatageSommeSansFCFA(parseFloat(52)) }}
-                  </td>
+                  </td> -->
                   <td style="border: 1px solid #000 !important">
                     <span
                       class="badge bg-dark"

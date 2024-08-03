@@ -18,12 +18,31 @@ import InfoBordOpDirectPerso from "../page/GestionBudgetaire/DossierOPPersonnel/
 import OPProvisoirePerso from "../page/GestionBudgetaire/DossierOPPersonnel/DossierOpProvisoire/OPProvisoirePerso.vue"
 import OPDirectPerso from "../page/GestionBudgetaire/DossierOPPersonnel/DossierOpDirect/OPDirectPerso.vue"
 import OrdreMission from "../page/GestionPersonnel/OrdreMission.vue"
+import InfoBordOPAnnulationPerso from "../page/GestionBudgetaire/DossierOPPersonnel/DossierOpAnnulation/InfoBordOPAnnulationPerso.vue"
+import OPAnnulationPerso from "../page/GestionBudgetaire/DossierOPPersonnel/DossierOpAnnulation/OPAnnulationPerso.vue"
+import AfficheOPAnnulationPerso from "../page/GestionBudgetaire/DossierOPPersonnel/DossierOpAnnulation/AfficheOPAnnulationPerso.vue"
 
 const gestionutilisateur = [
+      {
+        path: '/AfficheOPAnnulationPerso/:id',
+        name:"AfficheOPAnnulationPerso",
+       component: AfficheOPAnnulationPerso
+  },
+     {
+        path: '/OPAnnulationPerso/:id',
+        name:"OPAnnulationPerso",
+       component: OPAnnulationPerso
+  },
       {
         path: '/OrdreMission',
         name:"OrdreMission",
        component: OrdreMission
+     },
+     
+   {
+        path: '/InfoBordOPAnnulationPerso',
+        name:"InfoBordOPAnnulationPerso",
+       component: InfoBordOPAnnulationPerso
   },
        {
         path: '/InfoBordOpDirectPerso',

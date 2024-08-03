@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+   
     <div class="col-md-12">
       <div class="card" style="box-shadow: 5px 5px #f9d531">
         <div class="card-header">
@@ -181,7 +182,7 @@
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
-              @click.prevent="this.getInformationBudget()"
+              @click.prevent="this.getInformationBudgetUser()"
             >
               Fermer
             </button>
@@ -307,7 +308,7 @@
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
-              @click.prevent="this.getInformationBudget()"
+              @click.prevent="this.getInformationBudgetUser()"
             >
               Fermer
             </button>
@@ -470,7 +471,7 @@ export default {
     this.getActivite();
     this.getDotationNotifie();
     this.getDotationReport();
-    this.getInformationBudget();
+    this.getInformationBudgetUser();
   },
   computed: {
     ...mapGetters("parametrage", [
@@ -478,10 +479,10 @@ export default {
       "getterDotationReport",
       "getterDotationNotifie",
       "getterExerciceBudgetaire",
-      "getterInformationBudget",
+      "getterBordereauParUser",
     ]),
     AfficherBudgetGlobal() {
-      return this.getterInformationBudget.filter((item) => item.statut == 0);
+      return this.getterBordereauParUser.filter((item) => item.statut == 0);
     },
     libelleActivite() {
       let collet = [];
@@ -578,7 +579,7 @@ export default {
       "modifierInformationBudget",
       "supprimerInformationBudget",
       "getExerciceBudgetaire",
-      "getInformationBudget",
+      "getInformationBudgetUser",
     ]),
     AfficheVentilationBudget(id) {
       this.$router.push({
@@ -600,7 +601,7 @@ export default {
       }
     },
     AfficheModalModification(id) {
-      this.modNatureDepense = this.getterInformationBudget.find(
+      this.modNatureDepense = this.getterBordereauParUser.find(
         (items) => items.id == id
       );
     },

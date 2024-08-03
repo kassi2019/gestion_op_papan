@@ -774,7 +774,7 @@ export default {
       return this.getterBudgetViseParActivite
         .filter(
           (item) =>
-            item.activite_id == this.Activite_id &&
+            item.activite_id == this.Activite_id && item.actuelle == 1 &&
             this.afficheCodeNatureDepense(item.nature_depense_id) == 4
         )
         .reduce(
@@ -851,7 +851,7 @@ export default {
       // return (id) => {
 
       let objet = this.getterBudgetViseParActivite.filter(
-        (item) => this.afficheCodeNatureDepense(item.nature_depense_id) == 4
+        (item) => this.afficheCodeNatureDepense(item.nature_depense_id) == 4 && item.actuelle == 1
       );
       //  let vm=this
       let array_exercie = [];
@@ -873,7 +873,7 @@ export default {
       // return (id) => {
 
       let objet = this.getterBudgetViseParActivite.filter(
-        (item) => this.afficheCodeNatureDepense(item.nature_depense_id) == 1
+        (item) => this.afficheCodeNatureDepense(item.nature_depense_id) == 1 && item.actuelle == 1
       );
       //  let vm=this
       let array_exercie = [];
@@ -894,7 +894,7 @@ export default {
     GroupeBailleur() {
       // return (id) => {
 
-      let objet = this.getterBudgetViseParActivite;
+      let objet = this.getterBudgetViseParActivite.filter(item=>item.actuelle == 1);
       //  let vm=this
       let array_exercie = [];
       if (objet.length > 0) {
@@ -937,7 +937,7 @@ export default {
         .filter(
           (item) =>
             item.activite_id == this.Activite_id &&
-            this.afficheCodeNatureDepense(item.nature_depense_id) == 1
+            this.afficheCodeNatureDepense(item.nature_depense_id) == 1 && item.actuelle == 1
         )
         .reduce(
           (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
@@ -964,7 +964,7 @@ export default {
         .filter(
           (item) =>
             item.activite_id == this.Activite_id &&
-            this.afficheCodeNatureDepense(item.nature_depense_id) == 2
+            this.afficheCodeNatureDepense(item.nature_depense_id) == 2 && item.actuelle == 1
         )
         .reduce(
           (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
@@ -987,7 +987,7 @@ export default {
       // return (id) => {
 
       let objet = this.getterBudgetViseParActivite.filter(
-        (item) => this.afficheCodeNatureDepense(item.nature_depense_id) == 2
+        (item) => this.afficheCodeNatureDepense(item.nature_depense_id) == 2 && item.actuelle == 1
       );
       //  let vm=this
       let array_exercie = [];
@@ -1012,7 +1012,7 @@ export default {
         .filter(
           (item) =>
             item.activite_id == this.Activite_id &&
-            this.afficheCodeNatureDepense(item.nature_depense_id) == 3
+            this.afficheCodeNatureDepense(item.nature_depense_id) == 3 && item.actuelle == 1
         )
         .reduce(
           (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
@@ -1033,7 +1033,7 @@ export default {
     },
     totalGlobal() {
       return this.getterBudgetViseParActivite
-        .filter((item) => item.activite_id == this.Activite_id)
+        .filter((item) => item.activite_id == this.Activite_id && item.actuelle == 1)
         .reduce(
           (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
           0
@@ -1044,7 +1044,7 @@ export default {
       // return (id) => {
 
       let objet = this.getterBudgetViseParActivite.filter(
-        (item) => this.afficheCodeNatureDepense(item.nature_depense_id) == 3
+        (item) => this.afficheCodeNatureDepense(item.nature_depense_id) == 3 && item.actuelle == 1
       );
       //  let vm=this
       let array_exercie = [];
@@ -1094,7 +1094,7 @@ export default {
         .filter(
           (item) =>
             item.activite_id == this.Activite_id &&
-            item.source_financement_id == $id1
+            item.source_financement_id == $id1 && item.actuelle == 1
         )
         .reduce(
           (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_report),
@@ -1107,7 +1107,7 @@ export default {
         .filter(
           (item) =>
             item.activite_id == this.Activite_id &&
-            item.source_financement_id == $id1
+            item.source_financement_id == $id1 && item.actuelle == 1
         )
         .reduce(
           (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_actuelle),
@@ -1121,7 +1121,7 @@ export default {
         .filter(
           (item) =>
             item.activite_id == this.Activite_id &&
-            item.source_financement_id == $id1 &&
+            item.source_financement_id == $id1 && item.actuelle == 1 &&
             this.afficheCodeNatureDepense(item.nature_depense_id) == 4
         )
         .reduce(
@@ -1135,7 +1135,7 @@ export default {
         .filter(
           (item) =>
             item.activite_id == this.Activite_id &&
-            item.source_financement_id == $id1 &&
+            item.source_financement_id == $id1 && item.actuelle == 1 &&
             this.afficheCodeNatureDepense(item.nature_depense_id) == 4
         )
         .reduce(
@@ -1149,7 +1149,7 @@ export default {
         .filter(
           (item) =>
             item.activite_id == this.Activite_id &&
-            item.ligneeconomique_id == $id &&
+            item.ligneeconomique_id == $id && item.actuelle == 1 &&
             this.afficheCodeNatureDepense(item.nature_depense_id) == 4
         )
         .reduce(
@@ -1163,7 +1163,7 @@ export default {
         .filter(
           (item) =>
             item.activite_id == this.Activite_id &&
-            item.ligneeconomique_id == $id &&
+            item.ligneeconomique_id == $id && item.actuelle == 1 &&
             this.afficheCodeNatureDepense(item.nature_depense_id) == 4
         )
         .reduce(
@@ -1178,7 +1178,7 @@ export default {
           (item) =>
             item.activite_id == this.Activite_id &&
             item.ligneeconomique_id == $id &&
-            item.source_financement_id == $id1 &&
+            item.source_financement_id == $id1 && item.actuelle == 1 &&
             this.afficheCodeNatureDepense(item.nature_depense_id) == 4
         )
         .reduce(
@@ -1191,7 +1191,7 @@ export default {
       return this.getterBudgetViseParActivite
         .filter(
           (item) =>
-            item.activite_id == this.Activite_id &&
+            item.activite_id == this.Activite_id && item.actuelle == 1 && 
             item.ligneeconomique_id == $id &&
             item.source_financement_id == $id1 &&
             this.afficheCodeNatureDepense(item.nature_depense_id) == 4
@@ -1208,7 +1208,7 @@ export default {
         .filter(
           (item) =>
             item.activite_id == this.Activite_id &&
-            item.source_financement_id == $id1 &&
+            item.source_financement_id == $id1 && item.actuelle == 1 &&
             this.afficheCodeNatureDepense(item.nature_depense_id) == 1
         )
         .reduce(
@@ -1222,7 +1222,7 @@ export default {
         .filter(
           (item) =>
             item.activite_id == this.Activite_id &&
-            item.source_financement_id == $id1 &&
+            item.source_financement_id == $id1 && item.actuelle == 1 &&
             this.afficheCodeNatureDepense(item.nature_depense_id) == 1
         )
         .reduce(
@@ -1237,7 +1237,7 @@ export default {
           (item) =>
             item.activite_id == this.Activite_id &&
             item.ligneeconomique_id == $id &&
-            item.source_financement_id == $id1 &&
+            item.source_financement_id == $id1 && item.actuelle == 1 &&
             this.afficheCodeNatureDepense(item.nature_depense_id) == 1
         )
         .reduce(
@@ -1252,7 +1252,7 @@ export default {
           (item) =>
             item.activite_id == this.Activite_id &&
             item.ligneeconomique_id == $id &&
-            item.source_financement_id == $id1 &&
+            item.source_financement_id == $id1 && item.actuelle == 1 &&
             this.afficheCodeNatureDepense(item.nature_depense_id) == 1
         )
         .reduce(
@@ -1266,7 +1266,7 @@ export default {
         .filter(
           (item) =>
             item.activite_id == this.Activite_id &&
-            item.ligneeconomique_id == $id &&
+            item.ligneeconomique_id == $id && item.actuelle == 1 &&
             this.afficheCodeNatureDepense(item.nature_depense_id) == 1
         )
         .reduce(
@@ -1281,7 +1281,7 @@ export default {
         .filter(
           (item) =>
             item.activite_id == this.Activite_id &&
-            item.source_financement_id == $id1 &&
+            item.source_financement_id == $id1 && item.actuelle == 1 &&
             this.afficheCodeNatureDepense(item.nature_depense_id) == 2
         )
         .reduce(
@@ -1295,7 +1295,7 @@ export default {
         .filter(
           (item) =>
             item.activite_id == this.Activite_id &&
-            item.source_financement_id == $id1 &&
+            item.source_financement_id == $id1 && item.actuelle == 1 &&
             this.afficheCodeNatureDepense(item.nature_depense_id) == 2
         )
         .reduce(
@@ -1309,7 +1309,7 @@ export default {
         .filter(
           (item) =>
             item.activite_id == this.Activite_id &&
-            item.ligneeconomique_id == $id &&
+            item.ligneeconomique_id == $id && item.actuelle == 1 &&
             this.afficheCodeNatureDepense(item.nature_depense_id) == 2
         )
         .reduce(
@@ -1324,7 +1324,7 @@ export default {
           (item) =>
             item.activite_id == this.Activite_id &&
             item.ligneeconomique_id == $id &&
-            item.source_financement_id == $id1 &&
+            item.source_financement_id == $id1 && item.actuelle == 1 &&
             this.afficheCodeNatureDepense(item.nature_depense_id) == 2
         )
         .reduce(
@@ -1339,7 +1339,7 @@ export default {
           (item) =>
             item.activite_id == this.Activite_id &&
             item.ligneeconomique_id == $id &&
-            item.source_financement_id == $id1 &&
+            item.source_financement_id == $id1 && item.actuelle == 1 &&
             this.afficheCodeNatureDepense(item.nature_depense_id) == 2
         )
         .reduce(
@@ -1355,7 +1355,7 @@ export default {
         .filter(
           (item) =>
             item.activite_id == this.Activite_id &&
-            item.source_financement_id == $id1 &&
+            item.source_financement_id == $id1 && item.actuelle == 1 &&
             this.afficheCodeNatureDepense(item.nature_depense_id) == 3
         )
         .reduce(
@@ -1369,7 +1369,7 @@ export default {
         .filter(
           (item) =>
             item.activite_id == this.Activite_id &&
-            item.source_financement_id == $id1 &&
+            item.source_financement_id == $id1 && item.actuelle == 1 &&
             this.afficheCodeNatureDepense(item.nature_depense_id) == 3
         )
         .reduce(
@@ -1383,7 +1383,7 @@ export default {
         .filter(
           (item) =>
             item.activite_id == this.Activite_id &&
-            item.ligneeconomique_id == $id &&
+            item.ligneeconomique_id == $id && item.actuelle == 1 &&
             this.afficheCodeNatureDepense(item.nature_depense_id) == 3
         )
         .reduce(
@@ -1398,7 +1398,7 @@ export default {
           (item) =>
             item.activite_id == this.Activite_id &&
             item.ligneeconomique_id == $id &&
-            item.source_financement_id == $id1 &&
+            item.source_financement_id == $id1 && item.actuelle == 1 &&
             this.afficheCodeNatureDepense(item.nature_depense_id) == 3
         )
         .reduce(
@@ -1413,7 +1413,7 @@ export default {
           (item) =>
             item.activite_id == this.Activite_id &&
             item.ligneeconomique_id == $id &&
-            item.source_financement_id == $id1 &&
+            item.source_financement_id == $id1 && item.actuelle == 1 &&
             this.afficheCodeNatureDepense(item.nature_depense_id) == 3
         )
         .reduce(
@@ -1428,7 +1428,7 @@ export default {
 
     AfficheMontantBudget($id) {
       return this.getterBudgetViseParActivite
-        .filter((item) => item.sous_budget_id == $id)
+        .filter((item) => item.sous_budget_id == $id && item.actuelle == 1)
         .reduce(
           (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
           0

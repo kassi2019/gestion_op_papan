@@ -15,7 +15,7 @@
                 <i class="icon-arrow-right"></i>
               </li>
               <li class="nav-item">
-                <a href="#">Gestion budgétaire</a>
+                <a href="#">Gestion Personnel</a>
               </li>
               <li class="separator">
                 <i class="icon-arrow-right"></i>
@@ -195,7 +195,7 @@
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
-              @click.prevent="this.getActivite()"
+              @click.prevent="this.getBordereauParUser()"
             >
               Fermer
             </button>
@@ -643,7 +643,7 @@ export default {
   methods: {
     ...mapActions("parametrage", [
       "getActivite",
-      "VisaReamenagementBudgetEclate",
+      "appliqueDecision",
       "getDotationNotifie",
       "getDotationReport",
       "ajouterInformationBudget",
@@ -723,12 +723,12 @@ export default {
     AppliqueDecision() {
       var objetDirect1 = {
         id: this.DecisionApp.id,
-        dotation: this.DecisionApp.dotation,
+       // dotation: this.DecisionApp.dotation,
         date_decision: this.DecisionApp.date_decision,
         decision: this.DecisionApp.decision,
       };
 
-      this.VisaReamenagementBudgetEclate(objetDirect1);
+      this.appliqueDecision(objetDirect1);
       this.DecisionApp = {};
     },
     formatageSommeSansFCFA: formatageSommeSansFCFA,

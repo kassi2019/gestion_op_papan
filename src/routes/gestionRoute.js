@@ -28,10 +28,12 @@ import VentilationSousBudget from "../page/GestionBudgetaire/DossierBudget/Venti
 import BudgetComposanteVise from "../page/GestionBudgetaire/DossierBudget/BudgetComposanteVise.vue"
 import OrdrePaiementProvisoire from "../page/GestionBudgetaire/DossierOpProvisoire/OrdrePaiementProvisoire.vue"
 import OrdrePaiementDirect from "../page/GestionBudgetaire/DossierOPDirect/OrdrePaiementDirect.vue"
-import AfficheOpActivite from "../page/GestionBudgetaire/DossierOpProvisoire/AfficheOpActivite.vue"
+// import AfficheOpActivite from "../page/GestionBudgetaire/DossierOpProvisoire/AfficheOpActivite.vue"
 
 import AfficheOpProvisoirePerso from "../page/GestionBudgetaire/DossierOPPersonnel/DossierOpProvisoire/AfficheOpProvisoirePerso.vue"
-import AfficheOpDirectActivite from "../page/GestionBudgetaire/DossierOPDirect/AfficheOpDirectActivite.vue"
+import AfficheOpDirectPerso from "../page/GestionBudgetaire/DossierOPPersonnel/DossierOpDirect/AfficheOpDirectPerso.vue"
+
+// import AfficheOpDirectActivite from "../page/GestionBudgetaire/DossierOPDirect/AfficheOpDirectActivite.vue"
 import ImprimerOp from "../page/GestionRapport/ImprimerOp.vue"
 import ImprimerOrdreMission from "../page/GestionRapport/ImprimerOrdreMission.vue"
 
@@ -47,8 +49,6 @@ import OrdrePaiementDefinitif from "../page/GestionBudgetaire/DossierOPDefinitif
 import OrdrePaiementAnnulation from "../page/GestionBudgetaire/DossierOPAnnulation/OrdrePaiementAnnulation.vue"
 import Banque from "../page/ParametreGeneraux/Banque.vue"
 import CompteBancaire from "../page/ParametreGeneraux/CompteBancaire.vue"
-import AfficheOPDefinitif from "../page/GestionBudgetaire/DossierOPDefinitif/AfficheOPDefinitif.vue"
-import AfficheOPAnnulation from "../page/GestionBudgetaire/DossierOPAnnulation/AfficheOPAnnulation.vue"
 
 import InformationBudgetModifier from "../page/GestionBudgetaire/DossierBudget/InformationBudgetModifier.vue"
  
@@ -153,16 +153,7 @@ const gestionutilisateur = [
         name:"InformationBudgetModifier",
        component: InformationBudgetModifier
      },
-   {
-        path: '/AfficheOPAnnulation/:id',
-        name:"AfficheOPAnnulation",
-       component: AfficheOPAnnulation
-     },
-  {
-        path: '/AfficheOPDefinitif/:id',
-        name:"AfficheOPDefinitif",
-       component: AfficheOPDefinitif
-     },
+ 
   {
         path: '/OrdrePaiementAnnulation/:id',
         name:"OrdrePaiementAnnulation",
@@ -208,11 +199,11 @@ const gestionutilisateur = [
         name:"AfficheActiviteDesOP",
        component: AfficheActiviteDesOP
      },
-  {
-        path: '/AfficheOpDirectActivite/:id',
-        name:"AfficheOpDirectActivite",
-       component: AfficheOpDirectActivite
-     },
+  // {
+  //       path: '/AfficheOpDirectActivite/:id',
+  //       name:"AfficheOpDirectActivite",
+  //      component: AfficheOpDirectActivite
+  //    },
   {
         path: '/OrdrePaiementDirect/:id',
         name:"OrdrePaiementDirect",
@@ -236,21 +227,26 @@ const gestionutilisateur = [
        component: ImprimerOpPersonnel
   },
   {
-        path: '/ImprimerOp/:id/:id1',
+        path: '/ImprimerOp/:id',
         name:"ImprimerOp",
        component: ImprimerOp
   },
   
+   {
+        path: '/AfficheOpDirectPerso/:id',
+        name:"AfficheOpDirectPerso",
+       component: AfficheOpDirectPerso
+     },
       {
         path: '/AfficheOpProvisoirePerso/:id',
         name:"AfficheOpProvisoirePerso",
        component: AfficheOpProvisoirePerso
      },
-  {
-        path: '/AfficheOpActivite/:id',
-        name:"AfficheOpActivite",
-       component: AfficheOpActivite
-     },
+  // {
+  //       path: '/AfficheOpActivite/:id',
+  //       name:"AfficheOpActivite",
+  //      component: AfficheOpActivite
+  //    },
   {
         path: '/Entreprise',
         name:"Entreprise",
