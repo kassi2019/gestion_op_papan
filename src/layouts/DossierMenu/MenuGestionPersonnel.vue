@@ -143,7 +143,7 @@
                   <a
                     href=""
                     @click.prevent="
-                      activedOptionMenu('InformationBordereauOPDefinitif')
+                      activedOptionMenu('InfoBordOpDefinitifPerso')
                     "
                   >
                     <span class="sub-item">OP Définitif</span>
@@ -152,7 +152,7 @@
                 <li>
                   <a
                     href=""
-                    @click.prevent="activedOptionMenu('infoBordereauTotal')"
+                    @click.prevent="activedOptionMenu('infoBordereauTotalOpPerso')"
                   >
                     <span class="sub-item">Voir ordre paiement</span>
                   </a>

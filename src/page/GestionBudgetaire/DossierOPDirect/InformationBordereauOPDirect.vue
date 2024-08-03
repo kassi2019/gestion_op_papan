@@ -53,7 +53,9 @@
               <tbody>
                 <tr v-for="item in AfficherBudgetGlobal" :key="item.id">
                   <td style="border: 1px solid #000">{{ item.exercice }}</td>
-                   <td style="border: 1px solid #000">{{ item.numero_dossier }}</td>
+                  <td style="border: 1px solid #000">
+                    {{ item.numero_dossier }}
+                  </td>
                   <td style="border: 1px solid #000">{{ item.libelle }}</td>
                   <td style="border: 1px solid #000; text-align: right">
                     {{ formatageSommeSansFCFA(parseFloat(item.dotation)) }}
@@ -193,7 +195,7 @@
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
-              @click.prevent="this.getActivite()"
+              @click.prevent="this.getBordereauParUser()"
             >
               Fermer
             </button>
@@ -236,11 +238,13 @@
                 />
               </div>
               <div class="col-12">
-                <label for="inputNanme4" class="form-label">Numéro de bordereau</label>
+                <label for="inputNanme4" class="form-label"
+                  >Numéro de bordereau</label
+                >
                 <input
                   type="text"
                   class="form-control"
-                   v-model="modNatureDepense.numero_dossier"
+                  v-model="modNatureDepense.numero_dossier"
                   style="
                     border: 1px solid #000 !important;
                     background-color: #dcdcdc !important;
@@ -318,7 +322,7 @@
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
-              @click.prevent="this.getActivite()"
+              @click.prevent="this.getBordereauParUser()"
             >
               Fermer
             </button>
@@ -363,7 +367,9 @@
                 />
               </div>
               <div class="col-12">
-                <label for="inputNanme4" class="form-label">Numéro de bordereau</label>
+                <label for="inputNanme4" class="form-label"
+                  >Numéro de bordereau</label
+                >
                 <input
                   type="text"
                   class="form-control"
@@ -516,6 +522,7 @@ export default {
     this.getDotationNotifie();
     this.getDotationReport();
     this.getBordereauParUser();
+    this.getInformationBudget();
   },
   computed: {
     ...mapGetters("parametrage", [
@@ -523,7 +530,7 @@ export default {
       "getterDotationReport",
       "getterDotationNotifie",
       "getterExerciceBudgetaire",
-      "gettersBordereauParUser",
+      "gettersBordereauParUser","getterInformationBudget"
     ]),
     automatiseBordereau() {
       return (
@@ -539,7 +546,9 @@ export default {
     },
 
     AfficherTailleBordereau() {
-      return this.gettersBordereauParUser.filter((item) => item.statut  == 2 || item.statut  == 3 || item.statut  == 4 || item.statut  == 5).length;
+      return this.getterInformationBudget.filter(
+        (item) => item.statut != 0 && item.statut != 1
+      ).length;
     },
     // afficher
     libelleActivite() {
@@ -631,6 +640,7 @@ export default {
   methods: {
     ...mapActions("parametrage", [
       "getActivite",
+      "getInformationBudget",
       "appliqueDecision",
       "getDotationNotifie",
       "getDotationReport",
@@ -684,7 +694,7 @@ export default {
         decision: this.ajouterNatureDepense.decision,
         statut: 3,
         observation: this.ajouterNatureDepense.observation,
-        numero_dossier:this.automatiseBordereau
+        numero_dossier: this.automatiseBordereau,
       };
 
       this.ajouterInformationBudget(objetDirect1);

@@ -15,7 +15,7 @@
                 <i class="icon-arrow-right"></i>
               </li>
               <li class="nav-item">
-                <a href="#">Gestion budgétaire</a>
+                <a href="#">Gestion Personnel</a>
               </li>
               <li class="separator">
                 <i class="icon-arrow-right"></i>
@@ -27,104 +27,222 @@
           </div>
         </div>
         <div class="card-body">
-          <div class="table-responsive">
-            <table class="table table-bordered">
-              <thead>
-                <tr>
-                  <th>Exercice</th>
-                  <th>Objet du bordereau</th>
-                  <th>Dotation</th>
-                  <th>Décision</th>
-                  <th>Date de visa</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="item in AfficherBudgetGlobal" :key="item.id">
-                  <td style="border: 1px solid #000">{{ item.exercice }}</td>
-                  <td style="border: 1px solid #000">{{ item.libelle }}</td>
-                  <td style="border: 1px solid #000; text-align: right">
-                    {{ formatageSommeSansFCFA(parseFloat(item.dotation)) }}
+          <FormWizard color="#1D702D">
+            <TabContent
+              title="BORDEREAU EN ATTENTE"
+              icon="fas fa-hourglass-start"
+            >
+              <div class="table-responsive">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th>Exercice</th>
+                      <th>N° bordereau</th>
+                      <th>Objet du bordereau</th>
+                      <th>Dotation</th>
+                      <th>Décision</th>
+                      <th>Date de visa</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      v-for="item in AfficherBordereauEnAttente"
+                      :key="item.id"
+                    >
+                      <td style="border: 1px solid #000">
+                        {{ item.exercice }}
+                      </td>
+                      <td style="border: 1px solid #000">
+                        {{ item.numero_dossier }}
+                      </td>
+                      <td style="border: 1px solid #000">{{ item.libelle }}</td>
+                      <td style="border: 1px solid #000; text-align: right">
+                        {{ formatageSommeSansFCFA(parseFloat(item.dotation)) }}
+                      </td>
+                      <td style="border: 1px solid #000">
+                        <span
+                          v-if="item.decision == 1"
+                          class="badge badge-success"
+                          style="cursor: pointer; text-align: center"
+                          >{{ afficheDecision(item.decision) }}</span
+                        >
+                        <span
+                          v-if="item.decision == 2"
+                          class="badge badge-success"
+                          style="cursor: pointer"
+                          >{{ afficheDecision(item.decision) }}</span
+                        >
+                        <span
+                          v-if="item.decision == 3"
+                          class="badge badge-warning"
+                          style="cursor: pointer"
+                          >{{ afficheDecision(item.decision) }}</span
+                        >
+                        <span
+                          v-if="item.decision == 4"
+                          class="badge badge-danger"
+                          style="cursor: pointer"
+                          >{{ afficheDecision(item.decision) }}</span
+                        >
+                      </td>
+                      <td style="border: 1px solid #000">
+                        {{ formaterDate(item.date_decision) }}
+                      </td>
+                      <td style="border: 1px solid #000">
+                        <span
+                          class="badge badge-black"
+                          style="cursor: pointer"
+                          @click.prevent="AfficheVentilationBudget(item.id)"
+                          >Voir OP</span
+                        >
+                        <span
+                          data-bs-toggle="modal"
+                          data-bs-target="#largeModal12"
+                          class="badge badge-secondary"
+                          @click.prevent="ModalAppliqueDecision(item.id)"
+                          style="cursor: pointer"
+                          >Mettre decision</span
+                        >
+                        <span
+                          class="badge rounded-pill bg-primary"
+                          data-bs-toggle="modal"
+                          data-bs-target="#largeModal1"
+                          style="cursor: pointer"
+                          title="modifier"
+                          @click.prevent="AfficheModalModification(item.id)"
+                          ><i class="far fa-edit"></i
+                        ></span>
+                        <span
+                          title="Imprimer Bordereau"
+                          class="badge bg-warning"
+                          style="cursor: pointer; color: #77abd6"
+                          @click.prevent="fonctionImprimer(item.id)"
+                        >
+                          <i class="fas fa-print" style="color: #dcdcdc"></i
+                        ></span>
+                        <span
+                          v-if="item.decision == 0"
+                          class="badge bg-danger"
+                          style="cursor: pointer"
+                          title="Supprimer"
+                          @click.prevent="supprimerInformationBudget(item.id)"
+                          ><i class="fas fa-archive"></i
+                        ></span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </TabContent>
+            <TabContent title="BORDEREAU VISE" icon="fas fa-stamp">
+              <div class="table-responsive">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th>Exercice</th>
+                      <th>N° bordereau</th>
+                      <th>Objet du bordereau</th>
+                      <th>Dotation</th>
+                      <th>Décision</th>
+                      <th>Date de visa</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="item in AfficherBordereauVise" :key="item.id">
+                      <td style="border: 1px solid #000">
+                        {{ item.exercice }}
+                      </td>
+                      <td style="border: 1px solid #000">
+                    {{ item.numero_dossier }}
                   </td>
-                  <td style="border: 1px solid #000">
-                    <span
-                      v-if="item.decision == 1"
-                      class="badge badge-success"
-                      style="cursor: pointer; text-align: center"
-                      >{{ afficheDecision(item.decision) }}</span
-                    >
-                    <span
-                      v-if="item.decision == 2"
-                      class="badge badge-success"
-                      style="cursor: pointer"
-                      >{{ afficheDecision(item.decision) }}</span
-                    >
-                    <span
-                      v-if="item.decision == 3"
-                      class="badge badge-warning"
-                      style="cursor: pointer"
-                      >{{ afficheDecision(item.decision) }}</span
-                    >
-                    <span
-                      v-if="item.decision == 4"
-                      class="badge badge-danger"
-                      style="cursor: pointer"
-                      >{{ afficheDecision(item.decision) }}</span
-                    >
-                  </td>
-                  <td style="border: 1px solid #000">
-                    {{ formaterDate(item.date_decision) }}
-                  </td>
-                  <td style="border: 1px solid #000">
-                    <div
-                      class="btn-group"
-                      role="group"
-                      aria-label="Basic mixed styles example"
-                    >
-                      <span
-                        class="badge badge-black"
-                        style="cursor: pointer"
-                        @click.prevent="AfficheVentilationBudget(item.id)"
-                        >Voir OP</span
-                      >
-                      <span
-                        data-bs-toggle="modal"
-                        data-bs-target="#largeModal12"
-                        class="badge badge-secondary"
-                        @click.prevent="ModalAppliqueDecision(item.id)"
-                        style="cursor: pointer"
-                        >Mettre decision</span
-                      >
-                      <span
-                        class="badge rounded-pill bg-primary"
-                        data-bs-toggle="modal"
-                        data-bs-target="#largeModal1"
-                        style="cursor: pointer"
-                        title="modifier"
-                        @click.prevent="AfficheModalModification(item.id)"
-                        ><i class="far fa-edit"></i
-                      ></span>
-                      <span
-                        title="Imprimer Bordereau"
-                        class="badge bg-warning"
-                        style="cursor: pointer; color: #000;font-weight: bolder;"
-                        @click.prevent="fonctionImprimer(item.id)"
-                      >
-                        <i class="fas fa-print" style="color: #000"></i
-                      > Imprimer Bordereau</span>
-                      <span
-                        v-if="item.decision == 0"
-                        class="badge bg-danger"
-                        style="cursor: pointer"
-                        title="Supprimer"
-                        @click.prevent="supprimerInformationBudget(item.id)"
-                        ><i class="fas fa-archive"></i
-                      ></span>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+                      <td style="border: 1px solid #000">{{ item.libelle }}</td>
+                      <td style="border: 1px solid #000; text-align: right">
+                        {{ formatageSommeSansFCFA(parseFloat(item.dotation)) }}
+                      </td>
+                      <td style="border: 1px solid #000">
+                        <span
+                          v-if="item.decision == 1"
+                          class="badge badge-success"
+                          style="cursor: pointer; text-align: center"
+                          >{{ afficheDecision(item.decision) }}</span
+                        >
+                        <span
+                          v-if="item.decision == 2"
+                          class="badge badge-success"
+                          style="cursor: pointer"
+                          >{{ afficheDecision(item.decision) }}</span
+                        >
+                        <span
+                          v-if="item.decision == 3"
+                          class="badge badge-warning"
+                          style="cursor: pointer"
+                          >{{ afficheDecision(item.decision) }}</span
+                        >
+                        <span
+                          v-if="item.decision == 4"
+                          class="badge badge-danger"
+                          style="cursor: pointer"
+                          >{{ afficheDecision(item.decision) }}</span
+                        >
+                      </td>
+                      <td style="border: 1px solid #000">
+                        {{ formaterDate(item.date_decision) }}
+                      </td>
+                      <td style="border: 1px solid #000">
+                        <div
+                          class="btn-group"
+                          role="group"
+                          aria-label="Basic mixed styles example"
+                        >
+                          <span
+                            class="badge badge-black"
+                            style="cursor: pointer"
+                            @click.prevent="AfficheVentilationBudget(item.id)"
+                            >Voir OP</span
+                          >
+                          <span
+                            data-bs-toggle="modal"
+                            data-bs-target="#largeModal12"
+                            class="badge badge-secondary"
+                            @click.prevent="ModalAppliqueDecisionVise(item.id)"
+                            style="cursor: pointer"
+                            >Mettre decision</span
+                          >
+                          <span
+                            class="badge rounded-pill bg-primary"
+                            data-bs-toggle="modal"
+                            data-bs-target="#largeModal1"
+                            style="cursor: pointer"
+                            title="modifier"
+                            @click.prevent="
+                              AfficheModalModificationVise(item.id)
+                            "
+                            ><i class="far fa-edit"></i
+                          ></span>
+                          <span
+                            title="Imprimer Bordereau"
+                            class="badge bg-warning"
+                            style="cursor: pointer; color: #77abd6"
+                            @click.prevent="fonctionImprimer(item.id)"
+                          >
+                            <i class="fas fa-print" style="color: #dcdcdc"></i
+                          ></span>
+                          <span
+                            v-if="item.decision == 0"
+                            class="badge bg-danger"
+                            style="cursor: pointer"
+                            title="Supprimer"
+                            @click.prevent="supprimerInformationBudget(item.id)"
+                            ><i class="fas fa-archive"></i
+                          ></span>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </TabContent>
+          </FormWizard>
         </div>
       </div>
     </div>
@@ -186,7 +304,7 @@
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
-              @click.prevent="this.getActivite()"
+              @click.prevent="this.getInformationBudget()"
             >
               Fermer
             </button>
@@ -439,8 +557,9 @@ import { mapActions, mapGetters } from "vuex";
 import moment from "moment";
 import { ModelListSelect } from "vue-search-select";
 import { formatageSommeSansFCFA } from "../../Repositories/Repository";
+import { FormWizard, TabContent } from "vue3-form-wizard";
 export default {
-  components: { ModelListSelect },
+  components: { ModelListSelect, FormWizard, TabContent },
   data() {
     return {
       ajouterNatureDepense: {
@@ -490,9 +609,22 @@ export default {
       "getterExerciceBudgetaire",
       "getterInformationBudget",
     ]),
-    AfficherBudgetGlobal() {
+    AfficherBordereauVise() {
       return this.getterInformationBudget.filter(
-        (item) => item.statut == 10 || item.statut == 11
+        (item) =>
+          (item.statut == 10 && item.decision != 0) ||
+          (item.statut == 11 && item.decision != 0) ||
+          (item.statut == 12 && item.decision != 0) ||
+          (item.statut == 13 && item.decision != 0)
+      );
+    },
+    AfficherBordereauEnAttente() {
+      return this.getterInformationBudget.filter(
+        (item) =>
+          (item.statut == 10 && item.decision == 0) ||
+          (item.statut == 11 && item.decision == 0) ||
+          (item.statut == 12 && item.decision == 0) ||
+          (item.statut == 13 && item.decision == 0)
       );
     },
     // afficher
@@ -585,7 +717,7 @@ export default {
   methods: {
     ...mapActions("parametrage", [
       "getActivite",
-      "VisaReamenagementBudgetEclate",
+      "appliqueDecision",
       "getDotationNotifie",
       "getDotationReport",
       "ajouterInformationBudget",
@@ -620,12 +752,22 @@ export default {
       }
     },
     AfficheModalModification(id) {
-      this.modNatureDepense = this.AfficherBudgetGlobal.find(
+      this.modNatureDepense = this.AfficherBordereauEnAttente.find(
         (items) => items.id == id
       );
     },
     ModalAppliqueDecision(id) {
-      this.DecisionApp = this.AfficherBudgetGlobal.find(
+      this.DecisionApp = this.AfficherBordereauEnAttente.find(
+        (items) => items.id == id
+      );
+    },
+    AfficheModalModificationVise(id) {
+      this.modNatureDepense = this.AfficherBordereauVise.find(
+        (items) => items.id == id
+      );
+    },
+    ModalAppliqueDecisionVise(id) {
+      this.DecisionApp = this.AfficherBordereauVise.find(
         (items) => items.id == id
       );
     },
@@ -653,7 +795,7 @@ export default {
         libelle: this.modNatureDepense.libelle,
         date_decision: this.modNatureDepense.date_decision,
         decision: this.modNatureDepense.decision,
-        statut: 2,
+       
         observation: this.modNatureDepense.observation,
       };
 
@@ -664,12 +806,11 @@ export default {
     AppliqueDecision() {
       var objetDirect1 = {
         id: this.DecisionApp.id,
-        dotation: this.DecisionApp.dotation,
         date_decision: this.DecisionApp.date_decision,
         decision: this.DecisionApp.decision,
       };
 
-      this.VisaReamenagementBudgetEclate(objetDirect1);
+      this.appliqueDecision(objetDirect1);
       this.DecisionApp = {};
     },
     formatageSommeSansFCFA: formatageSommeSansFCFA,

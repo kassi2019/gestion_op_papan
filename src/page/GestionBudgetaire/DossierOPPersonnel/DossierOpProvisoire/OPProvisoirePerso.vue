@@ -43,742 +43,728 @@
           </div>
         </div>
         <div class="card-body">
-          <FormWizard @on-complete="onComplete" color="#e67e22">
-            <TabContent title="INFO SUR LE PROJET" icon="ti-home">
-              <div class="row">
-                <div class="col-lg-12">
-                  <form class="row g-3">
-                    <div class="col-3">
-                      <label class="form-label">Exercice</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        readonly
-                        :value="exerciceBudgetaire"
-                        style="border: 1px solid #000 !important"
-                      />
-                    </div>
-                    <div class="col-9">
-                      <label class="form-label"
-                        >Unité Opérationnelle
-                        <span
-                          style="
-                            color: red !important;
-                            font-size: 15px !important;
-                          "
-                          >*</span
-                        ></label
-                      >
+          <FormWizard color="#1D702D">
+            <TabContent title="SAISIR OP PROVISOIRE" icon="icon-note">
+              <FormWizard @on-complete="onComplete" color="#e67e22">
+                <TabContent title="PROJET" icon="ti-home">
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <form class="row g-3">
+                        <div class="col-3">
+                          <label class="form-label">Exercice</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            readonly
+                            :value="exerciceBudgetaire"
+                            style="border: 1px solid #000 !important"
+                          />
+                        </div>
+                        <div class="col-9">
+                          <label class="form-label"
+                            >Unité Opérationnelle
+                            <span
+                              style="
+                                color: red !important;
+                                font-size: 15px !important;
+                              "
+                              >*</span
+                            ></label
+                          >
 
-                      <model-list-select
-                        :list="getterBudgetViseGroupeParActivite"
-                        v-model="unite_operationnelle_id"
-                        option-value="unite_operationnelle_id"
-                        option-text="nom_projet"
-                        placeholder="select item"
-                        style="border: 1px solid #000"
-                      >
-                      </model-list-select>
-                      <span
-                        style="color: red"
-                        v-if="unite_operationnelle_id == 0"
-                        >Ce champs est obligatoire!
-                      </span>
+                          <model-list-select
+                            :list="getterBudgetViseGroupeParActivite"
+                            v-model="unite_operationnelle_id"
+                            option-value="unite_operationnelle_id"
+                            option-text="nom_projet"
+                            placeholder="select item"
+                            style="border: 1px solid #000"
+                          >
+                          </model-list-select>
+                          <span
+                            style="color: red"
+                            v-if="unite_operationnelle_id == 0"
+                            >Ce champs est obligatoire!
+                          </span>
+                        </div>
+                        <div class="col-6">
+                          <label class="form-label"
+                            >Activité
+                            <span
+                              style="
+                                color: red !important;
+                                font-size: 15px !important;
+                              "
+                              >*</span
+                            ></label
+                          >
+                          <model-list-select
+                            :list="getterBudgetViseGroupeParActivite"
+                            v-model="activite_id"
+                            option-value="activite_id"
+                            option-text="plan_activite"
+                            placeholder="select item"
+                            style="border: 1px solid #000"
+                          >
+                          </model-list-select>
+                          <span style="color: red" v-if="activite_id == 0"
+                            >Ce champs est obligatoire!
+                          </span>
+                        </div>
+                        <div class="col-6">
+                          <label class="form-label"
+                            >Composante
+                            <span
+                              style="
+                                color: red !important;
+                                font-size: 15px !important;
+                              "
+                              >*</span
+                            ></label
+                          >
+                          <model-list-select
+                            :list="libelleSousBudget"
+                            v-model="sous_budget_id"
+                            option-value="id"
+                            option-text="libelle"
+                            placeholder="select item"
+                            style="border: 1px solid #000"
+                          >
+                          </model-list-select>
+                          <span style="color: red" v-if="sous_budget_id == 0"
+                            >Ce champs est obligatoire!
+                          </span>
+                        </div>
+                      </form>
                     </div>
-                    <div class="col-6">
-                      <label class="form-label"
-                        >Activité
-                        <span
-                          style="
-                            color: red !important;
-                            font-size: 15px !important;
-                          "
-                          >*</span
-                        ></label
-                      >
-                      <model-list-select
-                        :list="getterBudgetViseGroupeParActivite"
-                        v-model="activite_id"
-                        option-value="activite_id"
-                        option-text="plan_activite"
-                        placeholder="select item"
-                        style="border: 1px solid #000"
-                      >
-                      </model-list-select>
-                      <span style="color: red" v-if="activite_id == 0"
-                        >Ce champs est obligatoire!
-                      </span>
+                  </div>
+                </TabContent>
+                <TabContent title="ORDRE PAIEMENT" icon="ti-write">
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <form class="row g-3">
+                        <div class="col-12">
+                          <label class="form-label"
+                            >Objet de la depense
+                            <span
+                              style="
+                                color: red !important;
+                                font-size: 15px !important;
+                              "
+                              >*</span
+                            ></label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            style="border: 1px solid #000 !important"
+                            v-model="objet_depense"
+                          />
+                          <span style="color: red" v-if="objet_depense == 0"
+                            >Ce champs est obligatoire!
+                          </span>
+                        </div>
+                        <div class="col-6">
+                          <label class="form-label"
+                            >Numéro de ordre de paiement
+                          </label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            style="border: 1px solid #000 !important"
+                            :value="automatiseNumeroOP"
+                            readonly
+                          />
+                        </div>
+                        <div class="col-6">
+                          <label class="form-label"
+                            >Montant des préstations
+                            <span
+                              style="
+                                color: red !important;
+                                font-size: 15px !important;
+                              "
+                              >*</span
+                            ></label
+                          >
+                          <money3
+                            class="form-control"
+                            v-bind="config"
+                            v-model="montant_prestation"
+                          ></money3>
+                          <span
+                            style="color: red"
+                            v-if="montant_prestation == 0"
+                            >Ce champs est obligatoire!
+                          </span>
+                          <span style="color: red" v-if="montant_prestation < 0"
+                            >le Montant doit être positif
+                          </span>
+                        </div>
+                       
+                      </form>
                     </div>
-                    <div class="col-6">
-                      <label class="form-label"
-                        >Composante
-                        <span
-                          style="
-                            color: red !important;
-                            font-size: 15px !important;
-                          "
-                          >*</span
-                        ></label
-                      >
-                      <model-list-select
-                        :list="libelleSousBudget"
-                        v-model="sous_budget_id"
-                        option-value="id"
-                        option-text="libelle"
-                        placeholder="select item"
-                        style="border: 1px solid #000"
-                      >
-                      </model-list-select>
-                      <span style="color: red" v-if="sous_budget_id == 0"
-                        >Ce champs est obligatoire!
-                      </span>
-                    </div>
-                    <div class="col-12">
-                      <label class="form-label"
-                        >Objet de la depense
-                        <span
-                          style="
-                            color: red !important;
-                            font-size: 15px !important;
-                          "
-                          >*</span
-                        ></label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        style="border: 1px solid #000 !important"
-                        v-model="objet_depense"
-                      />
-                      <span style="color: red" v-if="objet_depense == 0"
-                        >Ce champs est obligatoire!
-                      </span>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </TabContent>
-            <TabContent title="INFO SUR OP" icon="ti-write">
-              <div class="row">
-                <div class="col-lg-12">
-                  <form class="row g-3">
-                    <div class="col-6">
-                      <label class="form-label"
-                        >Numéro de ordre de paiement
-                      </label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        style="border: 1px solid #000 !important"
-                        :value="automatiseNumeroOP"
-                        readonly
-                      />
-                    </div>
-                    <div class="col-6">
-                      <label class="form-label"
-                        >Montant des préstations
-                        <span
-                          style="
-                            color: red !important;
-                            font-size: 15px !important;
-                          "
-                          >*</span
-                        ></label
-                      >
-                      <money3
-                        class="form-control"
-                        v-bind="config"
-                        v-model="montant_prestation"
-                      ></money3>
-                      <span style="color: red" v-if="montant_prestation == 0"
-                        >Ce champs est obligatoire!
-                      </span>
-                      <span style="color: red" v-if="montant_prestation < 0"
-                        >le Montant doit être positif
-                      </span>
-                    </div>
-                    <div class="col-12">
-                      <label class="form-label"
-                        >Nature économique / Imputation
-                        <span
-                          style="
-                            color: red !important;
-                            font-size: 15px !important;
-                          "
-                          >*</span
-                        ></label
-                      >
-                      <model-list-select
-                        :list="AfficheNatureEconomique"
-                        v-model="nature_economique_id"
-                        option-value="id"
-                        option-text="objet"
-                        placeholder="select item"
-                        style="border: 1px solid #000"
-                      >
-                      </model-list-select>
-                      <span style="color: red" v-if="nature_economique_id == 0"
-                        >Ce champs est obligatoire!
-                      </span>
-                    </div>
+                  </div>
+                </TabContent>
+                <TabContent title="BAILLEUR" icon="fas fa-hands-helping">
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <form class="row g-3">
+                         <div class="col-12">
+                          <label class="form-label"
+                            >Nature économique / Imputation
+                            <span
+                              style="
+                                color: red !important;
+                                font-size: 15px !important;
+                              "
+                              >*</span
+                            ></label
+                          >
+                          <model-list-select
+                            :list="AfficheNatureEconomique"
+                            v-model="nature_economique_id"
+                            option-value="id"
+                            option-text="objet"
+                            placeholder="select item"
+                            style="border: 1px solid #000"
+                          >
+                          </model-list-select>
+                          <span
+                            style="color: red"
+                            v-if="nature_economique_id == 0"
+                            >Ce champs est obligatoire!
+                          </span>
+                        </div>
 
-                    <div class="col-3">
-                      <label class="form-label"
-                        >Type financement
-                        <span
-                          style="
-                            color: red !important;
-                            font-size: 15px !important;
-                          "
-                          >*</span
-                        ></label
-                      >
+                        <div class="col-3">
+                          <label class="form-label"
+                            >Type financement
+                            <span
+                              style="
+                                color: red !important;
+                                font-size: 15px !important;
+                              "
+                              >*</span
+                            ></label
+                          >
 
-                      <model-list-select
-                        :list="AfficheTypeFinancement"
-                        v-model="type_financement_id"
-                        option-value="id"
-                        option-text="objet"
-                        placeholder="select item"
-                        style="border: 1px solid #000"
-                      >
-                      </model-list-select>
-                      <span style="color: red" v-if="type_financement_id == 0"
-                        >Ce champs est obligatoire!
-                      </span>
-                    </div>
-                    <div class="col-6">
-                      <label class="form-label"
-                        >Source de financement
-                        <span
-                          style="
-                            color: red !important;
-                            font-size: 15px !important;
-                          "
-                          >*</span
-                        ></label
-                      >
+                          <model-list-select
+                            :list="AfficheTypeFinancement"
+                            v-model="type_financement_id"
+                            option-value="id"
+                            option-text="objet"
+                            placeholder="select item"
+                            style="border: 1px solid #000"
+                          >
+                          </model-list-select>
+                          <span
+                            style="color: red"
+                            v-if="type_financement_id == 0"
+                            >Ce champs est obligatoire!
+                          </span>
+                        </div>
+                        <div class="col-6">
+                          <label class="form-label"
+                            >Source de financement
+                            <span
+                              style="
+                                color: red !important;
+                                font-size: 15px !important;
+                              "
+                              >*</span
+                            ></label
+                          >
 
-                      <model-list-select
-                        :list="AfficheSourceFinancement"
-                        v-model="source_financement_id"
-                        option-value="id"
-                        option-text="objet"
-                        placeholder="select item"
-                        style="border: 1px solid #000"
-                      >
-                      </model-list-select>
-                      <span style="color: red" v-if="source_financement_id == 0"
-                        >Ce champs est obligatoire!
-                      </span>
+                          <model-list-select
+                            :list="AfficheSourceFinancement"
+                            v-model="source_financement_id"
+                            option-value="id"
+                            option-text="objet"
+                            placeholder="select item"
+                            style="border: 1px solid #000"
+                          >
+                          </model-list-select>
+                          <span
+                            style="color: red"
+                            v-if="source_financement_id == 0"
+                            >Ce champs est obligatoire!
+                          </span>
+                        </div>
+                        <div class="col-3">
+                          <label class="form-label">Nature de depense</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            style="border: 1px solid #000 !important"
+                            :value="libelleNatureDepense"
+                            readonly
+                          />
+                        </div>
+                      </form>
                     </div>
-                    <div class="col-3">
-                      <label class="form-label">Nature de depense</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        style="border: 1px solid #000 !important"
-                        :value="libelleNatureDepense"
-                        readonly
-                      />
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </TabContent>
-            <TabContent title="INFO SUR LA DOTATION" icon="fas fa-euro-sign">
-              <div class="row">
-                <div class="col-lg-12">
-                  <form class="row g-3">
-                    <div class="col-6">
-                      <label class="form-label">Dotation ( A )</label>
+                  </div>
+                </TabContent>
+                <TabContent
+                  title="DOTATION"
+                  icon="fas fa-calculator"
+                >
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <form class="row g-3">
+                        <div class="col-6">
+                          <label class="form-label">Dotation ( A )</label>
 
-                      <money3
-                        class="form-control"
-                        v-bind="config"
-                        :model-value="afficheDotaion"
-                        readonly
-                      ></money3>
-                    </div>
-                    <div class="col-3">
-                      <label class="form-label"
-                        >Cumul Dépense Antérieure ( B )</label
-                      >
+                          <money3
+                            class="form-control"
+                            v-bind="config"
+                            :model-value="afficheDotaion"
+                            readonly
+                          ></money3>
+                        </div>
+                        <div class="col-3">
+                          <label class="form-label"
+                            >Cumul Dépense Antérieure ( B )</label
+                          >
 
-                      <money3
-                        class="form-control"
-                        v-bind="config"
-                        :model-value="afficheMontantCumul"
-                        readonly
-                      ></money3>
-                    </div>
-                    <div class="col-3">
-                      <label class="form-label">Dépense en Cours ( C )</label>
+                          <money3
+                            class="form-control"
+                            v-bind="config"
+                            :model-value="afficheMontantCumul"
+                            readonly
+                          ></money3>
+                        </div>
+                        <div class="col-3">
+                          <label class="form-label"
+                            >Dépense en Cours ( C )</label
+                          >
 
-                      <money3
-                        class="form-control"
-                        v-bind="config"
-                        v-model="montant_prestation"
-                        readonly
-                      ></money3>
-                    </div>
-                    <div class="col-6">
-                      <label class="form-label"
-                        >Cumul Dépense en Cours ( D = B + C )</label
-                      >
+                          <money3
+                            class="form-control"
+                            v-bind="config"
+                            v-model="montant_prestation"
+                            readonly
+                          ></money3>
+                        </div>
+                        <div class="col-6">
+                          <label class="form-label"
+                            >Cumul Dépense en Cours ( D = B + C )</label
+                          >
 
-                      <money3
-                        class="form-control"
-                        v-bind="config"
-                        :model-value="CumulDepense"
-                        readonly
-                      ></money3>
-                    </div>
-                    <div class="col-6">
-                      <label class="form-label">Disponible ( E = A - D )</label>
+                          <money3
+                            class="form-control"
+                            v-bind="config"
+                            :model-value="CumulDepense"
+                            readonly
+                          ></money3>
+                        </div>
+                        <div class="col-6">
+                          <label class="form-label"
+                            >Disponible ( E = A - D )</label
+                          >
 
-                      <money3
-                        class="form-control"
-                        style="border: 1px solid #000 !important"
-                        v-bind="config"
-                        :model-value="disponible"
-                        readonly
-                      ></money3>
-                    </div>
-                    <div class="col-6">
-                      <label for="inputNanme4" class="form-label"
-                        >Décision</label
-                      >
-                      <select
-                        class="form-select"
-                        style="border: 1px solid #000"
-                        v-model="decision_cf"
-                      >
-                        <option selected></option>
-                        <option :value="1">Visé</option>
-                        <option :value="2">Visé avec observation</option>
-                        <option :value="3">Différé</option>
-                        <option :value="4">Réjetté</option>
-                      </select>
-                    </div>
-                    <div class="col-6">
-                      <label for="inputNanme4" class="form-label"
-                        >Date décision</label
-                      >
-                      <input
-                        type="date"
-                        class="form-control"
-                        style="border: 1px solid #000"
-                        v-model="date_decision"
-                      />
-                    </div>
-                  </form>
-                </div></div
-            ></TabContent>
-            <TabContent title="SAISIR PERSONNEL" icon="fas fa-user-friends">
-              <div class="row">
-                <div class="col-lg-12">
-                  <form class="row g-3">
-                    <div class="col-3">
-                      <label class="form-label"
-                        >Type dépense
-                        <span
-                          style="
-                            color: red !important;
-                            font-size: 15px !important;
-                          "
-                          >*</span
-                        ></label
-                      >
-                      <model-list-select
-                        :list="gettersTypeIndemnite"
-                        v-model="FormDataDossier.type_depense_id"
-                        option-value="id"
-                        option-text="libelle"
-                        placeholder="select item"
-                        style="border: 1px solid #000"
-                      >
-                      </model-list-select>
-                      <!-- <span
+                          <money3
+                            class="form-control"
+                            style="border: 1px solid #000 !important"
+                            v-bind="config"
+                            :model-value="disponible"
+                            readonly
+                          ></money3>
+                        </div>
+                        <div class="col-6">
+                          <label for="inputNanme4" class="form-label"
+                            >Décision</label
+                          >
+                          <select
+                            class="form-select"
+                            style="border: 1px solid #000"
+                            v-model="decision_cf"
+                          >
+                            <option selected></option>
+                            <option :value="1">Visé</option>
+                            <option :value="2">Visé avec observation</option>
+                            <option :value="3">Différé</option>
+                            <option :value="4">Réjetté</option>
+                          </select>
+                        </div>
+                        <div class="col-6">
+                          <label for="inputNanme4" class="form-label"
+                            >Date décision</label
+                          >
+                          <input
+                            type="date"
+                            class="form-control"
+                            style="border: 1px solid #000"
+                            v-model="date_decision"
+                          />
+                        </div>
+                      </form>
+                    </div></div
+                ></TabContent>
+                <TabContent title="SAISIR PERSONNEL" icon="fas fa-user-friends">
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <form class="row g-3">
+                        <div class="col-3">
+                          <label class="form-label"
+                            >Type dépense
+                            <span
+                              style="
+                                color: red !important;
+                                font-size: 15px !important;
+                              "
+                              >*</span
+                            ></label
+                          >
+                          <model-list-select
+                            :list="gettersTypeIndemnite"
+                            v-model="FormDataDossier.type_depense_id"
+                            option-value="id"
+                            option-text="libelle"
+                            placeholder="select item"
+                            style="border: 1px solid #000"
+                          >
+                          </model-list-select>
+                          <!-- <span
                       style="color: red"
                       v-if="FormDataDossier.type_indemnite_id == 0"
                       >Ce champs est obligatoire!
                     </span> -->
+                        </div>
+                        <div class="col-6">
+                          <label class="form-label"
+                            >Personnel
+                            <span
+                              style="
+                                color: red !important;
+                                font-size: 15px !important;
+                              "
+                              >*</span
+                            ></label
+                          >
+                          <model-list-select
+                            :list="gettersPersonnelParActivite"
+                            v-model="FormDataDossier.personnel_id"
+                            option-value="id"
+                            option-text="nom_prenoms"
+                            placeholder="select item"
+                            style="border: 1px solid #000"
+                          >
+                          </model-list-select>
+                          <span
+                            style="color: red"
+                            v-if="FormDataDossier.personnel_id == 0"
+                            >Ce champs est obligatoire!
+                          </span>
+                        </div>
+                        <div class="col-3">
+                          <label class="form-label"
+                            >Montant
+                            <span
+                              style="
+                                color: red !important;
+                                font-size: 15px !important;
+                              "
+                              >*</span
+                            ></label
+                          >
+                          <money3
+                            class="form-control"
+                            v-bind="config"
+                            v-model="FormDataDossier.montant"
+                          ></money3>
+                          <span
+                            style="color: red"
+                            v-if="FormDataDossier.montant == 0"
+                            >Ce champs est obligatoire!
+                          </span>
+                          <span
+                            style="color: red"
+                            v-if="FormDataDossier.montant < 0"
+                            >le Montant doit être positif
+                          </span>
+                        </div>
+                        <div class="col-11">
+                          <span
+                            v-if="
+                              CumulMontantAutreMontant != montant_prestation
+                            "
+                            style="color: red"
+                          >
+                            Le cumul des paiments est différent du montant de la
+                            préstation
+                          </span>
+                        </div>
+                        <div class="col-1">
+                          <br />
+                          <button
+                            type="button"
+                            class="btn btn-primary"
+                            @click.prevent="ajouterPartieRequerante()"
+                          >
+                            Ajouter
+                          </button>
+                        </div>
+                      </form>
                     </div>
-                    <div class="col-6">
-                      <label class="form-label"
-                        >Personnel
-                        <span
-                          style="
-                            color: red !important;
-                            font-size: 15px !important;
-                          "
-                          >*</span
-                        ></label
-                      >
-                      <model-list-select
-                        :list="gettersPersonnelParActivite"
-                        v-model="FormDataDossier.personnel_id"
-                        option-value="id"
-                        option-text="nom_prenoms"
-                        placeholder="select item"
-                        style="border: 1px solid #000"
-                      >
-                      </model-list-select>
-                      <span
-                        style="color: red"
-                        v-if="FormDataDossier.personnel_id == 0"
-                        >Ce champs est obligatoire!
-                      </span>
-                    </div>
-                    <div class="col-3">
-                      <label class="form-label"
-                        >Montant
-                        <span
-                          style="
-                            color: red !important;
-                            font-size: 15px !important;
-                          "
-                          >*</span
-                        ></label
-                      >
-                      <money3
-                        class="form-control"
-                        v-bind="config"
-                        v-model="FormDataDossier.montant"
-                      ></money3>
-                      <span
-                        style="color: red"
-                        v-if="FormDataDossier.montant == 0"
-                        >Ce champs est obligatoire!
-                      </span>
-                      <span
-                        style="color: red"
-                        v-if="FormDataDossier.montant < 0"
-                        >le Montant doit être positif
-                      </span>
-                    </div>
-                    <div class="col-11">
-                      <span
-                        v-if="CumulMontantAutreMontant != montant_prestation"
-                        style="color: red"
-                      >
-                        Le cumul des paiments est différent du montant de la
-                        préstation
-                      </span>
-                    </div>
-                    <div class="col-1">
-                      <br />
-                      <button
-                        type="button"
-                        class="btn btn-primary"
-                        @click.prevent="ajouterPartieRequerante()"
-                      >
-                        Ajouter
-                      </button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-              <br />
+                  </div>
+                  <br />
+                  <div class="table-responsive">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th
+                            scope="col"
+                            style="
+                              text-align: center;
+                              border: 1px solid #000 !important;
+                            "
+                          >
+                            Type dépense
+                          </th>
+                          <th
+                            scope="col"
+                            style="
+                              text-align: center;
+                              border: 1px solid #000 !important;
+                            "
+                          >
+                            Personnel
+                          </th>
+
+                          <th
+                            scope="col"
+                            style="
+                              text-align: center;
+                              border: 1px solid #000 !important;
+                            "
+                          >
+                            Montant
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="item in TableauDossier" :key="item.id">
+                          <td style="border: 1px solid #000 !important">
+                            {{
+                              afficheLibelleTypeDepense(item.type_depense_id)
+                            }}
+                          </td>
+                          <td style="border: 1px solid #000 !important">
+                            {{ affichePersonnel(item.personnel_id) }}
+                          </td>
+                          <td
+                            style="
+                              text-align: right;
+                              border: 1px solid #000 !important;
+                            "
+                          >
+                            {{
+                              formatageSommeSansFCFA(parseFloat(item.montant))
+                            }}
+                          </td>
+                          <td style="border: 1px solid #000 !important">
+                            <span
+                              class="badge bg-danger"
+                              style="cursor: pointer"
+                              @click.prevent="deletePartieRequerante(index)"
+                              ><i class="fas fa-archive"></i> Supprimer</span
+                            >
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            colspan="2"
+                            style="
+                              text-align: right;
+                              border: 1px solid #000 !important;
+                            "
+                          >
+                            TOTAL
+                          </td>
+                          <td
+                            style="
+                              text-align: right;
+                              border: 1px solid #000 !important;
+                            "
+                          >
+                            {{
+                              formatageSommeSansFCFA(
+                                parseFloat(CumulMontantAutreMontant)
+                              )
+                            }}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colspan="3"></td>
+                          <td colspan="">
+                            <button
+                              v-if="
+                                unite_operationnelle_id == 0 ||
+                                activite_id == 0 ||
+                                type_financement_id == 0 ||
+                                sous_budget_id == 0 ||
+                                source_financement_id == 0 ||
+                                nature_economique_id == 0 ||
+                                montant_prestation == 0 ||
+                                objet_depense == 0 ||
+                                montant_prestation < 0
+                              "
+                              disabled
+                              type="button"
+                              class="btn btn-success"
+                              @click.prevent="
+                                enregistrementSansTypeFiancement2()
+                              "
+                            >
+                              Enregistrer
+                            </button>
+                            <button
+                              v-else
+                              type="button"
+                              class="btn btn-success"
+                              @click.prevent="
+                                enregistrementSansTypeFiancement2()
+                              "
+                            >
+                              Enregistrer
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </TabContent>
+              </FormWizard>
+            </TabContent>
+            <TabContent
+              title="LISTE OP DU BORDEREAU"
+              icon="icon-list"
+              color="#000"
+              >
               <div class="table-responsive">
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <th
-                        scope="col"
-                        style="
-                          text-align: center;
-                          border: 1px solid #000 !important;
-                        "
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Numero OP</th>
+                  <th>Objet dépense</th>
+                  <th>Montant</th>
+                  <th>nature économique</th>
+                  <th>Bénéficiaire</th>
+                  <th>Décision</th>
+                  <th>Date Décision</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="item in afficheListeOPprovisoire" :key="item.id">
+                  <td style="border: 1px solid #000">
+                    {{ item.numero_ordre_paiement }}
+                  </td>
+                  <td style="border: 1px solid #000" class="text-break">
+                    {{ item.objet_depense }}
+                  </td>
+                  <td style="border: 1px solid #000; text-align: right">
+                    {{
+                      formatageSommeSansFCFA(
+                        parseFloat(item.montant_prestation)
+                      )
+                    }}
+                  </td>
+                  <td style="border: 1px solid #000">
+                    {{ item.nature_economique }}
+                  </td>
+                  <td style="border: 1px solid #000">
+                    {{ item.beneficiaire }}
+                  </td>
+                  <td style="border: 1px solid #000">
+                    <span
+                      v-if="item.decision == 1"
+                      class="badge badge-success"
+                      style="cursor: pointer; text-align: center"
+                      >{{ afficheDecision(item.decision) }}</span
+                    >
+                    <span
+                      v-if="item.decision == 2"
+                      class="badge badge-success"
+                      style="cursor: pointer"
+                      >{{ afficheDecision(item.decision) }}</span
+                    >
+                    <span
+                      v-if="item.decision == 3"
+                      class="badge badge-warning"
+                      style="cursor: pointer"
+                      >{{ afficheDecision(item.decision) }}</span
+                    >
+                    <span
+                      v-if="item.decision == 4"
+                      class="badge badge-danger"
+                      style="cursor: pointer"
+                      >{{ afficheDecision(item.decision) }}</span
+                    >
+                  </td>
+                  <td style="border: 1px solid #000">
+                    {{ formaterDate(item.date_decision) }}
+                  </td>
+                  <td style="border: 1px solid #000">
+                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+ <span
+                        title="Modifier"
+                         class="badge bg-primary"
+                        data-bs-toggle="modal"
+                        data-bs-target="#largeModal1"
+                        style="cursor: pointer"
+                        @click.prevent="AfficheModalModification(item.id)"
+                      ><i class="fas fa-edit"></i> Modifier</span>
+                      <span
+                        title="Supprimer"
+                         class="badge bg-danger"
+                        
+                        style="cursor: pointer;"
+                        @click.prevent="supprimerInformationBudget(item.id)"
+                      ><i class="fas fa-archive"></i> Supprimer</span>
+                      <span
+                      
+                        title="Voir Personnel"
+                         class="badge bg-info"
+                        style="cursor: pointer; color: #000;
+                          font-weight: bolder;"
+                        @click.prevent="fonctionImprimerListePersonnel(item.id)"
+                        ><i class="fas fa-user-friends" style="color: #000"> Imprimer Personnel</i
+                        > </span
                       >
-                        Type dépense
-                      </th>
-                      <th
-                        scope="col"
-                        style="
-                          text-align: center;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        Personnel
-                      </th>
 
-                      <th
-                        scope="col"
-                        style="
-                          text-align: center;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        Montant
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="item in TableauDossier" :key="item.id">
-                      <td style="border: 1px solid #000 !important">
-                        {{ afficheLibelleTypeDepense(item.type_depense_id) }}
-                      </td>
-                      <td style="border: 1px solid #000 !important">
-                        {{ affichePersonnel(item.personnel_id) }}
-                      </td>
-                      <td
-                        style="
-                          text-align: right;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        {{ formatageSommeSansFCFA(parseFloat(item.montant)) }}
-                      </td>
-                      <td style="border: 1px solid #000 !important">
-                        <span
-                          class="badge bg-danger"
-                          style="cursor: pointer"
-                          @click.prevent="deletePartieRequerante(index)"
-                          ><i class="fas fa-archive"></i> Supprimer</span
-                        >
-                      </td>
-                    </tr>
-                    <tr>
-                      <td
-                        colspan="2"
-                        style="
-                          text-align: right;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        TOTAL
-                      </td>
-                      <td
-                        style="
-                          text-align: right;
-                          border: 1px solid #000 !important;
-                        "
-                      >
-                        {{
-                          formatageSommeSansFCFA(
-                            parseFloat(CumulMontantAutreMontant)
-                          )
-                        }}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td colspan="3"></td>
-                      <td colspan="">
-                        <button
-                          v-if="
-                            unite_operationnelle_id == 0 ||
-                            activite_id == 0 ||
-                            type_financement_id == 0 ||
-                            sous_budget_id == 0 ||
-                            source_financement_id == 0 ||
-                            nature_economique_id == 0 ||
-                            montant_prestation == 0 ||
-                            objet_depense == 0 ||
-                            montant_prestation < 0
-                          "
-                          disabled
-                          type="button"
-                          class="btn btn-success"
-                          @click.prevent="enregistrementSansTypeFiancement2()"
-                        >
-                          Enregistrer
-                        </button>
-                        <button
-                          v-else
-                          type="button"
-                          class="btn btn-success"
-                          @click.prevent="enregistrementSansTypeFiancement2()"
-                        >
-                          Enregistrer
-                        </button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </TabContent>
-            <TabContent title="VERIFICATION ORDRE PAIEMENT" icon="ti-printer">
-              <!-- <RecapBordereau :id_dossier="bordereau_id"/> -->
+                     
 
-              <RecapBordereauPersoProv :id_dossier="bordereau_id" />
-            </TabContent>
+                      <span
+                       
+                        title="Imprimer OP"
+                         class="badge bg-warning"
+                        style="
+                          cursor: pointer;
+                          color: #000;
+                          font-weight: bolder;
+                        "
+                        @click.prevent="
+                          fonctionImprimerPersonnel(item.id)
+                        "
+                      >
+                        <i class="fas fa-print" style="color: #000"></i>
+                        Imprimer OP</span
+                      >
+                    </div>
+                   
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+              </TabContent
+            >
           </FormWizard>
         </div>
       </div>
 
-      <div
-        class="modal fade"
-        id="largeModal1"
-        tabindex="-1"
-        data-bs-keyboard="false"
-        data-bs-backdrop="static"
-        aria-labelledby="staticBackdropLabel"
-      >
-        <div class="modal-dialog modal-xl">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Modifier Facture</h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body">
-              <form>
-                <div class="row">
-                  <div class="col-12">
-                    <label for="inputNanme4" class="form-label"
-                      >Désignation</label
-                    >
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="inputNanme4"
-                      v-model="FormDataDossierMod.designation"
-                      style="border: 1px solid #000"
-                    />
-                  </div>
-                  <div class="col-3">
-                    <label class="form-label"
-                      >Quantité ( A )
-                      <span
-                        style="
-                          color: red !important;
-                          font-size: 15px !important;
-                        "
-                        >*</span
-                      ></label
-                    >
-                    <input
-                      type="text"
-                      class="form-control"
-                      v-model="FormDataDossierMod.quantite"
-                    />
-                    <span
-                      style="color: red"
-                      v-if="FormDataDossierMod.quantite == 0"
-                      >Ce champs est obligatoire!
-                    </span>
-                  </div>
-                  <div class="col-3">
-                    <label class="form-label"
-                      >Prix Unitaire ( B )
-                      <span
-                        style="
-                          color: red !important;
-                          font-size: 15px !important;
-                        "
-                        >*</span
-                      ></label
-                    >
-                    <money3
-                      class="form-control"
-                      v-bind="config"
-                      v-model="FormDataDossierMod.prix_unitaire"
-                    ></money3>
-                    <span
-                      style="color: red"
-                      v-if="FormDataDossierMod.prix_unitaire == 0"
-                      >Ce champs est obligatoire!
-                    </span>
-                  </div>
-                  <div class="col-3">
-                    <label class="form-label">Montant HT (C = A * B)</label>
-                    <money3
-                      class="form-control"
-                      v-bind="config"
-                      :model-value="MontantHtMod"
-                      readonly
-                    ></money3>
-                  </div>
-                  <div class="col-3">
-                    <label class="form-label">Exonéré de la TVA 18%</label>
-                    <select
-                      class="form-select form-control"
-                      id="defaultSelect"
-                      style="border: 1px solid #000 !important"
-                      v-model="FormDataDossierMod.exonere"
-                    >
-                      <option></option>
-                      <option value="0">Oui</option>
-                      <option value="1">Non</option>
-                    </select>
-                  </div>
-                  <div class="col-2">
-                    <label class="form-label">Autre taux (%) ( D )</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      v-model="FormDataDossierMod.autre_taux"
-                    />
-                  </div>
-                  <div class="col-2">
-                    <label class="form-label">Taux TVA (%) ( F )</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      :value="AfficheTauxTVAMod"
-                      readonly
-                    />
-                  </div>
-                  <div class="col-3">
-                    <label class="form-label"
-                      >Cumul des autres taxes ( E = C * D)</label
-                    >
-                    <money3
-                      class="form-control"
-                      v-bind="config"
-                      :model-value="afficheAutreMontantMod"
-                      readonly
-                    ></money3>
-                  </div>
-                  <div class="col-2">
-                    <label class="form-label">Montant Tva ( G = C * F)</label>
-                    <money3
-                      class="form-control"
-                      v-bind="config"
-                      :model-value="montantTvaMod"
-                      readonly
-                    ></money3>
-                  </div>
-                  <div class="col-3">
-                    <label class="form-label"
-                      >Montant TTC ( H = E + G + C )</label
-                    >
-                    <money3
-                      class="form-control"
-                      v-bind="config"
-                      :model-value="MontantTTCMod"
-                      readonly
-                    ></money3>
-                  </div>
-                </div>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Modifier
-              </button>
-              <!-- <button
-              type="button"
-              class="btn btn-primary"
-              @click.prevent="modificationSection()"
-              data-bs-dismiss="modal"
-            >
-              Modifier
-            </button> -->
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </template>
@@ -786,8 +772,8 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import { FormWizard, TabContent } from "vue3-form-wizard";
-import RecapBordereauPersoProv from "./RecapBordereauPersoProv.vue";
-// import moment from "moment";
+//import RecapBordereauPersoProv from "./RecapBordereauPersoProv.vue";
+import moment from "moment";
 import { ModelListSelect } from "vue-search-select";
 import { Money3Component } from "v-money3";
 
@@ -801,7 +787,7 @@ export default {
     ModelListSelect,
     FormWizard,
     TabContent,
-    RecapBordereauPersoProv,
+    //  RecapBordereauPersoProv,
     // RecapBordereau,
   },
   data() {
@@ -876,6 +862,7 @@ export default {
     this.getActiviteOp();
     this.getCompteBancaire();
     this.getListeOrdrePaiementGlobal();
+     this.getListeOrdrePaiementPersonnnelParUtilisateur();
     // this.getDotationNotifie();
     // this.getDotationReport();
     // this.getDotationRessourcePropre();
@@ -901,7 +888,7 @@ export default {
       "gettersPersonnelParActivite",
     ]),
     ...mapGetters("parametrage", [
-      "getterProjet",
+      "getterProjet","getterOpPersonnelParUser",
       "getterCompteBancaire",
       "getterActiviteSurOP",
       "getterTaux",
@@ -923,7 +910,26 @@ export default {
       "getterListeOPgloba",
       "getterOpParActivite",
     ]),
+    afficherTypeDepense() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.getterOpPersonnelParUser.find(
+            (qtreel) => qtreel.bordereau_id == id
+          );
 
+          if (qtereel) {
+            return qtereel.type_depense;
+          }
+          return "8";
+        }
+      };
+    },
+afficheListeOPprovisoire() {
+      return this.getterOpPersonnelParUser.filter(
+        (item) =>
+          item.bordereau_id == this.bordereau_id && item.type_ordre_paiement == 1
+      );
+    },
     taillerTableau() {
       return this.TableauDossier.length;
     },
@@ -1783,7 +1789,7 @@ export default {
       "AjouterPersonnel",
     ]),
     ...mapActions("parametrage", [
-      "getActivite",
+      "getActivite","getListeOrdrePaiementPersonnnelParUtilisateur",
       "getListeOrdrePaiementGlobal",
       "getCompteBancaire",
       "getActiviteOp",
@@ -1807,6 +1813,21 @@ export default {
       "AjouterOpPersonnel",
       "getOpParActvite",
     ]),
+     fonctionImprimerListePersonnel(id) {
+      this.$router.push({
+        name: "ImprimerPersonnelOP",
+        params: { id: id },
+      });
+    },
+    fonctionImprimerPersonnel(id) {
+      this.$router.push({
+        name: "ImprimerOpPersonnel",
+        params: { id: id },
+      });
+    },
+     formaterDate(date) {
+      return moment(date, "YYYY-MM-DD").format("DD/MM/YYYY");
+    },
     retour() {
       this.$router.push({
         name: "InfoBordOpProvisoirePerso",

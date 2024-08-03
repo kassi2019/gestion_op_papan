@@ -32,6 +32,7 @@
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
+
               <li class="nav-item">
                 <span
                   class="badge badge-warning"
@@ -186,14 +187,7 @@
                             :model-value="montantPrestation"
                             readonly
                           ></money3>
-                          <!-- <span style="color: red" v-if="montant_prestation == 0"
-                        >Ce champs est obligatoire!
-                      </span> -->
-                          <!-- <span
-                        style="color: red"
-                        v-if="parseFloat(montant_prestation) > 0"
-                        >Montant de l'OP doit est négatif!
-                      </span> -->
+                          
                         </div>
                       </form>
                     </div>
@@ -309,7 +303,7 @@
                     </div>
                   </div>
                 </TabContent>
-                <TabContent title="DOTATION" icon="ti-search"
+                <TabContent title="DOTATION" icon="fas fa-calculator"
                   ><div class="row">
                     <div class="col-lg-12">
                       <form class="row g-3">

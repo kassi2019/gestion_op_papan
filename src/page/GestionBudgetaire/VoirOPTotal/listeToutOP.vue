@@ -37,7 +37,7 @@
                 <span
                   class="badge badge-warning"
                   style="cursor: pointer; color: #000"
-                  @click.prevent="retour(dossier_id)"
+                  @click.prevent="pagePrecedent()"
                   ><i class="fas fa-arrow-alt-circle-left"></i> Retour</span
                 >
               </li>
@@ -1003,6 +1003,9 @@ export default {
       this.$router.push({
         name: "infoBordereauTotal",
       });
+    },
+    pagePrecedent() {
+      window.history.back();
     },
     modificationOrdrePaiement() {
       var objetDirect1 = {

@@ -1067,12 +1067,13 @@ export function getInformationBudgetUser({ commit }) {
     .catch(error => console.log(error));
 }
 
-export function ajouterInformationBudget({ commit }, nouveau) {
+export function ajouterInformationBudget({ commit,dispatch }, nouveau) {
  
     apiGuest.post("/AjouterInformationBudget", nouveau, { headers: authHeader() })
     .then(response => {
       if (response.status == 201) {
         commit("AJOUTER_INFORMATION_BUDGET", response.data);
+        dispatch('getInformationBudget');
        toast("Enregistrement effectué avec succès!", {
         "theme": "auto",
         "type": "success",
@@ -1519,6 +1520,22 @@ export function ajouterOrdrePaiementDefinitif({ commit,dispatch }, nouveau) {
       }
     }).catch();
 }
+export function ajouterOPDefinitifPerso({ commit,dispatch }, nouveau) {
+ 
+    apiGuest.post("/EnregistrementOPDefinitifPerso", nouveau, { headers: authHeader() })
+    .then(response => {
+      if (response.status == 201) {
+        commit("AJOUTER_ORDRE_PAIEMENT_DEFINITIF", response.data);
+        dispatch("getActiviteOp");
+        dispatch('getListeOrdrePaiementGlobal');
+       toast("Enregistrement effectué avec succès!", {
+        "theme": "auto",
+        "type": "success",
+        "dangerouslyHTMLString": true
+})
+      }
+    }).catch();
+}
 export function ajouterOrdrePaiementAnnulation({ commit,dispatch }, nouveau) {
  
     apiGuest.post("/EnregistrementOrdrePaiementAnnulation", nouveau, { headers: authHeader() })
@@ -1527,6 +1544,7 @@ export function ajouterOrdrePaiementAnnulation({ commit,dispatch }, nouveau) {
         commit("AJOUTER_ORDRE_PAIEMENT_ANNULATION", response.data);
         dispatch("getActiviteOp");
         dispatch('getListeOrdrePaiementGlobal');
+        dispatch('getListeOrdrePaiementPersonnnelParUtilisateur');
        toast("Enregistrement effectué avec succès!", {
         "theme": "auto",
         "type": "success",

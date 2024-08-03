@@ -884,5 +884,5 @@ export const SUPPRIMER_TYEP_PIECE = (state, id) => {
 };
 
 export const AJOUTER_OP_PERSONNEL = (state, elementAjouter) => {
-    state.stateOpPersonnel.unshift(elementAjouter)
+    state.stateOpPersonnelParUser.unshift(elementAjouter)
 }

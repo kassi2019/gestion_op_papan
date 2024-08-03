@@ -195,7 +195,7 @@
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
-              @click.prevent="this.getActivite()"
+              @click.prevent="this.getBordereauParUser()"
             >
               Fermer
             </button>
@@ -322,7 +322,7 @@
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
-              @click.prevent="this.getActivite()"
+              @click.prevent="this.getBordereauParUser()"
             >
               Fermer
             </button>
@@ -522,10 +522,11 @@ export default {
     this.getDotationNotifie();
     this.getDotationReport();
     this.getBordereauParUser();
+    this.getInformationBudget();
   },
   computed: {
     ...mapGetters("parametrage", [
-      "getterActivite",
+      "getterActivite","getterInformationBudget",
       "getterDotationReport",
       "getterDotationNotifie",
       "getterExerciceBudgetaire",
@@ -545,12 +546,11 @@ export default {
     },
 
     AfficherTailleBordereau() {
-      return this.gettersBordereauParUser.filter(
+      return this.getterInformationBudget.filter(
         (item) =>
-          item.statut == 2 ||
-          item.statut == 3 ||
-          item.statut == 4 ||
-          item.statut == 5
+          item.statut != 0 &&
+          item.statut != 1 
+          
       ).length;
     },
     // afficher
@@ -642,7 +642,7 @@ export default {
   },
   methods: {
     ...mapActions("parametrage", [
-      "getActivite",
+      "getActivite","getInformationBudget",
       "appliqueDecision",
       "getDotationNotifie",
       "getDotationReport",

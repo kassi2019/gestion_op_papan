@@ -17,7 +17,7 @@ export const getterAfficheNouvelleNature = state => state.stateAfficheNouvelleNa
 export const getterDotationRessourcePropre = state => state.stateDotationRessourcePropre;
 
 export const getterDotationAutreRessource = state => state.stateDotationAutreRessource;
-export const getterInformationBudget = state => state.stateInformationBudget;
+export const getterInformationBudget = state => state.stateInformationBudget.sort((a, b) => (a.numero_dossier < b.numero_dossier) ? -1 : 1);
 export const getterBordereauParUser = state => state.stateBordereauParUser;
 
 export const getterListeBudgetEclate = state => state.stateListeBudgetEclate;
@@ -47,7 +47,7 @@ export const gettersSignataire = state => state.stateSignataire;
 export const gettersSecteurActivite = state => state.stateSecteurActivite;
 export const gettersRegimeImpossition = state => state.stateRegimeImpossition;
 export const gettersFormeJuridique = state => state.stateFormeJuridique;
-export const gettersBordereauParUser = state => state.stateBordereauParUser;
+export const gettersBordereauParUser = state => state.stateBordereauParUser.sort((a, b) => (a.numero_dossier < b.numero_dossier) ? -1 : 1);
 // export const getterAfficheDotation = state => state.stateAfficheDotation;
 
 

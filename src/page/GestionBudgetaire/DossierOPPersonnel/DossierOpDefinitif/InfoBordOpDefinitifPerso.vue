@@ -21,9 +21,20 @@
                 <i class="icon-arrow-right"></i>
               </li>
               <li class="nav-item">
-                <a href="#">Bordereau OP Annulation Personnel</a>
+                <a href="#">Bordereau OP Definitif Personnel</a>
               </li>
             </ul>
+          </div>
+          <div class="d-flex align-items-center">
+            <!-- <h4 class="card-title">Information du budget global</h4> -->
+
+            <span
+              class="badge badge-primary"
+              style="cursor: pointer"
+              data-bs-toggle="modal"
+              data-bs-target="#largeModal"
+              ><i class="fas fa-plus"></i> Ajouter</span
+            >
           </div>
         </div>
         <div class="card-body">
@@ -79,26 +90,20 @@
                     {{ formaterDate(item.date_decision) }}
                   </td>
                   <td style="border: 1px solid #000">
-                    <!-- <span
+                    <span
                       class="badge badge-black"
                       style="cursor: pointer"
                       @click.prevent="AfficheVentilationBudget(item.id)"
-                      >Saisir OP Annulation</span
-                    > -->
-                    <!-- <span
+                      >Saisir OP Définitif</span
+                    >
+                    <span
                       data-bs-toggle="modal"
                       data-bs-target="#largeModal12"
                       class="badge badge-secondary"
                       @click.prevent="ModalAppliqueDecision(item.id)"
                       style="cursor: pointer"
                       >Mettre decision</span
-                    > -->
-                    <span
-                          class="badge badge-black"
-                          style="cursor: pointer"
-                          @click.prevent="AfficheVentilationBudget(item.bordereau_id)"
-                          >Voir OP</span
-                        >
+                    >
                     <span
                       class="badge rounded-pill bg-primary"
                       data-bs-toggle="modal"
@@ -516,7 +521,8 @@ export default {
     this.getActivite();
     this.getDotationNotifie();
     this.getDotationReport();
-    this.getBordereauParUser();
+      this.getBordereauParUser();
+    this.getInformationBudget();
   },
   computed: {
     ...mapGetters("parametrage", [
@@ -524,7 +530,7 @@ export default {
       "getterDotationReport",
       "getterDotationNotifie",
       "getterExerciceBudgetaire",
-      "gettersBordereauParUser",
+      "gettersBordereauParUser","getterInformationBudget"
     ]),
     automatiseBordereau() {
       return (
@@ -536,16 +542,14 @@ export default {
       );
     },
     AfficherBudgetGlobal() {
-      return this.gettersBordereauParUser.filter((item) => item.statut == 12);
+      return this.gettersBordereauParUser.filter((item) => item.statut == 13);
     },
 
     AfficherTailleBordereau() {
-      return this.gettersBordereauParUser.filter(
+      return this.getterInformationBudget.filter(
         (item) =>
-          item.statut == 2 ||
-          item.statut == 3 ||
-          item.statut == 4 ||
-          item.statut == 5
+           item.statut != 0 &&
+          item.statut != 1 
       ).length;
     },
     // afficher
@@ -637,7 +641,7 @@ export default {
   },
   methods: {
     ...mapActions("parametrage", [
-      "getActivite",
+      "getActivite","getInformationBudget",
       "appliqueDecision",
       "getDotationNotifie",
       "getDotationReport",
@@ -655,7 +659,7 @@ export default {
     },
     AfficheVentilationBudget(id) {
       this.$router.push({
-        name: "AfficheOPAnnulationPerso",
+        name: "OPDefinitifPerso",
         params: { id: id },
       });
     },
@@ -689,7 +693,7 @@ export default {
         libelle: this.ajouterNatureDepense.libelle,
         activite_id: this.ajouterNatureDepense.activite_id,
         decision: this.ajouterNatureDepense.decision,
-        statut: 12,
+        statut: 13,
         observation: this.ajouterNatureDepense.observation,
         numero_dossier: this.automatiseBordereau,
       };
@@ -707,7 +711,7 @@ export default {
         libelle: this.modNatureDepense.libelle,
         date_decision: this.modNatureDepense.date_decision,
         decision: this.modNatureDepense.decision,
-        statut: 12,
+        statut: 13,
         observation: this.modNatureDepense.observation,
       };
 

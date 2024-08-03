@@ -20,14 +20,21 @@ import OPDirectPerso from "../page/GestionBudgetaire/DossierOPPersonnel/DossierO
 import OrdreMission from "../page/GestionPersonnel/OrdreMission.vue"
 import InfoBordOPAnnulationPerso from "../page/GestionBudgetaire/DossierOPPersonnel/DossierOpAnnulation/InfoBordOPAnnulationPerso.vue"
 import OPAnnulationPerso from "../page/GestionBudgetaire/DossierOPPersonnel/DossierOpAnnulation/OPAnnulationPerso.vue"
-import AfficheOPAnnulationPerso from "../page/GestionBudgetaire/DossierOPPersonnel/DossierOpAnnulation/AfficheOPAnnulationPerso.vue"
+
+import InfoBordOpDefinitifPerso from "../page/GestionBudgetaire/DossierOPPersonnel/DossierOpDefinitif/InfoBordOpDefinitifPerso.vue"
+import OPDefinitifPerso from "../page/GestionBudgetaire/DossierOPPersonnel/DossierOpDefinitif/OPDefinitifPerso.vue"
 
 const gestionutilisateur = [
-      {
-        path: '/AfficheOPAnnulationPerso/:id',
-        name:"AfficheOPAnnulationPerso",
-       component: AfficheOPAnnulationPerso
-  },
+     {
+        path: '/OPDefinitifPerso/:id',
+        name:"OPDefinitifPerso",
+       component: OPDefinitifPerso
+     },
+    {
+        path: '/InfoBordOpDefinitifPerso',
+        name:"InfoBordOpDefinitifPerso",
+       component: InfoBordOpDefinitifPerso
+     },
      {
         path: '/OPAnnulationPerso/:id',
         name:"OPAnnulationPerso",

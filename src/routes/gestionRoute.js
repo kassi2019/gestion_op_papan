@@ -28,12 +28,8 @@ import VentilationSousBudget from "../page/GestionBudgetaire/DossierBudget/Venti
 import BudgetComposanteVise from "../page/GestionBudgetaire/DossierBudget/BudgetComposanteVise.vue"
 import OrdrePaiementProvisoire from "../page/GestionBudgetaire/DossierOpProvisoire/OrdrePaiementProvisoire.vue"
 import OrdrePaiementDirect from "../page/GestionBudgetaire/DossierOPDirect/OrdrePaiementDirect.vue"
-// import AfficheOpActivite from "../page/GestionBudgetaire/DossierOpProvisoire/AfficheOpActivite.vue"
 
-import AfficheOpProvisoirePerso from "../page/GestionBudgetaire/DossierOPPersonnel/DossierOpProvisoire/AfficheOpProvisoirePerso.vue"
-import AfficheOpDirectPerso from "../page/GestionBudgetaire/DossierOPPersonnel/DossierOpDirect/AfficheOpDirectPerso.vue"
 
-// import AfficheOpDirectActivite from "../page/GestionBudgetaire/DossierOPDirect/AfficheOpDirectActivite.vue"
 import ImprimerOp from "../page/GestionRapport/ImprimerOp.vue"
 import ImprimerOrdreMission from "../page/GestionRapport/ImprimerOrdreMission.vue"
 
@@ -222,7 +218,7 @@ const gestionutilisateur = [
        component: ImprimerOrdreMission
   },
       {
-        path: '/ImprimerOpPersonnel/:id/:id1',
+        path: '/ImprimerOpPersonnel/:id',
         name:"ImprimerOpPersonnel",
        component: ImprimerOpPersonnel
   },
@@ -232,21 +228,8 @@ const gestionutilisateur = [
        component: ImprimerOp
   },
   
-   {
-        path: '/AfficheOpDirectPerso/:id',
-        name:"AfficheOpDirectPerso",
-       component: AfficheOpDirectPerso
-     },
-      {
-        path: '/AfficheOpProvisoirePerso/:id',
-        name:"AfficheOpProvisoirePerso",
-       component: AfficheOpProvisoirePerso
-     },
-  // {
-  //       path: '/AfficheOpActivite/:id',
-  //       name:"AfficheOpActivite",
-  //      component: AfficheOpActivite
-  //    },
+  
+    
   {
         path: '/Entreprise',
         name:"Entreprise",
