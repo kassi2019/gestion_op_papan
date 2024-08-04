@@ -104,6 +104,17 @@
             </a>
           </li>
           <li class="nav-item">
+            <a
+              class="nav-link collapsed"
+              href=""
+              @click.prevent="activedOptionMenu('listeOrdreMission')"
+            >
+              <i class="fas fa-arrow-right"></i>
+
+              <p>Voir Ordre de Mission</p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a data-bs-toggle="collapse" href="#forms">
               <i class="fas fa-book-reader"></i>
               <p>Salaire et Indemnité</p>

@@ -42,7 +42,7 @@
                 </h6>
                 <!-- <img src="/optimisation/skin/img/log3.png" width="80px;"  /> -->
               </td>
-              <td
+              <!-- <td
                 style="
                   text-align: center;
 
@@ -59,7 +59,7 @@
 
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              </td>
+              </td> -->
 
               <td
                 style="
@@ -74,15 +74,21 @@
                   Union-Discipline-Travail
                 </h6>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
+                <br /><br /><br /><br />
                 <!-- <img src="/optimisation/skin/img/log3.png" width="80px;"  /> -->
               </td>
             </tr>
           </table>
-          <h3 style="text-align: center; border: 1px solid #000">
-            ORDRE DE MISSION
-          </h3>
-          <table id="customers" style="text-align: center; width: 100%">
+          <h2 style="text-align: center">ORDRE DE MISSION</h2>
+          <h6 style="text-align: right">
+            <span style="text-align: center !important"
+              >LE COORDONNATEUR DU PROGRAMME D'APPUI A</span
+            >
+            <br /><span style="text-align: center !important"
+              >LA PRODUCTION AVICOLE NATIONALE</span
+            >
+          </h6>
+          <table class="table table-bordered border-primary" id="customers">
             <thead>
               <tr>
                 <th
@@ -90,353 +96,324 @@
                     font-size: 12px;
                     font-weight: bold;
                     color: #000;
-                    width: 10%;
-                    text-align: left;
+                    width: 50%;
+                    text-align: left !important;
                     line-height: 200%;
                   "
                   title=""
                 >
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <span
-                    style="text-align: center !important; line-height: normal"
+                  <span style="font-size: 14px !important"
+                    >DONNE L'ORDRE À MONSIEUR
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</span
                   >
-                  </span>
                 </th>
 
-                <td
-                  style="
-                    font-size: 16px;
-                    font-weight: bold;
-                    color: #000;
-                    text-align: left;
-                  "
-                >
-                  <span style="text-align: center; font-size: 14px"
-                    >LE COORDONNATEUR DU PROGRAMME D'APPUI A<br />
-                    LA PRODUCTION AVICOLE NATIONALE</span
-                  ><br /><br /><br /><br />
-                </td>
-              </tr>
-            </thead>
-
-            <thead>
-              <tr style="text-align: center; border: 1px solid #000 !important">
-                <th
-                  style="
-                    font-size: 12px;
-                    font-weight: bold;
-                    color: #000;
-                    width: 40%;
-                    text-align: left;
-                    line-height: 200%;
-                  "
-                  title=""
-                >
-                  DONNE L' ORDRE À MONSIEUR
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
-                    style="text-align: center !important; line-height: normal"
-                    >:</span
-                  >
-                </th>
-                <td
-                  style="
-                    font-size: 16px;
-                    font-weight: bold;
-                    color: #000;
-                    text-align: left;
-                  "
-                >
-                  {{ numero_ordre_paiement }}
-                </td>
-              </tr>
-            </thead>
-            <thead>
-              <tr style="text-align: center; border: 1px solid #000 !important">
-                <th
-                  style="
-                    font-size: 12px;
-                    font-weight: bold;
-                    color: #000;
-                    width: 40%;
-                    text-align: left;
-                    line-height: 200%;
-                  "
-                  title=""
-                >
-                  FONCTION
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
-                    style="text-align: center !important; line-height: normal"
-                    >:</span
-                  >
-                </th>
-                <td
-                  style="
-                    font-size: 16px;
-                    font-weight: bold;
-                    color: #000;
-                    text-align: left;
-                  "
-                >
-                  {{ numero_ordre_paiement }}
-                </td>
-              </tr>
-            </thead>
-            <thead>
-              <tr style="text-align: center; border: 1px solid #000 !important">
-                <th
-                  style="
-                    font-size: 12px;
-                    font-weight: bold;
-                    color: #000;
-                    width: 40%;
-                    text-align: left;
-                    line-height: 200%;
-                  "
-                  title=""
-                >
-                  MATRICULE
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
-                    style="text-align: center !important; line-height: normal"
-                    >:</span
-                  >
-                </th>
-                <td
-                  style="
-                    font-size: 16px;
-                    font-weight: bold;
-                    color: #000;
-                    text-align: left;
-                  "
-                >
-                  {{ numero_ordre_paiement }}
-                </td>
-              </tr>
-            </thead>
-            <thead>
-              <tr style="text-align: center; border: 1px solid #000 !important">
-                <th
-                  style="
-                    font-size: 12px;
-                    font-weight: bold;
-                    color: #000;
-                    width: 40%;
-                    text-align: left;
-                    line-height: 200%;
-                  "
-                  title=""
-                >
-                  DE SE RENDRE EN MISSION
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
-                    style="text-align: center !important; line-height: normal"
-                    >:</span
-                  >
-                </th>
-                <td
-                  style="
-                    font-size: 16px;
-                    font-weight: bold;
-                    color: #000;
-                    text-align: left;
-                  "
-                >
-                  {{ numero_ordre_paiement }}
-                </td>
-              </tr>
-            </thead>
-            <thead>
-              <tr style="text-align: center; border: 1px solid #000 !important">
-                <th
-                  style="
-                    font-size: 12px;
-                    font-weight: bold;
-                    color: #000;
-                    width: 10%;
-                    text-align: left;
-                    line-height: 200%;
-                  "
-                  title=""
-                >
-                  OBJET DE LA MISSION
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
-                    style="text-align: center !important; line-height: normal"
-                    >:</span
-                  >
-                </th>
                 <td
                   style="
                     font-size: 14px;
-                    font-weight: bold;
-                    color: #000;
-                    text-align: left;
-                  "
-                  class="text-break"
-                >
-                  {{ objetDepense }}
-                </td>
-              </tr>
-            </thead>
 
-            <thead>
-              <tr style="text-align: center; border: 1px solid #000 !important">
-                <th
-                  style="
-                    font-size: 12px;
-                    font-weight: bold;
-                    color: #000;
-                    width: 10%;
-                    text-align: left;
-                    line-height: 200%;
-                  "
-                  title=""
-                >
-                  MOYEN DE TRANSPORT
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
-                    style="text-align: center !important; line-height: normal"
-                    >:</span
-                  >
-                </th>
-                <td
-                  style="
-                    font-size: 16px;
-                    font-weight: bold;
                     color: #000;
                     text-align: left;
                   "
                 >
-                  {{ formatageSomme(parseFloat(montant_prestation)) }}
+                  {{ nom_personnel }}
                 </td>
               </tr>
-            </thead>
 
-            <thead>
-              <tr style="text-align: center; border: 1px solid #000 !important">
+              <tr>
                 <th
                   style="
                     font-size: 12px;
                     font-weight: bold;
                     color: #000;
-                    width: 10%;
-                    text-align: left;
+                    width: 50%;
                     line-height: 200%;
+                    text-align: left !important;
                   "
                   title=""
                 >
-                  NOMBRE DE JOURS
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <span
-                    style="text-align: center !important; line-height: normal"
-                    >:</span
+                  <span style="text-align: center !important; font-size: 14px"
+                    >FONCTION
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</span
                   >
                 </th>
+
                 <td
                   style="
-                    font-size: 16px;
-                    font-weight: bold;
+                    font-size: 14px;
+
                     color: #000;
                     text-align: left;
                   "
                 >
-                  {{ libellesousbudget }}
+                  {{ fonction }}
                 </td>
               </tr>
-            </thead>
-            <thead>
-              <tr style="text-align: center; border: 1px solid #000 !important">
+
+              <tr>
                 <th
                   style="
                     font-size: 12px;
                     font-weight: bold;
                     color: #000;
-                    width: 10%;
-                    text-align: left;
+                    width: 50%;
                     line-height: 200%;
+                    text-align: left !important;
                   "
                   title=""
                 >
-                  DATE DE DEPART
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <span
-                    style="text-align: center !important; line-height: normal"
-                    >:</span
+                  <span style="font-size: 14px !important"
+                    >MATRICULE
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</span
                   >
                 </th>
+
                 <td
                   style="
-                    font-size: 16px;
-                    font-weight: bold;
+                    font-size: 14px;
+
                     color: #000;
                     text-align: left;
                   "
                 >
-                  {{ imputation }}
+                  {{ matricule }}
                 </td>
               </tr>
-            </thead>
-            <thead>
-              <tr style="text-align: center; border: 1px solid #000 !important">
+
+              <tr>
                 <th
                   style="
                     font-size: 12px;
                     font-weight: bold;
                     color: #000;
-                    width: 10%;
-                    text-align: left;
+                    width: 50%;
                     line-height: 200%;
+                    text-align: left !important;
                   "
                   title=""
                 >
-                  DATE DE RETOUR
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <span
-                    style="text-align: center !important; line-height: normal"
-                    >:</span
+                  <span style="font-size: 14px !important"
+                    >DE SE RENDRE EN MISSION A
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</span
                   >
                 </th>
+
                 <td
                   style="
-                    font-size: 16px;
-                    font-weight: bold;
+                    font-size: 14px;
+
                     color: #000;
                     text-align: left;
                   "
                 >
-                  {{ formatageSomme(parseFloat(afficheDotaion)) }}
+                  {{ lieu_ordre_mission }}
                 </td>
               </tr>
-            </thead>
-            <thead>
-              <tr style="text-align: center; border: 1px solid #000 !important">
+
+              <tr>
                 <th
                   style="
                     font-size: 12px;
                     font-weight: bold;
                     color: #000;
-                    width: 10%;
-                    text-align: left;
+                    width: 50%;
                     line-height: 200%;
+                    text-align: left !important;
                   "
                   title=""
                 >
-                  NATURE ECONOMIQUE
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
-                    style="text-align: center !important; line-height: normal"
-                    >:</span
+                  <span style="font-size: 14px !important"
+                    >OBJET DE LA MISSION
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</span
                   >
                 </th>
+
                 <td
                   style="
-                    font-size: 16px;
-                    font-weight: bold;
+                    font-size: 14px;
+
                     color: #000;
                     text-align: left;
                   "
                 >
-                  {{ formatageSomme(parseFloat(cumulAnterieure)) }}
+                  {{ objet_depense }}
+                </td>
+              </tr>
+
+              <tr>
+                <th
+                  style="
+                    font-size: 12px;
+                    font-weight: bold;
+                    color: #000;
+                    width: 50%;
+                    line-height: 200%;
+                    text-align: left !important;
+                  "
+                  title=""
+                >
+                  <span style="font-size: 14px !important"
+                    >MOYEN DE TRANSPORT
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</span
+                  >
+                </th>
+
+                <td
+                  style="
+                    font-size: 14px;
+
+                    color: #000;
+                    text-align: left;
+                  "
+                >
+                  {{ moyen_transport }}
+                </td>
+              </tr>
+
+              <tr>
+                <th
+                  style="
+                    font-size: 12px;
+                    font-weight: bold;
+                    color: #000;
+                    width: 50%;
+                    line-height: 200%;
+                    text-align: left !important;
+                  "
+                  title=""
+                >
+                  <span style="font-size: 14px !important"
+                    >NOMBRE DE JOURS
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</span
+                  >
+                </th>
+
+                <td
+                  style="
+                    font-size: 14px;
+
+                    color: #000;
+                    text-align: left;
+                  "
+                >
+                  {{ duree }}
+                </td>
+              </tr>
+
+              <tr>
+                <th
+                  style="
+                    font-size: 12px;
+                    font-weight: bold;
+                    color: #000;
+                    width: 50%;
+                    line-height: 200%;
+                    text-align: left !important;
+                  "
+                  title=""
+                >
+                  <span style="font-size: 14px !important"
+                    >DATE DE DEPART
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</span
+                  >
+                </th>
+
+                <td
+                  style="
+                    font-size: 14px;
+
+                    color: #000;
+                    text-align: left;
+                  "
+                >
+                  {{ formaterDate(date_depart) }}
+                </td>
+              </tr>
+
+              <tr>
+                <th
+                  style="
+                    font-size: 12px;
+                    font-weight: bold;
+                    color: #000;
+                    width: 50%;
+                    line-height: 200%;
+                    text-align: left !important;
+                  "
+                  title=""
+                >
+                  <span style="font-size: 14px !important"
+                    >DATE DE RETOUR
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</span
+                  >
+                </th>
+
+                <td
+                  style="
+                    font-size: 14px;
+
+                    color: #000;
+                    text-align: left;
+                  "
+                >
+                  {{ formaterDate(date_retour) }}
+                </td>
+              </tr>
+
+              <tr>
+                <th
+                  style="
+                    font-size: 12px;
+                    font-weight: bold;
+                    color: #000;
+                    width: 50%;
+                    line-height: 200%;
+                    text-align: left !important;
+                  "
+                  title=""
+                >
+                  <span style="font-size: 14px !important"
+                    >NATURE ECONOMIQUE
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</span
+                  >
+                </th>
+
+                <td
+                  style="
+                    font-size: 14px;
+
+                    color: #000;
+                    text-align: left;
+                  "
+                >
+                  {{ nature_economique }}
                 </td>
               </tr>
             </thead>
+          </table>
+          <br /><br /><br /><br /><br /><br /><br />
+          <table id="customers" style="text-align: center">
+            <tr>
+              <td
+                style="text-align: center; width: 40%; font-weight: bold"
+              ></td>
+              <td
+                style="text-align: center; width: 40%; font-weight: bold"
+              ></td>
+              <td style="text-align: center; width: 100%; font-weight: bold">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                COORDONNATEUR
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </td>
+            </tr>
+            <tr>
+              <td style="text-align: left; width: 40%"></td>
+              <td style="text-align: left; width: 40%"><br /><br /><br /></td>
+
+              <td style="text-align: left; width: 40%">
+                <br /><br /><br /><br />55555555555555555555555555555
+              </td>
+            </tr>
           </table>
         </div>
       </div>
@@ -482,27 +459,28 @@ export default {
     };
   },
   created() {
-    this.Activite_id = this.$route.params.id;
-    this.id_dossier = this.$route.params.id1;
-    this.getListeOrdrePaiementGlobal();
-    this.getEntreprise();
-    this.getListeFacture();
-    this.getSousBudget();
-    // this.getBudgetEclate();
-    // this.getBailleur();
-    // this.getNatureDepense();
-    this.getNatureEconomique();
-    let objet = {
-      id: this.activite_id,
-    };
-    this.getBudgetViseParActvite(objet);
-    this.getCompteBancaire();
-    // this.getActivite();
-    //   this.getExerciceBudgetaire();
-    //  // this.getGroupeActivitebudgetNotifie()
-    //   this.getDotationNotifie();
+    this.id_mission = this.$route.params.id;
+    this.getOrdreMission();
   },
   computed: {
+    ...mapGetters("Personnel", [
+      "getterNatureDepense",
+      "gettersOrdreMissionParUser",
+      "gettersOrdreMission",
+      "gettersOrdreMission",
+      "gettersPersonnel",
+      "gettersPersonnelParUtilisateur",
+      "gettersPersonnelParActivite",
+      "gettersFonction",
+      "gettersService",
+      "gettersSituationMatrimonial",
+      "gettersEmploi",
+      "gettersNatureContrat",
+      "gettersDiplome",
+      "gettersTypeIndemnite",
+      "gettersTypePiece",
+      "gettersDetailDepensePerso",
+    ]),
     ...mapGetters("parametrage", [
       "getterActivite",
       "getterCompteBancaire",
@@ -518,298 +496,69 @@ export default {
       "getterBudgetViseParActivite",
       "getterNatureDepense",
     ]),
-    typeOrdrePaiement() {
+
+    nom_personnel() {
       //   return (id) => {
       //     if (id != null && id != "") {
-      const qtereel = this.getterListeOPgloba.find(
-        (qtreel) => qtreel.id == this.Activite_id
+      const qtereel = this.gettersOrdreMission.find(
+        (qtreel) => qtreel.id == this.id_mission
       );
 
       if (qtereel) {
-        return qtereel.type_ordre_paiement;
+        return qtereel.personnel;
       }
       return 0;
       //     }
       //   };
     },
-    disponible() {
-      return parseFloat(this.afficheDotaion) - parseFloat(this.cumulEnCours);
-    },
-    cumulEnCours() {
-      return (
-        parseFloat(this.cumulAnterieure) + parseFloat(this.montant_prestation)
-      );
-    },
-    rib_compte() {
-      return (id) => {
-        if (id != null && id != "") {
-          const qtereel = this.getterCompteBancaire.find(
-            (qtreel) => qtreel.id == id
-          );
-
-          if (qtereel) {
-            return qtereel.numero_compte;
-          }
-          return 0;
-        }
-      };
-    },
-    id_compte() {
+    fonction() {
       //   return (id) => {
       //     if (id != null && id != "") {
-      const qtereel = this.getterListeOPgloba.find(
-        (qtreel) => qtreel.id == this.Activite_id
+      const qtereel = this.gettersOrdreMission.find(
+        (qtreel) => qtreel.id == this.id_mission
       );
 
       if (qtereel) {
-        return qtereel.compte_id;
+        return qtereel.fonction;
       }
       return 0;
       //     }
       //   };
     },
-    cumulAnterieure() {
+    matricule() {
       //   return (id) => {
       //     if (id != null && id != "") {
-      const qtereel = this.getterListeOPgloba.find(
-        (qtreel) => qtreel.id == this.Activite_id
+      const qtereel = this.gettersOrdreMission.find(
+        (qtreel) => qtreel.id == this.id_mission
       );
 
       if (qtereel) {
-        return qtereel.cumul_anterieure;
+        return qtereel.matricule;
       }
       return 0;
       //     }
       //   };
     },
-    afficheDotaion() {
-      if (this.sousbudget_id == 0 && this.activite_id != 0) {
-        // return (id) => {
-        //     if (id != null && id != "") {
-        const qtereel = this.getterBudgetViseParActivite.find(
-          (qtreel) =>
-            qtreel.ligneeconomique_id == this.nature_economique_id &&
-            qtreel.type_financement_id == this.type_financement_id &&
-            qtreel.source_financement_id == this.source_financement_id &&
-            qtreel.nature_depense_id == this.nature_depense_id
-        );
-
-        if (qtereel) {
-          return qtereel.dotation_total;
-        }
-        return 0;
-        //   }
-        // };
-      } else {
-        const qtereel = this.getterBudgetViseParActivite.find(
-          (qtreel) =>
-            qtreel.ligneeconomique_id == this.nature_economique_id &&
-            qtreel.type_financement_id == this.type_financement_id &&
-            qtreel.source_financement_id == this.source_financement_id &&
-            qtreel.nature_depense_id == this.nature_depense_id &&
-            qtreel.sous_budget_id == this.sousbudget_id
-        );
-
-        if (qtereel) {
-          return qtereel.dotation_total;
-        }
-        return 0;
-      }
-    },
-    nature_economique_id() {
+    lieu_ordre_mission() {
       //   return (id) => {
       //     if (id != null && id != "") {
-      const qtereel = this.getterListeOPgloba.find(
-        (qtreel) => qtreel.id == this.Activite_id
+      const qtereel = this.gettersOrdreMission.find(
+        (qtreel) => qtreel.id == this.id_mission
       );
 
       if (qtereel) {
-        return qtereel.nature_economique_id;
+        return qtereel.lieu_ordre_mission;
       }
       return 0;
       //     }
       //   };
     },
-    nature_depense_id() {
+
+    objet_depense() {
       //   return (id) => {
       //     if (id != null && id != "") {
-      const qtereel = this.getterListeOPgloba.find(
-        (qtreel) => qtreel.id == this.Activite_id
-      );
-
-      if (qtereel) {
-        return qtereel.nature_depense_id;
-      }
-      return 0;
-      //     }
-      //   };
-    },
-    type_financement_id() {
-      //   return (id) => {
-      //     if (id != null && id != "") {
-      const qtereel = this.getterListeOPgloba.find(
-        (qtreel) => qtreel.id == this.Activite_id
-      );
-
-      if (qtereel) {
-        return qtereel.type_financement_id;
-      }
-      return 0;
-      //     }
-      //   };
-    },
-    source_financement_id() {
-      //   return (id) => {
-      //     if (id != null && id != "") {
-      const qtereel = this.getterListeOPgloba.find(
-        (qtreel) => qtreel.id == this.Activite_id
-      );
-
-      if (qtereel) {
-        return qtereel.source_financement_id;
-      }
-      return 0;
-      //     }
-      //   };
-    },
-    activite_id() {
-      //   return (id) => {
-      //     if (id != null && id != "") {
-      const qtereel = this.getterListeOPgloba.find(
-        (qtreel) => qtreel.id == this.Activite_id
-      );
-
-      if (qtereel) {
-        return qtereel.activite_id;
-      }
-      return 0;
-      //     }
-      //   };
-    },
-    imputation() {
-      //   return (id) => {
-      //     if (id != null && id != "") {
-      const qtereel = this.getterListeOPgloba.find(
-        (qtreel) => qtreel.id == this.Activite_id
-      );
-
-      if (qtereel) {
-        return qtereel.nature_economique;
-      }
-      return 0;
-      //     }
-      //   };
-    },
-    sousbudget_id() {
-      //   return (id) => {
-      //     if (id != null && id != "") {
-      const qtereel = this.getterListeOPgloba.find(
-        (qtreel) => qtreel.id == this.Activite_id
-      );
-
-      if (qtereel) {
-        return qtereel.sous_budget_id;
-      }
-      return 0;
-      //     }
-      //   };
-    },
-    libellesousbudget() {
-      //   return (id) => {
-      //     if (id != null && id != "") {
-      const qtereel = this.getterSousBudget.find(
-        (qtreel) => qtreel.id == this.sousbudget_id
-      );
-
-      if (qtereel) {
-        return qtereel.libelle;
-      }
-      return 0;
-      //     }
-      //   };
-    },
-    ActiviteFacture_id() {
-      //   return (id) => {
-      //     if (id != null && id != "") {
-      const qtereel = this.getterFacture.find(
-        (qtreel) => qtreel.ordre_paiement_id == this.Activite_id
-      );
-
-      if (qtereel) {
-        return 1;
-      }
-      return 0;
-      //     }
-      //   };
-    },
-    listeFactureopt() {
-      if (this.ActiviteFacture_id == 1) {
-        //   return (id) => {
-        //     if (id != null && id != "") {
-        const qtereel = this.getterFacture.find(
-          (qtreel) => qtreel.ordre_paiement_id == this.Activite_id
-        );
-
-        if (qtereel) {
-          return qtereel.numero_facture.concat(
-            " du ",
-            this.formaterDate(qtereel.date_facture)
-          );
-        }
-        return 0;
-        //     }
-        //   };
-      } else {
-        //   return (id) => {
-        //     if (id != null && id != "") {
-        const qtereel = this.getterFacture.find(
-          (qtreel) => qtreel.ordre_paiement_def_id == this.Activite_id
-        );
-
-        if (qtereel) {
-          return qtereel.numero_facture_definitve.concat(
-            " du ",
-            this.formaterDate(qtereel.date_facture_definitve)
-          );
-        }
-        return 0;
-        //     }
-        //   };
-      }
-    },
-    exerciceBudgetaire() {
-      //   return (id) => {
-      //     if (id != null && id != "") {
-      const qtereel = this.getterListeOPgloba.find(
-        (qtreel) => qtreel.id == this.Activite_id
-      );
-
-      if (qtereel) {
-        return qtereel.exercice;
-      }
-      return 0;
-      //     }
-      //   };
-    },
-    numero_ordre_paiement() {
-      //   return (id) => {
-      //     if (id != null && id != "") {
-      const qtereel = this.getterListeOPgloba.find(
-        (qtreel) => qtreel.id == this.Activite_id
-      );
-
-      if (qtereel) {
-        return qtereel.numero_ordre_paiement;
-      }
-      return 0;
-      //     }
-      //   };
-    },
-    objetDepense() {
-      //   return (id) => {
-      //     if (id != null && id != "") {
-      const qtereel = this.getterListeOPgloba.find(
-        (qtreel) => qtreel.id == this.Activite_id
+      const qtereel = this.gettersOrdreMission.find(
+        (qtreel) => qtreel.id == this.id_mission
       );
 
       if (qtereel) {
@@ -819,72 +568,74 @@ export default {
       //     }
       //   };
     },
-    montant_prestation() {
+
+    moyen_transport() {
       //   return (id) => {
       //     if (id != null && id != "") {
-      const qtereel = this.getterListeOPgloba.find(
-        (qtreel) => qtreel.id == this.Activite_id
+      const qtereel = this.gettersOrdreMission.find(
+        (qtreel) => qtreel.id == this.id_mission
       );
 
       if (qtereel) {
-        return qtereel.montant_prestation;
+        return qtereel.moyen_transport;
       }
       return 0;
       //     }
       //   };
     },
-    beneficiaire() {
+    duree() {
       //   return (id) => {
       //     if (id != null && id != "") {
-      const qtereel = this.getterListeOPgloba.find(
-        (qtreel) => qtreel.id == this.Activite_id
+      const qtereel = this.gettersOrdreMission.find(
+        (qtreel) => qtreel.id == this.id_mission
       );
 
       if (qtereel) {
-        return qtereel.beneficiaire;
+        return qtereel.duree;
       }
       return 0;
       //     }
       //   };
     },
 
-    beneficiaire_id() {
+    date_depart() {
       //   return (id) => {
       //     if (id != null && id != "") {
-      const qtereel = this.getterListeOPgloba.find(
-        (qtreel) => qtreel.id == this.Activite_id
+      const qtereel = this.gettersOrdreMission.find(
+        (qtreel) => qtreel.id == this.id_mission
       );
 
       if (qtereel) {
-        return qtereel.entreprise_id;
+        return qtereel.date_depart;
       }
       return 0;
       //     }
       //   };
     },
-    beneficiaire_adresse() {
+
+    date_retour() {
       //   return (id) => {
       //     if (id != null && id != "") {
-      const qtereel = this.getterEntreprise.find(
-        (qtreel) => qtreel.id == this.beneficiaire_id
+      const qtereel = this.gettersOrdreMission.find(
+        (qtreel) => qtreel.id == this.id_mission
       );
 
       if (qtereel) {
-        return qtereel.adresse;
+        return qtereel.date_retour;
       }
       return 0;
       //     }
       //   };
     },
-    beneficiaire_numero_cc() {
+    nature_economique() {
       //   return (id) => {
       //     if (id != null && id != "") {
-      const qtereel = this.getterEntreprise.find(
-        (qtreel) => qtreel.id == this.beneficiaire_id
+      const qtereel = this.gettersOrdreMission.find(
+        (qtreel) => qtreel.id == this.id_mission
       );
 
       if (qtereel) {
-        return qtereel.numero_cc;
+        return qtereel.nature_economique;
       }
       return 0;
       //     }
@@ -911,29 +662,32 @@ export default {
       "getBudgetEclate",
       "getCompteBancaire",
     ]),
-    retour(id) {
-      if (this.typeOrdrePaiement == 1) {
-        this.$router.push({
-          name: "AfficheOpActivite",
-          params: { id: id },
-        });
-      } else if (this.typeOrdrePaiement == 2) {
-        this.$router.push({
-          name: "AfficheOpDirectActivite",
-          params: { id: id },
-        });
-      } else if (this.typeOrdrePaiement == 3) {
-        this.$router.push({
-          name: "AfficheOPAnnulation",
-          params: { id: id },
-        });
-      } else if (this.typeOrdrePaiement == 4) {
-        this.$router.push({
-          name: "AfficheOPDefinitif",
-          params: { id: id },
-        });
-      }
-    },
+    ...mapActions("Personnel", [
+      "getService",
+      "supprimerOrdreMissionUser",
+      "getOrdreMissionUser",
+      "getOrdreMission",
+      "AjouterOrdreMission",
+      "ModifierOrdreMission",
+      "supprimerOrdreMission",
+      "getPersonnelParActivite",
+      "getDetailDepensePersonnel",
+      "getPersonnelUtilisateur",
+      "getPersonnel",
+      "supprimerPersonnel",
+      "supprimerPersonnelParUser",
+      "getFonction",
+      "getEmploi",
+      "getNatureContrat",
+      "getSituationMatrimonial",
+      "getDiplome",
+      "ModifierPersonnel",
+      "getTypeIndemnite",
+      "getTypePiece",
+
+      "AjouterPersonnel",
+    ]),
+
     formaterDate(date) {
       return moment(date, "YYYY-MM-DD").format("DD/MM/YYYY");
     },

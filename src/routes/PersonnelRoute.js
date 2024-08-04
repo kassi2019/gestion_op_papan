@@ -23,8 +23,13 @@ import OPAnnulationPerso from "../page/GestionBudgetaire/DossierOPPersonnel/Doss
 
 import InfoBordOpDefinitifPerso from "../page/GestionBudgetaire/DossierOPPersonnel/DossierOpDefinitif/InfoBordOpDefinitifPerso.vue"
 import OPDefinitifPerso from "../page/GestionBudgetaire/DossierOPPersonnel/DossierOpDefinitif/OPDefinitifPerso.vue"
-
+import listeOrdreMission from "../page/GestionPersonnel/listeOrdreMission.vue"
 const gestionutilisateur = [
+      {
+        path: '/listeOrdreMission',
+        name:"listeOrdreMission",
+       component: listeOrdreMission
+     },
      {
         path: '/OPDefinitifPerso/:id',
         name:"OPDefinitifPerso",

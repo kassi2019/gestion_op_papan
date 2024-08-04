@@ -387,13 +387,13 @@
                             data-bs-toggle="modal"
                             data-bs-target="#largeModal1"
                             style="cursor: pointer"
-                            @click.prevent="AfficheModalModification(item.id)"
+                           
                             >Modifier</span
                           >
                           <span
                             class="badge bg-danger"
                             style="cursor: pointer"
-                            @click.prevent="supprimerOrdreMissionUser(item.id)"
+                           
                             >Supprimer</span
                           >
                           <span
@@ -407,7 +407,7 @@
                             @click.prevent="fonctionImprimer(item.id)"
                           >
                             <i class="fas fa-print" style="color: #000"></i
-                            >Imprimer OP</span
+                            >Imprimer</span
                           >
                         </div>
                       </td>
