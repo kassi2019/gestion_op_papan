@@ -45,6 +45,7 @@
                       <th scope="col" style="width: 10px">date depart</th>
                       <th scope="col" style="width: 10px">date retour</th>
                       <th scope="col" style="width: 5px">Durée (Jours)</th>
+                         <th>Annexe Mission</th>
                       <th></th>
                     </tr>
                   </thead>
@@ -63,7 +64,17 @@
                       <td>{{ formaterDate(item.date_depart) }}</td>
                       <td>{{ formaterDate(item.date_retour) }}</td>
                       <td>{{ item.duree }}</td>
-
+  <td>
+                        <a
+                          title="Télécharger"
+                          v-if="item.code_fichier==1"
+                          :href="afficheicone(item.code_fichier)"
+                          class="btn btn-default"
+                          target="_blank"
+                        >
+                          <span class=""><i class="fas fa-book"></i></span>
+                        </a>
+                      </td>
                       <td>
                         <div
                           class="btn-group"
@@ -117,6 +128,7 @@
                       <th scope="col" style="width: 10px">date depart</th>
                       <th scope="col" style="width: 10px">date retour</th>
                       <th scope="col" style="width: 5px">Durée (Jours)</th>
+                         <th>Annexe Mission</th>
                       <th></th>
                     </tr>
                   </thead>
@@ -135,7 +147,17 @@
                       <td>{{ formaterDate(item.date_depart) }}</td>
                       <td>{{ formaterDate(item.date_retour) }}</td>
                       <td>{{ item.duree }}</td>
-
+  <td>
+                        <a
+                          title="Télécharger"
+                          v-if="item.code_fichier==1"
+                          :href="afficheicone(item.code_fichier)"
+                          class="btn btn-default"
+                          target="_blank"
+                        >
+                          <span class=""><i class="fas fa-book"></i></span>
+                        </a>
+                      </td>
                       <td>
                         <div
                           class="btn-group"
@@ -306,6 +328,7 @@ export default {
     // this.getService();
     this.getFonction();
     this.getOrdreMission();
+     this.getDocumentation();
     // this.getOrdreMissionUser();
     // this.getEmploi();
     // this.getNatureContrat();
@@ -334,7 +357,7 @@ export default {
       "gettersDetailDepensePerso",
     ]),
     ...mapGetters("parametrage", [
-      "getterProjet",
+      "getterProjet","gettersDocumentation",
       "getterBudgetViseGroupeParActivite",
       "getterActivite",
       "getterTypeFinancement",
@@ -349,7 +372,22 @@ export default {
       "getterDotationAutreRessource",
       "getterListeBudgetEclate",
     ]),
+afficheicone() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.gettersDocumentation.find(
+            (qtreel) => qtreel.code == id
+          );
 
+          if (qtereel) {
+            let url = process.env.VUE_APP_IMAGE_URL;
+            return url + "/public/" + qtereel.fichier;
+            //    return qtereel.fichier;
+          }
+          return "vide";
+        }
+      };
+    },
     afficheOrdreMissionEnAttente() {
       return this.gettersOrdreMission.filter((item) => item.decision == 0);
     },
@@ -373,7 +411,7 @@ export default {
   },
   methods: {
     ...mapActions("parametrage", [
-      "getActivite",
+      "getActivite","getDocumentation",
       "getBudgetEclateViseGroupeParActivte",
       "supprimerBudgetEclate",
       "getSousBudget",

@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+
     <div class="col-md-12">
       <div class="card" style="box-shadow: 5px 5px #f9d531">
         <div class="card-header">
@@ -8,7 +9,7 @@
             <span
               class="badge badge-warning"
               style="cursor: pointer; color: #000"
-              @click.prevent="retour(id_dossier)"
+              @click.prevent="pagePrecedent"
               ><i class="fas fa-arrow-alt-circle-left"></i> Retour</span
             >
             <span
@@ -103,7 +104,7 @@
                   title=""
                 >
                   <span style="font-size: 14px !important"
-                    >DONNE L'ORDRE À MONSIEUR
+                    >DONNE L'ORDRE À {{civilite}}
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</span
                   >
                 </th>
@@ -410,8 +411,8 @@
               <td style="text-align: left; width: 40%"></td>
               <td style="text-align: left; width: 40%"><br /><br /><br /></td>
 
-              <td style="text-align: left; width: 40%">
-                <br /><br /><br /><br />55555555555555555555555555555
+              <td style="text-align: center; width: 40%">
+                <br /><br /><br /><br />{{nomCoordo}}
               </td>
             </tr>
           </table>
@@ -461,6 +462,7 @@ export default {
   created() {
     this.id_mission = this.$route.params.id;
     this.getOrdreMission();
+    this.getSignataire();
   },
   computed: {
     ...mapGetters("Personnel", [
@@ -482,7 +484,7 @@ export default {
       "gettersDetailDepensePerso",
     ]),
     ...mapGetters("parametrage", [
-      "getterActivite",
+      "getterActivite","gettersSignataire",
       "getterCompteBancaire",
       "getterListeOPgloba",
       "getterBailleur",
@@ -496,7 +498,35 @@ export default {
       "getterBudgetViseParActivite",
       "getterNatureDepense",
     ]),
+    
+    nomCoordo() {
+      //   return (id) => {
+      //     if (id != null && id != "") {
+      const qtereel = this.gettersSignataire.find(
+        (qtreel) => qtreel.code == 0
+      );
 
+      if (qtereel) {
+        return qtereel.nom_signataire;
+      }
+      return 0;
+      //     }
+      //   };
+    },
+ civilite() {
+      //   return (id) => {
+      //     if (id != null && id != "") {
+      const qtereel = this.gettersOrdreMission.find(
+        (qtreel) => qtreel.id == this.id_mission
+      );
+
+      if (qtereel) {
+        return qtereel.civilite;
+      }
+      return 0;
+      //     }
+      //   };
+    },
     nom_personnel() {
       //   return (id) => {
       //     if (id != null && id != "") {
@@ -644,7 +674,7 @@ export default {
   },
   methods: {
     ...mapActions("parametrage", [
-      "getSousBudget",
+      "getSousBudget","getSignataire",
       "getListeOrdrePaiementGlobal",
       "getBailleur",
       "getEntreprise",
@@ -687,7 +717,9 @@ export default {
 
       "AjouterPersonnel",
     ]),
-
+pagePrecedent() {
+      window.history.back();
+    },
     formaterDate(date) {
       return moment(date, "YYYY-MM-DD").format("DD/MM/YYYY");
     },

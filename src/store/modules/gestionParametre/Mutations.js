@@ -886,3 +886,12 @@ export const SUPPRIMER_TYEP_PIECE = (state, id) => {
 export const AJOUTER_OP_PERSONNEL = (state, elementAjouter) => {
     state.stateOpPersonnelParUser.unshift(elementAjouter)
 }
+
+/// documentation
+
+export const GET_DOCUMENTATION = (state,value)=>{
+    state.stateDocumentation=value
+}
+export const AJOUTER_DOCUMENTATION = (state, elementAjouter) => {
+    state.stateDocumentation.unshift(elementAjouter)
+}

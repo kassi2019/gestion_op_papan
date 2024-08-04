@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+   
     <div class="col-md-12">
       <div class="card" style="box-shadow: 5px 5px #f9d531">
         <div class="card-header">
@@ -357,6 +358,7 @@
                       <th scope="col" style="width: 10px">date depart</th>
                       <th scope="col" style="width: 10px">date retour</th>
                       <th scope="col" style="width: 5px">Durée (Jours)</th>
+                      <th>Annexe Mission</th>
                       <th></th>
                     </tr>
                   </thead>
@@ -375,7 +377,17 @@
                       <td>{{ formaterDate(item.date_depart) }}</td>
                       <td>{{ formaterDate(item.date_retour) }}</td>
                       <td>{{ item.duree }}</td>
-
+                      <td>
+                        <a
+                          title="Télécharger"
+                          v-if="item.code_fichier==1"
+                          :href="afficheicone(item.code_fichier)"
+                          class="btn btn-default"
+                          target="_blank"
+                        >
+                          <span class=""><i class="fas fa-book"></i></span>
+                        </a>
+                      </td>
                       <td>
                         <div
                           class="btn-group"
@@ -387,13 +399,9 @@
                             data-bs-toggle="modal"
                             data-bs-target="#largeModal1"
                             style="cursor: pointer"
-                           
                             >Modifier</span
                           >
-                          <span
-                            class="badge bg-danger"
-                            style="cursor: pointer"
-                           
+                          <span class="badge bg-danger" style="cursor: pointer"
                             >Supprimer</span
                           >
                           <span
@@ -523,7 +531,7 @@ export default {
       lieu_ordre_mission: "",
       date_depart: "",
       date_retour: "",
-
+decision:0,
       modNatureDepense: {},
       objetTypePersonnel: [
         {
@@ -546,6 +554,7 @@ export default {
     // this.getService();
     this.getFonction();
     this.getOrdreMissionUser();
+    this.getDocumentation();
     // this.getEmploi();
     // this.getNatureContrat();
     // this.getSituationMatrimonial();
@@ -587,10 +596,33 @@ export default {
       "getterDotationRessourcePropre",
       "getterDotationAutreRessource",
       "getterListeBudgetEclate",
+      "gettersDocumentation",
     ]),
+    afficheicone() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.gettersDocumentation.find(
+            (qtreel) => qtreel.code == id
+          );
+
+          if (qtereel) {
+            let url = process.env.VUE_APP_IMAGE_URL;
+            return url + "/public/" + qtereel.fichier;
+            //    return qtereel.fichier;
+          }
+          return "vide";
+        }
+      };
+    },
     automatiseNumeroOP() {
       return (
-        this.gettersOrdreMissionParUser.length + 1 + "/" + "MIRAH" + "/" + "" + "PAPAN"
+        this.gettersOrdreMissionParUser.length +
+        1 +
+        "/" +
+        "MIRAH" +
+        "/" +
+        "" +
+        "PAPAN"
       );
     },
     dateDuJours() {
@@ -797,6 +829,7 @@ export default {
   methods: {
     ...mapActions("parametrage", [
       "getActivite",
+      "getDocumentation",
       "getBudgetEclateViseGroupeParActivte",
       "supprimerBudgetEclate",
       "getSousBudget",
@@ -900,6 +933,7 @@ export default {
         date_depart: this.date_depart,
         date_retour: this.date_retour,
         duree: this.totalDuree,
+        decision:this.decision
       };
 
       this.AjouterOrdreMission(objetDirect1);

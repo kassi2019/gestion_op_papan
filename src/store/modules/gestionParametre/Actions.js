@@ -2623,3 +2623,32 @@ export function AjouterOpPersonnel({ commit }, nouveau) {
       }
     }).catch();
 }
+
+
+// DOCUMENTATION
+
+export function getDocumentation({ commit }) {
+  apiGuest.get("/listeDocumentation", { headers: authHeader() })
+    .then(response => {
+      commit("GET_DOCUMENTATION", response.data);
+    })
+    .catch(error => console.log(error));
+}
+
+
+
+export function ajouterFichier({ commit }, nouveau) {
+ 
+  apiGuest.post("/AjouterFichier", nouveau, { headers: authHeader() })
+    
+    .then(response => {
+      if (response.status == 201) {
+        commit("AJOUTER_DOCUMENTATION", response.data);
+//        toast("Enregistrement effectué avec succès!", {
+//         "theme": "auto",
+//         "type": "success",
+//         "dangerouslyHTMLString": true
+// })
+      }
+    }).catch();
+}

@@ -46,7 +46,27 @@
                         style="border: 1px solid #000 !important"
                       />
                     </div>
-                    <div class="col-9">
+                    <div class="col-3">
+                    <label class="form-label"
+                      >Civilité
+                      <span
+                        style="
+                          color: red !important;
+                          font-size: 15px !important;
+                        "
+                      ></span
+                    ></label>
+                    <model-list-select
+                      :list="tableauCivilite"
+                      v-model="civilite"
+                      option-value="libelle"
+                      option-text="libelle"
+                      placeholder="select item"
+                      style="border: 1px solid #000"
+                    >
+                    </model-list-select>
+                  </div>
+                    <div class="col-6">
                       <label class="form-label"
                         >Unité Opérationnelle
                         <span
@@ -1558,7 +1578,7 @@ export default {
         source_financement_id: "",
         type_financement_id: "",
       },
-
+      civilite: "",
       date_debut: "",
       date_fin: "",
       type_personnel_id: 1,
@@ -1592,7 +1612,16 @@ export default {
           libelle: "Contractuel",
         },
       ],
-
+tableauCivilite: [
+        {
+          
+          libelle: "Monsieur",
+        },
+        {
+          
+          libelle: "Madame",
+        },
+      ],
       config: {
         prefix: "",
         suffix: "",
@@ -1669,13 +1698,16 @@ export default {
       "getterDotationAutreRessource",
       "getterListeBudgetEclate",
     ]),
-    
+
     TotalTableau() {
       return this.TableauDossier.filter(
         (item) =>
-          item.nature_economique_id == this.FormDataDossier.nature_economique_id && 
-          item.type_financement_id == this.FormDataDossier.type_financement_id &&
-          item.source_financement_id == this.FormDataDossier.source_financement_id
+          item.nature_economique_id ==
+            this.FormDataDossier.nature_economique_id &&
+          item.type_financement_id ==
+            this.FormDataDossier.type_financement_id &&
+          item.source_financement_id ==
+            this.FormDataDossier.source_financement_id
       )
 
         .reduce((prec, cur) => parseFloat(prec) + parseFloat(cur.montant), 0)
@@ -2236,6 +2268,7 @@ export default {
         type_personnel_id: this.type_personnel_id,
         nature_contrat_id: this.nature_contrat_id,
         diplome_id: this.diplome_id,
+        civilite: this.civilite,
         emploi_id: this.emploi_id,
         service_id: this.service_id,
         fonction_id: this.fonction_id,
@@ -2265,6 +2298,7 @@ export default {
         (this.FormDataDossier.type_indemnite_id = ""),
         (this.FormDataDossier.montant = 0),
         (this.type_piece_id = 0),
+        (this.civilite = ""),
         (this.type_personnel_id = 0),
         (this.nature_contrat_id = 0),
         (this.diplome_id = ""),

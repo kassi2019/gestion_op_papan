@@ -51,4 +51,5 @@ export const gettersBordereauParUser = state => state.stateBordereauParUser.sort
 // export const getterAfficheDotation = state => state.stateAfficheDotation;
 
 
+export const gettersDocumentation = state => state.stateDocumentation;
 

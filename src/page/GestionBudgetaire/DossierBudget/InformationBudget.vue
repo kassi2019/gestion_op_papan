@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-   
     <div class="col-md-12">
       <div class="card" style="box-shadow: 5px 5px #f9d531">
         <div class="card-header">
@@ -145,7 +144,7 @@
                   type="text"
                   class="form-control"
                   :value="exerciceBudgetaire"
-                  style="border: 1px solid #000 !important;"
+                  style="border: 1px solid #000 !important"
                   readonly
                 />
               </div>
@@ -175,6 +174,25 @@
                   v-model="modNatureDepense.date_decision"
                 />
               </div>
+              <div class="col-12">
+                <label for="inputNanme4" class="form-label">libelle</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  v-model="formData.libelle"
+                  style="border: 1px solid #000 !important"
+                />
+              </div>
+              <div class="col-12">
+                <label for="inputNanme4" class="form-label">Fichier</label>
+                <input
+                  type="file"
+                  class="form3-field"
+                  @change="OnchangeFichierDemandeAno"
+                  ref="picture"
+                  placeholder=""
+                />
+              </div>
             </form>
           </div>
           <div class="modal-footer">
@@ -189,7 +207,7 @@
             <button
               type="button"
               class="btn btn-primary"
-              @click.prevent="modificationSection()"
+              @click.prevent="appliqueDecision()"
               data-bs-dismiss="modal"
             >
               Appliquer
@@ -449,6 +467,14 @@ export default {
         decision: "",
         date_decision: "",
       },
+      fichierPDF: "",
+      imagePDFDemandeAno: "",
+      namePDFDemandeAno: "",
+      fichierPDFDemandeAno: "",
+      selectedFileDemandeAno: "",
+      formData: {
+        libelle: "",
+      },
       config: {
         prefix: "",
         suffix: "",
@@ -580,7 +606,29 @@ export default {
       "supprimerInformationBudget",
       "getExerciceBudgetaire",
       "getInformationBudgetUser",
+      "ajouterFichier",
     ]),
+    OnchangeFichierDemandeAno(e) {
+      const files = e.target.files;
+      this.selectedFileDemandeAno = event.target.files[0];
+      console.log(this.selectedFileDemandeAno);
+      Array.from(files).forEach((file) => this.addFichierPDFDemandeAno(file));
+    },
+    addFichierPDFDemandeAno(file) {
+      let reader = new FileReader();
+      let vm = this;
+      reader.onload = (e) => {
+        vm.imagePDFDemandeAno = "pdf.png";
+        vm.namePDFDemandeAno = file.name;
+        // recupère l extension du fichier
+        vm.fichierPDF = vm.namePDFDemandeAno.slice(
+          (Math.max(0, vm.namePDFDemandeAno.lastIndexOf(".")) || Infinity) + 1
+        );
+
+        vm.fichierPDFDemandeAno = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    },
     AfficheVentilationBudget(id) {
       this.$router.push({
         name: "VentilationBudget",
@@ -616,7 +664,8 @@ export default {
       };
 
       this.ajouterInformationBudget(objetDirect1);
-      this.ajouterNatureDepense = {};
+
+      // this.ajouterNatureDepense = {};
     },
 
     modificationSection() {
@@ -630,8 +679,39 @@ export default {
         decision: this.modNatureDepense.decision,
         statut: 0,
       };
+   
+    this.modifierInformationBudget(objetDirect1);
+     
+      this.modNatureDepense = {};
+    },
 
+      appliqueDecision() {
+      var objetDirect1 = {
+         id: this.modNatureDepense.id,
+        activite_id: this.modNatureDepense.activite_id,
+        exercice: this.exerciceBudgetaire,
+        dotation: this.AfficheMontantGlobalModi,
+        libelle: this.modNatureDepense.libelle,
+        date_decision: this.modNatureDepense.date_decision,
+        decision: this.modNatureDepense.decision,
+        statut: 0,
+      };
+      const formData = new FormData();
+
+      formData.append("libelle", this.formData.libelle);
+      formData.append(
+        "fichier",
+        this.selectedFileDemandeAno,
+        this.selectedFileDemandeAno.name
+      );
+
+      let config = {
+        header: {
+          "Content-Type": "multipart/form-data",
+        },
+      };
       this.modifierInformationBudget(objetDirect1);
+      this.ajouterFichier(formData, config);
       this.modNatureDepense = {};
     },
     formatageSommeSansFCFA: formatageSommeSansFCFA,
