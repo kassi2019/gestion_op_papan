@@ -47,7 +47,9 @@ const defaultstate = {
     stateOpPersonnel: [],
     stateOpPersonnelParUser: [],
     stateBordereauParUser: [],
-    stateDocumentation:[]
+    stateDocumentation: [],
+    stateVerificationFactureEnCours: [],
+     stateVerificationFactureAcheve:[]
     // stateAfficheDotation:[]
 
 };

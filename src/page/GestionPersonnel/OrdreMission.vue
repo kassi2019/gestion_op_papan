@@ -691,16 +691,11 @@ decision:0,
       if (this.date_retour == "") {
         return 0;
       } else {
-        return this.DureContrat + 1;
+        return this.DureContrat;
       }
     },
     DureContrat() {
-      if (
-        this.date_depart == this.date_retour &&
-        this.date_retour !== "" &&
-        this.date_depart !== ""
-      )
-        return 1;
+     
       if (this.date_retour == "" && this.date_depart == "") return null;
       var dateR = new Date(this.date_retour).getTime();
       var dateD = new Date(this.date_depart).getTime();

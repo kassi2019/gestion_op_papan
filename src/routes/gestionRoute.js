@@ -62,11 +62,15 @@ import signataire from "../page/ParametreGeneraux/signataire.vue"
 import SecteurActivite from "../page/ParametreGeneraux/SecteurActivite.vue"
 import FormeJuridique from "../page/ParametreGeneraux/FormeJuridique.vue"
 import RegimeImpossition from "../page/ParametreGeneraux/RegimeImpossition.vue"
-
+import VerifierFacture from "../page/GestionRapport/VerifierFacture.vue"
 import afficheBudgetViseParActivite from "../page/GestionBudgetaire/DossierBudget/afficheBudgetViseParActivite.vue"
 
 const gestionutilisateur = [
-   
+     {
+        path: '/VerifierFacture',
+        name:"VerifierFacture",
+       component: VerifierFacture
+     },
   {
         path: '/afficheBudgetViseParActivite/:id',
         name:"afficheBudgetViseParActivite",

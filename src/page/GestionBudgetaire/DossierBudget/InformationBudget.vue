@@ -174,7 +174,7 @@
                   v-model="modNatureDepense.date_decision"
                 />
               </div>
-              <div class="col-12">
+              <!-- <div class="col-12">
                 <label for="inputNanme4" class="form-label">libelle</label>
                 <input
                   type="text"
@@ -192,7 +192,7 @@
                   ref="picture"
                   placeholder=""
                 />
-              </div>
+              </div> -->
             </form>
           </div>
           <div class="modal-footer">
@@ -696,22 +696,22 @@ export default {
         decision: this.modNatureDepense.decision,
         statut: 0,
       };
-      const formData = new FormData();
+      // const formData = new FormData();
 
-      formData.append("libelle", this.formData.libelle);
-      formData.append(
-        "fichier",
-        this.selectedFileDemandeAno,
-        this.selectedFileDemandeAno.name
-      );
+      // formData.append("libelle", this.formData.libelle);
+      // formData.append(
+      //   "fichier",
+      //   this.selectedFileDemandeAno,
+      //   this.selectedFileDemandeAno.name
+      // );
 
-      let config = {
-        header: {
-          "Content-Type": "multipart/form-data",
-        },
-      };
+      // let config = {
+      //   header: {
+      //     "Content-Type": "multipart/form-data",
+      //   },
+      // };
       this.modifierInformationBudget(objetDirect1);
-      this.ajouterFichier(formData, config);
+      // this.ajouterFichier(formData, config);
       this.modNatureDepense = {};
     },
     formatageSommeSansFCFA: formatageSommeSansFCFA,

@@ -97,6 +97,17 @@
               <p>Etat Sur les OP</p>
             </a>
           </li>
+           <li class="nav-item">
+            <a
+              class="nav-link collapsed"
+              href=""
+              @click.prevent="activedOptionMenu('VerifierFacture')"
+            >
+              <i class="fas fa-arrow-right"></i>
+
+              <p>Vérification facture</p>
+            </a>
+          </li>
           <!-- <li class="nav-item">
             <a
               class="nav-link collapsed"

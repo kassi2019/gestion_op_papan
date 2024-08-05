@@ -2652,3 +2652,21 @@ export function ajouterFichier({ commit }, nouveau) {
       }
     }).catch();
 }
+
+// RAPPORT
+
+export function getVerificationFactureEncours({ commit }) {
+  apiGuest.get("/verificationFactureEnCours", { headers: authHeader() })
+    .then(response => {
+      commit("GET_VERIFICATION_FACTURE_EN_COURS", response.data);
+    })
+    .catch(error => console.log(error));
+}
+
+export function getVerificationFactureAcheve({ commit }) {
+  apiGuest.get("/verificationFactureAcheve", { headers: authHeader() })
+    .then(response => {
+      commit("GET_VERIFICATION_FACTURE_ACHEVE", response.data);
+    })
+    .catch(error => console.log(error));
+}

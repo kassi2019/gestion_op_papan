@@ -1917,6 +1917,7 @@ export default {
         decision_cf: this.decision_cf,
         date_decision: this.date_decision,
         bordereau_id: this.bordereau_id,
+        
       };
 
       this.ajouterOPDefinitifPerso(nouvelObjettrsor);

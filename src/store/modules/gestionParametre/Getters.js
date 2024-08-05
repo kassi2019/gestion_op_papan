@@ -53,3 +53,6 @@ export const gettersBordereauParUser = state => state.stateBordereauParUser.sort
 
 export const gettersDocumentation = state => state.stateDocumentation;
 
+
+export const gettersVerificationFactureEncours = state => state.stateVerificationFactureEnCours;
+export const gettersVerificationFactureAcheve = state => state.stateVerificationFactureAcheve;
