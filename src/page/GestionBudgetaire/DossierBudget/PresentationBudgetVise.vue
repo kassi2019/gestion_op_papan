@@ -4,7 +4,7 @@
       <div class="card" style="box-shadow: 5px 5px #f9d531">
         <div class="card-header">
           <div class="page-header">
-            <h6 class="fw-bold mb-3">Liste Budgets Visé</h6>
+            <h6 class="fw-bold mb-3">Liste Budgets Visé96</h6>
             <ul class="breadcrumbs mb-3">
               <li class="nav-home">
                 <a href="#">
@@ -236,7 +236,7 @@ export default {
     },
   voirBudgett(id) {
       this.$router.push({
-        name: "afficheBudgetViseParActivite",
+        name: "AfficherBudgetVise",
         params: { id: id},
       });
     },

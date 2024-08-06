@@ -23,7 +23,7 @@ import afficheBudgetDesComposante from "../page/GestionBudgetaire/DossierBudget/
 
 import VoirBudgetEclate from "../page/GestionBudgetaire/DossierBudget/VoirBudgetEclateParActivite.vue"
 import VoirBudgetModifierEnProjet from "../page/GestionBudgetaire/DossierBudget/VoirBudgetModifierEnProjet.vue"
-
+import AfficherBudgetVise from "../page/GestionBudgetaire/DossierBudget/AfficherBudgetVise.vue"
 import VentilationSousBudget from "../page/GestionBudgetaire/DossierBudget/VentilationSousBudget.vue"
 import BudgetComposanteVise from "../page/GestionBudgetaire/DossierBudget/BudgetComposanteVise.vue"
 import OrdrePaiementProvisoire from "../page/GestionBudgetaire/DossierOpProvisoire/OrdrePaiementProvisoire.vue"
@@ -256,6 +256,11 @@ const gestionutilisateur = [
        component: VentilationSousBudget
   },
   
+  {
+        path: '/AfficherBudgetVise/:id',
+        name:"AfficherBudgetVise",
+       component: AfficherBudgetVise
+     },
      {
         path: '/VoirBudgetModifierEnProjet/:id/:id1',
         name:"VoirBudgetModifierEnProjet",
