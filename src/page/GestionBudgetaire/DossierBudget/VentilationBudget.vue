@@ -793,6 +793,12 @@
                         @click.prevent="voirBudgett(item1.id, dossier_id)"
                         >Budget</span
                       >
+                       <span
+                        class="badge bg-dark"
+                        style="cursor: pointer"
+                        @click.prevent="voirBudgetProjet(item1.id, dossier_id)"
+                        >Budget2</span
+                      >
                       <span
                         class="badge bg-info"
                         style="cursor: pointer"
@@ -1523,6 +1529,12 @@ export default {
       };
 
       this.modifierBudget(objetDirect1);
+    }, 
+     voirBudgetProjet(id, id1) {
+      this.$router.push({
+        name: "afficherBudgetProjet",
+        params: { id: id, id1: id1 },
+      });
     },
     voirBudgett(id, id1) {
       this.$router.push({

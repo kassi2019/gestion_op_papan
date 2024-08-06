@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+
     <div class="col-md-12">
       <div class="card" style="box-shadow: 5px 5px #f9d531">
         <div class="card-header">
@@ -23,7 +24,7 @@
           <!-- Modal -->
           <table class="table table-bordered border-primary">
             <tr>
-              <td style="text-align: center; ">
+              <td style="text-align: center; border: 1px solid #000 !important">
                 <h6 style="font-size: 12px">
                   Ministère des Ressources Animales et Halieutiques<br />
                   ------------------------- <br />
@@ -35,7 +36,7 @@
                 </h6>
                 <!-- <img src="/optimisation/skin/img/log3.png" width="80px;"  /> -->
               </td>
-              <td style="text-align: center; ">
+              <td style="text-align: center; border: 1px solid #000 !important">
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <img
@@ -46,7 +47,7 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               </td>
 
-              <td style="text-align: center; ">
+              <td style="text-align: center; border: 1px solid #000 !important">
                 <h6 style="font-size: 12px">
                   République de Côte d'Ivoire <br />
                   ------------------------- <br />
@@ -147,33 +148,35 @@
                     formatageSommeSansFCFA(
                       parseFloat(
                         MontantInitialParLigneBiensService(item1, data)
-                      )
-                    )
-                  }}
-                </td>
-                <td
-                  style="text-align: right; border: 1px solid #000 !important"
-                >
-                  {{
-                    formatageSommeSansFCFA(
-                      parseFloat(
-                        MontantVariationParLigneBiensService(item1, data)
-                      )
-                    )
-                  }}
-                </td>
-                <td
-                  style="text-align: right; border: 1px solid #000 !important"
-                >
-                  {{
-                    formatageSommeSansFCFA(
-                      parseFloat(
+                      ) +
                         parseFloat(
-                          MontantInitialParLigneBiensService(item1, data)
-                        ) +
-                          parseFloat(
-                            MontantVariationParLigneBiensService(item1, data)
-                          )
+                          MontantInitialParLigneBiensServiceCol(item1, data)
+                        )
+                    )
+                  }}
+                </td>
+                <td
+                  style="text-align: right; border: 1px solid #000 !important"
+                >
+                  {{
+                    formatageSommeSansFCFA(
+                      parseFloat(
+                        MontantVariationParLigneBiensService(
+                          item1,
+
+                          data
+                        )
+                      )
+                    )
+                  }}
+                </td>
+                <td
+                  style="text-align: right; border: 1px solid #000 !important"
+                >
+                  {{
+                    formatageSommeSansFCFA(
+                      parseFloat(
+                        MontantActuelleParLigneBiensService(item1, data)
                       )
                     )
                   }}
@@ -199,7 +202,8 @@
                 >
                   {{
                     formatageSommeSansFCFA(
-                      parseFloat(MontantInitialTotaliensService(data))
+                      parseFloat(TotalInitialBienService1(data)) +
+                        parseFloat(TotalInitialBienService2(data))
                     )
                   }}
                 </td>
@@ -212,7 +216,7 @@
                 >
                   {{
                     formatageSommeSansFCFA(
-                      parseFloat(MontantVariationTotalBiensService(data))
+                      parseFloat(TotalModificationBailleurBienService(data))
                     )
                   }}
                 </td>
@@ -225,13 +229,13 @@
                 >
                   {{
                     formatageSommeSansFCFA(
-                      parseFloat(MontantInitialTotaliensService(data)) +
-                        parseFloat(MontantVariationTotalBiensService(data))
+                      parseFloat(TotalDotationBailleurBiensService(data))
                     )
                   }}
                 </td>
               </tr>
 
+              <!-- POUR PERSONNEL -->
               <tr
                 style="border: 1px solid #000 !important; text-align: center"
                 v-for="item1 in GroupeNatureEconomiquePersonnel(data)"
@@ -258,7 +262,12 @@
                 >
                   {{
                     formatageSommeSansFCFA(
-                      parseFloat(MontantVariationParLignePersonnel(item1, data))
+                      parseFloat(
+                        MontantVariationParLignePersonnel(
+                          item1,
+                          data
+                        )
+                      )
                     )
                   }}
                 </td>
@@ -267,15 +276,11 @@
                 >
                   {{
                     formatageSommeSansFCFA(
-                      parseFloat(MontantInitialParLignePersonnel(item1, data)) +
-                        parseFloat(
-                          MontantVariationParLignePersonnel(item1, data)
-                        )
+                      parseFloat(MontantActuelleParLignePersonnel(item1, data))
                     )
                   }}
                 </td>
               </tr>
-
               <tr>
                 <td
                   style="
@@ -296,7 +301,8 @@
                 >
                   {{
                     formatageSommeSansFCFA(
-                      parseFloat(MontantInitialTotalPersonnel(data))
+                      parseFloat(TotalInitialPersonnel1(data)) +
+                        parseFloat(TotalInitialPersonnel2(data))
                     )
                   }}
                 </td>
@@ -309,7 +315,7 @@
                 >
                   {{
                     formatageSommeSansFCFA(
-                      parseFloat(MontantVariationTotalPersonnel(data))
+                      parseFloat(TotalModificationPersonnel(data))
                     )
                   }}
                 </td>
@@ -322,13 +328,13 @@
                 >
                   {{
                     formatageSommeSansFCFA(
-                      parseFloat(MontantInitialTotalPersonnel(data)) +
-                        parseFloat(MontantVariationTotalPersonnel(data))
+                      parseFloat(TotalDotationPersonnel(data))
                     )
                   }}
                 </td>
               </tr>
 
+              <!-- transfert -->
               <tr
                 style="border: 1px solid #000 !important; text-align: center"
                 v-for="item1 in GroupeNatureEconomiqueTransfert(data)"
@@ -340,7 +346,6 @@
                 >
                   {{ afficheNatureEconomique(item1) }}
                 </td>
-
                 <td
                   style="text-align: right; border: 1px solid #000 !important"
                 >
@@ -355,7 +360,13 @@
                 >
                   {{
                     formatageSommeSansFCFA(
-                      parseFloat(MontantVariationParLigneTransfert(item1, data))
+                      parseFloat(
+                        MontantVariationParLigneTransfert(
+                          item1,
+
+                          data
+                        )
+                      )
                     )
                   }}
                 </td>
@@ -364,10 +375,7 @@
                 >
                   {{
                     formatageSommeSansFCFA(
-                      parseFloat(MontantInitialParLigneTransfert(item1, data)) +
-                        parseFloat(
-                          MontantVariationParLigneTransfert(item1, data)
-                        )
+                      parseFloat(MontantActuelleParLigneTransfert(item1, data))
                     )
                   }}
                 </td>
@@ -393,7 +401,8 @@
                 >
                   {{
                     formatageSommeSansFCFA(
-                      parseFloat(MontantInitialTotalTransfert(data))
+                      parseFloat(TotalInitialTransfert1(data)) +
+                        parseFloat(TotalInitialTransfert2(data))
                     )
                   }}
                 </td>
@@ -406,7 +415,7 @@
                 >
                   {{
                     formatageSommeSansFCFA(
-                      parseFloat(MontantVariationTotalTransfert(data))
+                      parseFloat(TotalModificationTransfert(data))
                     )
                   }}
                 </td>
@@ -419,12 +428,12 @@
                 >
                   {{
                     formatageSommeSansFCFA(
-                      parseFloat(MontantInitialTotalTransfert(data)) +
-                        parseFloat(MontantVariationTotalTransfert(data))
+                      parseFloat(TotalDotationTransfert(data))
                     )
                   }}
                 </td>
               </tr>
+              <!-- INVESTISSEMENT -->
 
               <tr
                 style="border: 1px solid #000 !important; text-align: center"
@@ -437,7 +446,6 @@
                 >
                   {{ afficheNatureEconomique(item1) }}
                 </td>
-
                 <td
                   style="text-align: right; border: 1px solid #000 !important"
                 >
@@ -466,16 +474,12 @@
                   {{
                     formatageSommeSansFCFA(
                       parseFloat(
-                        MontantInitialParLigneInvestissement(item1, data)
-                      ) +
-                        parseFloat(
-                          MontantVariationParLigneInvestissement(item1, data)
-                        )
+                        MontantActuelleParLigneInvestissement(item1, data)
+                      )
                     )
                   }}
                 </td>
               </tr>
-
               <tr>
                 <td
                   style="
@@ -496,7 +500,8 @@
                 >
                   {{
                     formatageSommeSansFCFA(
-                      parseFloat(MontantInitialTotalInvestissement(data))
+                      parseFloat(TotalInitialInvestissement1(data)) +
+                        parseFloat(TotalInitialInvestissement2(data))
                     )
                   }}
                 </td>
@@ -509,7 +514,7 @@
                 >
                   {{
                     formatageSommeSansFCFA(
-                      parseFloat(MontantVariationTotalInvestissement(data))
+                      parseFloat(TotalModificationInvestissement(data))
                     )
                   }}
                 </td>
@@ -522,13 +527,11 @@
                 >
                   {{
                     formatageSommeSansFCFA(
-                      parseFloat(MontantInitialTotalInvestissement(data)) +
-                        parseFloat(MontantVariationTotalInvestissement(data))
+                      parseFloat(TotalDotationInvestissement(data))
                     )
                   }}
                 </td>
               </tr>
-
               <tr>
                 <td
                   colspan="3"
@@ -561,10 +564,14 @@
                 >
                   {{
                     formatageSommeSansFCFA(
-                      parseFloat(MontantInitialTotalInvestissement(data)) +
-                        parseFloat(MontantInitialTotalTransfert(data)) +
-                        parseFloat(MontantInitialTotalPersonnel(data)) +
-                        parseFloat(MontantInitialTotaliensService(data))
+                      parseFloat(TotalInitialBienService1(data)) +
+                        parseFloat(TotalInitialBienService2(data)) +
+                        parseFloat(TotalInitialPersonnel1(data)) +
+                        parseFloat(TotalInitialPersonnel2(data)) +
+                        parseFloat(TotalInitialTransfert1(data)) +
+                        parseFloat(TotalInitialTransfert2(data)) +
+                        parseFloat(TotalInitialInvestissement1(data)) +
+                        parseFloat(TotalInitialInvestissement2(data))
                     )
                   }}
                 </td>
@@ -578,10 +585,10 @@
                 >
                   {{
                     formatageSommeSansFCFA(
-                      parseFloat(MontantVariationTotalBiensService(data)) +
-                        parseFloat(MontantVariationTotalPersonnel(data)) +
-                        parseFloat(MontantVariationTotalTransfert(data)) +
-                        parseFloat(MontantVariationTotalInvestissement(data))
+                      parseFloat(TotalModificationBailleurBienService(data)) +
+                        parseFloat(TotalModificationPersonnel(data)) +
+                        parseFloat(TotalModificationTransfert(data)) +
+                        parseFloat(TotalModificationInvestissement(data))
                     )
                   }}
                 </td>
@@ -595,22 +602,10 @@
                 >
                   {{
                     formatageSommeSansFCFA(
-                      parseFloat(
-                        parseFloat(MontantInitialTotalInvestissement(data)) +
-                          parseFloat(MontantInitialTotalTransfert(data)) +
-                          parseFloat(MontantInitialTotalPersonnel(data)) +
-                          parseFloat(MontantInitialTotaliensService(data)) +
-                          parseFloat(
-                            parseFloat(
-                              MontantVariationTotalBiensService(data)
-                            ) +
-                              parseFloat(MontantVariationTotalPersonnel(data)) +
-                              parseFloat(MontantVariationTotalTransfert(data)) +
-                              parseFloat(
-                                MontantVariationTotalInvestissement(data)
-                              )
-                          )
-                      )
+                      parseFloat(TotalDotationBailleurBiensService(data)) +
+                        parseFloat(TotalDotationPersonnel(data)) +
+                        parseFloat(TotalDotationTransfert(data)) +
+                        parseFloat(TotalDotationInvestissement(data))
                     )
                   }}
                 </td>
@@ -637,17 +632,12 @@
                   color: #fff;
                 "
               >
-                {{ formatageSommeSansFCFA(parseFloat(TotalglobalInitial1)) }}
-              </td>
-              <td
-                style="
-                  text-align: right;
-                  border: 1px solid #000 !important;
-                  background-color: #375d81 !important;
-                  color: #fff;
-                "
-              >
-                {{ formatageSommeSansFCFA(parseFloat(MontantVariationGlobal)) }}
+                {{
+                  formatageSommeSansFCFA(
+                    parseFloat(TotalglobalInitial2()) +
+                      parseFloat(TotalglobalInitial1())
+                  )
+                }}
               </td>
               <td
                 style="
@@ -658,17 +648,22 @@
                 "
               >
                 {{
-                  formatageSommeSansFCFA(
-                    parseFloat(
-                      parseFloat(TotalglobalInitial1) +
-                        parseFloat(MontantVariationGlobal)
-                    )
-                  )
+                  formatageSommeSansFCFA(parseFloat(TotalModificationGlobal))
                 }}
+              </td>
+              <td
+                style="
+                  text-align: right;
+                  border: 1px solid #000 !important;
+                  background-color: #375d81 !important;
+                  color: #fff;
+                "
+              >
+                {{ formatageSommeSansFCFA(parseFloat(TotalDotationGlobal)) }}
               </td>
             </tr>
           </table>
-          <table id="customers" style="text-align: center">
+           <table id="customers" style="text-align: center">
             <tr>
               <td
                 style="text-align: center; width: 40%; font-weight: bold"
@@ -741,14 +736,14 @@ export default {
     // let objet = {
     //   id: this.Activite_id,
     // };
-    // this.getBudgetViseParActvite(objet);
+    this.getBudgetEclate();
     this.getSousBudget();
     this.getBudgetEclate();
     this.getBailleur();
     this.getNatureDepense();
     this.getNatureEconomique();
     this.getActivite();
-    this.getBudgetModifierEnProjet();
+
     //   this.getExerciceBudgetaire();
     //  // this.getGroupeActivitebudgetNotifie()
     //   this.getDotationNotifie();
@@ -759,35 +754,15 @@ export default {
       "getterBailleur",
       "getterNatureEconomique",
       "getterSousBudget",
-      "gettersBudgetModifierEnProjet",
+      "getterListeBudgetEclate",
       "getterExerciceBudgetaire",
       "getterDotationNotifie",
 
       "getterNatureDepense",
     ]),
 
-
-     TotalglobalInitial1() {
-     
-        return this.gettersBudgetModifierEnProjet
-          .filter(
-            (item) =>
-              (item.activite_id == this.Activite_id &&
-                
-                item.modifier_id == this.dossier_id) ||
-              (item.activite_id == this.Activite_id &&
-                
-                item.dossier_id != this.dossier_id)
-          )
-          .reduce(
-            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
-            0
-          )
-          .toFixed(0);
-      
-    },
     TotalDotationBailleur() {
-      return this.gettersBudgetModifierEnProjet
+      return this.getterListeBudgetEclate
         .filter(
           (item) =>
             item.activite_id == this.Activite_id &&
@@ -866,10 +841,10 @@ export default {
 
     GroupeNatureEconomiqueInvestissements() {
       return (id) => {
-        let objet = this.gettersBudgetModifierEnProjet.filter(
+        let objet = this.getterListeBudgetEclate.filter(
           (item) =>
             this.afficheCodeNatureDepense(item.nature_depense_id) == 4 &&
-            item.sous_budget_id == id
+            item.sous_budget_id == id && item.dossier_id==this.dossier_id
         );
         //  let vm=this
         let array_exercie = [];
@@ -890,10 +865,10 @@ export default {
 
     GroupeNatureEconomiquePersonnel() {
       return (id) => {
-        let objet = this.gettersBudgetModifierEnProjet.filter(
+        let objet = this.getterListeBudgetEclate.filter(
           (item) =>
             this.afficheCodeNatureDepense(item.nature_depense_id) == 1 &&
-            item.sous_budget_id == id
+            item.sous_budget_id == id && item.dossier_id==this.dossier_id
         );
         //  let vm=this
         let array_exercie = [];
@@ -914,7 +889,7 @@ export default {
     GroupeBailleur() {
       // return (id) => {
 
-      let objet = this.gettersBudgetModifierEnProjet;
+      let objet = this.getterListeBudgetEclate;
       //  let vm=this
       let array_exercie = [];
       if (objet.length > 0) {
@@ -934,7 +909,7 @@ export default {
     GroupeSousBudget() {
       // return (id) => {
 
-      let objet = this.gettersBudgetModifierEnProjet;
+      let objet = this.getterListeBudgetEclate.filter(item=>item.dossier_id==this.dossier_id);
       //  let vm=this
       let array_exercie = [];
       if (objet.length > 0) {
@@ -987,7 +962,7 @@ export default {
 
     // 2-presonnel
     TotalDotationBailleurPersonnel() {
-      return this.gettersBudgetModifierEnProjet
+      return this.getterListeBudgetEclate
         .filter(
           (item) =>
             item.activite_id == this.Activite_id &&
@@ -1026,10 +1001,10 @@ export default {
     },
     GroupeNatureEconomiqueBiensService() {
       return (id) => {
-        let objet = this.gettersBudgetModifierEnProjet.filter(
+        let objet = this.getterListeBudgetEclate.filter(
           (item) =>
             this.afficheCodeNatureDepense(item.nature_depense_id) == 2 &&
-            item.sous_budget_id == id
+            item.sous_budget_id == id && item.dossier_id==this.dossier_id
         );
         //  let vm=this
         let array_exercie = [];
@@ -1050,7 +1025,7 @@ export default {
 
     // transfert
     TotalDotationBailleurTransfert() {
-      return this.gettersBudgetModifierEnProjet
+      return this.getterListeBudgetEclate
         .filter(
           (item) =>
             item.activite_id == this.Activite_id &&
@@ -1076,7 +1051,7 @@ export default {
     },
     TotalDotation($id2) {
       if (this.MontantAnterieur($id2) == 0) {
-        return this.gettersBudgetModifierEnProjet
+        return this.getterListeBudgetEclate
           .filter(
             (item) =>
               item.activite_id == this.Activite_id &&
@@ -1089,7 +1064,7 @@ export default {
           )
           .toFixed(0);
       } else {
-        return this.gettersBudgetModifierEnProjet
+        return this.getterListeBudgetEclate
           .filter(
             (item) =>
               item.activite_id == this.Activite_id &&
@@ -1103,22 +1078,13 @@ export default {
           .toFixed(0);
       }
     },
-    MontantVariationGlobal() {
-      return this.gettersBudgetModifierEnProjet
-        .filter((item) => item.activite_id == this.Activite_id)
-        .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_variation),
-          0
-        )
-        .toFixed(0);
-    },
     TotalModificationGlobal() {
       if (this.afficheIdDossierTotalGlobal == 1) {
-        return this.gettersBudgetModifierEnProjet
+        return this.getterListeBudgetEclate
           .filter(
             (item) =>
               item.activite_id == this.Activite_id &&
-              this.afficheCodeNatureDepense(item.nature_depense_id) == 1
+              this.afficheCodeNatureDepense(item.nature_depense_id) == 1 && item.dossier_id==this.dossier_id
           )
           .reduce(
             (prec, cur) =>
@@ -1127,11 +1093,11 @@ export default {
           )
           .toFixed(0);
       } else {
-        return this.gettersBudgetModifierEnProjet
+        return this.getterListeBudgetEclate
           .filter(
             (item) =>
               item.activite_id == this.Activite_id &&
-              this.afficheCodeNatureDepense(item.nature_depense_id) == 1
+              this.afficheCodeNatureDepense(item.nature_depense_id) == 1 && item.dossier_id==this.dossier_id
           )
           .reduce(
             (prec, cur) =>
@@ -1142,7 +1108,7 @@ export default {
       }
     },
     totalGlobal() {
-      return this.gettersBudgetModifierEnProjet
+      return this.getterListeBudgetEclate
         .filter((item) => item.activite_id == this.Activite_id)
         .reduce(
           (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
@@ -1151,7 +1117,7 @@ export default {
         .toFixed(0);
     },
     afficheIdDossierTotalGlobal() {
-      const qtereel = this.gettersBudgetModifierEnProjet.find(
+      const qtereel = this.getterListeBudgetEclate.find(
         (qtreel) => qtreel.activite_id == this.Activite_id
       );
 
@@ -1162,7 +1128,7 @@ export default {
       return 0;
     },
     MontantAnterieurGlobal() {
-      const qtereel = this.gettersBudgetModifierEnProjet.find(
+      const qtereel = this.getterListeBudgetEclate.find(
         (qtreel) => qtreel.activite_id == this.Activite_id
       );
 
@@ -1174,16 +1140,16 @@ export default {
     },
     TotalDotationGlobal() {
       if (this.MontantAnterieurGlobal == 0) {
-        return this.gettersBudgetModifierEnProjet
-          .filter((item) => item.activite_id == this.Activite_id)
+        return this.getterListeBudgetEclate
+          .filter((item) => item.activite_id == this.Activite_id && item.dossier_id==this.dossier_id)
           .reduce(
             (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
             0
           )
           .toFixed(0);
       } else {
-        return this.gettersBudgetModifierEnProjet
-          .filter((item) => item.activite_id == this.Activite_id)
+        return this.getterListeBudgetEclate
+          .filter((item) => item.activite_id == this.Activite_id && item.dossier_id==this.dossier_id)
           .reduce(
             (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
             0
@@ -1193,10 +1159,10 @@ export default {
     },
     GroupeNatureEconomiqueTransfert() {
       return (id) => {
-        let objet = this.gettersBudgetModifierEnProjet.filter(
+        let objet = this.getterListeBudgetEclate.filter(
           (item) =>
             this.afficheCodeNatureDepense(item.nature_depense_id) == 3 &&
-            item.sous_budget_id == id
+            item.sous_budget_id == id && item.dossier_id==this.dossier_id
         );
         //  let vm=this
         let array_exercie = [];
@@ -1218,8 +1184,7 @@ export default {
   methods: {
     ...mapActions("parametrage", [
       "getSousBudget",
-      "getBudgetViseParActvite",
-      "getBudgetModifierEnProjet",
+      "getBudgetEclate",
       "getBailleur",
       "getNatureEconomique",
       "getActivite",
@@ -1237,13 +1202,13 @@ export default {
     },
     MontantActuelleParLigneInvestissement($id, $id2) {
       if (this.afficheIdDossier($id, $id2) == 1) {
-        return this.gettersBudgetModifierEnProjet
+        return this.getterListeBudgetEclate
           .filter(
             (item) =>
               item.activite_id == this.Activite_id &&
               item.ligneeconomique_id == $id &&
               this.afficheCodeNatureDepense(item.nature_depense_id) == 4 &&
-              item.sous_budget_id == $id2
+              item.sous_budget_id == $id2 && item.dossier_id==this.dossier_id
           )
           .reduce(
             (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
@@ -1251,13 +1216,13 @@ export default {
           )
           .toFixed(0);
       } else {
-        return this.gettersBudgetModifierEnProjet
+        return this.getterListeBudgetEclate
           .filter(
             (item) =>
               item.activite_id == this.Activite_id &&
               item.ligneeconomique_id == $id &&
               this.afficheCodeNatureDepense(item.nature_depense_id) == 4 &&
-              item.sous_budget_id == $id2
+              item.sous_budget_id == $id2 && item.dossier_id==this.dossier_id
           )
           .reduce(
             (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
@@ -1266,15 +1231,30 @@ export default {
           .toFixed(0);
       }
     },
-
-    TotalDotationPersonnel($id2) {
-      if (this.MontantAnterieur($id2) == 0) {
-        return this.gettersBudgetModifierEnProjet
+    MontantVariationParLigneInvestissement($id, $id2) {
+      return this.getterListeBudgetEclate
+        .filter(
+          (item) =>
+            item.activite_id == this.Activite_id &&
+            item.ligneeconomique_id == $id &&
+            this.afficheCodeNatureDepense(item.nature_depense_id) == 4 &&
+            item.sous_budget_id == $id2 && item.dossier_id==this.dossier_id
+        )
+        .reduce(
+          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_variation),
+          0
+        )
+        .toFixed(0);
+    },
+    MontantInitialParLigneInvestissement($id, $id2) {
+      if (this.MontantAnterieur($id, $id2) == 0) {
+        return this.getterListeBudgetEclate
           .filter(
             (item) =>
               item.activite_id == this.Activite_id &&
-              this.afficheCodeNatureDepense(item.nature_depense_id) == 1 &&
-              item.sous_budget_id == $id2
+              item.ligneeconomique_id == $id &&
+              this.afficheCodeNatureDepense(item.nature_depense_id) == 4 &&
+              item.sous_budget_id == $id2 && item.dossier_id==this.dossier_id
           )
           .reduce(
             (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
@@ -1282,12 +1262,43 @@ export default {
           )
           .toFixed(0);
       } else {
-        return this.gettersBudgetModifierEnProjet
+        return this.getterListeBudgetEclate
+          .filter(
+            (item) =>
+              item.activite_id == this.Activite_id &&
+              item.ligneeconomique_id == $id &&
+              this.afficheCodeNatureDepense(item.nature_depense_id) == 4 &&
+              item.sous_budget_id == $id2 && item.dossier_id==this.dossier_id
+          )
+          .reduce(
+            (prec, cur) =>
+              parseFloat(prec) + parseFloat(cur.dotation_actuelle_anterieur),
+            0
+          )
+          .toFixed(0);
+      }
+    },
+    TotalDotationPersonnel($id2) {
+      if (this.MontantAnterieur($id2) == 0) {
+        return this.getterListeBudgetEclate
           .filter(
             (item) =>
               item.activite_id == this.Activite_id &&
               this.afficheCodeNatureDepense(item.nature_depense_id) == 1 &&
-              item.sous_budget_id == $id2
+              item.sous_budget_id == $id2 && item.dossier_id==this.dossier_id
+          )
+          .reduce(
+            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
+            0
+          )
+          .toFixed(0);
+      } else {
+        return this.getterListeBudgetEclate
+          .filter(
+            (item) =>
+              item.activite_id == this.Activite_id &&
+              this.afficheCodeNatureDepense(item.nature_depense_id) == 1 &&
+              item.sous_budget_id == $id2 && item.dossier_id==this.dossier_id
           )
           .reduce(
             (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
@@ -1298,12 +1309,12 @@ export default {
     },
     TotalDotationBailleurBiensService($id2) {
       if (this.afficheIdDossierTotal($id2) == 1) {
-        return this.gettersBudgetModifierEnProjet
+        return this.getterListeBudgetEclate
           .filter(
             (item) =>
               item.activite_id == this.Activite_id &&
               this.afficheCodeNatureDepense(item.nature_depense_id) == 2 &&
-              item.sous_budget_id == $id2
+              item.sous_budget_id == $id2 && item.dossier_id==this.dossier_id
           )
           .reduce(
             (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
@@ -1311,12 +1322,12 @@ export default {
           )
           .toFixed(0);
       } else {
-        return this.gettersBudgetModifierEnProjet
+        return this.getterListeBudgetEclate
           .filter(
             (item) =>
               item.activite_id == this.Activite_id &&
               this.afficheCodeNatureDepense(item.nature_depense_id) == 2 &&
-              item.sous_budget_id == $id2
+              item.sous_budget_id == $id2 && item.dossier_id==this.dossier_id
           )
           .reduce(
             (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
@@ -1335,12 +1346,12 @@ export default {
 
     TotalModificationPersonnel($id2) {
       if (this.afficheIdDossierTotal($id2) == 1) {
-        return this.gettersBudgetModifierEnProjet
+        return this.getterListeBudgetEclate
           .filter(
             (item) =>
               item.activite_id == this.Activite_id &&
               this.afficheCodeNatureDepense(item.nature_depense_id) == 1 &&
-              item.sous_budget_id == $id2
+              item.sous_budget_id == $id2 && item.dossier_id==this.dossier_id
           )
           .reduce(
             (prec, cur) =>
@@ -1349,12 +1360,12 @@ export default {
           )
           .toFixed(0);
       } else {
-        return this.gettersBudgetModifierEnProjet
+        return this.getterListeBudgetEclate
           .filter(
             (item) =>
               item.activite_id == this.Activite_id &&
               this.afficheCodeNatureDepense(item.nature_depense_id) == 1 &&
-              item.sous_budget_id == $id2
+              item.sous_budget_id == $id2 && item.dossier_id==this.dossier_id
           )
           .reduce(
             (prec, cur) =>
@@ -1366,7 +1377,7 @@ export default {
     },
 
     afficheIdDossierTotal($id2) {
-      const qtereel = this.gettersBudgetModifierEnProjet.find(
+      const qtereel = this.getterListeBudgetEclate.find(
         (qtreel) =>
           qtreel.activite_id == this.Activite_id &&
           qtreel.sous_budget_id == $id2
@@ -1380,7 +1391,7 @@ export default {
     },
 
     MontantAnterieurTotal($id2) {
-      const qtereel = this.gettersBudgetModifierEnProjet.find(
+      const qtereel = this.getterListeBudgetEclate.find(
         (qtreel) =>
           qtreel.activite_id == this.Activite_id &&
           qtreel.sous_budget_id == $id2
@@ -1393,13 +1404,13 @@ export default {
       return 0;
     },
     TotalInitialPersonnel2($id2) {
-      return this.gettersBudgetModifierEnProjet
+      return this.getterListeBudgetEclate
         .filter(
           (item) =>
             item.activite_id == this.Activite_id &&
             this.afficheCodeNatureDepense(item.nature_depense_id) == 1 &&
             item.sous_budget_id == $id2 &&
-            item.dotation_actuelle_anterieur == 0
+            item.dotation_actuelle_anterieur == 0 && item.dossier_id==this.dossier_id
         )
         .reduce(
           (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
@@ -1408,12 +1419,12 @@ export default {
         .toFixed(0);
     },
     TotalInitialPersonnel1($id2) {
-      return this.gettersBudgetModifierEnProjet
+      return this.getterListeBudgetEclate
         .filter(
           (item) =>
             item.activite_id == this.Activite_id &&
             this.afficheCodeNatureDepense(item.nature_depense_id) == 1 &&
-            item.sous_budget_id == $id2
+            item.sous_budget_id == $id2 && item.dossier_id==this.dossier_id
         )
         .reduce(
           (prec, cur) =>
@@ -1424,7 +1435,7 @@ export default {
     },
     // TotalInitialPersonnel($id2) {
     //   if (this.MontantAnterieur($id2) == 0) {
-    //     return this.gettersBudgetModifierEnProjet
+    //     return this.getterListeBudgetEclate
     //       .filter(
     //         (item) =>
     //           item.activite_id == this.Activite_id &&
@@ -1437,7 +1448,7 @@ export default {
     //       )
     //       .toFixed(0);
     //   } else {
-    //     return this.gettersBudgetModifierEnProjet
+    //     return this.getterListeBudgetEclate
     //       .filter(
     //         (item) =>
     //           item.activite_id == this.Activite_id &&
@@ -1452,7 +1463,7 @@ export default {
     //   }
     // },
     MontantAnterieur($id, $id2) {
-      const qtereel = this.gettersBudgetModifierEnProjet.find(
+      const qtereel = this.getterListeBudgetEclate.find(
         (qtreel) =>
           qtreel.activite_id == this.Activite_id &&
           qtreel.ligneeconomique_id == $id &&
@@ -1466,13 +1477,13 @@ export default {
       return 0;
     },
     TotalInitialInvestissement2($id2) {
-      return this.gettersBudgetModifierEnProjet
+      return this.getterListeBudgetEclate
         .filter(
           (item) =>
             item.activite_id == this.Activite_id &&
             this.afficheCodeNatureDepense(item.nature_depense_id) == 4 &&
             item.sous_budget_id == $id2 &&
-            item.dotation_actuelle_anterieur == 0
+            item.dotation_actuelle_anterieur == 0 && item.dossier_id==this.dossier_id
         )
         .reduce(
           (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
@@ -1481,13 +1492,13 @@ export default {
         .toFixed(0);
     },
     TotalInitialTransfert2($id2) {
-      return this.gettersBudgetModifierEnProjet
+      return this.getterListeBudgetEclate
         .filter(
           (item) =>
             item.activite_id == this.Activite_id &&
             this.afficheCodeNatureDepense(item.nature_depense_id) == 3 &&
             item.sous_budget_id == $id2 &&
-            item.dotation_actuelle_anterieur == 0
+            item.dotation_actuelle_anterieur == 0 && item.dossier_id==this.dossier_id
         )
         .reduce(
           (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
@@ -1497,12 +1508,12 @@ export default {
     },
     TotalDotationTransfert($id2) {
       if (this.MontantAnterieur($id2) == 0) {
-        return this.gettersBudgetModifierEnProjet
+        return this.getterListeBudgetEclate
           .filter(
             (item) =>
               item.activite_id == this.Activite_id &&
               this.afficheCodeNatureDepense(item.nature_depense_id) == 3 &&
-              item.sous_budget_id == $id2
+              item.sous_budget_id == $id2 && item.dossier_id==this.dossier_id
           )
           .reduce(
             (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
@@ -1510,12 +1521,12 @@ export default {
           )
           .toFixed(0);
       } else {
-        return this.gettersBudgetModifierEnProjet
+        return this.getterListeBudgetEclate
           .filter(
             (item) =>
               item.activite_id == this.Activite_id &&
               this.afficheCodeNatureDepense(item.nature_depense_id) == 3 &&
-              item.sous_budget_id == $id2
+              item.sous_budget_id == $id2 && item.dossier_id==this.dossier_id
           )
           .reduce(
             (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
@@ -1526,12 +1537,12 @@ export default {
     },
     TotalDotationInvestissement($id2) {
       if (this.MontantAnterieur($id2) == 0) {
-        return this.gettersBudgetModifierEnProjet
+        return this.getterListeBudgetEclate
           .filter(
             (item) =>
               item.activite_id == this.Activite_id &&
               this.afficheCodeNatureDepense(item.nature_depense_id) == 4 &&
-              item.sous_budget_id == $id2
+              item.sous_budget_id == $id2 && item.dossier_id==this.dossier_id
           )
           .reduce(
             (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
@@ -1539,12 +1550,12 @@ export default {
           )
           .toFixed(0);
       } else {
-        return this.gettersBudgetModifierEnProjet
+        return this.getterListeBudgetEclate
           .filter(
             (item) =>
               item.activite_id == this.Activite_id &&
               this.afficheCodeNatureDepense(item.nature_depense_id) == 4 &&
-              item.sous_budget_id == $id2
+              item.sous_budget_id == $id2 && item.dossier_id==this.dossier_id
           )
           .reduce(
             (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
@@ -1555,7 +1566,7 @@ export default {
     },
     TotalModificationTransfert($id2) {
       if (this.afficheIdDossierTotal($id2) == 1) {
-        return this.gettersBudgetModifierEnProjet
+        return this.getterListeBudgetEclate
           .filter(
             (item) =>
               item.activite_id == this.Activite_id &&
@@ -1569,7 +1580,7 @@ export default {
           )
           .toFixed(0);
       } else {
-        return this.gettersBudgetModifierEnProjet
+        return this.getterListeBudgetEclate
           .filter(
             (item) =>
               item.activite_id == this.Activite_id &&
@@ -1586,12 +1597,12 @@ export default {
     },
     TotalModificationInvestissement($id2) {
       if (this.afficheIdDossierTotal($id2) == 1) {
-        return this.gettersBudgetModifierEnProjet
+        return this.getterListeBudgetEclate
           .filter(
             (item) =>
               item.activite_id == this.Activite_id &&
               this.afficheCodeNatureDepense(item.nature_depense_id) == 4 &&
-              item.sous_budget_id == $id2
+              item.sous_budget_id == $id2 && item.dossier_id==this.dossier_id
           )
           .reduce(
             (prec, cur) =>
@@ -1600,12 +1611,12 @@ export default {
           )
           .toFixed(0);
       } else {
-        return this.gettersBudgetModifierEnProjet
+        return this.getterListeBudgetEclate
           .filter(
             (item) =>
               item.activite_id == this.Activite_id &&
               this.afficheCodeNatureDepense(item.nature_depense_id) == 4 &&
-              item.sous_budget_id == $id2
+              item.sous_budget_id == $id2 && item.dossier_id==this.dossier_id
           )
           .reduce(
             (prec, cur) =>
@@ -1616,12 +1627,12 @@ export default {
       }
     },
     TotalInitialInvestissement1($id2) {
-      return this.gettersBudgetModifierEnProjet
+      return this.getterListeBudgetEclate
         .filter(
           (item) =>
             item.activite_id == this.Activite_id &&
             this.afficheCodeNatureDepense(item.nature_depense_id) == 4 &&
-            item.sous_budget_id == $id2
+            item.sous_budget_id == $id2 && item.dossier_id==this.dossier_id
         )
         .reduce(
           (prec, cur) =>
@@ -1631,12 +1642,12 @@ export default {
         .toFixed(0);
     },
     TotalInitialTransfert1($id2) {
-      return this.gettersBudgetModifierEnProjet
+      return this.getterListeBudgetEclate
         .filter(
           (item) =>
             item.activite_id == this.Activite_id &&
             this.afficheCodeNatureDepense(item.nature_depense_id) == 3 &&
-            item.sous_budget_id == $id2
+            item.sous_budget_id == $id2 && item.dossier_id==this.dossier_id
         )
         .reduce(
           (prec, cur) =>
@@ -1647,13 +1658,13 @@ export default {
     },
     MontantActuelleParLigneTransfert($id, $id2) {
       if (this.afficheIdDossier($id, $id2) == 1) {
-        return this.gettersBudgetModifierEnProjet
+        return this.getterListeBudgetEclate
           .filter(
             (item) =>
               item.activite_id == this.Activite_id &&
               item.ligneeconomique_id == $id &&
               this.afficheCodeNatureDepense(item.nature_depense_id) == 3 &&
-              item.sous_budget_id == $id2
+              item.sous_budget_id == $id2 && item.dossier_id==this.dossier_id
           )
           .reduce(
             (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
@@ -1661,13 +1672,13 @@ export default {
           )
           .toFixed(0);
       } else {
-        return this.gettersBudgetModifierEnProjet
+        return this.getterListeBudgetEclate
           .filter(
             (item) =>
               item.activite_id == this.Activite_id &&
               item.ligneeconomique_id == $id &&
               this.afficheCodeNatureDepense(item.nature_depense_id) == 3 &&
-              item.sous_budget_id == $id2
+              item.sous_budget_id == $id2 && item.dossier_id==this.dossier_id
           )
           .reduce(
             (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
@@ -1676,64 +1687,30 @@ export default {
           .toFixed(0);
       }
     },
-
-    MontantInitialParLignePersonnel($id, $id2) {
-      if (this.afficheIdDossier($id, $id2) == 1) {
-        return this.gettersBudgetModifierEnProjet
-          .filter(
-            (item) =>
-              (item.activite_id == this.Activite_id &&
-                item.ligneeconomique_id == $id &&
-                this.afficheCodeNatureDepense(item.nature_depense_id) == 1 &&
-                item.sous_budget_id == $id2 &&
-                item.modifier_id == this.dossier_id) ||
-              (item.activite_id == this.Activite_id &&
-                item.ligneeconomique_id == $id &&
-                this.afficheCodeNatureDepense(item.nature_depense_id) == 1 &&
-                item.sous_budget_id == $id2 &&
-                item.dossier_id != this.dossier_id)
-          )
-          .reduce(
-            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
-            0
-          )
-          .toFixed(0);
-      } else {
-        return this.gettersBudgetModifierEnProjet
-          .filter(
-            (item) =>
-              (item.activite_id == this.Activite_id &&
-                item.ligneeconomique_id == $id &&
-                this.afficheCodeNatureDepense(item.nature_depense_id) == 1 &&
-                item.modifier_id == this.dossier_id) ||
-              (item.activite_id == this.Activite_id &&
-                item.ligneeconomique_id == $id &&
-                this.afficheCodeNatureDepense(item.nature_depense_id) == 1 &&
-                item.dossier_id != this.dossier_id)
-          )
-          .reduce(
-            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
-            0
-          )
-          .toFixed(0);
-      }
+    MontantVariationParLigneTransfert($id, $id2) {
+      return this.getterListeBudgetEclate
+        .filter(
+          (item) =>
+            item.activite_id == this.Activite_id &&
+            item.ligneeconomique_id == $id &&
+            this.afficheCodeNatureDepense(item.nature_depense_id) == 3 &&
+            item.sous_budget_id == $id2 && item.dossier_id==this.dossier_id
+        )
+        .reduce(
+          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_variation),
+          0
+        )
+        .toFixed(0);
     },
-
     MontantInitialParLigneTransfert($id, $id2) {
-      if (this.afficheIdDossier($id, $id2) == 1) {
-        return this.gettersBudgetModifierEnProjet
+      if (this.MontantAnterieur($id, $id2) == 0) {
+        return this.getterListeBudgetEclate
           .filter(
             (item) =>
-              (item.activite_id == this.Activite_id &&
-                item.ligneeconomique_id == $id &&
-                this.afficheCodeNatureDepense(item.nature_depense_id) == 3 &&
-                item.sous_budget_id == $id2 &&
-                item.modifier_id == this.dossier_id) ||
-              (item.activite_id == this.Activite_id &&
-                item.ligneeconomique_id == $id &&
-                this.afficheCodeNatureDepense(item.nature_depense_id) == 3 &&
-                item.sous_budget_id == $id2 &&
-                item.dossier_id != this.dossier_id)
+              item.activite_id == this.Activite_id &&
+              item.ligneeconomique_id == $id &&
+              this.afficheCodeNatureDepense(item.nature_depense_id) == 3 &&
+              item.sous_budget_id == $id2 && item.dossier_id==this.dossier_id
           )
           .reduce(
             (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
@@ -1741,41 +1718,31 @@ export default {
           )
           .toFixed(0);
       } else {
-        return this.gettersBudgetModifierEnProjet
+        return this.getterListeBudgetEclate
           .filter(
             (item) =>
-              (item.activite_id == this.Activite_id &&
-                item.ligneeconomique_id == $id &&
-                this.afficheCodeNatureDepense(item.nature_depense_id) == 3 &&
-                item.modifier_id == this.dossier_id) ||
-              (item.activite_id == this.Activite_id &&
-                item.ligneeconomique_id == $id &&
-                this.afficheCodeNatureDepense(item.nature_depense_id) == 3 &&
-                item.dossier_id != this.dossier_id)
+              item.activite_id == this.Activite_id &&
+              item.ligneeconomique_id == $id &&
+              this.afficheCodeNatureDepense(item.nature_depense_id) == 3 &&
+              item.sous_budget_id == $id2 && item.dossier_id==this.dossier_id
           )
           .reduce(
-            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
+            (prec, cur) =>
+              parseFloat(prec) + parseFloat(cur.dotation_actuelle_anterieur),
             0
           )
           .toFixed(0);
       }
     },
-
-    MontantInitialParLigneInvestissement($id, $id2) {
-      if (this.afficheIdDossier($id, $id2) == 1) {
-        return this.gettersBudgetModifierEnProjet
+    MontantInitialParLignePersonnel($id, $id2) {
+      if (this.MontantAnterieur($id, $id2) == 0) {
+        return this.getterListeBudgetEclate
           .filter(
             (item) =>
-              (item.activite_id == this.Activite_id &&
-                item.ligneeconomique_id == $id &&
-                this.afficheCodeNatureDepense(item.nature_depense_id) == 4 &&
-                item.sous_budget_id == $id2 &&
-                item.modifier_id == this.dossier_id) ||
-              (item.activite_id == this.Activite_id &&
-                item.ligneeconomique_id == $id &&
-                this.afficheCodeNatureDepense(item.nature_depense_id) == 4 &&
-                item.sous_budget_id == $id2 &&
-                item.dossier_id != this.dossier_id)
+              item.activite_id == this.Activite_id &&
+              item.ligneeconomique_id == $id &&
+              this.afficheCodeNatureDepense(item.nature_depense_id) == 1 &&
+              item.sous_budget_id == $id2 && item.dossier_id==this.dossier_id
           )
           .reduce(
             (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
@@ -1783,20 +1750,17 @@ export default {
           )
           .toFixed(0);
       } else {
-        return this.gettersBudgetModifierEnProjet
+        return this.getterListeBudgetEclate
           .filter(
             (item) =>
-              (item.activite_id == this.Activite_id &&
-                item.ligneeconomique_id == $id &&
-                this.afficheCodeNatureDepense(item.nature_depense_id) == 4 &&
-                item.modifier_id == this.dossier_id) ||
-              (item.activite_id == this.Activite_id &&
-                item.ligneeconomique_id == $id &&
-                this.afficheCodeNatureDepense(item.nature_depense_id) == 4 &&
-                item.dossier_id != this.dossier_id)
+              item.activite_id == this.Activite_id &&
+              item.ligneeconomique_id == $id &&
+              this.afficheCodeNatureDepense(item.nature_depense_id) == 1 &&
+              item.sous_budget_id == $id2 && item.dossier_id==this.dossier_id
           )
           .reduce(
-            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
+            (prec, cur) =>
+              parseFloat(prec) + parseFloat(cur.dotation_actuelle_anterieur),
             0
           )
           .toFixed(0);
@@ -1804,48 +1768,13 @@ export default {
     },
 
     MontantVariationParLignePersonnel($id, $id2) {
-      return this.gettersBudgetModifierEnProjet
+      return this.getterListeBudgetEclate
         .filter(
           (item) =>
             item.activite_id == this.Activite_id &&
             item.ligneeconomique_id == $id &&
             this.afficheCodeNatureDepense(item.nature_depense_id) == 1 &&
-            item.sous_budget_id == $id2 &&
-            item.dossier_id == this.dossier_id
-        )
-        .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_variation),
-          0
-        )
-        .toFixed(0);
-    },
-
-    MontantVariationParLigneTransfert($id, $id2) {
-      return this.gettersBudgetModifierEnProjet
-        .filter(
-          (item) =>
-            item.activite_id == this.Activite_id &&
-            item.ligneeconomique_id == $id &&
-            this.afficheCodeNatureDepense(item.nature_depense_id) == 3 &&
-            item.sous_budget_id == $id2 &&
-            item.dossier_id == this.dossier_id
-        )
-        .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_variation),
-          0
-        )
-        .toFixed(0);
-    },
-
-    MontantVariationParLigneInvestissement($id, $id2) {
-      return this.gettersBudgetModifierEnProjet
-        .filter(
-          (item) =>
-            item.activite_id == this.Activite_id &&
-            item.ligneeconomique_id == $id &&
-            this.afficheCodeNatureDepense(item.nature_depense_id) == 4 &&
-            item.sous_budget_id == $id2 &&
-            item.dossier_id == this.dossier_id
+            item.sous_budget_id == $id2 && item.dossier_id==this.dossier_id
         )
         .reduce(
           (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_variation),
@@ -1855,13 +1784,13 @@ export default {
     },
     MontantActuelleParLignePersonnel($id, $id2) {
       if (this.afficheIdDossier($id, $id2) == 1) {
-        return this.gettersBudgetModifierEnProjet
+        return this.getterListeBudgetEclate
           .filter(
             (item) =>
               item.activite_id == this.Activite_id &&
               item.ligneeconomique_id == $id &&
               this.afficheCodeNatureDepense(item.nature_depense_id) == 1 &&
-              item.sous_budget_id == $id2
+              item.sous_budget_id == $id2 && item.dossier_id==this.dossier_id
           )
           .reduce(
             (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
@@ -1869,13 +1798,13 @@ export default {
           )
           .toFixed(0);
       } else {
-        return this.gettersBudgetModifierEnProjet
+        return this.getterListeBudgetEclate
           .filter(
             (item) =>
               item.activite_id == this.Activite_id &&
               item.ligneeconomique_id == $id &&
               this.afficheCodeNatureDepense(item.nature_depense_id) == 1 &&
-              item.sous_budget_id == $id2
+              item.sous_budget_id == $id2 && item.dossier_id==this.dossier_id
           )
           .reduce(
             (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
@@ -1887,12 +1816,12 @@ export default {
     // 2 biens service
     TotalModificationBailleurBienService($id2) {
       if (this.afficheIdDossierTotal($id2) == 1) {
-        return this.gettersBudgetModifierEnProjet
+        return this.getterListeBudgetEclate
           .filter(
             (item) =>
               item.activite_id == this.Activite_id &&
               this.afficheCodeNatureDepense(item.nature_depense_id) == 2 &&
-              item.sous_budget_id == $id2
+              item.sous_budget_id == $id2 && item.dossier_id==this.dossier_id
           )
           .reduce(
             (prec, cur) =>
@@ -1901,12 +1830,12 @@ export default {
           )
           .toFixed(0);
       } else {
-        return this.gettersBudgetModifierEnProjet
+        return this.getterListeBudgetEclate
           .filter(
             (item) =>
               item.activite_id == this.Activite_id &&
               this.afficheCodeNatureDepense(item.nature_depense_id) == 2 &&
-              item.sous_budget_id == $id2
+              item.sous_budget_id == $id2 && item.dossier_id==this.dossier_id
           )
           .reduce(
             (prec, cur) =>
@@ -1917,13 +1846,13 @@ export default {
       }
     },
     TotalInitialBienService2($id2) {
-      return this.gettersBudgetModifierEnProjet
+      return this.getterListeBudgetEclate
         .filter(
           (item) =>
             item.activite_id == this.Activite_id &&
             this.afficheCodeNatureDepense(item.nature_depense_id) == 2 &&
             item.sous_budget_id == $id2 &&
-            item.dotation_actuelle_anterieur == 0
+            item.dotation_actuelle_anterieur == 0 && item.dossier_id==this.dossier_id
         )
         .reduce(
           (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
@@ -1932,12 +1861,12 @@ export default {
         .toFixed(0);
     },
     TotalInitialBienService1($id2) {
-      return this.gettersBudgetModifierEnProjet
+      return this.getterListeBudgetEclate
         .filter(
           (item) =>
             item.activite_id == this.Activite_id &&
             this.afficheCodeNatureDepense(item.nature_depense_id) == 2 &&
-            item.sous_budget_id == $id2
+            item.sous_budget_id == $id2 && item.dossier_id==this.dossier_id
         )
         .reduce(
           (prec, cur) =>
@@ -1948,11 +1877,11 @@ export default {
     },
 
     TotalglobalInitial2() {
-      return this.gettersBudgetModifierEnProjet
+      return this.getterListeBudgetEclate
         .filter(
           (item) =>
             item.activite_id == this.Activite_id &&
-            item.dotation_actuelle_anterieur == 0
+            item.dotation_actuelle_anterieur == 0  && item.dossier_id==this.dossier_id
         )
         .reduce(
           (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
@@ -1960,21 +1889,19 @@ export default {
         )
         .toFixed(0);
     },
-    afficheIdDossierTotal7() {
-      const qtereel = this.gettersBudgetModifierEnProjet.find(
-        (qtreel) => qtreel.activite_id == this.Activite_id
-      );
-
-      if (qtereel) {
-        return 1;
-      }
-
-      return 0;
+    TotalglobalInitial1() {
+      return this.getterListeBudgetEclate
+        .filter((item) => item.activite_id == this.Activite_id && item.dossier_id==this.dossier_id)
+        .reduce(
+          (prec, cur) =>
+            parseFloat(prec) + parseFloat(cur.dotation_actuelle_anterieur),
+          0
+        )
+        .toFixed(0);
     },
-    
 
     MontantParLigneBiensService($id, $id1) {
-      return this.gettersBudgetModifierEnProjet
+      return this.getterListeBudgetEclate
         .filter(
           (item) =>
             item.activite_id == this.Activite_id &&
@@ -1989,7 +1916,7 @@ export default {
         .toFixed(0);
     },
     afficheIdDossier($id, $id2) {
-      const qtereel = this.gettersBudgetModifierEnProjet.find(
+      const qtereel = this.getterListeBudgetEclate.find(
         (qtreel) =>
           qtreel.activite_id == this.Activite_id &&
           qtreel.ligneeconomique_id == $id &&
@@ -2002,241 +1929,15 @@ export default {
 
       return 0;
     },
-    afficheIdDossierTotal1($id2) {
-      const qtereel = this.gettersBudgetModifierEnProjet.find(
-        (qtreel) =>
-          qtreel.activite_id == this.Activite_id &&
-          qtreel.sous_budget_id == $id2
-      );
-
-      if (qtereel) {
-        return 1;
-      }
-
-      return 0;
-    },
-    MontantVariationTotalTransfert($id2) {
-      return this.gettersBudgetModifierEnProjet
-        .filter(
-          (item) =>
-            item.activite_id == this.Activite_id &&
-            this.afficheCodeNatureDepense(item.nature_depense_id) == 3 &&
-            item.sous_budget_id == $id2
-        )
-        .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_variation),
-          0
-        )
-        .toFixed(0);
-    },
-
-    MontantVariationTotalInvestissement($id2) {
-      return this.gettersBudgetModifierEnProjet
-        .filter(
-          (item) =>
-            item.activite_id == this.Activite_id &&
-            this.afficheCodeNatureDepense(item.nature_depense_id) == 4 &&
-            item.sous_budget_id == $id2
-        )
-        .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_variation),
-          0
-        )
-        .toFixed(0);
-    },
-    MontantVariationTotalPersonnel($id2) {
-      return this.gettersBudgetModifierEnProjet
-        .filter(
-          (item) =>
-            item.activite_id == this.Activite_id &&
-            this.afficheCodeNatureDepense(item.nature_depense_id) == 1 &&
-            item.sous_budget_id == $id2
-        )
-        .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_variation),
-          0
-        )
-        .toFixed(0);
-    },
-    MontantVariationTotalBiensService($id2) {
-      return this.gettersBudgetModifierEnProjet
-        .filter(
-          (item) =>
-            item.activite_id == this.Activite_id &&
-            this.afficheCodeNatureDepense(item.nature_depense_id) == 2 &&
-            item.sous_budget_id == $id2
-        )
-        .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_variation),
-          0
-        )
-        .toFixed(0);
-    },
-    MontantInitialTotaliensService($id2) {
-      if (this.afficheIdDossierTotal1($id2) == 1) {
-        return this.gettersBudgetModifierEnProjet
-          .filter(
-            (item) =>
-              (item.activite_id == this.Activite_id &&
-                this.afficheCodeNatureDepense(item.nature_depense_id) == 2 &&
-                item.sous_budget_id == $id2 &&
-                item.modifier_id == this.dossier_id) ||
-              (item.activite_id == this.Activite_id &&
-                this.afficheCodeNatureDepense(item.nature_depense_id) == 2 &&
-                item.sous_budget_id == $id2 &&
-                item.dossier_id != this.dossier_id)
-          )
-          .reduce(
-            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
-            0
-          )
-          .toFixed(0);
-      } else {
-        return this.gettersBudgetModifierEnProjet
-          .filter(
-            (item) =>
-              (item.activite_id == this.Activite_id &&
-                this.afficheCodeNatureDepense(item.nature_depense_id) == 2 &&
-                item.modifier_id == this.dossier_id) ||
-              (item.activite_id == this.Activite_id &&
-                this.afficheCodeNatureDepense(item.nature_depense_id) == 2 &&
-                item.dossier_id != this.dossier_id)
-          )
-          .reduce(
-            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
-            0
-          )
-          .toFixed(0);
-      }
-    },
-
-    MontantInitialTotalTransfert($id2) {
-      if (this.afficheIdDossierTotal1($id2) == 1) {
-        return this.gettersBudgetModifierEnProjet
-          .filter(
-            (item) =>
-              (item.activite_id == this.Activite_id &&
-                this.afficheCodeNatureDepense(item.nature_depense_id) == 3 &&
-                item.sous_budget_id == $id2 &&
-                item.modifier_id == this.dossier_id) ||
-              (item.activite_id == this.Activite_id &&
-                this.afficheCodeNatureDepense(item.nature_depense_id) == 3 &&
-                item.sous_budget_id == $id2 &&
-                item.dossier_id != this.dossier_id)
-          )
-          .reduce(
-            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
-            0
-          )
-          .toFixed(0);
-      } else {
-        return this.gettersBudgetModifierEnProjet
-          .filter(
-            (item) =>
-              (item.activite_id == this.Activite_id &&
-                this.afficheCodeNatureDepense(item.nature_depense_id) == 3 &&
-                item.modifier_id == this.dossier_id) ||
-              (item.activite_id == this.Activite_id &&
-                this.afficheCodeNatureDepense(item.nature_depense_id) == 3 &&
-                item.dossier_id != this.dossier_id)
-          )
-          .reduce(
-            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
-            0
-          )
-          .toFixed(0);
-      }
-    },
-
-    MontantInitialTotalInvestissement($id2) {
-      if (this.afficheIdDossierTotal1($id2) == 1) {
-        return this.gettersBudgetModifierEnProjet
-          .filter(
-            (item) =>
-              (item.activite_id == this.Activite_id &&
-                this.afficheCodeNatureDepense(item.nature_depense_id) == 4 &&
-                item.sous_budget_id == $id2 &&
-                item.modifier_id == this.dossier_id) ||
-              (item.activite_id == this.Activite_id &&
-                this.afficheCodeNatureDepense(item.nature_depense_id) == 4 &&
-                item.sous_budget_id == $id2 &&
-                item.dossier_id != this.dossier_id)
-          )
-          .reduce(
-            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
-            0
-          )
-          .toFixed(0);
-      } else {
-        return this.gettersBudgetModifierEnProjet
-          .filter(
-            (item) =>
-              (item.activite_id == this.Activite_id &&
-                this.afficheCodeNatureDepense(item.nature_depense_id) == 4 &&
-                item.modifier_id == this.dossier_id) ||
-              (item.activite_id == this.Activite_id &&
-                this.afficheCodeNatureDepense(item.nature_depense_id) == 4 &&
-                item.dossier_id != this.dossier_id)
-          )
-          .reduce(
-            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
-            0
-          )
-          .toFixed(0);
-      }
-    },
-    MontantInitialTotalPersonnel($id2) {
-      if (this.afficheIdDossierTotal1($id2) == 1) {
-        return this.gettersBudgetModifierEnProjet
-          .filter(
-            (item) =>
-              (item.activite_id == this.Activite_id &&
-                this.afficheCodeNatureDepense(item.nature_depense_id) == 1 &&
-                item.sous_budget_id == $id2 &&
-                item.modifier_id == this.dossier_id) ||
-              (item.activite_id == this.Activite_id &&
-                this.afficheCodeNatureDepense(item.nature_depense_id) == 1 &&
-                item.sous_budget_id == $id2 &&
-                item.dossier_id != this.dossier_id)
-          )
-          .reduce(
-            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
-            0
-          )
-          .toFixed(0);
-      } else {
-        return this.gettersBudgetModifierEnProjet
-          .filter(
-            (item) =>
-              (item.activite_id == this.Activite_id &&
-                this.afficheCodeNatureDepense(item.nature_depense_id) == 1 &&
-                item.modifier_id == this.dossier_id) ||
-              (item.activite_id == this.Activite_id &&
-                this.afficheCodeNatureDepense(item.nature_depense_id) == 1 &&
-                item.dossier_id != this.dossier_id)
-          )
-          .reduce(
-            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
-            0
-          )
-          .toFixed(0);
-      }
-    },
     MontantInitialParLigneBiensService($id, $id2) {
       if (this.afficheIdDossier($id, $id2) == 1) {
-        return this.gettersBudgetModifierEnProjet
+        return this.getterListeBudgetEclate
           .filter(
             (item) =>
-              (item.activite_id == this.Activite_id &&
-                item.ligneeconomique_id == $id &&
-                this.afficheCodeNatureDepense(item.nature_depense_id) == 2 &&
-                item.sous_budget_id == $id2 &&
-                item.modifier_id == this.dossier_id) ||
-              (item.activite_id == this.Activite_id &&
-                item.ligneeconomique_id == $id &&
-                this.afficheCodeNatureDepense(item.nature_depense_id) == 2 &&
-                item.sous_budget_id == $id2 &&
-                item.dossier_id != this.dossier_id)
+              item.activite_id == this.Activite_id &&
+              item.ligneeconomique_id == $id &&
+              this.afficheCodeNatureDepense(item.nature_depense_id) == 2 &&
+              item.sous_budget_id == $id2 && item.dossier_id==this.dossier_id
           )
           .reduce(
             (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
@@ -2244,17 +1945,13 @@ export default {
           )
           .toFixed(0);
       } else {
-        return this.gettersBudgetModifierEnProjet
+        return this.getterListeBudgetEclate
           .filter(
             (item) =>
-              (item.activite_id == this.Activite_id &&
-                item.ligneeconomique_id == $id &&
-                this.afficheCodeNatureDepense(item.nature_depense_id) == 2 &&
-                item.modifier_id == this.dossier_id) ||
-              (item.activite_id == this.Activite_id &&
-                item.ligneeconomique_id == $id &&
-                this.afficheCodeNatureDepense(item.nature_depense_id) == 2 &&
-                item.dossier_id != this.dossier_id)
+              item.activite_id == this.Activite_id &&
+              item.ligneeconomique_id == $id &&
+              this.afficheCodeNatureDepense(item.nature_depense_id) == 2 &&
+              item.sous_budget_id == $id2 && item.dossier_id==this.dossier_id
           )
           .reduce(
             (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
@@ -2265,14 +1962,13 @@ export default {
     },
     MontantInitialParLigneBiensServiceCol($id, $id2) {
       if (this.afficheIdDossier($id, $id2) == 1) {
-        return this.gettersBudgetModifierEnProjet
+        return this.getterListeBudgetEclate
           .filter(
             (item) =>
               item.activite_id == this.Activite_id &&
               item.ligneeconomique_id == $id &&
               this.afficheCodeNatureDepense(item.nature_depense_id) == 2 &&
-              item.sous_budget_id == $id2 &&
-              item.dossier_id == this.dossier_id
+              item.sous_budget_id == $id2 && item.dossier_id==this.dossier_id
           )
           .reduce(
             (prec, cur) =>
@@ -2281,13 +1977,13 @@ export default {
           )
           .toFixed(0);
       } else {
-        return this.gettersBudgetModifierEnProjet
+        return this.getterListeBudgetEclate
           .filter(
             (item) =>
               item.activite_id == this.Activite_id &&
               item.ligneeconomique_id == $id &&
               this.afficheCodeNatureDepense(item.nature_depense_id) == 2 &&
-              item.sous_budget_id == $id2
+              item.sous_budget_id == $id2 && item.dossier_id==this.dossier_id
           )
           .reduce(
             (prec, cur) =>
@@ -2298,13 +1994,13 @@ export default {
       }
     },
     MontantVariationParLigneBiensService($id, $id2) {
-      return this.gettersBudgetModifierEnProjet
+      return this.getterListeBudgetEclate
         .filter(
           (item) =>
             item.activite_id == this.Activite_id &&
             item.ligneeconomique_id == $id &&
             this.afficheCodeNatureDepense(item.nature_depense_id) == 2 &&
-            item.sous_budget_id == $id2
+            item.sous_budget_id == $id2 && item.dossier_id==this.dossier_id
         )
         .reduce(
           (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_variation),
@@ -2314,14 +2010,13 @@ export default {
     },
     MontantActuelleParLigneBiensService($id, $id2) {
       if (this.afficheIdDossier($id, $id2) == 1) {
-        return this.gettersBudgetModifierEnProjet
+        return this.getterListeBudgetEclate
           .filter(
             (item) =>
               item.activite_id == this.Activite_id &&
               item.ligneeconomique_id == $id &&
               this.afficheCodeNatureDepense(item.nature_depense_id) == 2 &&
-              item.sous_budget_id == $id2 &&
-              item.dossier_id == this.dossier_id
+              item.sous_budget_id == $id2 && item.dossier_id==this.dossier_id
           )
           .reduce(
             (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
@@ -2329,14 +2024,13 @@ export default {
           )
           .toFixed(0);
       } else {
-        return this.gettersBudgetModifierEnProjet
+        return this.getterListeBudgetEclate
           .filter(
             (item) =>
               item.activite_id == this.Activite_id &&
               item.ligneeconomique_id == $id &&
               this.afficheCodeNatureDepense(item.nature_depense_id) == 2 &&
-              item.sous_budget_id == $id2 &&
-              item.dossier_id == this.dossier_id
+              item.sous_budget_id == $id2 && item.dossier_id==this.dossier_id
           )
           .reduce(
             (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
