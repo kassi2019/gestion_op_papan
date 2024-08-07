@@ -36,13 +36,14 @@
             <table class="table table-bordered">
               <thead>
                 <tr>
-                  <th colspan="5" style="border:1px solid #000 !important"></th>
-                  <th colspan="4" style="text-align: center !important;border:1px solid #000 !important">
-                    PERIODE CF
+                  <th colspan="6" style="border:1px solid #000 !important"></th>
+                  <th colspan="3" style="text-align: center !important;border:1px solid #000 !important">
+                    PERIODE DE VALIDATION DE LA FACTURE CHEZ LE CF
                   </th>
-                  <th colspan="4" style="text-align: center !important;border:1px solid #000 !important">
-                    PERIODE COMPTABLE
+                  <th colspan="3" style="text-align: center !important;border:1px solid #000 !important">
+                    PERIODE DE PAIEMENT CHEZ L'AGENT COMPTABLE PRINCIPAL ( ACP)
                   </th>
+                  <th style="text-align: center !important;border:1px solid #000 !important">TOTAL DUREE</th>
                 </tr>
                 <tr>
                   <th scope="col" style="border:1px solid #000 !important;text-align: center">N°</th>
@@ -51,15 +52,16 @@
                   <th scope="col" style="border:1px solid #000 !important;text-align: center">N°FACTURE</th>
                   <th scope="col" style="border:1px solid #000 !important;text-align: center">OBJET</th>
                   <th scope="col" style="border:1px solid #000 !important;text-align: center">MONTANT OP</th>
-                  <th scope="col" style="border:1px solid #000 !important;text-align: center">DATE SYSTEME 1</th>
+                  <th scope="col" style="border:1px solid #000 !important;text-align: center">DATE FACTURE</th>
                   <th scope="col" style="border:1px solid #000 !important;text-align: center">DATE decision</th>
                   <th scope="col" style="border:1px solid #000 !important;text-align: center">DATE DU JOUR</th>
-                  <th scope="col" style="border:1px solid #000 !important;text-align: center">DUREE(jrs)</th>
-                  <th scope="col" style="border:1px solid #000 !important;text-align: center">DATE SYSTEME 2</th>
+                  <th scope="col" style="border:1px solid #000 !important;text-align: center">DUREE(jrs)(A)</th>
+                 
 
                   <th scope="col" style="border:1px solid #000 !important;text-align: center">DATE COMPTA</th>
                   <th scope="col" style="border:1px solid #000 !important;text-align: center">DATE DU JOUR</th>
-                  <th scope="col" style="border:1px solid #000 !important;text-align: center">DUREE(jrs)</th>
+                  <th scope="col" style="border:1px solid #000 !important;text-align: center">DUREE(jrs)(B)</th>
+                  <th scope="col" style="border:1px solid #000 !important;text-align: center">DUREE de vie facture(jrs)(C=A+B)</th>
                 </tr>
               </thead>
               <tbody>
@@ -91,13 +93,37 @@
                     }}
                   </td>
 
-                  <td style="border:1px solid #000 !important">{{ formaterDate(item.updated) }}</td>
+                  
                   <td style="border:1px solid #000 !important">{{ formaterDate(item.date_paiement) }}</td>
                   <td style="border:1px solid #000 !important">{{ formaterDate(DateJours) }}</td>
-                  <td v-if="item.updated == null" style="border:1px solid #000 !important"></td>
+                  <td v-if="item.date_decision == null" style="border:1px solid #000 !important"></td>
                   <td v-else style="border:1px solid #000 !important;text-align: center">
                     {{
-                      DureContrat(item.updated, DateJours, item.date_paiement)
+                      DureContrat(item.date_decision, DateJours, item.date_paiement)
+                    }}
+                  </td>
+                  <td style="border:1px solid #000 !important;text-align: center" key=""
+                  v-if="(DureContrat(item.date_decision, DateJours, item.date_paiement)+DureContrat(
+                        item.date_enregistrement_facture,
+                        DateJours,
+                        item.date_decision
+                      ))<=30"
+                  >
+                    {{
+                      DureContrat(item.date_decision, DateJours, item.date_paiement)+DureContrat(
+                        item.date_enregistrement_facture,
+                        DateJours,
+                        item.date_decision
+                      )
+                    }}
+                  </td>
+                  <td style="border:1px solid #000 !important;text-align: center;background-color:red" v-else>
+                    {{
+                      DureContrat(item.date_decision, DateJours, item.date_paiement)+DureContrat(
+                        item.date_enregistrement_facture,
+                        DateJours,
+                        item.date_decision
+                      )
                     }}
                   </td>
                 </tr>
@@ -113,13 +139,14 @@
             <table class="table table-bordered">
               <thead>
                 <tr>
-                  <th colspan="5" style="border:1px solid #000 !important"></th>
-                  <th colspan="4" style="text-align: center !important;border:1px solid #000 !important">
-                    PERIODE CF
+                  <th colspan="6" style="border:1px solid #000 !important"></th>
+                  <th colspan="3" style="text-align: center !important;border:1px solid #000 !important">
+                    PERIODE DE VALIDATION DE LA FACTURE CHEZ LE CF
                   </th>
-                  <th colspan="4" style="text-align: center !important;border:1px solid #000 !important">
-                    PERIODE COMPTABLE
+                  <th colspan="3" style="text-align: center !important;border:1px solid #000 !important">
+                    PERIODE DE PAIEMENT CHEZ L'AGENT COMPTABLE PRINCIPAL ( ACP)
                   </th>
+                  <th style="text-align: center !important;border:1px solid #000 !important">TOTAL DUREE</th>
                 </tr>
                 <tr>
                   <th scope="col" style="border:1px solid #000 !important;text-align: center">N°</th>
@@ -128,15 +155,16 @@
                   <th scope="col" style="border:1px solid #000 !important;text-align: center">N°FACTURE</th>
                   <th scope="col" style="border:1px solid #000 !important;text-align: center">OBJET</th>
                   <th scope="col" style="border:1px solid #000 !important;text-align: center">MONTANT OP</th>
-                  <th scope="col" style="border:1px solid #000 !important;text-align: center">DATE SYSTEME 1</th>
+                  <th scope="col" style="border:1px solid #000 !important;text-align: center">DATE FACTURE</th>
                   <th scope="col" style="border:1px solid #000 !important;text-align: center">DATE decision</th>
                   <th scope="col" style="border:1px solid #000 !important;text-align: center">DATE DU JOUR</th>
-                  <th scope="col" style="border:1px solid #000 !important;text-align: center">DUREE(jrs)</th>
-                  <th scope="col" style="border:1px solid #000 !important;text-align: center">DATE SYSTEME 2</th>
+                  <th scope="col" style="border:1px solid #000 !important;text-align: center">DUREE(jrs)(A)</th>
+                 
 
                   <th scope="col" style="border:1px solid #000 !important;text-align: center">DATE COMPTA</th>
                   <th scope="col" style="border:1px solid #000 !important;text-align: center">DATE DU JOUR</th>
-                  <th scope="col" style="border:1px solid #000 !important;text-align: center">DUREE(jrs)</th>
+                 <th scope="col" style="border:1px solid #000 !important;text-align: center">DUREE(jrs)(B)</th>
+                  <th scope="col" style="border:1px solid #000 !important;text-align: center">DUREE de vie facture(jrs)(C=A+B)</th>
                 </tr>
               </thead>
               <tbody>
@@ -168,13 +196,37 @@
                     }}
                   </td>
 
-                  <td style="border:1px solid #000 !important">{{ formaterDate(item.updated) }}</td>
+                 
                   <td style="border:1px solid #000 !important">{{ formaterDate(item.date_paiement) }}</td>
                   <td style="border:1px solid #000 !important">{{ formaterDate(DateJours) }}</td>
-                  <td v-if="item.updated == null" style="border:1px solid #000 !important"></td>
+                  <td v-if="item.date_decision == null" style="border:1px solid #000 !important"></td>
                   <td v-else style="border:1px solid #000 !important;text-align: center">
                     {{
-                      DureContrat(item.updated, DateJours, item.date_paiement)
+                      DureContrat(item.date_decision, DateJours, item.date_paiement)
+                    }}
+                  </td>
+                  <td style="border:1px solid #000 !important;text-align: center" key=""
+                  v-if="(DureContrat(item.date_decision, DateJours, item.date_paiement)+DureContrat(
+                        item.date_enregistrement_facture,
+                        DateJours,
+                        item.date_decision
+                      ))<=30"
+                  >
+                    {{
+                      DureContrat(item.date_decision, DateJours, item.date_paiement)+DureContrat(
+                        item.date_enregistrement_facture,
+                        DateJours,
+                        item.date_decision
+                      )
+                    }}
+                  </td>
+                  <td style="border:1px solid #000 !important;text-align: center;background-color:red" v-else>
+                    {{
+                      DureContrat(item.date_decision, DateJours, item.date_paiement)+DureContrat(
+                        item.date_enregistrement_facture,
+                        DateJours,
+                        item.date_decision
+                      )
                     }}
                   </td>
                 </tr>

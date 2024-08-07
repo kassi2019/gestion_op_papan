@@ -4,13 +4,15 @@ import { createRouter, createWebHistory } from "vue-router";
 import AuthRoutes from './auth/AuthRoutes'
 import gestionParametre from './gestionRoute'
 import gestionPersonnel from './PersonnelRoute'
+import gestionRapport from './rapportRoute'
 // import AppRoutes from "./app/AppRoutes"
 
 const regroupementDesRoutes = [
 
     AuthRoutes,
     gestionParametre,
-    gestionPersonnel
+    gestionPersonnel,
+    gestionRapport
 
 ];
 

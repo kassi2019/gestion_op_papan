@@ -1,10 +1,11 @@
 <template>
   <div class="container">
+    <!-- {{ getterListeOPgloba }} -->
     <div class="col-md-12">
       <div class="card" style="box-shadow: 5px 5px #f9d531">
         <div class="card-header">
           <div class="d-flex align-items-center">
-            <h4 class="card-title">Imprimer Exécution</h4>
+            <h4 class="card-title">Imprimer OP par composante</h4>
             <span
               class="badge rounded-pill bg-primary"
               style="cursor: pointer"
@@ -89,7 +90,7 @@
             </tr>
           </table>
           <h6 style="text-align: center; border: 0.5px solid #000">
-            EXECUTION PAR NATURE ECONOMIQUE
+            LISTE DES ORDRES DE PAIEMENT
           </h6>
 
           <div class="table-responsive">
@@ -103,11 +104,22 @@
                     style="
                       text-align: center;
                       border: 0.5px solid #000 !important;
+
+                      font-size: 10px !important;
+                    "
+                  >
+                    N°OP
+                  </th>
+                  <th
+                    scope="col"
+                    style="
+                      text-align: center;
+                      border: 0.5px solid #000 !important;
                       width: 50%;
                       font-size: 10px !important;
                     "
                   >
-                    Nature économique
+                    OBJET DEPENSE
                   </th>
                   <th
                     scope="col"
@@ -118,7 +130,7 @@
                       font-size: 10px !important;
                     "
                   >
-                    Budget Initial ( A )
+                    BENEFICIAIRE
                   </th>
                   <th
                     scope="col"
@@ -129,7 +141,7 @@
                       font-size: 10px !important;
                     "
                   >
-                    Budget Actuel ( B )
+                    MONTANT
                   </th>
                   <th
                     scope="col"
@@ -140,7 +152,7 @@
                       font-size: 10px !important;
                     "
                   >
-                    Montant Exécute (Direct+Définitif)( C )
+                    DATE DECISION
                   </th>
                   <th
                     scope="col"
@@ -151,7 +163,7 @@
                       font-size: 10px !important;
                     "
                   >
-                    Montant OP Provisoire(D)
+                    DECISION
                   </th>
                   <th
                     scope="col"
@@ -162,20 +174,9 @@
                       font-size: 10px !important;
                     "
                   >
-                    Taux Exécution (E=(C/D)*100) (%)
+                    N°FACTURE
                   </th>
-                  <th
-                    scope="col"
-                    style="
-                      text-align: center;
-                      border: 0.5px solid #000 !important;
-
-                      font-size: 10px !important;
-                    "
-                  >
-                    Disponible1 (F=B-C)
-                  </th>
-                  <th
+                  <!-- <th
                     scope="col"
                     style="
                       text-align: center;
@@ -185,12 +186,10 @@
                     "
                   >
                     Disponible2 (G =B-(C +D))
-                  </th>
+                  </th> -->
                 </tr>
               </thead>
-              <tbody>
-               
-              </tbody>
+              <tbody></tbody>
             </table>
           </div>
         </div>
@@ -218,10 +217,10 @@
           <div class="col-12">
             <label class="form-label">Activité</label>
             <model-list-select
-              :list="getterBudgetViseGroupeParActivite"
-              v-model="activite_id"
-              option-value="activite_id"
-              option-text="plan_activite"
+              :list="afficheActivite"
+             v-model="activite_id"
+              option-value="id"
+              option-text="libelle"
               placeholder="select item"
               style="border: 0.5px solid #000"
             >
@@ -238,6 +237,33 @@
               style="border: 0.5px solid #000"
             >
             </model-list-select>
+            
+          </div>
+            <div class="col-12">
+            <label class="form-label">Type depense</label>
+            <model-list-select
+              :list="typeDepense"
+              v-model="type_depense_id"
+              option-value="id"
+              option-text="libelle"
+              placeholder="select item"
+              style="border: 0.5px solid #000"
+            >
+            </model-list-select>
+            
+          </div>
+            <div class="col-12">
+            <label class="form-label">Type Ordre Paiement</label>
+            <model-list-select
+              :list="typeOrdrePaiement"
+              v-model="type_ordre_paiement_id"
+              option-value="id"
+              option-text="libelle"
+              placeholder="select item"
+              style="border: 0.5px solid #000"
+            >
+            </model-list-select>
+            
           </div>
           <br />
           <div class="d-flex align-items-center">
@@ -270,11 +296,43 @@ import {
   formatageSommeSansFCFA,
 } from "../Repositories/Repository";
 export default {
-  components: { ModelListSelect },
+  components: {
+     ModelListSelect
+  },
   data() {
-    return {
+      return {
+        typeDepense: [
+        {
+          id: "0",
+          libelle: "OP AUTRE DEPENSE",
+        },
+        {
+          id: "1",
+          libelle: "OP PERSONNEL",
+        },
+          ],
+        typeOrdrePaiement: [
+        {
+          id: "1",
+          libelle: "OP Provisoire",
+            },
+        {
+          id: "2",
+          libelle: "OP Direct",
+        },
+        {
+          id: "3",
+          libelle: "OP Annulation",
+            },
+        {
+          id: "4",
+          libelle: "OP Définitif",
+        },
+      ],
       activite_id: 0,
-      sous_budget_id: 0,
+          sous_budget_id: 0,
+          type_ordre_paiement_id: 0,
+      type_depense_id:0,
       config: {
         prefix: "",
         suffix: "",
@@ -293,11 +351,13 @@ export default {
     };
   },
   created() {
-    this.getBudgetEclateViseGroupeParActivte();
-    this.getSousBudget();
-    this.getNatureDepense();
-    this.getNatureEconomique();
-    this.getListeOrdrePaiementGlobal();
+    // this.getBudgetEclateViseGroupeParActivte();
+      this.getSousBudget();
+      this.getActivite();
+      this.getListeOrdrePaiementGlobal();
+    // this.getNatureDepense();
+    // this.getNatureEconomique();
+    // this.getListeOrdrePaiementGlobal();
   },
   computed: {
     ...mapGetters("parametrage", [
@@ -316,7 +376,33 @@ export default {
       "getterBudgetViseParActivite",
       "getterNatureDepense",
     ]),
-   
+
+ libelleSousBudget() {
+      let collet = [];
+      this.getterSousBudget.filter((item) => {
+        if (item.activite_id == this.activite_id) {
+          let data = {
+            id: item.id,
+            libelle: item.libelle,
+          };
+          collet.push(data);
+        }
+      });
+      return collet;
+    },
+    afficheActivite() {
+      let collet = [];
+      this.getterActivite.filter((item) => {
+       // if (item.activite_id == this.activite_id) {
+          let data = {
+            id: item.id,
+            libelle: item.code.concat(' ',item.libelle),
+          };
+          collet.push(data);
+       // }
+      });
+      return collet;
+    },
   },
   methods: {
     ...mapActions("parametrage", [

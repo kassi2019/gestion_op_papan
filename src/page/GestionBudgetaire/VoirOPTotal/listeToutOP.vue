@@ -120,73 +120,86 @@
                     {{ formaterDate(item.date_decision) }}
                   </td>
                   <td style="border: 1px solid #000">
-                    <div
+                    <!-- <div
                       class="btn-group"
                       role="group"
                       aria-label="Basic mixed styles example"
+                    > -->
+                    <span
+                      title="Modifier"
+                      class="badge bg-primary"
+                      data-bs-toggle="modal"
+                      data-bs-target="#largeModal1"
+                      style="cursor: pointer"
+                      @click.prevent="AfficheModalModification(item.id)"
+                      ><i class="fas fa-edit"></i> Modifier</span
                     >
-                      <span
-                        title="Modifier"
-                         class="badge bg-primary"
-                        data-bs-toggle="modal"
-                        data-bs-target="#largeModal1"
-                        style="cursor: pointer"
-                        @click.prevent="AfficheModalModification(item.id)"
-                      ><i class="fas fa-edit"></i> Modifier</span>
-                      <span
-                        title="Supprimer"
-                         class="badge bg-danger"
-                        
-                        style="cursor: pointer;"
-                        @click.prevent="supprimerInformationBudget(item.id)"
-                      ><i class="fas fa-archive"></i> Supprimer</span>
-                      <span
+                    <span
+                      title="Supprimer"
+                      class="badge bg-danger"
+                      style="cursor: pointer"
+                      @click.prevent="supprimerInformationBudget(item.id)"
+                      ><i class="fas fa-archive"></i> Supprimer</span
+                    >
+                    <!-- <span
                         v-if="afficherTypeDepense(dossier_id) == 0"
                         title="Voir facture"
                         class="fas fa-eye"
                         style="cursor: pointer; color: #006d80"
                         @click.prevent=""
-                      ></span>
-                      <span
-                        v-if="afficherTypeDepense(dossier_id) == 1"
-                        title="Voir Personnel"
-                         class="badge bg-info"
-                        style="cursor: pointer; color: #000;
-                          font-weight: bolder;"
-                        @click.prevent="fonctionImprimerListePersonnel(item.id)"
-                        ><i class="fas fa-user-friends" style="color: #000"> Imprimer Personnel</i
-                        > </span
+                      ></span
+                      > -->
+                    <span
+                      data-bs-toggle="modal"
+                      data-bs-target="#largeModal12"
+                      class="badge badge-secondary"
+                      @click.prevent="ModalAppliqueDecision(item.id)"
+                      style="cursor: pointer"
+                      >Décision CF</span
+                    >
+                    <span
+                      data-bs-toggle="modal"
+                      data-bs-target="#DateComptable"
+                      class="badge badge-secondary"
+                      @click.prevent="ModalAppliqueDecision(item.id)"
+                      style="cursor: pointer"
+                      >Date Comptable</span
+                    >
+                    <span
+                      v-if="afficherTypeDepense(dossier_id) == 1"
+                      title="Voir Personnel"
+                      class="badge bg-info"
+                      style="cursor: pointer; color: #000; font-weight: bolder"
+                      @click.prevent="fonctionImprimerListePersonnel(item.id)"
+                      ><i class="fas fa-user-friends" style="color: #000">
+                        Imprimer Personnel</i
                       >
+                    </span>
 
-                      <span
-                        v-if="afficherTypeDepense(dossier_id) == 0"
-                         class="badge bg-warning"
-                        title="Imprimer OP"
-                        style="cursor: pointer; color: #000;
-                          font-weight: bolder;"
-                        @click.prevent="fonctionImprimer(item.id, dossier_id)"
-                      >
-                        <i class="fas fa-print" style="color: #000"></i>Imprimer
-                        OP</span
-                      >
+                    <span
+                      v-if="afficherTypeDepense(dossier_id) == 0"
+                      class="badge bg-warning"
+                      title="Imprimer OP"
+                      style="cursor: pointer; color: #000; font-weight: bolder"
+                      @click.prevent="fonctionImprimer(item.id, dossier_id)"
+                    >
+                      <i class="fas fa-print" style="color: #000"></i>Imprimer
+                      OP</span
+                    >
 
-                      <span
-                        v-if="afficherTypeDepense(dossier_id) == 1"
-                        title="Imprimer OP"
-                         class="badge bg-warning"
-                        style="
-                          cursor: pointer;
-                          color: #000;
-                          font-weight: bolder;
-                        "
-                        @click.prevent="
-                          fonctionImprimerPersonnel(item.id, dossier_id)
-                        "
-                      >
-                        <i class="fas fa-print" style="color: #000"></i>
-                        Imprimer OP</span
-                      >
-                    </div>
+                    <span
+                      v-if="afficherTypeDepense(dossier_id) == 1"
+                      title="Imprimer OP"
+                      class="badge bg-warning"
+                      style="cursor: pointer; color: #000; font-weight: bolder"
+                      @click.prevent="
+                        fonctionImprimerPersonnel(item.id, dossier_id)
+                      "
+                    >
+                      <i class="fas fa-print" style="color: #000"></i>
+                      Imprimer OP</span
+                    >
+                    <!-- </div> -->
                   </td>
                 </tr>
               </tbody>
@@ -196,6 +209,141 @@
       </div>
     </div>
     <!-- modal de modification -->
+    <div class="modal fade" id="largeModal12" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Appliquer la décision</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="col-12">
+                <label for="inputNanme4" class="form-label">Exercice</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  :value="exerciceBudgetaire"
+                  style="border: 1px solid #000; background-color: #dcdcdc"
+                  readonly
+                />
+              </div>
+              <div class="col-12">
+                <label for="inputNanme4" class="form-label">Décision</label>
+                <select
+                  class="form-select"
+                  style="border: 1px solid #000"
+                  v-model="modNatureDepense.decision_cf"
+                >
+                  <option selected></option>
+                  <option :value="1">Visé</option>
+                  <option :value="2">Visé avec observation</option>
+                  <option :value="3">Différé</option>
+                  <option :value="4">Réjetté</option>
+                  <option :value="0">En attente</option>
+                </select>
+              </div>
+              <div class="col-12">
+                <label for="inputNanme4" class="form-label"
+                  >Date décision</label
+                >
+                <input
+                  type="date"
+                  class="form-control"
+                  style="border: 1px solid #000"
+                  v-model="modNatureDepense.date_decision"
+                />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              @click.prevent=""
+            >
+              Fermer
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              @click.prevent="modificationOrdrePaiement()"
+              data-bs-dismiss="modal"
+            >
+              Appliquer
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="DateComptable" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              Appliquer la date de paiement de Agent Comptable Principal
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="col-12">
+                <label for="inputNanme4" class="form-label">Exercice</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  :value="exerciceBudgetaire"
+                  style="border: 1px solid #000; background-color: #dcdcdc"
+                  readonly
+                />
+              </div>
+
+              <div class="col-12">
+                <label for="inputNanme4" class="form-label"
+                  >Date Paiement</label
+                >
+                <input
+                  type="date"
+                  class="form-control"
+                  style="border: 1px solid #000"
+                  v-model="modNatureDepense.date_paiement"
+                />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              @click.prevent=""
+            >
+              Fermer
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              @click.prevent="modificationOrdrePaiement()"
+              data-bs-dismiss="modal"
+            >
+              Appliquer
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div
       class="modal fade"
@@ -527,6 +675,7 @@ export default {
         sous_budget_id: 0,
         objet_depense: "",
         nature_depense_id: 0,
+        date_paiement: "",
         entreprise_id: 0,
         type_financement_id: 0,
         source_financement_id: 0,
@@ -535,6 +684,7 @@ export default {
         type_ordre_paiement: 0,
         montant_prestation: 0,
         cumul_anterieure: 0,
+        type_depense: 0,
       },
       config: {
         prefix: "",
@@ -999,6 +1149,12 @@ export default {
       "getProjet",
       "getNatureDepense",
     ]),
+    ModalAppliqueDecision(id) {
+      this.modNatureDepense = this.afficheListeOPprovisoire.find(
+        (items) => items.id == id
+      );
+    },
+
     retour() {
       this.$router.push({
         name: "infoBordereauTotal",
@@ -1026,6 +1182,8 @@ export default {
         cumul_anterieure: this.modNatureDepense.cumul_anterieure,
         date_decision: this.modNatureDepense.date_decision,
         decision_cf: this.modNatureDepense.decision_cf,
+        date_paiement: this.modNatureDepense.date_paiement,
+        type_depense: this.modNatureDepense.type_depense,
       };
 
       this.modifierOrdrePaiement(objetDirect1);
@@ -1036,8 +1194,8 @@ export default {
         (items) => items.id == id
       );
     },
-    
- fonctionImprimerListePersonnel(id) {
+
+    fonctionImprimerListePersonnel(id) {
       this.$router.push({
         name: "ImprimerPersonnelOP",
         params: { id: id },

@@ -47,8 +47,8 @@
                   <th>N° bordereau</th>
                   <th>Objet du bordereau</th>
                   <th>Dotation</th>
-                  <th>Décision</th>
-                  <th>Date de visa</th>
+                  <!-- <th>Décision</th>
+                  <th>Date de visa</th> -->
                 </tr>
               </thead>
               <tbody>
@@ -61,7 +61,7 @@
                   <td style="border: 1px solid #000; text-align: right">
                     {{ formatageSommeSansFCFA(parseFloat(item.dotation)) }}
                   </td>
-                  <td style="border: 1px solid #000">
+                  <!-- <td style="border: 1px solid #000">
                     <span
                       v-if="item.decision == 1"
                       class="badge badge-success"
@@ -89,7 +89,7 @@
                   </td>
                   <td style="border: 1px solid #000">
                     {{ formaterDate(item.date_decision) }}
-                  </td>
+                  </td> -->
                   <td style="border: 1px solid #000">
                     <span
                       class="badge badge-black"
@@ -97,14 +97,14 @@
                       @click.prevent="AfficheVentilationBudget(item.id)"
                       >Saisir OP Provisoire</span
                     >
-                    <span
+                    <!-- <span
                       data-bs-toggle="modal"
                       data-bs-target="#largeModal12"
                       class="badge badge-secondary"
                       @click.prevent="ModalAppliqueDecision(item.id)"
                       style="cursor: pointer"
                       >Mettre decision</span
-                    >
+                    > -->
                     <span
                       class="badge rounded-pill bg-primary"
                       data-bs-toggle="modal"
@@ -520,8 +520,8 @@ export default {
   created() {
     this.getExerciceBudgetaire();
     this.getActivite();
-    this.getDotationNotifie();
-    this.getDotationReport();
+    // this.getDotationNotifie();
+    // this.getDotationReport();
     this.getBordereauParUser();
     this.getInformationBudget();
   },

@@ -101,8 +101,16 @@
                           class="badge badge-secondary"
                           @click.prevent="ModalAppliqueDecision(item.id)"
                           style="cursor: pointer"
-                          >Mettre decision</span
+                          >Décision CF</span
                         >
+                        <span
+                      data-bs-toggle="modal"
+                      data-bs-target="#DateComptable"
+                      class="badge badge-secondary"
+                      @click.prevent="ModalAppliqueDecision(item.id)"
+                      style="cursor: pointer"
+                      >Date Comptable</span
+                    >
                         <span
                           class="badge rounded-pill bg-primary"
                           data-bs-toggle="modal"
@@ -206,12 +214,20 @@
                             class="badge badge-secondary"
                             @click.prevent="ModalAppliqueDecisionVise(item.id)"
                             style="cursor: pointer"
-                            >Mettre decision</span
+                            >Décision CF</span
                           >
+                          <span
+                      data-bs-toggle="modal"
+                      data-bs-target="#DateComptable"
+                      class="badge badge-secondary"
+                      @click.prevent="ModalAppliqueDecisionVise(item.id)"
+                      style="cursor: pointer"
+                      >Date Comptable</span
+                    >
                           <span
                             class="badge rounded-pill bg-primary"
                             data-bs-toggle="modal"
-                            data-bs-target="#largeModal1"
+                            data-bs-target="#DateComptable"
                             style="cursor: pointer"
                             title="modifier"
                             @click.prevent="
@@ -321,6 +337,69 @@
       </div>
     </div>
     <!-- modal de modification -->
+
+
+ <div class="modal fade" id="DateComptable" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Appliquer la date de paiement de Agent Comptable Principal</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="col-12">
+                <label for="inputNanme4" class="form-label">Exercice</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  :value="exerciceBudgetaire"
+                  style="border: 1px solid #000; background-color: #dcdcdc"
+                  readonly
+                />
+              </div>
+              
+              <div class="col-12">
+                <label for="inputNanme4" class="form-label"
+                  >Date Paiement</label
+                >
+                <input
+                  type="date"
+                  class="form-control"
+                  style="border: 1px solid #000"
+                  v-model="DecisionApp.date_paiement"
+                />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              @click.prevent="this.getInformationBudget()"
+            >
+              Fermer
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              @click.prevent="AppliqueDecision()"
+              data-bs-dismiss="modal"
+            >
+              Appliquer
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
 
     <div class="modal fade" id="largeModal1" tabindex="-1">
       <div class="modal-dialog modal-lg">
@@ -597,8 +676,8 @@ export default {
   created() {
     this.getExerciceBudgetaire();
     this.getActivite();
-    this.getDotationNotifie();
-    this.getDotationReport();
+    // this.getDotationNotifie();
+    // this.getDotationReport();
     this.getInformationBudget();
   },
   computed: {
@@ -808,6 +887,7 @@ export default {
         id: this.DecisionApp.id,
         date_decision: this.DecisionApp.date_decision,
         decision: this.DecisionApp.decision,
+        date_paiement: this.DecisionApp.date_paiement,
       };
 
       this.appliqueDecision(objetDirect1);

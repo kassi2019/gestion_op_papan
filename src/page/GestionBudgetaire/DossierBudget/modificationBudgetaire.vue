@@ -264,7 +264,7 @@
               </div>
             </TabContent>
             <TabContent title="VERIFICATION DU BUDGET" icon="ti-search">
-              <div class="col-12">
+              <!-- <div class="col-12">
                 <label class="form-label"
                   >Activité
                   <span
@@ -281,7 +281,7 @@
                 >
                 </model-list-select>
               </div>
-              <br />
+              <br />-->
               <div class="table-responsive">
                 <table class="table table-bordered border-primary">
                   <thead>
@@ -483,6 +483,21 @@
                           text-align: right;
                           border: 1px solid #000 !important;
                         "
+                        v-if="sommeBudgetModifier==0"
+                      >
+                        {{
+                          formatageSommeSansFCFA(
+                            parseFloat(sommeBudgetModifier)
+                          )
+                        }}
+                      </td>
+                      <td
+                      v-else
+                        style="
+                          text-align: right;
+                          border: 1px solid #000 !important;
+                          background-color: red
+                        "
                       >
                         {{
                           formatageSommeSansFCFA(
@@ -510,6 +525,7 @@
                         "
                       ></td>
                     </tr>
+                    <tr v-if="sommeBudgetModifier!=0" ><td colspan="9" style="color: red;text-align: center;">LE CUMUL DES VARIATIONS DOIT ETRE EGAL A 0</td></tr>
                   </tbody>
                 </table>
               </div>
@@ -587,7 +603,7 @@
                       <span
                         class="badge bg-info"
                         style="cursor: pointer"
-                        @click.prevent="voirSousBudget(item1.id)"
+                        @click.prevent="voirSousBudget(item1.id, dossier_id)"
                         >Composante</span
                       >
                     </td>
@@ -954,6 +970,7 @@
                   class="form-control"
                   style="border: 1px solid #000 !important"
                   v-bind="config"
+                  readonly
                 ></money3>
               </div>
               <div class="col-4">
@@ -964,6 +981,7 @@
                   class="form-control"
                   style="border: 1px solid #000 !important"
                   v-bind="config"
+                  readonly
                 ></money3>
               </div>
               <div class="col-4">
@@ -1154,7 +1172,7 @@ export default {
       });
       return collet;
     },
-    
+
     AfficheBailleurParTypeNouvelleNature() {
       if (this.ajouterNouvelle.type_financement_id == 4) {
         let collet = [];
@@ -1243,7 +1261,7 @@ export default {
     },
     afficheBudgetParActivite() {
       return this.getterListeBudgetEclate.filter(
-        (item) => item.dossier_id == this.dossier_id
+        (item) => item.dossier_id == this.dossier_id && item.dotation_total != 0
       );
     },
     NatureDepense_id() {
@@ -1770,14 +1788,12 @@ export default {
     EnregistrementNouvelleNature() {
       var objetDirect1 = {
         annebudgetaire: this.exerciceBudgetaire,
-        dotation_report: this.ajouterNouvelle.dotation_report,
-        dotation_actuelle: this.ajouterNouvelle.dotation_actuelle,
+        dotation_report: 0,
+        dotation_actuelle: 0,
         ligneeconomique_id: this.ajouterNouvelle.economique_id,
         type_financement_id: this.ajouterNouvelle.type_financement_id,
         source_financement_id: this.ajouterNouvelle.source_financement_id,
-        dotation_total:
-          parseFloat(this.ajouterNouvelle.dotation_report) +
-          parseFloat(this.ajouterNouvelle.dotation_actuelle),
+        dotation_total: 0,
         sous_budget_id: this.ajouterNouvelle.sous_budget_id,
         nature_depense_id: this.ajouterNouvelle.nature_depense_id,
         dossier_id: this.dossier_id,
@@ -1843,10 +1859,10 @@ export default {
         params: { id: id, id1: id1 },
       });
     },
-    voirSousBudget(id) {
+    voirSousBudget(id,id1) {
       this.$router.push({
         name: "AfficheSousBudgetEclate",
-        params: { id: id },
+        params: { id: id,id1:id1 },
       });
     },
     AfficheMontantBudget($id) {

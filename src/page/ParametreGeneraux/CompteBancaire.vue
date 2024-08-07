@@ -51,7 +51,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="item in getterCompteBancaire" :key="item.id">
+                <tr v-for="item in compteParEntreprise(entreprise_id)" :key="item.id">
                   <td>{{ afficheBanque(item.banque_id) }}</td>
                   <td>{{ item.numero_compte }}</td>
 
@@ -273,7 +273,7 @@ export default {
       "getterEntreprise",
       "getterBanque",
     ]),
-
+  
     taillerTableau() {
       return this.getterCompteBancaire.length + 1;
     },
@@ -313,6 +313,9 @@ export default {
       "modifierCompteBancaire",
       "supprimerCompteBancaire",
     ]),
+      compteParEntreprise($id) {
+  return this.getterCompteBancaire.filter(item=>item.entreprise_id==$id)
+},
     AfficheModalModification(id) {
       this.modNatureDepense = this.getterCompteBancaire.find(
         (items) => items.id == id

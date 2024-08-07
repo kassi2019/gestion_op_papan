@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+   
     <div class="col-md-12">
       <div class="card" style="box-shadow: 5px 5px #f9d531">
         <div class="card-header">
@@ -49,7 +50,7 @@
 
         <div class="card-body">
           <FormWizard @on-complete="onComplete" color="#e67e22">
-            <TabContent title="SAISIR BUDGET" icon="ti-pencil-alt2">
+            <TabContent title="SAISIR BUDGET ( ETAPE 1 )" icon="ti-pencil-alt2">
               <div class="row">
                 <div class="col-lg-12">
                   <form class="row g-3">
@@ -478,7 +479,10 @@
                 </div>
               </div>
             </TabContent>
-            <TabContent title="VERIFICATION DU BUDGET" icon="ti-search">
+            <TabContent
+              title="VERIFICATION DU BUDGET ( ETAPE 2 )"
+              icon="ti-search"
+            >
               <div class="col-12">
                 <label class="form-label"
                   >Activité
@@ -793,7 +797,7 @@
                         @click.prevent="voirBudgett(item1.id, dossier_id)"
                         >Budget</span
                       >
-                       <span
+                      <span
                         class="badge bg-dark"
                         style="cursor: pointer"
                         @click.prevent="voirBudgetProjet(item1.id, dossier_id)"
@@ -1030,6 +1034,7 @@ export default {
       global: 0,
       autreRessource: 0,
       ressourcePropre: 0,
+      decision_cf: 0,
       report: 0,
       notifie: 0,
       config: {
@@ -1529,8 +1534,8 @@ export default {
       };
 
       this.modifierBudget(objetDirect1);
-    }, 
-     voirBudgetProjet(id, id1) {
+    },
+    voirBudgetProjet(id, id1) {
       this.$router.push({
         name: "afficherBudgetProjet",
         params: { id: id, id1: id1 },
@@ -1606,7 +1611,7 @@ export default {
         sous_budget_id: this.sous_budget_id,
 
         nature_depense_id: this.nature_depense_id,
-
+        decision_cf: this.decision_cf,
         dossier_id: this.dossier_id,
 
         FormDataDossier: this.TableauDossier,

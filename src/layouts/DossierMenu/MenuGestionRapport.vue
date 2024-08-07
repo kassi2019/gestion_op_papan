@@ -31,7 +31,7 @@
             </span>
             <h4 class="text-section">GESTION DES RAPPORTS</h4>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a
               class="nav-link collapsed"
               href=""
@@ -41,8 +41,8 @@
 
               <p>Etat du budget</p>
             </a>
-          </li>
-          <li class="nav-item">
+          </li> -->
+          <!-- <li class="nav-item">
             <a
               class="nav-link collapsed"
               href=""
@@ -52,7 +52,7 @@
 
               <p>Execution par bailleur</p>
             </a>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a
               class="nav-link collapsed"
@@ -68,7 +68,7 @@
             <a
               class="nav-link collapsed"
               href=""
-              @click.prevent="activedOptionMenu('')"
+              @click.prevent="activedOptionMenu('listeOpProvisoire')"
             >
               <i class="fas fa-arrow-right"></i>
 

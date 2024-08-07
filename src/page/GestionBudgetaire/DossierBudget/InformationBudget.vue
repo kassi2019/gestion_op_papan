@@ -47,6 +47,7 @@
                   <th>Dotation global budget</th>
                   <th>Décision</th>
                   <th>Date de visa</th>
+                  <th>Fichier</th>
                 </tr>
               </thead>
               <tbody>
@@ -85,6 +86,17 @@
                   <td style="border: 1px solid #000">
                     {{ formaterDate(item.date_decision) }}
                   </td>
+                  <td>
+                        <a
+                          title="Télécharger"
+                          v-if="item.decision!=0"
+                          :href="afficheicone(item.id)"
+                          class="btn btn-default"
+                          target="_blank"
+                        >
+                          <span class=""><i class="fas fa-book"></i></span>
+                        </a>
+                      </td>
                   <td style="border: 1px solid #000">
                     <span
                       class="badge badge-black"
@@ -98,7 +110,7 @@
                       class="badge badge-secondary"
                       @click.prevent="AfficheModalModification(item.id)"
                       style="cursor: pointer"
-                      >Mettre decision</span
+                      >Décision CF</span
                     >
                     <span
                       class="badge rounded-pill bg-primary"
@@ -182,17 +194,12 @@
                   v-model="formData.libelle"
                   style="border: 1px solid #000 !important"
                 />
-              </div>
+              </div>-->
               <div class="col-12">
-                <label for="inputNanme4" class="form-label">Fichier</label>
-                <input
-                  type="file"
-                  class="form3-field"
-                  @change="OnchangeFichierDemandeAno"
-                  ref="picture"
-                  placeholder=""
-                />
-              </div> -->
+  <label for="formFileLg" class="form-label">Joindre Budget Visé</label>
+  <input class="form-control form-control-lg" id="formFileLg" type="file"  @change="OnchangeFichierDemandeAno" style="border: 1px solid #000">
+</div>
+              
             </form>
           </div>
           <div class="modal-footer">
@@ -406,13 +413,13 @@
               </div>
               <div class="col-12">
                 <label for="inputNanme4" class="form-label"
-                  >Dotation global budget</label
+                  >Dotation global du projet</label
                 >
                 <money3
                   :model-value="AfficheMontantGlobal"
                   class="form-control"
                   v-bind="config"
-                  style="border: 1px solid #000"
+                  style="border: 1px solid #000 !important"
                   readonly
                 ></money3>
                 <!-- <input
@@ -422,6 +429,8 @@
                   style="background-color: #dcdcdc; font-weight: bolder"
                 /> -->
               </div>
+              <span v-if="AfficheMontantGlobal==0" style="color:red">Dotation global du projet est 0</span>
+              <span v-if="AfficheMontantGlobal < 0" style="color:red">Dotation global du projet est négatif</span>
             </form>
           </div>
           <div class="modal-footer">
@@ -498,6 +507,7 @@ export default {
     this.getDotationNotifie();
     this.getDotationReport();
     this.getInformationBudgetUser();
+     this.getDocumentation();
   },
   computed: {
     ...mapGetters("parametrage", [
@@ -505,8 +515,24 @@ export default {
       "getterDotationReport",
       "getterDotationNotifie",
       "getterExerciceBudgetaire",
-      "getterBordereauParUser",
+      "getterBordereauParUser","gettersDocumentation"
     ]),
+    afficheicone() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.gettersDocumentation.find(
+            (qtreel) => qtreel.code == id
+          );
+
+          if (qtereel) {
+            let url = process.env.VUE_APP_IMAGE_URL;
+            return url + "/public/" + qtereel.fichier;
+            //    return qtereel.fichier;
+          }
+          return "vide";
+        }
+      };
+    },
     AfficherBudgetGlobal() {
       return this.getterBordereauParUser.filter((item) => item.statut == 0);
     },
@@ -598,7 +624,7 @@ export default {
   },
   methods: {
     ...mapActions("parametrage", [
-      "getActivite",
+      "getActivite","getDocumentation",
       "getDotationNotifie",
       "getDotationReport",
       "ajouterInformationBudget",
@@ -696,22 +722,23 @@ export default {
         decision: this.modNatureDepense.decision,
         statut: 0,
       };
-      // const formData = new FormData();
+       const formData = new FormData();
 
-      // formData.append("libelle", this.formData.libelle);
-      // formData.append(
-      //   "fichier",
-      //   this.selectedFileDemandeAno,
-      //   this.selectedFileDemandeAno.name
-      // );
+       formData.append("code", this.modNatureDepense.id);
+      formData.append(
+        "fichier",
+        this.selectedFileDemandeAno,
+        this.selectedFileDemandeAno.name
+      );
 
-      // let config = {
-      //   header: {
-      //     "Content-Type": "multipart/form-data",
-      //   },
-      // };
+      let config = {
+        header: {
+          "Content-Type": "multipart/form-data",
+        },
+      };
       this.modifierInformationBudget(objetDirect1);
-      // this.ajouterFichier(formData, config);
+        this.ajouterFichier(formData, config);
+     
       this.modNatureDepense = {};
     },
     formatageSommeSansFCFA: formatageSommeSansFCFA,

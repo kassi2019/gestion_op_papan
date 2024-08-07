@@ -208,3 +208,58 @@ export function EnregistreUtilisateur({ commit }, nouveau) {
       // return false;
     });
 }
+
+
+export function ChangerMotPasse({ commit,dispatch }, nouveau) {
+  apiGuest.
+    put("/ChangerMotDePasse/" + nouveau.id, nouveau, { headers: authHeader() })
+    .then(response => {
+      commit("CHANGER_MOT_DE_PASSE", response.data);
+      dispatch('getUtilisateur');
+      toast("Modification effectué avec succès!", {
+        "theme": "auto",
+        "type": "success",
+        "dangerouslyHTMLString": true
+})
+    });
+}
+export function modifierUtilisateur({ commit,dispatch }, nouveau) {
+  apiGuest.
+    put("/ModifierUtilisateur/" + nouveau.id, nouveau, { headers: authHeader() })
+    .then(response => {
+      commit("MODIFIER_UTILISATEUR", response.data);
+      dispatch('getUtilisateur');
+      toast("Modification effectué avec succès!", {
+        "theme": "auto",
+        "type": "success",
+        "dangerouslyHTMLString": true
+})
+    });
+}
+
+export function supprimerUtilisateur({ commit,dispatch}, id) {
+
+  Swal.fire({
+  // title: "Are you sure?",
+  text: "Voulez vous vraiment supprimer ?",
+  icon: "question",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Confimer"
+}).then((result) => {
+  if (result.isConfirmed) {
+   
+    apiGuest.delete('/supprimerUtilisateur/' + id, { headers: authHeader() })
+     commit('SUPPRIMER_UTILISATEUR', id)
+     dispatch('getExerciceBudgetaire');
+    Swal.fire({
+      title: "Suppression",
+      text: "effectué avec succès.",
+      icon: "success"
+    });
+ 
+  }
+});
+
+}

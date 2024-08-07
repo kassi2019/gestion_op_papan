@@ -69,6 +69,7 @@
                       >Modifier</span
                     >
                     <span class="badge bg-danger" style="cursor: pointer"
+                    @click.prevent="supprimerUtilisateur(item.id)"
                       >Supprimer</span
                     >
                     <!-- <button
@@ -104,7 +105,7 @@
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">MODIFIER ROLE</h5>
+            <h5 class="modal-title">MODIFIER UTILISATEUR</h5>
             <button
               type="button"
               class="btn-close"
@@ -115,25 +116,54 @@
           <div class="modal-body">
             <form>
               <div class="col-12">
-                <label for="inputNanme4" class="form-label">Code</label>
+                <label for="inputNanme4" class="form-label">Nom</label>
                 <input
                   type="text"
                   class="form-control"
                   id="inputNanme4"
                   style="border: 1px solid #000"
-                  v-model="modifierrole.code_role"
+                  v-model="modifierrole.name"
                 />
               </div>
               <div class="col-12">
-                <label for="inputNanme4" class="form-label">Libelle</label>
+                <label for="inputNanme4" class="form-label">Prénoms</label>
                 <input
                   type="text"
                   class="form-control"
                   id="inputNanme4"
                   style="border: 1px solid #000"
-                  v-model="modifierrole.libelle"
+                  v-model="modifierrole.prenoms"
                 />
               </div>
+              <div class="col-12">
+                <label for="inputNanme4" class="form-label">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="inputNanme4"
+                  style="border: 1px solid #000"
+                  v-model="modifierrole.email"
+                />
+              </div>
+             
+              <div class="col-12">
+                <label for="inputNanme4" class="form-label">Rôle</label>
+                <select
+                  class="form-select"
+                  style="border: 1px solid #000"
+                  v-model="modifierrole.role_id"
+                >
+                  <option selected></option>
+                  <option
+                    v-for="item in getterRoleUtilisateur"
+                    :key="item.id"
+                    :value="item.id"
+                  >
+                    {{ item.libelle }}
+                  </option>
+                </select>
+              </div>
+
             </form>
           </div>
           <div class="modal-footer">
@@ -141,7 +171,7 @@
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
-              @click.prevent="this.getRoleUtilisateur()"
+              @click.prevent="this.getUtilisateur()"
             >
               Fermer
             </button>
@@ -322,7 +352,8 @@ export default {
     };
   },
   created() {
-    // this.getRoleUtilisateur();
+    this.getRoleUtilisateur();
+    this.getUtilisateur();
     // this.getModule();
     // this.getListeService();
   },
@@ -351,17 +382,17 @@ export default {
 
   methods: {
     ...mapActions("Utilisateurs", [
-      "getExerciceBudgetaire",
+      "getExerciceBudgetaire","modifierUtilisateur","supprimerUtilisateur","ChangerMotPasse",
       "getUtilisateur",
       "getModule",
       "EnregistreUtilisateur",
       "getListeService",
       "getRoleUtilisateur",
-      "modifierRoleUtilisateur",
+    
       "supprimerRoleUtilisateur",
     ]),
     AfficheModalModification(id) {
-      this.modifierrole = this.getterRoleUtilisateur.find(
+      this.modifierrole = this.getterUtilisateur.find(
         (items) => items.id == id
       );
     },
@@ -405,11 +436,13 @@ export default {
     ModifierRole() {
       var objetDirect1 = {
         id: this.modifierrole.id,
-        libelle: this.modifierrole.libelle,
-        code_role: this.modifierrole.code_role,
+        name: this.modifierrole.name,
+        email: this.modifierrole.email,
+         prenoms: this.modifierrole.prenoms,
+        role_id: this.modifierrole.role_id,
       };
 
-      this.modifierRoleUtilisateur(objetDirect1);
+      this.modifierUtilisateur(objetDirect1);
       this.modifierrole = {
         libelle: "",
         code_role: "",

@@ -9,7 +9,27 @@ export const GET_UTILISATEUR = (state,value)=>{
     state.listeutilisateur=value
 }
 
+export const MODIFIER_UTILISATEUR = (state, elementModif) => {
+    state.listeutilisateur = state.listeutilisateur.map(response => {
 
+        if (response.id == elementModif.id) {
+            response = { ...elementModif }
+        }
+        return response
+    })
+}
+export const CHANGER_MOT_DE_PASSE = (state, elementModif) => {
+    state.listeutilisateur = state.listeutilisateur.map(response => {
+
+        if (response.id == elementModif.id) {
+            response = { ...elementModif }
+        }
+        return response
+    })
+}
+export const SUPPRIMER_UTILISATEUR = (state, id) => {
+    state.listeutilisateur = state.listeutilisateur.filter(titre => titre.id != id)
+};
 export const GET_MODULE = (state,value)=>{
     state.stateModule=value
 }

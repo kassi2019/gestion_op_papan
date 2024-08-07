@@ -77,7 +77,7 @@
                   "
                   colspan="9"
                 >
-                  BUDGET ACTUEL
+                  BUDGET
                 </th>
               </tr>
 

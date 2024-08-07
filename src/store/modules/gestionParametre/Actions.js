@@ -853,12 +853,8 @@ export function modifierDotationReport({ commit }, nouveau) {
 
 export function supprimerDotationReport({ commit,dispatch}, id) {
 
-  //this.$app.$dialog
-   // .confirm("Voulez vous vraiment supprimer ?.")
-   // .then(dialog => {
- 
   Swal.fire({
-  // title: "Are you sure?",
+
   text: "Voulez vous vraiment supprimer ?",
   icon: "question",
   showCancelButton: true,
@@ -1084,11 +1080,12 @@ export function ajouterInformationBudget({ commit,dispatch }, nouveau) {
 }
 
 
-export function modifierInformationBudget({ commit }, nouveau) {
+export function modifierInformationBudget({ commit,dispatch }, nouveau) {
   apiGuest.
     put("/ModifierInformationBudget/" + nouveau.id, nouveau, { headers: authHeader() })
     .then(response => {
       commit("MODIFIER_INFORMATION_BUDGET", response.data);
+      dispatch('getDocumentation');
       toast("Modification effectué avec succès!", {
         "theme": "auto",
         "type": "success",
