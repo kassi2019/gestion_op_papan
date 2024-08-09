@@ -21,8 +21,8 @@
               <p>Exercice Budgétaire</p>
             </a>
           </li>
-          
-                <li class="nav-item">
+
+          <li class="nav-item">
             <a data-bs-toggle="collapse" href="#forms">
               <i class="fas fa-book-reader"></i>
               <p>Information sur Struture</p>
@@ -31,30 +31,23 @@
             <div class="collapse" id="forms">
               <ul class="nav nav-collapse">
                 <li>
-                  <a
-                    href=""
-                    @click.prevent="activedOptionMenu('Section')"
-                  >
+                  <a href="" @click.prevent="activedOptionMenu('Section')">
                     <span class="sub-item">Section</span>
                   </a>
                 </li>
                 <li>
-                  <a
-                    href=""
-                    @click.prevent="activedOptionMenu('Activite')"
-                  >
+                  <a href="" @click.prevent="activedOptionMenu('Activite')">
                     <span class="sub-item">Activité</span>
                   </a>
                 </li>
                 <li>
-                  <a href=""  @click.prevent="activedOptionMenu('projet')">
+                  <a href="" @click.prevent="activedOptionMenu('projet')">
                     <span class="sub-item">Création du projet</span>
                   </a>
                 </li>
-                
               </ul>
             </div>
-          </li>  
+          </li>
           <li class="nav-item">
             <a data-bs-toggle="collapse" href="#sidebarLayouts">
               <i class="fas fa-cog"></i>
@@ -72,22 +65,14 @@
                   </a>
                 </li>
                 <li>
-                  <a
-                    href=""
-                    @click.prevent="activedOptionMenu('bailleur')"
-                  >
-                    <span class="sub-item">Bailleur</span>
+                  <a href="" @click.prevent="activedOptionMenu('bailleur')">
+                    <span class="sub-item">Source de financement</span>
                   </a>
                 </li>
-                
-               
               </ul>
             </div>
           </li>
-         
-         
-          
-          
+
           <li class="nav-item">
             <a
               class="nav-link collapsed"
@@ -96,7 +81,7 @@
             >
               <i class="fas fa-arrow-right"></i>
 
-              <p>Taux</p>
+              <p>Taux TVA</p>
             </a>
           </li>
           <li class="nav-item">
@@ -118,22 +103,31 @@
             </a>
             <div class="collapse" id="base">
               <ul class="nav nav-collapse">
-              <li>
-                  <a href="" @click.prevent="activedOptionMenu('SecteurActivite')">
+                <li>
+                  <a
+                    href=""
+                    @click.prevent="activedOptionMenu('SecteurActivite')"
+                  >
                     <span class="sub-item">Secteur Activité</span>
                   </a>
                 </li>
                 <li>
-                  <a href="" @click.prevent="activedOptionMenu('FormeJuridique')">
+                  <a
+                    href=""
+                    @click.prevent="activedOptionMenu('FormeJuridique')"
+                  >
                     <span class="sub-item">Forme juridique</span>
                   </a>
                 </li>
                 <li>
-                  <a href="" @click.prevent="activedOptionMenu('RegimeImpossition')">
+                  <a
+                    href=""
+                    @click.prevent="activedOptionMenu('RegimeImpossition')"
+                  >
                     <span class="sub-item">Régime Impossition</span>
                   </a>
                 </li>
-                 <li>
+                <li>
                   <a href="" @click.prevent="activedOptionMenu('Banque')">
                     <span class="sub-item">Banque</span>
                   </a>
@@ -143,8 +137,7 @@
                     <span class="sub-item">Création entreprise</span>
                   </a>
                 </li>
-               
-               
+
                 <!-- <li>
                       <a href="components/panels.html">
                         <span class="sub-item">Panels</span>

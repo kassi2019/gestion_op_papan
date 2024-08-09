@@ -18,7 +18,7 @@
         >
           <div class="card-body skew-shadow">
             <i class="fas fa-cogs" style="  font-size: 50px;"></i>
-            <h2 class="op-8" @click="ParametreGeneraux(1)">Parametre Généraux</h2>
+            <h2 class="op-8" @click="ParametreGeneraux(1)">Paramétres Généraux</h2>
             <!-- <div class="pull-right">
               <h3 class="fw-bold op-8">88%</h3>
             </div> -->

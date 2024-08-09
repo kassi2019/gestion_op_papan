@@ -74,7 +74,7 @@
                           >
 
                           <model-list-select
-                            :list="getterBudgetViseGroupeParActivite"
+                            :list="getterBudgetViseGroupeUniteOp"
                             v-model="unite_operationnelle_id"
                             option-value="unite_operationnelle_id"
                             option-text="nom_projet"
@@ -278,7 +278,6 @@
                             >le Montant doit être positif
                           </span>
                         </div>
-                      
                       </form>
                     </div>
                   </div>
@@ -287,7 +286,7 @@
                   <div class="row">
                     <div class="col-lg-12">
                       <form class="row g-3">
-                          <div class="col-12">
+                        <div class="col-12">
                           <label class="form-label"
                             >Nature économique / Imputation
                             <span
@@ -1097,73 +1096,77 @@
               icon="icon-list"
               color="#000"
             >
-               <div class="table-responsive">
-            <table class="table table-bordered">
-              <thead>
-                <tr>
-                  <th>Numero OP</th>
-                  <th>Objet dépense</th>
-                  <th>Montant</th>
-                  <th>nature économique</th>
-                  <th>Bénéficiaire</th>
-                  <th>Décision</th>
-                  <th>Date Décision</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="item in afficheListeOPprovisoire" :key="item.id">
-                  <td style="border: 1px solid #000">
-                    {{ item.numero_ordre_paiement }}
-                  </td>
-                  <td style="border: 1px solid #000" class="text-break">
-                    {{ item.objet_depense }}
-                  </td>
-                  <td style="border: 1px solid #000; text-align: right">
-                    {{
-                      formatageSommeSansFCFA(
-                        parseFloat(item.montant_prestation)
-                      )
-                    }}
-                  </td>
-                  <td style="border: 1px solid #000">
-                    {{ item.nature_economique }}
-                  </td>
-                  <td style="border: 1px solid #000">
-                    {{ item.beneficiaire }}
-                  </td>
-                  <td style="border: 1px solid #000">
-                    <span
-                      v-if="item.decision == 1"
-                      class="badge badge-success"
-                      style="cursor: pointer; text-align: center"
-                      >{{ afficheDecision(item.decision) }}</span
-                    >
-                    <span
-                      v-if="item.decision == 2"
-                      class="badge badge-success"
-                      style="cursor: pointer"
-                      >{{ afficheDecision(item.decision) }}</span
-                    >
-                    <span
-                      v-if="item.decision == 3"
-                      class="badge badge-warning"
-                      style="cursor: pointer"
-                      >{{ afficheDecision(item.decision) }}</span
-                    >
-                    <span
-                      v-if="item.decision == 4"
-                      class="badge badge-danger"
-                      style="cursor: pointer"
-                      >{{ afficheDecision(item.decision) }}</span
-                    >
-                  </td>
-                  <td style="border: 1px solid #000">
-                    {{ formaterDate(item.date_decision) }}
-                  </td>
-                  <td style="border: 1px solid #000">
-                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
- <span
+              <div class="table-responsive">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th>Numero OP</th>
+                      <th>Objet dépense</th>
+                      <th>Montant</th>
+                      <th>nature économique</th>
+                      <th>Bénéficiaire</th>
+                      <th>Décision</th>
+                      <th>Date Décision</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="item in afficheListeOPprovisoire" :key="item.id">
+                      <td style="border: 1px solid #000">
+                        {{ item.numero_ordre_paiement }}
+                      </td>
+                      <td style="border: 1px solid #000" class="text-break">
+                        {{ item.objet_depense }}
+                      </td>
+                      <td style="border: 1px solid #000; text-align: right">
+                        {{
+                          formatageSommeSansFCFA(
+                            parseFloat(item.montant_prestation)
+                          )
+                        }}
+                      </td>
+                      <td style="border: 1px solid #000">
+                        {{ item.nature_economique }}
+                      </td>
+                      <td style="border: 1px solid #000">
+                        {{ item.beneficiaire }}
+                      </td>
+                      <td style="border: 1px solid #000">
+                        <span
+                          v-if="item.decision == 1"
+                          class="badge badge-success"
+                          style="cursor: pointer; text-align: center"
+                          >{{ afficheDecision(item.decision) }}</span
+                        >
+                        <span
+                          v-if="item.decision == 2"
+                          class="badge badge-success"
+                          style="cursor: pointer"
+                          >{{ afficheDecision(item.decision) }}</span
+                        >
+                        <span
+                          v-if="item.decision == 3"
+                          class="badge badge-warning"
+                          style="cursor: pointer"
+                          >{{ afficheDecision(item.decision) }}</span
+                        >
+                        <span
+                          v-if="item.decision == 4"
+                          class="badge badge-danger"
+                          style="cursor: pointer"
+                          >{{ afficheDecision(item.decision) }}</span
+                        >
+                      </td>
+                      <td style="border: 1px solid #000">
+                        {{ formaterDate(item.date_decision) }}
+                      </td>
+                      <td style="border: 1px solid #000">
+                        <div
+                          class="btn-group"
+                          role="group"
+                          aria-label="Basic mixed styles example"
+                        >
+                          <!-- <span
                       title="Modifier"
                       class="fas fa-edit"
                       data-bs-toggle="modal"
@@ -1179,20 +1182,19 @@
                       title="Voir facture"
                       class="fas fa-eye"
                       style="cursor: pointer; color: #006d80"
-                    ></span>
-                    <span
-                      title="Imprimer OP"
-                      class="fas fa-print"
-                      style="cursor: pointer; color: #77abd6"
-                      @click.prevent="fonctionImprimer(item.id)"
-                    ></span>
-                    </div>
-                   
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+                    ></span> -->
+                          <span
+                            title="Imprimer OP"
+                            class="fas fa-print"
+                            style="cursor: pointer; color: #77abd6"
+                            @click.prevent="fonctionImprimer(item.id)"
+                          ></span>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </TabContent>
           </FormWizard>
         </div>
@@ -1456,6 +1458,7 @@ export default {
     this.getSousBudget();
     this.getEntreprise();
     this.getBudgetEclateViseGroupeParActivte();
+    this.getBudgetEclateViseGroupeUO();
     this.getNatureEconomique();
     // this.getProjet();
     this.getNatureDepense();
@@ -1465,7 +1468,7 @@ export default {
     this.getActiviteOp();
     this.getCompteBancaire();
     this.getListeOrdrePaiementGlobal();
-   // this.getListeOrdrePaiementParUtilisateur();
+    // this.getListeOrdrePaiementParUtilisateur();
     // this.getDotationNotifie();
     // this.getDotationReport();
     // this.getDotationRessourcePropre();
@@ -1483,6 +1486,7 @@ export default {
       "getterBudgetViseParActivite",
       "getterBudgetViseGroupeParActivite",
       "getterActivite",
+      "getterBudgetViseGroupeUniteOp",
       "getterTypeFinancement",
       "getterExerciceBudgetaire",
       "getterDotationNotifie",
@@ -1496,12 +1500,14 @@ export default {
       "getterDotationAutreRessource",
       "getterListeBudgetEclate",
       "getterListeOPgloba",
-      "getterOpParActivite","getterListeOPParUser",
+      "getterOpParActivite",
+      "getterListeOPParUser",
     ]),
-afficheListeOPprovisoire() {
+    afficheListeOPprovisoire() {
       return this.getterListeOPgloba.filter(
         (item) =>
-          item.bordereau_id == this.bordereau_id && item.type_ordre_paiement == 1
+          item.bordereau_id == this.bordereau_id &&
+          item.type_ordre_paiement == 1
       );
     },
     taillerTableau() {
@@ -2326,6 +2332,7 @@ afficheListeOPprovisoire() {
       "getSousBudget",
       "getBudgetViseParActvite",
       "getBudgetEclateViseGroupeParActivte",
+      "getBudgetEclateViseGroupeUO",
       "getBudgetEclate",
       "getDotationRessourcePropre",
       "getTypeFinancement",
@@ -2497,7 +2504,7 @@ afficheListeOPprovisoire() {
         (this.date_facture = ""),
         (this.numero_facture = 0);
     },
-    
+
     formaterDate(date) {
       return moment(date, "YYYY-MM-DD").format("DD/MM/YYYY");
     },

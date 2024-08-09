@@ -73,7 +73,7 @@
                           >
 
                           <model-list-select
-                            :list="getterBudgetViseGroupeParActivite"
+                            :list="getterBudgetViseGroupeUniteOp"
                             v-model="unite_operationnelle_id"
                             option-value="unite_operationnelle_id"
                             option-text="nom_projet"
@@ -708,7 +708,7 @@
                   </td>
                   <td style="border: 1px solid #000">
                     <div class="btn-group" role="group" aria-label="Basic mixed styles example">
- <span
+ <!-- <span
                         title="Modifier"
                          class="badge bg-primary"
                         data-bs-toggle="modal"
@@ -722,7 +722,7 @@
                         
                         style="cursor: pointer;"
                         @click.prevent="supprimerInformationBudget(item.id)"
-                      ><i class="fas fa-archive"></i> Supprimer</span>
+                      ><i class="fas fa-archive"></i> Supprimer</span> -->
                       <span
                       
                         title="Voir Personnel"
@@ -853,6 +853,7 @@ export default {
     this.getSousBudget();
     this.getEntreprise();
     this.getBudgetEclateViseGroupeParActivte();
+    this.getBudgetEclateViseGroupeUO();
     this.getNatureEconomique();
     this.getTypeIndemnite();
     this.getNatureDepense();
@@ -888,7 +889,7 @@ export default {
       "gettersPersonnelParActivite",
     ]),
     ...mapGetters("parametrage", [
-      "getterProjet","getterOpPersonnelParUser",
+      "getterProjet","getterOpPersonnelParUser","getterBudgetViseGroupeUniteOp",
       "getterCompteBancaire",
       "getterActiviteSurOP",
       "getterTaux",
@@ -1796,7 +1797,7 @@ afficheListeOPprovisoire() {
       "getTaux",
       "getSousBudget",
       "getBudgetViseParActvite",
-      "getBudgetEclateViseGroupeParActivte",
+      "getBudgetEclateViseGroupeParActivte","getBudgetEclateViseGroupeUO",
       "getBudgetEclate",
       "getDotationRessourcePropre",
       "getTypeFinancement",

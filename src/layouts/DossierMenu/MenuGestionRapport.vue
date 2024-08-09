@@ -64,7 +64,7 @@
               <p>Exécution par Ligne</p>
             </a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a
               class="nav-link collapsed"
               href=""
@@ -74,8 +74,8 @@
 
               <p>Etat des OP Provisoire</p>
             </a>
-          </li>
-          <li class="nav-item">
+          </li> -->
+          <!-- <li class="nav-item">
             <a
               class="nav-link collapsed"
               href=""
@@ -85,8 +85,8 @@
 
               <p>Etat des OP Non régularisés</p>
             </a>
-          </li>
-          <li class="nav-item">
+          </li> -->
+          <!-- <li class="nav-item">
             <a
               class="nav-link collapsed"
               href=""
@@ -96,7 +96,7 @@
 
               <p>Etat Sur les OP</p>
             </a>
-          </li>
+          </li> -->
            <li class="nav-item">
             <a
               class="nav-link collapsed"

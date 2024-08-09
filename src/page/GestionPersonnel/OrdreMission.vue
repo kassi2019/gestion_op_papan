@@ -394,7 +394,7 @@
                           role="group"
                           aria-label="Basic mixed styles example"
                         >
-                          <span
+                          <!-- <span
                             class="badge rounded-pill bg-primary"
                             data-bs-toggle="modal"
                             data-bs-target="#largeModal1"
@@ -403,7 +403,7 @@
                           >
                           <span class="badge bg-danger" style="cursor: pointer"
                             >Supprimer</span
-                          >
+                          > -->
                           <span
                             class="badge bg-warning"
                             title="Imprimer OP"
@@ -555,6 +555,7 @@ decision:0,
     this.getFonction();
     this.getOrdreMissionUser();
     this.getDocumentation();
+    this.getOrdreMission();
     // this.getEmploi();
     // this.getNatureContrat();
     // this.getSituationMatrimonial();
@@ -616,7 +617,7 @@ decision:0,
     },
     automatiseNumeroOP() {
       return (
-        this.gettersOrdreMissionParUser.length +
+        this.gettersOrdreMission.length +
         1 +
         "/" +
         "MIRAH" +
@@ -691,7 +692,7 @@ decision:0,
       if (this.date_retour == "") {
         return 0;
       } else {
-        return this.DureContrat;
+        return this.DureContrat+1;
       }
     },
     DureContrat() {

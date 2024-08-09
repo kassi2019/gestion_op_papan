@@ -1080,12 +1080,13 @@ export function ajouterInformationBudget({ commit,dispatch }, nouveau) {
 }
 
 
-export function modifierInformationBudget({ commit,dispatch }, nouveau) {
+export function modifierInformationBudget({ commit }, nouveau) {
   apiGuest.
     put("/ModifierInformationBudget/" + nouveau.id, nouveau, { headers: authHeader() })
     .then(response => {
       commit("MODIFIER_INFORMATION_BUDGET", response.data);
-      dispatch('getDocumentation');
+      // dispatch('getInformationBudget');
+      // dispatch('getDocumentation');
       toast("Modification effectué avec succès!", {
         "theme": "auto",
         "type": "success",
@@ -1271,7 +1272,13 @@ export function getBudgetEclateViseGroupeParActivte({ commit }) {
     })
     .catch(error => console.log(error));
 }
-
+export function getBudgetEclateViseGroupeUO({ commit }) {
+  apiGuest.get("/AfficheBudgetViseGroupeUniteOperationnelle", { headers: authHeader() })
+    .then(response => {
+      commit("GET_BUDGET_VISE_GROUPE_UO", response.data);
+    })
+    .catch(error => console.log(error));
+}
 export function supprimerBudgetEclate({ commit}, id) {
 
   Swal.fire({
@@ -2641,6 +2648,7 @@ export function ajouterFichier({ commit }, nouveau) {
     .then(response => {
       if (response.status == 201) {
         commit("AJOUTER_DOCUMENTATION", response.data);
+       
 //        toast("Enregistrement effectué avec succès!", {
 //         "theme": "auto",
 //         "type": "success",

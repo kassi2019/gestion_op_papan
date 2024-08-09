@@ -44,10 +44,10 @@
                 <tr>
                   <th>Exercice</th>
                   <th>Libelle du budget</th>
-                  <th>Dotation global budget</th>
-                  <th>Décision</th>
+                  <th>Dotation global du projet</th>
+                  <!-- <th>Décision</th>
                   <th>Date de visa</th>
-                  <th>Fichier</th>
+                  <th>Fichier</th> -->
                 </tr>
               </thead>
               <tbody>
@@ -57,7 +57,7 @@
                   <td style="border: 1px solid #000; text-align: right">
                     {{ formatageSommeSansFCFA(parseFloat(item.dotation)) }}
                   </td>
-                  <td style="border: 1px solid #000">
+                  <!-- <td style="border: 1px solid #000">
                     <span
                       v-if="item.decision == 1"
                       class="badge badge-success"
@@ -85,8 +85,8 @@
                   </td>
                   <td style="border: 1px solid #000">
                     {{ formaterDate(item.date_decision) }}
-                  </td>
-                  <td>
+                  </td> -->
+                  <!-- <td>
                         <a
                           title="Télécharger"
                           v-if="item.decision!=0"
@@ -96,7 +96,7 @@
                         >
                           <span class=""><i class="fas fa-book"></i></span>
                         </a>
-                      </td>
+                      </td> -->
                   <td style="border: 1px solid #000">
                     <span
                       class="badge badge-black"
@@ -104,14 +104,14 @@
                       @click.prevent="AfficheVentilationBudget(item.id)"
                       >Saisir budget</span
                     >
-                    <span
+                    <!-- <span
                       data-bs-toggle="modal"
                       data-bs-target="#largeModal12"
                       class="badge badge-secondary"
                       @click.prevent="AfficheModalModification(item.id)"
                       style="cursor: pointer"
                       >Décision CF</span
-                    >
+                    > -->
                     <span
                       class="badge rounded-pill bg-primary"
                       data-bs-toggle="modal"

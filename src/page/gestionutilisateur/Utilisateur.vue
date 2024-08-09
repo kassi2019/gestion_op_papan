@@ -202,7 +202,13 @@
           <div class="modal-body">
             <form>
               <div class="col-12">
-                <label for="inputNanme4" class="form-label">Nom</label>
+                <label for="inputNanme4" class="form-label">Nom <span
+                              style="
+                                color: red !important;
+                                font-size: 15px !important;
+                              "
+                              >*</span
+                            ></label>
                 <input
                   type="text"
                   class="form-control"
@@ -212,7 +218,13 @@
                 />
               </div>
               <div class="col-12">
-                <label for="inputNanme4" class="form-label">Prénoms</label>
+                <label for="inputNanme4" class="form-label">Prénoms <span
+                              style="
+                                color: red !important;
+                                font-size: 15px !important;
+                              "
+                              >*</span
+                            ></label>
                 <input
                   type="text"
                   class="form-control"
@@ -222,7 +234,13 @@
                 />
               </div>
               <div class="col-12">
-                <label for="inputNanme4" class="form-label">Email</label>
+                <label for="inputNanme4" class="form-label">Email <span
+                              style="
+                                color: red !important;
+                                font-size: 15px !important;
+                              "
+                              >*</span
+                            ></label>
                 <input
                   type="email"
                   class="form-control"
@@ -230,6 +248,7 @@
                   style="border: 1px solid #000"
                   v-model="formData.email"
                 />
+                <span style="color:red" v-if="VerificationEmail(formData.email)==1">Email existe déja</span>
               </div>
               <div class="col-12">
                 <label for="inputNanme4" class="form-label">Password</label>
@@ -245,7 +264,13 @@
                 />
               </div>
               <div class="col-12">
-                <label for="inputNanme4" class="form-label">Rôle</label>
+                <label for="inputNanme4" class="form-label">Rôle <span
+                              style="
+                                color: red !important;
+                                font-size: 15px !important;
+                              "
+                              >*</span
+                            ></label>
                 <select
                   class="form-select"
                   style="border: 1px solid #000"
@@ -320,6 +345,7 @@
               Fermer
             </button>
             <button
+            v-if="VerificationEmail(formData.email)==0 && formData.name!='' && formData.role_id!='' && formData.prenoms!='' && formData.role_id!=''"
               type="button"
               class="btn btn-primary"
               @click.prevent="EnregistrerUtilisateur()"
@@ -342,8 +368,15 @@ export default {
   data() {
     return {
       formData: {
+        name: "",
+        email: "",
+        role_id: "",
+        prenoms:"",
         
       },
+       
+    
+        
       FormDataFacture: {},
       modifierrole: {
         libelle: "",
@@ -373,6 +406,19 @@ export default {
 
           if (qtereel) {
             return qtereel.libelle;
+          }
+          return 0;
+        }
+      };
+    },
+
+    VerificationEmail() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.getterUtilisateur.find((qtreel) => qtreel.email == id);
+
+          if (qtereel) {
+            return 1;
           }
           return 0;
         }

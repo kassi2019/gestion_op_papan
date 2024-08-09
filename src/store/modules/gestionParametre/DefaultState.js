@@ -25,6 +25,7 @@ const defaultstate = {
     stateEntreprise: [],
     stateBudgetViseParActivite: [],
     stateBudgetViseGroupeParActivite: [],
+    stateBudgetViseGroupeUniteOp: [],
     stateTaux: [],
     stateOrdrePaiement: [],
     stateActiviteSurOP: [],

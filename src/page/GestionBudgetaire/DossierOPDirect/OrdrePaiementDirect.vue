@@ -74,7 +74,7 @@
                           >
 
                           <model-list-select
-                            :list="getterBudgetViseGroupeParActivite"
+                            :list="getterBudgetViseGroupeUniteOp"
                             v-model="unite_operationnelle_id"
                             option-value="unite_operationnelle_id"
                             option-text="nom_projet"
@@ -1175,7 +1175,7 @@
                           role="group"
                           aria-label="Basic mixed styles example"
                         >
-                          <span
+                          <!-- <span
                             title="Modifier"
                             class="fas fa-edit"
                             data-bs-toggle="modal"
@@ -1191,7 +1191,7 @@
                             title="Voir facture"
                             class="fas fa-eye"
                             style="cursor: pointer; color: #006d80"
-                          ></span>
+                          ></span> -->
                           <span
                             title="Imprimer OP"
                             class="fas fa-print"
@@ -1467,6 +1467,7 @@ export default {
     this.getSousBudget();
     this.getEntreprise();
     this.getBudgetEclateViseGroupeParActivte();
+    this.getBudgetEclateViseGroupeUO();
     this.getNatureEconomique();
     // this.getProjet();
     this.getNatureDepense();
@@ -1487,7 +1488,7 @@ export default {
   },
   computed: {
     ...mapGetters("parametrage", [
-      "getterProjet",
+      "getterProjet","getterBudgetViseGroupeUniteOp",
       "getterCompteBancaire",
       "getterActiviteSurOP",
       "getterTaux",
@@ -2338,7 +2339,7 @@ export default {
       "getTaux",
       "getSousBudget",
       "getBudgetViseParActvite",
-      "getBudgetEclateViseGroupeParActivte",
+      "getBudgetEclateViseGroupeParActivte","getBudgetEclateViseGroupeUO",
       "getBudgetEclate",
       "getDotationRessourcePropre",
       "getTypeFinancement",

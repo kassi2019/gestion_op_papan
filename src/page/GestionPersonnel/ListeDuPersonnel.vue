@@ -1065,7 +1065,7 @@ export default {
       var objetDirect1 = {
         id: this.modNatureDepense.id,
 
-        type_piece_id: this.modNatureDepense.libelle,
+        type_piece_id: this.modNatureDepense.type_piece_id,
         nature_contrat_id: this.modNatureDepense.nature_contrat_id,
         diplome_id: this.modNatureDepense.diplome_id,
         emploi_id: this.modNatureDepense.emploi_id,

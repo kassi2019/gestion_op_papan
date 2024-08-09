@@ -34,7 +34,7 @@
               style="cursor: pointer"
               data-bs-toggle="modal"
               data-bs-target="#largeModal"
-              ><i class="fas fa-plus"></i> Ajouter</span
+              ><i class="fas fa-plus"></i> Ajouter Bordéreau</span
             >
           </div>
         </div>

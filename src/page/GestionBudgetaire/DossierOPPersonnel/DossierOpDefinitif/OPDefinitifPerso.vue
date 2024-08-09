@@ -454,7 +454,7 @@
                       </td>
                       <td style="border: 1px solid #000">
                          <div class="btn-group" role="group" aria-label="Basic mixed styles example">
- <span
+ <!-- <span
                         title="Modifier"
                          class="badge bg-primary"
                         data-bs-toggle="modal"
@@ -468,7 +468,7 @@
                         
                         style="cursor: pointer;"
                        
-                      ><i class="fas fa-archive"></i> Supprimer</span>
+                      ><i class="fas fa-archive"></i> Supprimer</span> -->
                       <span
                        
                         title="Imprimer OP"

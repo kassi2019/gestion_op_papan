@@ -1621,6 +1621,10 @@ tableauCivilite: [
           
           libelle: "Madame",
         },
+        {
+          
+          libelle: "Mademoiselle",
+        },
       ],
       config: {
         prefix: "",

@@ -67,8 +67,13 @@ import FormeJuridique from "../page/ParametreGeneraux/FormeJuridique.vue"
 import RegimeImpossition from "../page/ParametreGeneraux/RegimeImpossition.vue"
 import VerifierFacture from "../page/GestionRapport/VerifierFacture.vue"
 import afficheBudgetViseParActivite from "../page/GestionBudgetaire/DossierBudget/afficheBudgetViseParActivite.vue"
-
+import mettreDecisionBudget from "../page/GestionBudgetaire/DossierBudget/mettreDecisionBudget.vue"
 const gestionutilisateur = [
+    {
+        path: '/mettreDecisionBudget',
+        name:"mettreDecisionBudget",
+       component: mettreDecisionBudget
+     },
      {
         path: '/VerifierFacture',
         name:"VerifierFacture",

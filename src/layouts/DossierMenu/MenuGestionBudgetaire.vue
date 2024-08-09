@@ -13,7 +13,7 @@
           <li class="nav-item">
             <a data-bs-toggle="collapse" href="#base">
               <i class="fas fa-cog"></i>
-              <p>Parametre Budget</p>
+              <p>Paramétre Budget</p>
               <span class="caret"></span>
             </a>
             <div class="collapse" id="base">
@@ -99,8 +99,21 @@
                   </a>
                 </li>
                 <li>
-                  <a href="" @click.prevent="activedOptionMenu('InformationBudgetModifier')">
+                  <a
+                    href=""
+                    @click.prevent="
+                      activedOptionMenu('InformationBudgetModifier')
+                    "
+                  >
                     <span class="sub-item">Modifier budget</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href=""
+                    @click.prevent="activedOptionMenu('mettreDecisionBudget')"
+                  >
+                    <span class="sub-item">Viser le budget </span>
                   </a>
                 </li>
                 <li>
@@ -124,7 +137,7 @@
           <li class="nav-item">
             <a data-bs-toggle="collapse" href="#forms">
               <i class="fas fa-book-reader"></i>
-              <p>Exécution du budget</p>
+              <p>Saisir OP Autre dépense</p>
               <span class="caret"></span>
             </a>
             <div class="collapse" id="forms">
@@ -132,9 +145,7 @@
                 <li>
                   <a
                     href=""
-                    @click.prevent="
-                      activedOptionMenu('InformationBordereau')
-                    "
+                    @click.prevent="activedOptionMenu('InformationBordereau')"
                   >
                     <span class="sub-item">OP Provisoire</span>
                   </a>
@@ -142,20 +153,29 @@
                 <li>
                   <a
                     href=""
-                    @click.prevent="activedOptionMenu('InformationBordereauOPDirect')"
+                    @click.prevent="
+                      activedOptionMenu('InformationBordereauOPDirect')
+                    "
                   >
                     <span class="sub-item">OP Direct</span>
                   </a>
                 </li>
                 <li>
-                  <a href="" @click.prevent="activedOptionMenu('InformationBordereauOPAnnulation')">
+                  <a
+                    href=""
+                    @click.prevent="
+                      activedOptionMenu('InformationBordereauOPAnnulation')
+                    "
+                  >
                     <span class="sub-item">OP Annulation</span>
                   </a>
                 </li>
                 <li>
                   <a
                     href=""
-                    @click.prevent="activedOptionMenu('InformationBordereauOPDefinitif')"
+                    @click.prevent="
+                      activedOptionMenu('InformationBordereauOPDefinitif')
+                    "
                   >
                     <span class="sub-item">OP Définitif</span>
                   </a>
@@ -164,6 +184,65 @@
                   <a
                     href=""
                     @click.prevent="activedOptionMenu('infoBordereauTotal')"
+                  >
+                    <span class="sub-item">Voir ordre paiement</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a data-bs-toggle="collapse" href="#forms1">
+              <i class="fas fa-book-reader"></i>
+              <p>Saisir OP Personnel</p>
+              <span class="caret"></span>
+            </a>
+            <div class="collapse" id="forms1">
+              <ul class="nav nav-collapse">
+                <li>
+                  <a
+                    href=""
+                    @click.prevent="
+                      activedOptionMenu('InfoBordOpProvisoirePerso')
+                    "
+                  >
+                    <span class="sub-item">OP Provisoire</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href=""
+                    @click.prevent="activedOptionMenu('InfoBordOpDirectPerso')"
+                  >
+                    <span class="sub-item">OP Direct</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href=""
+                    @click.prevent="
+                      activedOptionMenu('InfoBordOPAnnulationPerso')
+                    "
+                  >
+                    <span class="sub-item">OP Annulation</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href=""
+                    @click.prevent="
+                      activedOptionMenu('InfoBordOpDefinitifPerso')
+                    "
+                  >
+                    <span class="sub-item">OP Définitif</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href=""
+                    @click.prevent="
+                      activedOptionMenu('infoBordereauTotalOpPerso')
+                    "
                   >
                     <span class="sub-item">Voir ordre paiement</span>
                   </a>

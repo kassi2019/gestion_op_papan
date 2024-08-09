@@ -1478,7 +1478,7 @@
                           role="group"
                           aria-label="Basic mixed styles example"
                         >
-                          <span
+                          <!-- <span
                             title="Modifier"
                             class="fas fa-edit"
                             data-bs-toggle="modal"
@@ -1494,7 +1494,7 @@
                             title="Voir facture"
                             class="fas fa-eye"
                             style="cursor: pointer; color: #006d80"
-                          ></span>
+                          ></span> -->
                           <span
                             title="Imprimer OP"
                             class="fas fa-print"

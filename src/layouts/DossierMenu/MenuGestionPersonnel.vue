@@ -13,7 +13,7 @@
           <li class="nav-item">
             <a data-bs-toggle="collapse" href="#base">
               <i class="fas fa-cog"></i>
-              <p>Parametre Personnel</p>
+              <p>Paramétre Personnel</p>
               <span class="caret"></span>
             </a>
             <div class="collapse" id="base">
@@ -81,7 +81,7 @@
               <p>Saisir Contrat personnel</p>
             </a>
           </li>
-<li class="nav-item">
+          <li class="nav-item">
             <a
               class="nav-link collapsed"
               href=""
@@ -89,7 +89,7 @@
             >
               <i class="fas fa-arrow-right"></i>
 
-              <p>Voir Personnel</p>
+              <p>Viser Contrat Personnel</p>
             </a>
           </li>
           <li class="nav-item">
@@ -100,7 +100,7 @@
             >
               <i class="fas fa-arrow-right"></i>
 
-              <p>Ordre de Mission</p>
+              <p>Saisir Ordre de Mission</p>
             </a>
           </li>
           <li class="nav-item">
@@ -111,65 +111,8 @@
             >
               <i class="fas fa-arrow-right"></i>
 
-              <p>Voir Ordre de Mission</p>
+              <p>Viser Ordre de Mission</p>
             </a>
-          </li>
-          <li class="nav-item">
-            <a data-bs-toggle="collapse" href="#forms">
-              <i class="fas fa-book-reader"></i>
-              <p>Salaire et Indemnité</p>
-              <span class="caret"></span>
-            </a>
-            <div class="collapse" id="forms">
-              <ul class="nav nav-collapse">
-                <li>
-                  <a
-                    href=""
-                    @click.prevent="activedOptionMenu('InfoBordOpProvisoirePerso')"
-                  >
-                    <span class="sub-item">OP Provisoire</span>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href=""
-                    @click.prevent="
-                      activedOptionMenu('InfoBordOpDirectPerso')
-                    "
-                  >
-                    <span class="sub-item">OP Direct</span>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href=""
-                    @click.prevent="
-                      activedOptionMenu('InfoBordOPAnnulationPerso')
-                    "
-                  >
-                    <span class="sub-item">OP Annulation</span>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href=""
-                    @click.prevent="
-                      activedOptionMenu('InfoBordOpDefinitifPerso')
-                    "
-                  >
-                    <span class="sub-item">OP Définitif</span>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href=""
-                    @click.prevent="activedOptionMenu('infoBordereauTotalOpPerso')"
-                  >
-                    <span class="sub-item">Voir ordre paiement</span>
-                  </a>
-                </li>
-              </ul>
-            </div>
           </li>
         </ul>
       </div>

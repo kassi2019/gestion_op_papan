@@ -73,7 +73,7 @@
                           >
 
                           <model-list-select
-                            :list="getterBudgetViseGroupeParActivite"
+                            :list="getterBudgetViseGroupeUniteOp"
                             v-model="unite_operationnelle_id"
                             option-value="unite_operationnelle_id"
                             option-text="nom_projet"
@@ -201,7 +201,6 @@
                             >le Montant doit être positif
                           </span>
                         </div>
-                       
                       </form>
                     </div>
                   </div>
@@ -210,7 +209,7 @@
                   <div class="row">
                     <div class="col-lg-12">
                       <form class="row g-3">
-                         <div class="col-12">
+                        <div class="col-12">
                           <label class="form-label"
                             >Nature économique / Imputation
                             <span
@@ -305,10 +304,7 @@
                     </div>
                   </div>
                 </TabContent>
-                <TabContent
-                  title="DOTATION"
-                  icon="fas fa-calculator"
-                >
+                <TabContent title="DOTATION" icon="fas fa-calculator">
                   <div class="row">
                     <div class="col-lg-12">
                       <form class="row g-3">
@@ -641,130 +637,132 @@
               title="LISTE OP DU BORDEREAU"
               icon="icon-list"
               color="#000"
-              >
-              <div class="table-responsive">
-            <table class="table table-bordered">
-              <thead>
-                <tr>
-                  <th>Numero OP</th>
-                  <th>Objet dépense</th>
-                  <th>Montant</th>
-                  <th>nature économique</th>
-                  <th>Bénéficiaire</th>
-                  <th>Décision</th>
-                  <th>Date Décision</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="item in afficheListeOPprovisoire" :key="item.id">
-                  <td style="border: 1px solid #000">
-                    {{ item.numero_ordre_paiement }}
-                  </td>
-                  <td style="border: 1px solid #000" class="text-break">
-                    {{ item.objet_depense }}
-                  </td>
-                  <td style="border: 1px solid #000; text-align: right">
-                    {{
-                      formatageSommeSansFCFA(
-                        parseFloat(item.montant_prestation)
-                      )
-                    }}
-                  </td>
-                  <td style="border: 1px solid #000">
-                    {{ item.nature_economique }}
-                  </td>
-                  <td style="border: 1px solid #000">
-                    {{ item.beneficiaire }}
-                  </td>
-                  <td style="border: 1px solid #000">
-                    <span
-                      v-if="item.decision == 1"
-                      class="badge badge-success"
-                      style="cursor: pointer; text-align: center"
-                      >{{ afficheDecision(item.decision) }}</span
-                    >
-                    <span
-                      v-if="item.decision == 2"
-                      class="badge badge-success"
-                      style="cursor: pointer"
-                      >{{ afficheDecision(item.decision) }}</span
-                    >
-                    <span
-                      v-if="item.decision == 3"
-                      class="badge badge-warning"
-                      style="cursor: pointer"
-                      >{{ afficheDecision(item.decision) }}</span
-                    >
-                    <span
-                      v-if="item.decision == 4"
-                      class="badge badge-danger"
-                      style="cursor: pointer"
-                      >{{ afficheDecision(item.decision) }}</span
-                    >
-                  </td>
-                  <td style="border: 1px solid #000">
-                    {{ formaterDate(item.date_decision) }}
-                  </td>
-                  <td style="border: 1px solid #000">
-                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
- <span
-                        title="Modifier"
-                         class="badge bg-primary"
-                        data-bs-toggle="modal"
-                        data-bs-target="#largeModal1"
-                        style="cursor: pointer"
-                        @click.prevent="AfficheModalModification(item.id)"
-                      ><i class="fas fa-edit"></i> Modifier</span>
-                      <span
-                        title="Supprimer"
-                         class="badge bg-danger"
-                        
-                        style="cursor: pointer;"
-                        @click.prevent="supprimerInformationBudget(item.id)"
-                      ><i class="fas fa-archive"></i> Supprimer</span>
-                      <span
-                      
-                        title="Voir Personnel"
-                         class="badge bg-info"
-                        style="cursor: pointer; color: #000;
-                          font-weight: bolder;"
-                        @click.prevent="fonctionImprimerListePersonnel(item.id)"
-                        ><i class="fas fa-user-friends" style="color: #000"> Imprimer Personnel</i
-                        > </span
-                      >
-
-                     
-
-                      <span
-                       
-                        title="Imprimer OP"
-                         class="badge bg-warning"
-                        style="
-                          cursor: pointer;
-                          color: #000;
-                          font-weight: bolder;
-                        "
-                        @click.prevent="
-                          fonctionImprimerPersonnel(item.id)
-                        "
-                      >
-                        <i class="fas fa-print" style="color: #000"></i>
-                        Imprimer OP</span
-                      >
-                    </div>
-                   
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-              </TabContent
             >
+              <div class="table-responsive">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th>Numero OP</th>
+                      <th>Objet dépense</th>
+                      <th>Montant</th>
+                      <th>nature économique</th>
+                      <th>Bénéficiaire</th>
+                      <th>Décision</th>
+                      <th>Date Décision</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="item in afficheListeOPprovisoire" :key="item.id">
+                      <td style="border: 1px solid #000">
+                        {{ item.numero_ordre_paiement }}
+                      </td>
+                      <td style="border: 1px solid #000" class="text-break">
+                        {{ item.objet_depense }}
+                      </td>
+                      <td style="border: 1px solid #000; text-align: right">
+                        {{
+                          formatageSommeSansFCFA(
+                            parseFloat(item.montant_prestation)
+                          )
+                        }}
+                      </td>
+                      <td style="border: 1px solid #000">
+                        {{ item.nature_economique }}
+                      </td>
+                      <td style="border: 1px solid #000">
+                        {{ item.beneficiaire }}
+                      </td>
+                      <td style="border: 1px solid #000">
+                        <span
+                          v-if="item.decision == 1"
+                          class="badge badge-success"
+                          style="cursor: pointer; text-align: center"
+                          >{{ afficheDecision(item.decision) }}</span
+                        >
+                        <span
+                          v-if="item.decision == 2"
+                          class="badge badge-success"
+                          style="cursor: pointer"
+                          >{{ afficheDecision(item.decision) }}</span
+                        >
+                        <span
+                          v-if="item.decision == 3"
+                          class="badge badge-warning"
+                          style="cursor: pointer"
+                          >{{ afficheDecision(item.decision) }}</span
+                        >
+                        <span
+                          v-if="item.decision == 4"
+                          class="badge badge-danger"
+                          style="cursor: pointer"
+                          >{{ afficheDecision(item.decision) }}</span
+                        >
+                      </td>
+                      <td style="border: 1px solid #000">
+                        {{ formaterDate(item.date_decision) }}
+                      </td>
+                      <td style="border: 1px solid #000">
+                        <div
+                          class="btn-group"
+                          role="group"
+                          aria-label="Basic mixed styles example"
+                        >
+                          <!-- <span
+                            title="Modifier"
+                            class="badge bg-primary"
+                            data-bs-toggle="modal"
+                            data-bs-target="#largeModal1"
+                            style="cursor: pointer"
+                            @click.prevent="AfficheModalModification(item.id)"
+                            ><i class="fas fa-edit"></i> Modifier</span
+                          >
+                          <span
+                            title="Supprimer"
+                            class="badge bg-danger"
+                            style="cursor: pointer"
+                            @click.prevent="supprimerInformationBudget(item.id)"
+                            ><i class="fas fa-archive"></i> Supprimer</span
+                          > -->
+                          <span
+                            title="Voir Personnel"
+                            class="badge bg-info"
+                            style="
+                              cursor: pointer;
+                              color: #000;
+                              font-weight: bolder;
+                            "
+                            @click.prevent="
+                              fonctionImprimerListePersonnel(item.id)
+                            "
+                            ><i class="fas fa-user-friends" style="color: #000">
+                              Imprimer Personnel</i
+                            >
+                          </span>
+
+                          <span
+                            title="Imprimer OP"
+                            class="badge bg-warning"
+                            style="
+                              cursor: pointer;
+                              color: #000;
+                              font-weight: bolder;
+                            "
+                            @click.prevent="fonctionImprimerPersonnel(item.id)"
+                          >
+                            <i class="fas fa-print" style="color: #000"></i>
+                            Imprimer OP</span
+                          >
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </TabContent>
           </FormWizard>
         </div>
       </div>
-
     </div>
   </div>
 </template>
@@ -862,7 +860,7 @@ export default {
     this.getActiviteOp();
     this.getCompteBancaire();
     this.getListeOrdrePaiementGlobal();
-     this.getListeOrdrePaiementPersonnnelParUtilisateur();
+    this.getListeOrdrePaiementPersonnnelParUtilisateur();
     // this.getDotationNotifie();
     // this.getDotationReport();
     // this.getDotationRessourcePropre();
@@ -888,7 +886,8 @@ export default {
       "gettersPersonnelParActivite",
     ]),
     ...mapGetters("parametrage", [
-      "getterProjet","getterOpPersonnelParUser",
+      "getterProjet","getterBudgetViseGroupeUniteOp",
+      "getterOpPersonnelParUser",
       "getterCompteBancaire",
       "getterActiviteSurOP",
       "getterTaux",
@@ -924,10 +923,11 @@ export default {
         }
       };
     },
-afficheListeOPprovisoire() {
+    afficheListeOPprovisoire() {
       return this.getterOpPersonnelParUser.filter(
         (item) =>
-          item.bordereau_id == this.bordereau_id && item.type_ordre_paiement == 2
+          item.bordereau_id == this.bordereau_id &&
+          item.type_ordre_paiement == 2
       );
     },
     taillerTableau() {
@@ -1789,7 +1789,8 @@ afficheListeOPprovisoire() {
       "AjouterPersonnel",
     ]),
     ...mapActions("parametrage", [
-      "getActivite","getListeOrdrePaiementPersonnnelParUtilisateur",
+      "getActivite","getBudgetEclateViseGroupeUO",
+      "getListeOrdrePaiementPersonnnelParUtilisateur",
       "getListeOrdrePaiementGlobal",
       "getCompteBancaire",
       "getActiviteOp",
@@ -1813,7 +1814,7 @@ afficheListeOPprovisoire() {
       "AjouterOpPersonnel",
       "getOpParActvite",
     ]),
-     fonctionImprimerListePersonnel(id) {
+    fonctionImprimerListePersonnel(id) {
       this.$router.push({
         name: "ImprimerPersonnelOP",
         params: { id: id },
@@ -1825,7 +1826,7 @@ afficheListeOPprovisoire() {
         params: { id: id },
       });
     },
-     formaterDate(date) {
+    formaterDate(date) {
       return moment(date, "YYYY-MM-DD").format("DD/MM/YYYY");
     },
     retour() {

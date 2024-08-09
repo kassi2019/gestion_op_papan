@@ -39,7 +39,8 @@
                   <img
                     src="../../../public/csslogin/images/logo1.jpg"
                     width="150px;"
-                  />
+                  /><br />
+                   <span style="font-weight: bolder"> N°{{numeroBordereau(id_mission)}}</span>
                 </h6>
                 <!-- <img src="/optimisation/skin/img/log3.png" width="80px;"  /> -->
               </td>
@@ -76,6 +77,7 @@
                 </h6>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <br /><br /><br /><br />
+                 <p style="font-weight: bolder">Abidjan,le {{ retourneDateJour }}</p>
                 <!-- <img src="/optimisation/skin/img/log3.png" width="80px;"  /> -->
               </td>
             </tr>
@@ -437,6 +439,7 @@ export default {
         activite_id: "",
         dotation: "",
       },
+       ladate:new Date(),
       modNatureDepense: {
         activite_id: "",
         dotation: "",
@@ -498,7 +501,25 @@ export default {
       "getterBudgetViseParActivite",
       "getterNatureDepense",
     ]),
+    retourneDateJour() {
+      
     
+      return this.ladate.getDate()+"/"+(this.ladate.getMonth()+1)+"/"+this.ladate.getFullYear()
+    },
+    numeroBordereau() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.gettersOrdreMission.find(
+            (qtreel) => qtreel.id == id
+          );
+
+          if (qtereel) {
+            return qtereel.numero_mission;
+          }
+          return 0;
+        }
+      };
+    },
     nomCoordo() {
       //   return (id) => {
       //     if (id != null && id != "") {

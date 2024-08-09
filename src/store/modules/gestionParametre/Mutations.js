@@ -418,6 +418,9 @@ export const GET_BUDGET_MODIFIER_VISE_PAR_ACTIVITE = (state,value)=>{
 export const GET_BUDGET_VISE_GROUPE_PAR_ACTIVITE = (state,value)=>{
     state.stateBudgetViseGroupeParActivite=value
 }
+export const GET_BUDGET_VISE_GROUPE_UO = (state,value)=>{
+    state.stateBudgetViseGroupeUniteOp=value
+}
 // entreprise
 
 
