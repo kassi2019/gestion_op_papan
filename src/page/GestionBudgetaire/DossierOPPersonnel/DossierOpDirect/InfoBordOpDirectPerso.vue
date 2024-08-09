@@ -45,7 +45,7 @@
                   <th>Exercice</th>
                   <th>N° bordereau</th>
                   <th>Objet du bordereau</th>
-                  <th>Dotation</th>
+                  <!-- <th>Dotation</th> -->
                   <!-- <th>Décision</th>
                   <th>Date de visa</th> -->
                 </tr>
@@ -57,9 +57,9 @@
                     {{ item.numero_dossier }}
                   </td>
                   <td style="border: 1px solid #000">{{ item.libelle }}</td>
-                  <td style="border: 1px solid #000; text-align: right">
+                  <!-- <td style="border: 1px solid #000; text-align: right">
                     {{ formatageSommeSansFCFA(parseFloat(item.dotation)) }}
-                  </td>
+                  </td> -->
                   <!-- <td style="border: 1px solid #000">
                     <span
                       v-if="item.decision == 1"
@@ -287,7 +287,7 @@
                   v-model="modNatureDepense.libelle"
                 />
               </div>
-              <div class="col-12">
+              <!-- <div class="col-12">
                 <label for="inputNanme4" class="form-label"
                   >Montant du bordereau</label
                 >
@@ -296,7 +296,7 @@
                   class="form-control"
                   style=""
                 ></money3>
-              </div>
+              </div> -->
               <div class="col-12">
                 <label for="inputNanme4" class="form-label">Observation</label>
                 <select
@@ -416,7 +416,7 @@
                   v-model="ajouterNatureDepense.libelle"
                 />
               </div>
-              <div class="col-12">
+              <!-- <div class="col-12">
                 <label for="inputNanme4" class="form-label"
                   >Montant du bordereau</label
                 >
@@ -426,13 +426,8 @@
                   v-bind="config"
                   style="border: 1px solid #000"
                 ></money3>
-                <!-- <input
-                  type="text"
-                  class="form-control"
-                  v-model="ajouterNatureDepense.dotation"
-                  style="background-color: #dcdcdc; font-weight: bolder"
-                /> -->
-              </div>
+                
+              </div> -->
               <div class="col-12">
                 <label for="inputNanme4" class="form-label">Observation</label>
                 <select
@@ -689,7 +684,7 @@ export default {
     EnregistrerSection() {
       var objetDirect1 = {
         exercice: this.exerciceBudgetaire,
-        dotation: this.ajouterNatureDepense.dotation,
+        dotation: 0,
         libelle: this.ajouterNatureDepense.libelle,
         activite_id: this.ajouterNatureDepense.activite_id,
         decision: this.ajouterNatureDepense.decision,

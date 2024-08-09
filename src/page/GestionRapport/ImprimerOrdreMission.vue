@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-
     <div class="col-md-12">
       <div class="card" style="box-shadow: 5px 5px #f9d531">
         <div class="card-header">
@@ -40,7 +39,9 @@
                     src="../../../public/csslogin/images/logo1.jpg"
                     width="150px;"
                   /><br />
-                   <span style="font-weight: bolder"> N°{{numeroBordereau(id_mission)}}</span>
+                  <span style="font-weight: bolder">
+                    N°{{ numeroBordereau(id_mission) }}</span
+                  >
                 </h6>
                 <!-- <img src="/optimisation/skin/img/log3.png" width="80px;"  /> -->
               </td>
@@ -70,6 +71,7 @@
                   width: 40%;
                 "
               >
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <h6 style="font-size: 12px">
                   République de Côte d'Ivoire <br />
                   ------------------------- <br />
@@ -77,56 +79,67 @@
                 </h6>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <br /><br /><br /><br />
-                 <p style="font-weight: bolder">Abidjan,le {{ retourneDateJour }}</p>
+                <p style="font-weight: bolder">
+                  Abidjan,le {{ retourneDateJour }}
+                </p>
                 <!-- <img src="/optimisation/skin/img/log3.png" width="80px;"  /> -->
               </td>
             </tr>
           </table>
-          <h2 style="text-align: center">ORDRE DE MISSION</h2>
-          <h6 style="text-align: right">
-            <span style="text-align: center !important"
-              >LE COORDONNATEUR DU PROGRAMME D'APPUI A</span
-            >
-            <br /><span style="text-align: center !important"
-              >LA PRODUCTION AVICOLE NATIONALE</span
-            >
-          </h6>
+          <h2 style="text-align: center !important; font-size: 20px !important">
+            ORDRE DE MISSION
+          </h2>
+
           <table class="table table-bordered border-primary" id="customers">
+            <thead>
+              <tr>
+                <th></th>
+                <td>
+                  <span style="font-size: 12px !important; font-weight: bold"
+                    >LE COORDONNATEUR DU PROGRAMME D'APPUI A</span
+                  ><br /><span
+                    style="font-size: 12px !important; font-weight: bold"
+                    >LA PRODUCTION AVICOLE NATIONALE</span
+                  >
+                </td>
+              </tr>
+            </thead>
             <thead>
               <tr>
                 <th
                   style="
-                    font-size: 12px;
+                    font-size: 13px;
                     font-weight: bold;
                     color: #000;
                     width: 50%;
                     text-align: left !important;
-                    line-height: 200%;
                   "
                   title=""
                 >
-                  <span style="font-size: 14px !important"
-                    >DONNE L'ORDRE À {{civilite}}
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</span
-                  >
+                  <span style="font-size: 13px !important"
+                    >DONNE L'ORDRE À
+                    {{ civilite }}
+                  </span>
                 </th>
 
                 <td
                   style="
-                    font-size: 14px;
+                    font-size: 12px;
 
                     color: #000;
                     text-align: left;
+                    text-transform: uppercase;
+                    line-height: 300% !important;
                   "
                 >
-                  {{ nom_personnel }}
+                  : {{ nom_personnel }}
                 </td>
               </tr>
 
               <tr>
                 <th
                   style="
-                    font-size: 12px;
+                    font-size: 13px;
                     font-weight: bold;
                     color: #000;
                     width: 50%;
@@ -135,28 +148,29 @@
                   "
                   title=""
                 >
-                  <span style="text-align: center !important; font-size: 14px"
+                  <span style="text-align: center !important; font-size: 13px"
                     >FONCTION
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</span
-                  >
+                  </span>
                 </th>
 
                 <td
                   style="
-                    font-size: 14px;
+                    font-size: 12px;
 
                     color: #000;
                     text-align: left;
+                    text-transform: uppercase;
+                    line-height: 300% !important;
                   "
                 >
-                  {{ fonction }}
+                  : {{ fonction }}
                 </td>
               </tr>
 
               <tr>
                 <th
                   style="
-                    font-size: 12px;
+                    font-size: 13px;
                     font-weight: bold;
                     color: #000;
                     width: 50%;
@@ -165,28 +179,26 @@
                   "
                   title=""
                 >
-                  <span style="font-size: 14px !important"
-                    >MATRICULE
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</span
-                  >
+                  <span style="font-size: 13px !important">MATRICULE </span>
                 </th>
 
                 <td
                   style="
-                    font-size: 14px;
-
+                    font-size: 12px;
+                    text-transform: uppercase;
                     color: #000;
                     text-align: left;
+                    line-height: 300% !important;
                   "
                 >
-                  {{ matricule }}
+                  : {{ matricule }}
                 </td>
               </tr>
 
               <tr>
                 <th
                   style="
-                    font-size: 12px;
+                    font-size: 13px;
                     font-weight: bold;
                     color: #000;
                     width: 50%;
@@ -195,28 +207,28 @@
                   "
                   title=""
                 >
-                  <span style="font-size: 14px !important"
+                  <span style="font-size: 13px !important"
                     >DE SE RENDRE EN MISSION A
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</span
-                  >
+                  </span>
                 </th>
 
                 <td
                   style="
-                    font-size: 14px;
-
+                    font-size: 12px;
+                    text-transform: uppercase;
                     color: #000;
                     text-align: left;
+                    line-height: 300% !important;
                   "
                 >
-                  {{ lieu_ordre_mission }}
+                  : {{ lieu_ordre_mission }}
                 </td>
               </tr>
 
               <tr>
                 <th
                   style="
-                    font-size: 12px;
+                    font-size: 13px;
                     font-weight: bold;
                     color: #000;
                     width: 50%;
@@ -225,28 +237,28 @@
                   "
                   title=""
                 >
-                  <span style="font-size: 14px !important"
+                  <span style="font-size: 13px !important"
                     >OBJET DE LA MISSION
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</span
-                  >
+                  </span>
                 </th>
 
                 <td
                   style="
-                    font-size: 14px;
-
+                    font-size: 12px;
+                    text-transform: uppercase;
                     color: #000;
                     text-align: left;
+                    line-height: 300% !important;
                   "
                 >
-                  {{ objet_depense }}
+                  : {{ objet_depense }}
                 </td>
               </tr>
 
               <tr>
                 <th
                   style="
-                    font-size: 12px;
+                    font-size: 13px;
                     font-weight: bold;
                     color: #000;
                     width: 50%;
@@ -255,28 +267,28 @@
                   "
                   title=""
                 >
-                  <span style="font-size: 14px !important"
+                  <span style="font-size: 13px !important"
                     >MOYEN DE TRANSPORT
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</span
-                  >
+                  </span>
                 </th>
 
                 <td
                   style="
-                    font-size: 14px;
-
+                    font-size: 13px;
+                    text-transform: uppercase;
                     color: #000;
                     text-align: left;
+                    line-height: 300% !important;
                   "
                 >
-                  {{ moyen_transport }}
+                  : {{ moyen_transport }}
                 </td>
               </tr>
 
               <tr>
                 <th
                   style="
-                    font-size: 12px;
+                    font-size: 13px;
                     font-weight: bold;
                     color: #000;
                     width: 50%;
@@ -285,28 +297,28 @@
                   "
                   title=""
                 >
-                  <span style="font-size: 14px !important"
+                  <span style="font-size: 13px !important"
                     >NOMBRE DE JOURS
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</span
-                  >
+                  </span>
                 </th>
 
                 <td
                   style="
-                    font-size: 14px;
-
+                    font-size: 12px;
+                    text-transform: uppercase;
                     color: #000;
                     text-align: left;
+                    line-height: 300% !important;
                   "
                 >
-                  {{ duree }}
+                  : {{ duree }}
                 </td>
               </tr>
 
               <tr>
                 <th
                   style="
-                    font-size: 12px;
+                    font-size: 13px;
                     font-weight: bold;
                     color: #000;
                     width: 50%;
@@ -315,28 +327,28 @@
                   "
                   title=""
                 >
-                  <span style="font-size: 14px !important"
+                  <span style="font-size: 13px !important"
                     >DATE DE DEPART
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</span
-                  >
+                  </span>
                 </th>
 
                 <td
                   style="
-                    font-size: 14px;
-
+                    font-size: 12px;
+                    text-transform: uppercase;
                     color: #000;
                     text-align: left;
+                    line-height: 300% !important;
                   "
                 >
-                  {{ formaterDate(date_depart) }}
+                  : {{ formaterDate(date_depart) }}
                 </td>
               </tr>
 
               <tr>
                 <th
                   style="
-                    font-size: 12px;
+                    font-size: 13px;
                     font-weight: bold;
                     color: #000;
                     width: 50%;
@@ -345,28 +357,27 @@
                   "
                   title=""
                 >
-                  <span style="font-size: 14px !important"
+                  <span style="font-size: 13px !important"
                     >DATE DE RETOUR
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</span
-                  >
+                  </span>
                 </th>
 
                 <td
                   style="
-                    font-size: 14px;
-
+                    font-size: 12px;
+                    line-height: 300% !important;
                     color: #000;
                     text-align: left;
                   "
                 >
-                  {{ formaterDate(date_retour) }}
+                  : {{ formaterDate(date_retour) }}
                 </td>
               </tr>
 
               <tr>
                 <th
                   style="
-                    font-size: 12px;
+                    font-size: 13px;
                     font-weight: bold;
                     color: #000;
                     width: 50%;
@@ -375,26 +386,26 @@
                   "
                   title=""
                 >
-                  <span style="font-size: 14px !important"
+                  <span style="font-size: 13px !important"
                     >NATURE ECONOMIQUE
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</span
-                  >
+                  </span>
                 </th>
 
                 <td
                   style="
-                    font-size: 14px;
-
+                    font-size: 12px;
+                    text-transform: uppercase;
                     color: #000;
                     text-align: left;
+                    line-height: 300% !important;
                   "
                 >
-                  {{ nature_economique }}
+                  : {{ nature_economique }}
                 </td>
               </tr>
             </thead>
           </table>
-          <br /><br /><br /><br /><br /><br /><br />
+          <br /><br />
           <table id="customers" style="text-align: center">
             <tr>
               <td
@@ -411,10 +422,31 @@
             </tr>
             <tr>
               <td style="text-align: left; width: 40%"></td>
-              <td style="text-align: left; width: 40%"><br /><br /><br /></td>
+              <td style="text-align: left; width: 40%"><br /><br /></td>
 
               <td style="text-align: center; width: 40%">
-                <br /><br /><br /><br />{{nomCoordo}}
+                <br /><br /><br />{{ nomCoordo }}
+              </td>
+              <br />
+            </tr>
+
+            <tr>
+              <td
+                style="
+                  text-align: center;
+                  font-size: 12px !important;
+                  font-weight: bold;
+                "
+                colspan="3"
+              >
+                <span style="text-decoration-line: overline !important"
+                  >Programme d'Appui à la Production Avicole Nationale</span
+                ><br />
+                <span
+                  >COCODY-II Plateaux-Quartier Polyclinique.Tel : 27-22-41-13-79
+                  / 27-22-54-38-78 BP V 185 Abidjan</span
+                ><br />
+                <span>papan.mirah@yahoo.com</span>
               </td>
             </tr>
           </table>
@@ -439,7 +471,7 @@ export default {
         activite_id: "",
         dotation: "",
       },
-       ladate:new Date(),
+      ladate: new Date(),
       modNatureDepense: {
         activite_id: "",
         dotation: "",
@@ -487,7 +519,8 @@ export default {
       "gettersDetailDepensePerso",
     ]),
     ...mapGetters("parametrage", [
-      "getterActivite","gettersSignataire",
+      "getterActivite",
+      "gettersSignataire",
       "getterCompteBancaire",
       "getterListeOPgloba",
       "getterBailleur",
@@ -502,9 +535,13 @@ export default {
       "getterNatureDepense",
     ]),
     retourneDateJour() {
-      
-    
-      return this.ladate.getDate()+"/"+(this.ladate.getMonth()+1)+"/"+this.ladate.getFullYear()
+      return (
+        this.ladate.getDate() +
+        "/" +
+        (this.ladate.getMonth() + 1) +
+        "/" +
+        this.ladate.getFullYear()
+      );
     },
     numeroBordereau() {
       return (id) => {
@@ -523,9 +560,7 @@ export default {
     nomCoordo() {
       //   return (id) => {
       //     if (id != null && id != "") {
-      const qtereel = this.gettersSignataire.find(
-        (qtreel) => qtreel.code == 0
-      );
+      const qtereel = this.gettersSignataire.find((qtreel) => qtreel.code == 0);
 
       if (qtereel) {
         return qtereel.nom_signataire;
@@ -534,7 +569,7 @@ export default {
       //     }
       //   };
     },
- civilite() {
+    civilite() {
       //   return (id) => {
       //     if (id != null && id != "") {
       const qtereel = this.gettersOrdreMission.find(
@@ -695,7 +730,8 @@ export default {
   },
   methods: {
     ...mapActions("parametrage", [
-      "getSousBudget","getSignataire",
+      "getSousBudget",
+      "getSignataire",
       "getListeOrdrePaiementGlobal",
       "getBailleur",
       "getEntreprise",
@@ -738,7 +774,7 @@ export default {
 
       "AjouterPersonnel",
     ]),
-pagePrecedent() {
+    pagePrecedent() {
       window.history.back();
     },
     formaterDate(date) {

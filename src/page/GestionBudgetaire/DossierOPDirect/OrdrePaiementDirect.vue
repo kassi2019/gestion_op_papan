@@ -45,7 +45,7 @@
         </div>
         <div class="card-body">
           <FormWizard color="#1D702D">
-            <TabContent title="SAISIR OP DIRECT" icon="icon-note">
+            <TabContent title="SAISIR OP PROVISOIRE" icon="icon-note">
               <FormWizard @on-complete="onComplete" color="#e67e22">
                 <TabContent title="PROJET" icon="ti-home">
                   <div class="row">
@@ -140,10 +140,7 @@
                     </div>
                   </div>
                 </TabContent>
-                <TabContent
-                  title="FOURNISSEUR"
-                  icon="fas fa-money-bill-wave"
-                >
+                <TabContent title="FOURNISSEUR" icon="fas fa-money-bill-wave">
                   <div class="row">
                     <div class="col-lg-12">
                       <form class="row g-3">
@@ -285,10 +282,7 @@
                     </div>
                   </div>
                 </TabContent>
-                <TabContent
-                  title="BAILLEUR"
-                  icon="fas fa-hands-helping"
-                >
+                <TabContent title="BAILLEUR" icon="fas fa-hands-helping">
                   <div class="row">
                     <div class="col-lg-12">
                       <form class="row g-3">
@@ -387,10 +381,7 @@
                     </div>
                   </div>
                 </TabContent>
-                <TabContent
-                  title="DOTATION"
-                  icon="fas fa-calculator"
-                >
+                <TabContent title="DOTATION" icon="fas fa-calculator">
                   <div class="row">
                     <div class="col-lg-12">
                       <form class="row g-3">
@@ -676,6 +667,7 @@
                             style="border: 1px solid #000 !important"
                             v-model="FormDataDossier.type_forfait"
                           >
+                            <option value=""></option>
                             <option value="taux">Taux</option>
                             <option value="montant">Montant</option>
                           </select>
@@ -688,11 +680,16 @@
                             >
                             ( D )</label
                           >
-                          <input
+                          <!-- <input
                             type="number"
                             class="form-control"
                             v-model="autre_taux"
-                          />
+                          /> -->
+                          <money3
+                            class="form-control"
+                            v-bind="config"
+                            v-model="autre_taux"
+                          ></money3>
                         </div>
                         <div class="col-6">
                           <label class="form-label"
@@ -716,8 +713,14 @@
                         </div>
                         <div class="col-3">
                           <label class="form-label"
-                            >Cumul des autres taxes ( E = C * D)</label
-                          >
+                            v-if="FormDataDossier.type_forfait == 'taux'">Cumul des autres taxes ( E = C * D)
+                          </label>
+                          <label class="form-label" v-else-if="FormDataDossier.type_forfait == 'montant'"
+                            >Cumul des autres taxes ( E = C + D)
+                          </label>
+                          <label class="form-label" v-else
+                            >Cumul des autres taxes ( E )
+                          </label>
                           <money3
                             class="form-control"
                             v-bind="config"
@@ -1176,22 +1179,22 @@
                           aria-label="Basic mixed styles example"
                         >
                           <!-- <span
-                            title="Modifier"
-                            class="fas fa-edit"
-                            data-bs-toggle="modal"
-                            data-bs-target="#largeModal1"
-                            style="cursor: pointer; color: blue"
-                          ></span>
-                          <span
-                            title="Supprimer"
-                            class="fas fa-archive"
-                            style="cursor: pointer; color: red"
-                          ></span>
-                          <span
-                            title="Voir facture"
-                            class="fas fa-eye"
-                            style="cursor: pointer; color: #006d80"
-                          ></span> -->
+                      title="Modifier"
+                      class="fas fa-edit"
+                      data-bs-toggle="modal"
+                      data-bs-target="#largeModal1"
+                      style="cursor: pointer; color: blue"
+                    ></span>
+                    <span
+                      title="Supprimer"
+                      class="fas fa-archive"
+                      style="cursor: pointer; color: red"
+                    ></span>
+                    <span
+                      title="Voir facture"
+                      class="fas fa-eye"
+                      style="cursor: pointer; color: #006d80"
+                    ></span> -->
                           <span
                             title="Imprimer OP"
                             class="fas fa-print"
@@ -1413,7 +1416,7 @@ export default {
         quantite: 0,
         prix_unitaire: 0,
         exonere: 0,
-        type_forfait: "taux",
+        type_forfait: "",
         libelle_taux: "",
       },
       FormDataDossierMod: {
@@ -1488,13 +1491,14 @@ export default {
   },
   computed: {
     ...mapGetters("parametrage", [
-      "getterProjet","getterBudgetViseGroupeUniteOp",
+      "getterProjet",
       "getterCompteBancaire",
       "getterActiviteSurOP",
       "getterTaux",
       "getterBudgetViseParActivite",
       "getterBudgetViseGroupeParActivite",
       "getterActivite",
+      "getterBudgetViseGroupeUniteOp",
       "getterTypeFinancement",
       "getterExerciceBudgetaire",
       "getterDotationNotifie",
@@ -1515,7 +1519,7 @@ export default {
       return this.getterListeOPgloba.filter(
         (item) =>
           item.bordereau_id == this.bordereau_id &&
-          item.type_ordre_paiement == 2
+          item.type_ordre_paiement == 1
       );
     },
     taillerTableau() {
@@ -1606,8 +1610,10 @@ export default {
     afficheAutreMontant() {
       if (this.FormDataDossier.type_forfait == "taux") {
         return (parseFloat(this.autre_taux) / 100) * parseFloat(this.MontantHt);
-      } else {
+      } else if (this.FormDataDossier.type_forfait == "montant") {
         return parseFloat(this.MontantHt) + parseFloat(this.autre_taux);
+      } else {
+        return 0;
       }
     },
 
@@ -2339,7 +2345,8 @@ export default {
       "getTaux",
       "getSousBudget",
       "getBudgetViseParActvite",
-      "getBudgetEclateViseGroupeParActivte","getBudgetEclateViseGroupeUO",
+      "getBudgetEclateViseGroupeParActivte",
+      "getBudgetEclateViseGroupeUO",
       "getBudgetEclate",
       "getDotationRessourcePropre",
       "getTypeFinancement",
@@ -2358,7 +2365,7 @@ export default {
     ]),
     retour() {
       this.$router.push({
-        name: "InformationBordereauOPDirect",
+        name: "InformationBordereau",
       });
     },
     fonctionImprimer(id) {

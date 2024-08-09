@@ -39,7 +39,7 @@
                       <th>Exercice</th>
                       <th>N° bordereau</th>
                       <th>Objet du bordereau</th>
-                      <th>Dotation</th>
+                      <!-- <th>Dotation</th> -->
                       <th>Décision</th>
                       <th>Date de visa</th>
                     </tr>
@@ -56,9 +56,9 @@
                         {{ item.numero_dossier }}
                       </td>
                       <td style="border: 1px solid #000">{{ item.libelle }}</td>
-                      <td style="border: 1px solid #000; text-align: right">
+                      <!-- <td style="border: 1px solid #000; text-align: right">
                         {{ formatageSommeSansFCFA(parseFloat(item.dotation)) }}
-                      </td>
+                      </td> -->
                       <td style="border: 1px solid #000">
                         <span
                           v-if="item.decision == 1"

@@ -25,7 +25,7 @@
           <li class="nav-item">
             <a data-bs-toggle="collapse" href="#forms">
               <i class="fas fa-book-reader"></i>
-              <p>Information sur Struture</p>
+              <p>Information sur Structure</p>
               <span class="caret"></span>
             </a>
             <div class="collapse" id="forms">

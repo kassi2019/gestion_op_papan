@@ -139,35 +139,12 @@
                         style="border: 1px solid #000"
                       >
                       </model-list-select>
-                      <!-- <span style="color: red" v-if="nature_economique_id == 0"
+                      <span style="color: red" v-if="nature_economique_id == 0"
                         >Ce champs est obligatoire!
-                      </span> -->
+                      </span>
                     </div>
-                    <div class="col-6">
-                      <label class="form-label"
-                        >Fonction
-                        <span
-                          style="
-                            color: red !important;
-                            font-size: 15px !important;
-                          "
-                          >*</span
-                        ></label
-                      >
-                      <model-list-select
-                        :list="gettersFonction"
-                        v-model="fonction_id"
-                        option-value="id"
-                        option-text="libelle"
-                        placeholder="select item"
-                        style="border: 1px solid #000"
-                      >
-                      </model-list-select>
-                      <!-- <span style="color: red" v-if="fonction_id == 0"
-                        >Ce champs est obligatoire!
-                      </span> -->
-                    </div>
-                    <div class="col-6">
+                  
+                    <div class="col-9">
                       <label class="form-label"
                         >Personnel
                         <span
@@ -187,11 +164,24 @@
                         style="border: 1px solid #000"
                       >
                       </model-list-select>
-                      <!-- <span
+                      <span
                         style="color: red"
                         v-if="personnel_id == 0"
                         >Ce champs est obligatoire!
-                      </span> -->
+                      </span>
+                    </div>
+                    <div class="col-3">
+                      <label class="form-label">Fonction</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        style="
+                          border: 1px solid #000 !important;
+                          color: #000 !important;
+                        "
+                        :value="AfficheFonctionLibelle(AfficheFonctionId(personnel_id))"
+                        readonly
+                      />
                     </div>
                   </form>
                 </div>
@@ -599,6 +589,35 @@ decision:0,
       "getterListeBudgetEclate",
       "gettersDocumentation",
     ]),
+    
+    AfficheFonctionId() {
+        return (id) => {
+          if (id != null && id != "") {
+      const qtereel = this.gettersPersonnelParActivite.find(
+        (qtreel) => qtreel.id == id
+      );
+
+      if (qtereel) {
+        return qtereel.fonction_id;
+      }
+      return 0;
+          }
+        };
+    },
+    AfficheFonctionLibelle() {
+        return (id) => {
+          if (id != null && id != "") {
+      const qtereel = this.gettersFonction.find(
+        (qtreel) => qtreel.id == id
+      );
+
+      if (qtereel) {
+        return qtereel.libelle;
+      }
+      return 0;
+          }
+        };
+    },
     afficheicone() {
       return (id) => {
         if (id != null && id != "") {
@@ -921,7 +940,7 @@ decision:0,
         unite_operationnelle_id: this.unite_operationnelle_id,
         sous_budget_id: this.sous_budget_id,
         nature_economique_id: this.nature_economique_id,
-        fonction_id: this.fonction_id,
+        fonction_id: this.AfficheFonctionId(this.personnel_id),
         personnel_id: this.personnel_id,
         objet_depense: this.objet_depense,
         lieu_ordre_mission: this.lieu_ordre_mission,

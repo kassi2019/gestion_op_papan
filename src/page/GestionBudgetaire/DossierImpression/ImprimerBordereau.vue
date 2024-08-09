@@ -187,7 +187,7 @@
                       border: 0.5px solid #000 !important;
                     "
                   >
-                    TOTAL <span v-if="parseFloat(MontantBordereau(bordereau_id))!=parseFloat(TotalOP)">( A )</span>
+                    TOTAL
                   </td>
                   <td
                     style="
@@ -201,52 +201,9 @@
                       ) }}
                   </td>
                 </tr>
-                 <tr v-if="parseFloat(MontantBordereau(bordereau_id))!=parseFloat(TotalOP)">
-                  <td
-                    colspan="3"
-                    style="
-                      text-align: right;
-                      border: 0.5px solid #000 !important;
-                    "
-                  >
-                     MONTANT BORDEREAU ( B )
-                  </td>
-                  <td
-                    style="
-                      text-align: right;
-                      border: 0.5px solid #000 !important;
-                    "
-                  >
-                 
-                    {{  formatageSommeSansFCFA(
-                        MontantBordereau(bordereau_id)
-                      ) }}
-                  </td>
-                </tr>
-                <tr v-if="parseFloat(MontantBordereau(bordereau_id))!=parseFloat(TotalOP)">
-                  <td
-                    colspan="3"
-                    style="
-                      text-align: right;
-                      border: 0.5px solid #000 !important;
-                    "
-                  >
-                     ECART (C=A-B)
-                  </td>
-                  <td
-                    style="
-                      text-align: right;
-                      border: 0.5px solid #000 !important;
-                      color:red !important
-                    "
-                  >
-                 
-                    {{  formatageSommeSansFCFA(
-                        parseFloat(TotalOP)-parseFloat(MontantBordereau(bordereau_id))
-                      ) }}
-                  </td>
-                </tr>
-                <tr v-if="parseFloat(MontantBordereau(bordereau_id))!=parseFloat(TotalOP)"><td colspan="5" style="text-align: right!important;color:red">Le montant du bordereau est différent des montants cumulés des OP</td></tr>
+                
+               
+                
               </tbody>
             </table><br/><br/><br/><br/><br/>
             

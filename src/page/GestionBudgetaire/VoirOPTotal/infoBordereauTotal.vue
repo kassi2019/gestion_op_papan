@@ -39,7 +39,7 @@
                       <th>Exercice</th>
                       <th>N° bordereau</th>
                       <th>Objet du bordereau</th>
-                      <th>Dotation</th>
+                      <!-- <th>Dotation</th> -->
                       <th>Décision</th>
                       <th>Date de visa</th>
                     </tr>
@@ -56,9 +56,9 @@
                         {{ item.numero_dossier }}
                       </td>
                       <td style="border: 1px solid #000">{{ item.libelle }}</td>
-                      <td style="border: 1px solid #000; text-align: right">
+                      <!-- <td style="border: 1px solid #000; text-align: right">
                         {{ formatageSommeSansFCFA(parseFloat(item.dotation)) }}
-                      </td>
+                      </td> -->
                       <td style="border: 1px solid #000">
                         <span
                           v-if="item.decision == 1"
@@ -104,13 +104,13 @@
                           >Décision CF</span
                         >
                         <span
-                      data-bs-toggle="modal"
-                      data-bs-target="#DateComptable"
-                      class="badge badge-secondary"
-                      @click.prevent="ModalAppliqueDecision(item.id)"
-                      style="cursor: pointer"
-                      >Date Comptable</span
-                    >
+                          data-bs-toggle="modal"
+                          data-bs-target="#DateComptable"
+                          class="badge badge-secondary"
+                          @click.prevent="ModalAppliqueDecision(item.id)"
+                          style="cursor: pointer"
+                          >Date Comptable</span
+                        >
                         <span
                           class="badge rounded-pill bg-primary"
                           data-bs-toggle="modal"
@@ -161,8 +161,8 @@
                         {{ item.exercice }}
                       </td>
                       <td style="border: 1px solid #000">
-                    {{ item.numero_dossier }}
-                  </td>
+                        {{ item.numero_dossier }}
+                      </td>
                       <td style="border: 1px solid #000">{{ item.libelle }}</td>
                       <td style="border: 1px solid #000; text-align: right">
                         {{ formatageSommeSansFCFA(parseFloat(item.dotation)) }}
@@ -217,13 +217,13 @@
                             >Décision CF</span
                           >
                           <span
-                      data-bs-toggle="modal"
-                      data-bs-target="#DateComptable"
-                      class="badge badge-secondary"
-                      @click.prevent="ModalAppliqueDecisionVise(item.id)"
-                      style="cursor: pointer"
-                      >Date Comptable</span
-                    >
+                            data-bs-toggle="modal"
+                            data-bs-target="#DateComptable"
+                            class="badge badge-secondary"
+                            @click.prevent="ModalAppliqueDecisionVise(item.id)"
+                            style="cursor: pointer"
+                            >Date Comptable</span
+                          >
                           <span
                             class="badge rounded-pill bg-primary"
                             data-bs-toggle="modal"
@@ -338,12 +338,13 @@
     </div>
     <!-- modal de modification -->
 
-
- <div class="modal fade" id="DateComptable" tabindex="-1">
+    <div class="modal fade" id="DateComptable" tabindex="-1">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Appliquer la date de paiement de Agent Comptable Principal</h5>
+            <h5 class="modal-title">
+              Appliquer la date de paiement de Agent Comptable Principal
+            </h5>
             <button
               type="button"
               class="btn-close"
@@ -363,7 +364,7 @@
                   readonly
                 />
               </div>
-              
+
               <div class="col-12">
                 <label for="inputNanme4" class="form-label"
                   >Date Paiement</label
@@ -398,8 +399,6 @@
         </div>
       </div>
     </div>
-
-
 
     <div class="modal fade" id="largeModal1" tabindex="-1">
       <div class="modal-dialog modal-lg">

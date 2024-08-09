@@ -595,6 +595,7 @@
                             style="border: 1px solid #000 !important"
                             v-model="FormDataDossier.type_forfait"
                           >
+                            <option value=""></option>
                             <option value="taux">Taux</option>
                             <option value="montant">Montant</option>
                           </select>
@@ -607,11 +608,16 @@
                             >
                             ( D )</label
                           >
-                          <input
+                          <!-- <input
                             type="number"
                             class="form-control"
                             v-model="autre_taux"
-                          />
+                          /> -->
+                          <money3
+                            class="form-control"
+                            v-bind="config"
+                            v-model="autre_taux"
+                          ></money3>
                         </div>
                         <div class="col-6">
                           <label class="form-label"
@@ -635,8 +641,14 @@
                         </div>
                         <div class="col-3">
                           <label class="form-label"
-                            >Cumul des autres taxes ( E = C * D)</label
-                          >
+                            v-if="FormDataDossier.type_forfait == 'taux'">Cumul des autres taxes ( E = C * D)
+                          </label>
+                          <label class="form-label" v-else-if="FormDataDossier.type_forfait == 'montant'"
+                            >Cumul des autres taxes ( E = C + D)
+                          </label>
+                          <label class="form-label" v-else
+                            >Cumul des autres taxes ( E )
+                          </label>
                           <money3
                             class="form-control"
                             v-bind="config"
@@ -887,13 +899,13 @@
                         ></span> -->
                             <span
                               title="Supprimer"
-                              class="fas fa-archive"
                               style="
                                 cursor: pointer;
                                 color: red;
                                 border: 1px solid #000 !important;
                               "
                               @click.prevent="deletePartieRequerante(index)"
+                              ><i class="fas fa-archive"></i
                             ></span>
                           </td>
                         </tr>
@@ -1709,7 +1721,7 @@ export default {
         quantite: 0,
         prix_unitaire: 0,
         exonere: 0,
-        type_forfait: "taux",
+        type_forfait: "",
         libelle_taux: "",
       },
       FormDataDossierMod: {
@@ -2285,11 +2297,13 @@ export default {
         parseFloat(this.MontantHtMod)
       );
     },
-    afficheAutreMontant() {
+   afficheAutreMontant() {
       if (this.FormDataDossier.type_forfait == "taux") {
         return (parseFloat(this.autre_taux) / 100) * parseFloat(this.MontantHt);
-      } else {
+      } else if (this.FormDataDossier.type_forfait == "montant") {
         return parseFloat(this.MontantHt) + parseFloat(this.autre_taux);
+      } else {
+        return 0;
       }
     },
 

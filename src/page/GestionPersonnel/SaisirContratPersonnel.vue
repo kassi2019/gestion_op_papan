@@ -54,7 +54,7 @@
                           color: red !important;
                           font-size: 15px !important;
                         "
-                      ></span
+                      >*</span
                     ></label>
                     <model-list-select
                       :list="tableauCivilite"
@@ -65,6 +65,11 @@
                       style="border: 1px solid #000"
                     >
                     </model-list-select>
+                    <span
+                        style="color: red"
+                        v-if="civilite == 0"
+                        >Ce champs est obligatoire!
+                      </span>
                   </div>
                     <div class="col-6">
                       <label class="form-label"
@@ -1578,6 +1583,7 @@ export default {
         source_financement_id: "",
         type_financement_id: "",
       },
+
       civilite: "",
       date_debut: "",
       date_fin: "",
