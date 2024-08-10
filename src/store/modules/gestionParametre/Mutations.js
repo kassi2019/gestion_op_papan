@@ -900,10 +900,3 @@ export const AJOUTER_DOCUMENTATION = (state, elementAjouter) => {
 }
 
 // rapport
-
-export const GET_VERIFICATION_FACTURE_EN_COURS = (state,value)=>{
-    state.stateVerificationFactureEnCours=value
-}
-export const GET_VERIFICATION_FACTURE_ACHEVE = (state,value)=>{
-    state.stateVerificationFactureAcheve=value
-}

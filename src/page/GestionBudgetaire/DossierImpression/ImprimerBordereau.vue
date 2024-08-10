@@ -1,28 +1,27 @@
 <template>
-  <div class="container">
+  <div class="container" style="background-color:#fff !important">
     <div class="col-md-12">
       <div class="card" style="box-shadow: 5px 5px #f9d531">
         <div class="card-header">
           <div class="d-flex align-items-center">
             <h4 class="card-title">Imprimer Ordre de paiement</h4>
-             <span
-                  class="badge badge-warning"
-                  style="cursor: pointer; color: #000"
-                  @click.prevent="pagePrecedent"
-                  ><i class="fas fa-arrow-alt-circle-left"></i> Retour</span
-                >
+            <span
+              class="badge badge-warning"
+              style="cursor: pointer; color: #000"
+              @click.prevent="pagePrecedent"
+              ><i class="fas fa-arrow-alt-circle-left"></i> Retour</span
+            >
             <span
               class="badge rounded-pill bg-primary"
               style="cursor: pointer"
               @click.prevent="genererEnPdf4()"
               >Exporter en Pdf</span
             >
-           
           </div>
         </div>
-        <div class="card-body" id="printMe45" ref="table">
+        <div class="card-body" id="printMe45">
           <!-- Modal -->
-          <table class="table table-bordered border-primary">
+          <table class="table-bordered">
             <tr>
               <td
                 style="
@@ -42,8 +41,7 @@
                     src="../../../../public/csslogin/images/logo1.jpg"
                     width="150px;"
                   /><br /><br />
-                  <span> {{numeroBordereau(bordereau_id)}}</span>
-                 
+                  <span> {{ numeroBordereau(bordereau_id) }}</span>
                 </h6>
                 <!-- <img src="/optimisation/skin/img/log3.png" width="80px;"  /> -->
               </td>
@@ -78,7 +76,9 @@
                   ------------------------- <br />
                   Union-Discipline-Travail<br />
                   ------------------------- <br /><br /><br />
-                  <p style="font-weight: bolder">Abidjan,le {{ retourneDateJour }}</p>
+                  <p style="font-weight: bolder">
+                    Abidjan,le {{ retourneDateJour }}
+                  </p>
                 </h6>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
@@ -86,6 +86,7 @@
               </td>
             </tr>
           </table>
+          <br /><br /><br /><br /><br /><br />
           <h6 style="text-align: center; font-weight: bolder; font-size: 15px">
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -97,22 +98,17 @@
           <h5 style="text-align: right; font-weight: bolder; font-size: 12px">
             MADAME LE CONTROLEUR FINANCIER
           </h5>
-          
+
           <h6 style="text-align: center; font-size: 15px">
             OBJET :{{ libelleBordereau(bordereau_id) }}
           </h6>
           <div class="table-responsive">
-            <table
-              class="table table-bordered"
-              id="customers"
-              
-            >
+            <table class="table table-bordered">
               <thead>
                 <tr>
                   <th
                     scope="col"
                     style="
-                      border: 0.5px solid #000 !important;
                       text-align: center;
 
                       font-weight: bold;
@@ -122,34 +118,19 @@
                   </th>
                   <th
                     scope="col"
-                    style="
-                      border: 0.5px solid #000 !important;
-                      text-align: center;
-                      width: 15%;
-                      font-weight: bold;
-                    "
+                    style="text-align: center; width: 15%; font-weight: bold"
                   >
                     N°OP
                   </th>
                   <th
                     scope="col"
-                    style="
-                      border: 0.5px solid #000 !important;
-                      text-align: center;
-                      width: 70%;
-                      font-weight: bold;
-                    "
+                    style="text-align: center; width: 70%; font-weight: bold"
                   >
                     Libelle
                   </th>
                   <th
                     scope="col"
-                    style="
-                      border: 0.5px solid #000 !important;
-                      text-align: center;
-                      width: 25%;
-                      font-weight: bold;
-                    "
+                    style="text-align: center; width: 25%; font-weight: bold"
                   >
                     Montant
                   </th>
@@ -160,18 +141,16 @@
                   v-for="(item1, index) in AfficheOPParBordereau"
                   :key="item1.id"
                 >
-                  <td style="width: 10%; border: 0.5px solid #000 !important;text-align: center">
+                  <td style="width: 10%; text-align: center">
                     {{ index + 1 }}
                   </td>
-                  <td style="border: 0.5px solid #000 !important">
+                  <td style="">
                     {{ item1.numero_ordre_paiement }}
                   </td>
-                  <td style="border: 0.5px solid #000 !important">
+                  <td style="">
                     {{ item1.objet_depense }}
                   </td>
-                  <td
-                    style="text-align: right; border: 1px solid #000 !important"
-                  >
+                  <td style="text-align: right">
                     {{
                       formatageSommeSansFCFA(
                         parseFloat(item1.montant_prestation)
@@ -180,102 +159,37 @@
                   </td>
                 </tr>
                 <tr>
-                  <td
-                    colspan="3"
-                    style="
-                      text-align: right;
-                      border: 0.5px solid #000 !important;
-                    "
-                  >
-                    TOTAL
-                  </td>
-                  <td
-                    style="
-                      text-align: right;
-                      border: 0.5px solid #000 !important;
-                    "
-                  >
-                 
-                    {{  formatageSommeSansFCFA(
-                        parseFloat(TotalOP)
-                      ) }}
+                  <td colspan="3" style="text-align: right">TOTAL</td>
+                  <td style="text-align: right">
+                    {{ formatageSommeSansFCFA(parseFloat(TotalOP)) }}
                   </td>
                 </tr>
-                
-               
-                
               </tbody>
-            </table><br/><br/><br/><br/><br/>
-            
-            <table
-            id="customers"
-            style="text-align: center;"
-          >
-            <tr>
-              <td
-                style="
-                 
-                  text-align: center;
-                  width: 40%;
-                  font-weight: bold;
-                "
-              >
-                 OBSERVATIONS<br/><br/>
-                {{observation(LibelleObservation(bordereau_id))}} 
-              </td>
-              
-              <td
-                style="
-                 
-                  text-align: center;
-                  width: 40%;
-                  font-weight: bold;
-                "
-              >
-                
-              </td>
-              <td
-                style="
-                 
-                  text-align: center;
-                  width: 100%;
-                  font-weight: bold;
-                "
-              >
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                L'ORDONNATEUR<br/><br/>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              </td>
-            </tr>
-            <tr>
-              <td
-                style="
-                 
-                  text-align: left;
-                  width: 40%;
-                "
-              >
-                 <br /><br /><br />
-              </td>
-              <td
-                style="
-                 
-                  text-align: left;
-                  width: 40%;
-                "
-              >
-                 <br /><br /><br />
-              </td>
-              <td
-                style="
-                  
-                  text-align: left;
-                  width: 40%;
-                "
-              ></td>
-            </tr>
-           
-          </table>
+            </table>
+            <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+
+            <table id="customers" style="text-align: center">
+              <tr>
+                <td style="text-align: center; width: 40%; font-weight: bold">
+                  OBSERVATIONS<br /><br />
+                  {{ observation(LibelleObservation(bordereau_id)) }}
+                </td>
+
+                <td
+                  style="text-align: center; width: 40%; font-weight: bold"
+                ></td>
+                <td style="text-align: center; width: 100%; font-weight: bold">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  L'ORDONNATEUR<br /><br />
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+              </tr>
+              <tr>
+                <td style="text-align: left; width: 40%"><br /><br /><br /></td>
+                <td style="text-align: left; width: 40%"><br /><br /><br /></td>
+                <td style="text-align: left; width: 40%"></td>
+              </tr>
+            </table>
           </div>
         </div>
       </div>
@@ -294,7 +208,7 @@ export default {
   components: {},
   data() {
     return {
-      ladate:new Date(),
+      ladate: new Date(),
       ajouterNatureDepense: {
         activite_id: "",
         dotation: "",
@@ -360,19 +274,23 @@ export default {
       "getterNatureDepense",
     ]),
     retourneDateJour() {
-      
-    
-      return this.ladate.getDate()+"/"+(this.ladate.getMonth()+1)+"/"+this.ladate.getFullYear()
+      return (
+        this.ladate.getDate() +
+        "/" +
+        (this.ladate.getMonth() + 1) +
+        "/" +
+        this.ladate.getFullYear()
+      );
     },
     TotalOP() {
-     
-        return this.getterListeOPgloba.filter(item=>item.bordereau_id==this.bordereau_id)
-          .reduce(
-            (prec, cur) => parseFloat(prec) + parseFloat(cur.montant_prestation),
-            0
-          )
-          .toFixed(0);
-     // }
+      return this.getterListeOPgloba
+        .filter((item) => item.bordereau_id == this.bordereau_id)
+        .reduce(
+          (prec, cur) => parseFloat(prec) + parseFloat(cur.montant_prestation),
+          0
+        )
+        .toFixed(0);
+      // }
     },
     AfficheOPParBordereau() {
       return this.getterListeOPgloba.filter(
@@ -401,7 +319,7 @@ export default {
         }
       };
     },
-     MontantBordereau() {
+    MontantBordereau() {
       return (id) => {
         if (id != null && id != "") {
           const qtereel = this.getterInformationBudget.find(
@@ -415,7 +333,7 @@ export default {
         }
       };
     },
-     typeBordereau() {
+    typeBordereau() {
       return (id) => {
         if (id != null && id != "") {
           const qtereel = this.getterInformationBudget.find(
@@ -483,24 +401,23 @@ export default {
       window.history.back();
     },
     retour() {
-      if (this.typeBordereau(this.bordereau_id)==2) {
-         this.$router.push({
-        name: "InformationBordereau",
-      });
-      } else if (this.typeBordereau(this.bordereau_id)==3) {
-         this.$router.push({
-        name: "InformationBordereauOPDirect",
-      });
-      } else if(this.typeBordereau(this.bordereau_id)==5) {
-         this.$router.push({
-        name: "InformationBordereauOPAnnulation",
-      });
-      }else if(this.typeBordereau(this.bordereau_id)==4) {
-         this.$router.push({
-        name: "InformationBordereauOPDefinitif",
-      });
+      if (this.typeBordereau(this.bordereau_id) == 2) {
+        this.$router.push({
+          name: "InformationBordereau",
+        });
+      } else if (this.typeBordereau(this.bordereau_id) == 3) {
+        this.$router.push({
+          name: "InformationBordereauOPDirect",
+        });
+      } else if (this.typeBordereau(this.bordereau_id) == 5) {
+        this.$router.push({
+          name: "InformationBordereauOPAnnulation",
+        });
+      } else if (this.typeBordereau(this.bordereau_id) == 4) {
+        this.$router.push({
+          name: "InformationBordereauOPDefinitif",
+        });
       }
-     
     },
     observation($id) {
       if ($id == 1) {
@@ -511,7 +428,7 @@ export default {
         return "pour Visa";
       } else if ($id == 4) {
         return "Pour Attribution";
-      }else if ($id == 5) {
+      } else if ($id == 5) {
         return "Pour Prise en compte";
       } else if ($id == 6) {
         return "Pour Observation";
@@ -519,20 +436,30 @@ export default {
         return "Pour Differé";
       } else if ($id == 8) {
         return "Pour Rejet";
-      }   else {
+      } else {
         return "";
       }
     },
     formatageSomme: formatageSomme,
     formatageSommeSansFCFA: formatageSommeSansFCFA,
     genererEnPdf4() {
-      this.$htmlToPaper("printMe45");
+      //  this.$htmlToPaper("printMe45");
+
+      const localOptions = {
+        styles: [
+          "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css",
+          "https://unpkg.com/kidlat-css/css/kidlat.css",
+        ],
+        autoClose: false,
+      };
+      // this.$htmlToPaper("printMe45,localOptions)
+      this.$htmlToPaper("printMe45", localOptions);
     },
   },
 };
 </script>
 <style scoped>
-#customers {
+/* #customers {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 100%;
@@ -541,5 +468,5 @@ export default {
 #customers td,
 #customers th {
   padding: 8px;
-}
+} */
 </style>

@@ -747,8 +747,6 @@
                         parseFloat(TotalDisponible2Transferts)
                       )
                     }}
-
-                    
                   </td>
                 </tr>
                 <tr
@@ -1206,11 +1204,18 @@ export default {
       ).toFixed(2);
     },
     totalTauxExecutionInvestissements() {
-      return (
+      if (this.TotalActuelInvestissements !=0) {
+         return (
         (parseFloat(this.TotalExecuteOpDirectetDefInvestissements) /
           parseFloat(this.TotalActuelInvestissements)) *
         100
       ).toFixed(2);
+      } else {
+         return (
+       0
+      ).toFixed(2);
+      }
+     
     },
     // FIN
     // DEBUT  AFFICHER DISPONIBLE 1
@@ -1870,11 +1875,18 @@ export default {
       }
     },
     GlobalTauxExecution() {
-      return (
+      if (this.TotalActuelBiensService != 0) {
+        return (
         (parseFloat(this.TotalExecuteOpDirectetDefBienService) /
           parseFloat(this.TotalActuelBiensService)) *
         100
       ).toFixed(2);
+      } else {
+        return (
+        0
+      ).toFixed(2);
+      }
+      
     },
 
     // FIN
@@ -1963,11 +1975,18 @@ export default {
       }
     },
     totalTauxExecutionPersonnel() {
-      return (
+      if (this.TotalActuelPersonnel != 0) {
+        return (
         (parseFloat(this.totalExecuteOpDirectetDefPersonnel) /
           parseFloat(this.TotalActuelPersonnel)) *
         100
       ).toFixed(2);
+      } else {
+        return (
+       0
+      ).toFixed(2);
+      }
+      
     },
     // FIN
     // DEBUT  AFFICHER DISPONIBLE 1
@@ -1988,11 +2007,15 @@ export default {
     },
 
     TotalTauxExecutionTransferts() {
-      return (
-        (parseFloat(this.TotalExecuteOpDirectetDefTransferts) /
-          parseFloat(this.TotalActuelTransferts)) *
-        100
-      ).toFixed(2);
+      if (this.TotalActuelTransferts != 0) {
+        return (
+          (parseFloat(this.TotalExecuteOpDirectetDefTransferts) /
+            parseFloat(this.TotalActuelTransferts)) *
+          100
+        ).toFixed(2);
+      } else {
+        return (0).toFixed(2);
+      }
     },
     // FIN
     // DEBUT  AFFICHER DISPONIBLE 1
