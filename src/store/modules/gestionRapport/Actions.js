@@ -31,3 +31,11 @@ export function getRapportOp({ commit }) {
     })
     .catch(error => console.log(error));
 }
+
+export function getRapportSituationParComposante({ commit }) {
+  apiGuest.get("/situationDesComposante", { headers: authHeader() })
+    .then(response => {
+      commit("GET_RAPPORT_SITUATION_PAR_COMPOSANTE", response.data);
+    })
+    .catch(error => console.log(error));
+}

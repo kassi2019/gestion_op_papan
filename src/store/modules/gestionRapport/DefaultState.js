@@ -1,7 +1,8 @@
 const defaultstate = {
 stateVerificationFactureEnCours: [],
     stateVerificationFactureAcheve: [],
-     stateListeOPRapport:[]
+    stateListeOPRapport: [],
+     stateSituationParComposante:[]
     
 };
 

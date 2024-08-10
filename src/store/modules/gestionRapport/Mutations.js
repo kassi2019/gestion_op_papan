@@ -9,3 +9,7 @@ export const GET_VERIFICATION_FACTURE_ACHEVE = (state,value)=>{
 export const GET_RAPPORT_LISTE_OP = (state,value)=>{
     state.stateListeOPRapport=value
 }
+
+export const GET_RAPPORT_SITUATION_PAR_COMPOSANTE = (state,value)=>{
+    state.stateSituationParComposante=value
+}

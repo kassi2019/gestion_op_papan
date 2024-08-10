@@ -79,7 +79,7 @@
             <a
               class="nav-link collapsed"
               href=""
-              @click.prevent="activedOptionMenu('')"
+              @click.prevent="activedOptionMenu('situationComposante')"
             >
               <i class="fas fa-arrow-right"></i>
 

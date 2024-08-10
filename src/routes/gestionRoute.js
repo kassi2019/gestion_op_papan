@@ -41,7 +41,7 @@ import imprimerToutOP from "../page/GestionBudgetaire/VoirOPTotal/imprimerToutOP
 import AfficheActiviteDesOP from "../page/GestionBudgetaire/AfficheActiviteDesOP.vue"
 import listeToutOP from "../page/GestionBudgetaire/VoirOPTotal/listeToutOP.vue"
 import ExecutionBailleur from "../page/GestionRapport/ExecutionBailleur.vue"
-import ExecutionParLigne from "../page/GestionRapport/ExecutionParLigne.vue"
+
 import PresentationBudgetVise from "../page/GestionBudgetaire/DossierBudget/PresentationBudgetVise.vue"
 import OrdrePaiementDefinitif from "../page/GestionBudgetaire/DossierOPDefinitif/OrdrePaiementDefinitif.vue"
 
@@ -65,7 +65,7 @@ import signataire from "../page/ParametreGeneraux/signataire.vue"
 import SecteurActivite from "../page/ParametreGeneraux/SecteurActivite.vue"
 import FormeJuridique from "../page/ParametreGeneraux/FormeJuridique.vue"
 import RegimeImpossition from "../page/ParametreGeneraux/RegimeImpossition.vue"
-import VerifierFacture from "../page/GestionRapport/VerifierFacture.vue"
+
 import afficheBudgetViseParActivite from "../page/GestionBudgetaire/DossierBudget/afficheBudgetViseParActivite.vue"
 import mettreDecisionBudget from "../page/GestionBudgetaire/DossierBudget/mettreDecisionBudget.vue"
 const gestionutilisateur = [
@@ -74,11 +74,7 @@ const gestionutilisateur = [
         name:"mettreDecisionBudget",
        component: mettreDecisionBudget
      },
-     {
-        path: '/VerifierFacture',
-        name:"VerifierFacture",
-       component: VerifierFacture
-     },
+    
   {
         path: '/afficheBudgetViseParActivite/:id',
         name:"afficheBudgetViseParActivite",
@@ -187,11 +183,7 @@ const gestionutilisateur = [
         name:"PresentationBudgetVise",
        component: PresentationBudgetVise
      },
-  {
-        path: '/ExecutionParLigne',
-        name:"ExecutionParLigne",
-       component: ExecutionParLigne
-     },
+
    {
         path: '/ExecutionBailleur',
         name:"ExecutionBailleur",

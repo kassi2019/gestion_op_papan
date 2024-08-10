@@ -23,12 +23,7 @@
             >
           </div>
         </div>
-        <div
-          class="card-body"
-          id="printMe45"
-     
-         
-        >
+        <div class="card-body" id="printMe45">
           <!-- Modal -->
           <table class="table table-bordered border-primary">
             <tr>
@@ -97,12 +92,21 @@
               <thead>
                 <tr>
                   <!-- <th scope="col">#</th> -->
-                  <!-- <th scope="col">N</th> -->
                   <th
                     scope="col"
                     style="
                       text-align: center;
-
+                      background-color: #faec7f !important;
+                      font-size: 10px !important;
+                    "
+                  >
+                    N°
+                  </th>
+                  <th
+                    scope="col"
+                    style="
+                      text-align: center;
+                      background-color: #faec7f !important;
                       font-size: 10px !important;
                     "
                   >
@@ -112,7 +116,7 @@
                     scope="col"
                     style="
                       text-align: center;
-
+                      background-color: #faec7f !important;
                       width: 50%;
                       font-size: 10px !important;
                     "
@@ -123,7 +127,7 @@
                     scope="col"
                     style="
                       text-align: center;
-
+                      background-color: #faec7f !important;
                       width: 20%;
                       font-size: 10px !important;
                     "
@@ -134,7 +138,7 @@
                     scope="col"
                     style="
                       text-align: center;
-
+                      background-color: #faec7f !important;
                       font-size: 10px !important;
                     "
                   >
@@ -144,7 +148,7 @@
                     scope="col"
                     style="
                       text-align: center;
-
+                      background-color: #faec7f !important;
                       font-size: 10px !important;
                     "
                   >
@@ -154,7 +158,7 @@
                     scope="col"
                     style="
                       text-align: center;
-
+                      background-color: #faec7f !important;
                       font-size: 10px !important;
                     "
                   >
@@ -164,7 +168,7 @@
                     scope="col"
                     style="
                       text-align: center;
-
+                      background-color: #faec7f !important;
                       font-size: 10px !important;
                     "
                   >
@@ -185,14 +189,21 @@
               </thead>
               <tbody v-for="data in AfficherParComposante" :key="data.id">
                 <tr style="font-size: 10px !important">
-                  <td colspan="7" style="text-align: center">
+                  <td
+                    colspan="8"
+                    style="
+                      text-align: center;
+                      background-color: #ece8be !important;
+                    "
+                  >
                     {{ data.libelle }}
                   </td>
                 </tr>
                 <tr
-                  v-for="data1 in AfficheOPParComposante(data.id)"
+                  v-for="(data1, index) in AfficheOPParComposante(data.id)"
                   :key="data1.id"
                 >
+                  <td>{{ index + 1 }}</td>
                   <td>{{ data1.numero_ordre_paiement }}</td>
                   <td>{{ data1.objet_depense }}</td>
                   <td>{{ data1.entreprise }}</td>
@@ -321,28 +332,24 @@ export default {
   data() {
     return {
       globalOptions: {
-            name: '_blank',
-            specs: [
-              'fullscreen=yes',
-              'titlebar=yes',
-              'scrollbars=yes'
-            ],
-            styles: [
-              'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
-              'https://unpkg.com/kidlat-css/css/kidlat.css',
-              './landscape.css', // must be the path of your public folder
-            ],
-            timeout: 1000,
-            autoClose: true,
-            windowTitle: window.document.title, // whatever's the window title of the opener
-          },
-          localLandScapeOptions: {
-            styles: [
-              'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
-              'https://unpkg.com/kidlat-css/css/kidlat.css',
-              './landscape.css', // must be the path of your public folder
-            ]
-          },
+        name: "_blank",
+        specs: ["fullscreen=yes", "titlebar=yes", "scrollbars=yes"],
+        styles: [
+          "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css",
+          "https://unpkg.com/kidlat-css/css/kidlat.css",
+          "./landscape.css", // must be the path of your public folder
+        ],
+        timeout: 1000,
+        autoClose: true,
+        windowTitle: window.document.title, // whatever's the window title of the opener
+      },
+      localLandScapeOptions: {
+        styles: [
+          "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css",
+          "https://unpkg.com/kidlat-css/css/kidlat.css",
+          "./landscape.css", // must be the path of your public folder
+        ],
+      },
       typeDepense: [
         {
           id: "0",
@@ -591,18 +598,14 @@ export default {
     },
     genererEnPdf4() {
       const localOptions = {
-            styles: [
-              'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
-              'https://unpkg.com/kidlat-css/css/kidlat.css'
-             
-            ]
-          };
-     // this.$htmlToPaper("printMe45,localOptions)
-      this.$htmlToPaper('printMe45', localOptions);
-
-      
+        styles: [
+          "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css",
+          "https://unpkg.com/kidlat-css/css/kidlat.css",
+        ],
+      };
+      // this.$htmlToPaper("printMe45,localOptions)
+      this.$htmlToPaper("printMe45", localOptions);
     },
-
   },
   watch: {
     activite_id: function (value) {
@@ -617,7 +620,6 @@ export default {
 </script>
 
 <style scoped>
-
 /* #customers {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;

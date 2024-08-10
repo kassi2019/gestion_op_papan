@@ -12,7 +12,7 @@
               >Exporter en Pdf</span
             >
           </div>
-          <div class="d-flex align-items-center">
+          <!-- <div class="d-flex align-items-center">
             <span
               style="cursor: pointer"
               class="badge rounded-pill bg-primary"
@@ -21,14 +21,9 @@
               aria-controls="offcanvasRight"
               >Recherche</span
             >
-          </div>
+          </div> -->
         </div>
-        <div
-          class="card-body"
-          id="printMe45"
-     
-         
-        >
+        <div class="card-body" id="printMe45">
           <!-- Modal -->
           <table class="table table-bordered border-primary">
             <tr>
@@ -89,7 +84,7 @@
             </tr>
           </table>
           <h6 style="text-align: center; border: 0.5px solid #000">
-            LISTE DES ORDRES DE PAIEMENT
+            SITUATION D'EXECUTION PAR COMPOSANTE
           </h6>
 
           <div class="table-responsive">
@@ -102,112 +97,276 @@
                     scope="col"
                     style="
                       text-align: center;
-
-                      font-size: 10px !important;
+                      background-color: #faec7f !important;
+                      font-size: 9px !important;
                     "
                   >
-                    N°OP
+                    N°
                   </th>
                   <th
                     scope="col"
                     style="
                       text-align: center;
-
+                      background-color: #faec7f !important;
                       width: 50%;
-                      font-size: 10px !important;
+                      font-size: 9px !important;
                     "
                   >
-                    OBJET DEPENSE
+                    COMPOSANTE
                   </th>
                   <th
                     scope="col"
                     style="
                       text-align: center;
-
+                      background-color: #faec7f !important;
                       width: 20%;
-                      font-size: 10px !important;
+                      font-size: 9px !important;
                     "
                   >
-                    BENEFICIAIRE
+                    BUDGET INITIAL(A)
                   </th>
                   <th
                     scope="col"
                     style="
                       text-align: center;
-
-                      font-size: 10px !important;
+                      background-color: #faec7f !important;
+                      font-size: 9px !important;
                     "
                   >
-                    MONTANT
+                    BUDGET ACTUEL(B)
                   </th>
                   <th
                     scope="col"
                     style="
                       text-align: center;
-
-                      font-size: 10px !important;
+                      background-color: #faec7f !important;
+                      font-size: 9px !important;
                     "
                   >
-                    DATE DECISION
+                    EXECUTION (OP DIRECT + OP DEFINITIF)(C)
                   </th>
                   <th
                     scope="col"
                     style="
                       text-align: center;
-
-                      font-size: 10px !important;
+                      background-color: #faec7f !important;
+                      font-size: 9px !important;
                     "
                   >
-                    DECISION
+                    EXECUTION PROVISOIRE(D)
                   </th>
                   <th
                     scope="col"
                     style="
                       text-align: center;
-
-                      font-size: 10px !important;
+                      background-color: #faec7f !important;
+                      font-size: 9px !important;
                     "
                   >
-                    N°FACTURE
+                    TAUX EXECUTION (E=(C/B)*100)(%)
                   </th>
-                  <!-- <th
+                  <th
                     scope="col"
                     style="
                       text-align: center;
-                      
-
-                      font-size: 10px !important;
+                      background-color: #faec7f !important;
+                      font-size: 9px !important;
                     "
                   >
-                    Disponible2 (G =B-(C +D))
-                  </th> -->
+                    DISPONIBLE 1 (F=B-C)
+                  </th>
+                  <th
+                    scope="col"
+                    style="
+                      text-align: center;
+                      background-color: #faec7f !important;
+                      font-size: 9px !important;
+                    "
+                  >
+                    DISPONIBLE 2 (G =B-(C+D))
+                  </th>
+                  <th
+                    scope="col"
+                    style="
+                      text-align: center;
+                      background-color: #faec7f !important;
+                      font-size: 9px !important;
+                    "
+                  >
+                    NBRE OP (DEFINITIF ET DIRECT)
+                  </th>
+                  <th
+                    scope="col"
+                    style="
+                      text-align: center;
+                      background-color: #faec7f !important;
+                      font-size: 9px !important;
+                    "
+                  >
+                    NBRE OP (PROVISOIRE NON REGULARSE)
+                  </th>
                 </tr>
               </thead>
-              <tbody v-for="data in AfficherParComposante" :key="data.id">
-                <tr style="font-size: 10px !important">
-                  <td colspan="7" style="text-align: center">
-                    {{ data.libelle }}
+              <tbody v-for="item in groupeParActivite" :key="item">
+                <tr>
+                  <td colspan="11" style="text-align: center">
+                    {{ libellePlan(item) }}
                   </td>
                 </tr>
                 <tr
-                  v-for="data1 in AfficheOPParComposante(data.id)"
-                  :key="data1.id"
+                  v-for="(data, index) in afficherSousBudget(item)"
+                  :key="data.id"
                 >
-                  <td>{{ data1.numero_ordre_paiement }}</td>
-                  <td>{{ data1.objet_depense }}</td>
-                  <td>{{ data1.entreprise }}</td>
+                  <td>{{ index + 1 }}</td>
+                  <td>{{ data.composante }}</td>
+
+                  <td style="text-align: right">
+                    {{ data.montant_initial }}
+                  </td>
+                  <td style="text-align: right">
+                    {{
+                      formatageSommeSansFCFA(parseFloat(data.montant_actuelle))
+                    }}
+                  </td>
                   <td style="text-align: right">
                     {{
                       formatageSommeSansFCFA(
-                        parseFloat(data1.montant_prestation)
+                        parseFloat(data.execution_definitif)
                       )
                     }}
                   </td>
-                  <td>{{ formaterDate(data1.date_decision) }}</td>
-                  <td>{{ afficheDecision(data1.decision_cf) }}</td>
-                  <td>
-                    {{ data1.numero_facture }} du
-                    {{ formaterDate(data1.date_facture) }}
+
+                  <td style="text-align: right">
+                    {{
+                      formatageSommeSansFCFA(
+                        parseFloat(data.execution_provisoire)
+                      )
+                    }}
+                  </td>
+
+                  <td style="text-align: right">
+                    {{ parseFloat(data.taux) }}
+                  </td>
+                  <td style="text-align: right">
+                    {{ formatageSommeSansFCFA(parseFloat(data.disponible1)) }}
+                  </td>
+                  <td style="text-align: right">
+                    {{ formatageSommeSansFCFA(parseFloat(data.disponible2)) }}
+                  </td>
+                  <td style="text-align: right">
+                    {{ data.nbre_op_definitif }}
+                  </td>
+                  <td style="text-align: right">
+                    {{ data.nbre_op_provisoire }}
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    colspan="2"
+                    style="
+                      text-align: right;
+                      background-color: #e2ad3b !important;
+                    "
+                  >
+                    TOTAL
+                  </td>
+                  <td
+                    style="
+                      text-align: right;
+                      background-color: #e2ad3b !important;
+                    "
+                  >
+                    {{
+                      formatageSommeSansFCFA(
+                        parseFloat(Totalmontant_initial(item))
+                      )
+                    }}
+                  </td>
+                  <td
+                    style="
+                      text-align: right;
+                      background-color: #e2ad3b !important;
+                    "
+                  >
+                    {{
+                      formatageSommeSansFCFA(
+                        parseFloat(Totalmontant_actuelle(item))
+                      )
+                    }}
+                  </td>
+                  <td
+                    style="
+                      text-align: right;
+                      background-color: #e2ad3b !important;
+                    "
+                  >
+                    {{
+                      formatageSommeSansFCFA(
+                        parseFloat(Totalexecution_definitif(item))
+                      )
+                    }}
+                  </td>
+                  <td
+                    style="
+                      text-align: right;
+                      background-color: #e2ad3b !important;
+                    "
+                  >
+                    {{
+                      formatageSommeSansFCFA(
+                        parseFloat(Totalexecution_provisoire(item))
+                      )
+                    }}
+                  </td>
+                  <td
+                    style="
+                      text-align: right;
+                      background-color: #e2ad3b !important;
+                    "
+                  >
+                    {{
+                      (
+                        (parseFloat(Totalexecution_definitif(item)) /
+                          parseFloat(Totalmontant_actuelle(item))) *
+                        100
+                      ).toFixed(2)
+                    }}
+                  </td>
+                  <td
+                    style="
+                      text-align: right;
+                      background-color: #e2ad3b !important;
+                    "
+                  >
+                    {{
+                      formatageSommeSansFCFA(parseFloat(Totaldisponible1(item)))
+                    }}
+                  </td>
+                  <td
+                    style="
+                      text-align: right;
+                      background-color: #e2ad3b !important;
+                    "
+                  >
+                    {{
+                      formatageSommeSansFCFA(parseFloat(Totaldisponible2(item)))
+                    }}
+                  </td>
+                  <td
+                    style="
+                      text-align: right;
+                      background-color: #e2ad3b !important;
+                    "
+                  >
+                    {{ parseFloat(Totalnbre_op_provisoire(item)) }}
+                  </td>
+                  <td
+                    style="
+                      text-align: right;
+                      background-color: #e2ad3b !important;
+                    "
+                  >
+                    {{ parseFloat(Totalnbre_op_definitif(item)) }}
                   </td>
                 </tr>
               </tbody>
@@ -307,7 +466,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import { ModelListSelect } from "vue-search-select";
+// import { ModelListSelect } from "vue-search-select";
 import moment from "moment";
 
 import {
@@ -316,33 +475,29 @@ import {
 } from "../Repositories/Repository";
 export default {
   components: {
-    ModelListSelect,
+    // ModelListSelect,
   },
   data() {
     return {
       globalOptions: {
-            name: '_blank',
-            specs: [
-              'fullscreen=yes',
-              'titlebar=yes',
-              'scrollbars=yes'
-            ],
-            styles: [
-              'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
-              'https://unpkg.com/kidlat-css/css/kidlat.css',
-              './landscape.css', // must be the path of your public folder
-            ],
-            timeout: 1000,
-            autoClose: true,
-            windowTitle: window.document.title, // whatever's the window title of the opener
-          },
-          localLandScapeOptions: {
-            styles: [
-              'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
-              'https://unpkg.com/kidlat-css/css/kidlat.css',
-              './landscape.css', // must be the path of your public folder
-            ]
-          },
+        name: "_blank",
+        specs: ["fullscreen=yes", "titlebar=yes", "scrollbars=yes"],
+        styles: [
+          "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css",
+          "https://unpkg.com/kidlat-css/css/kidlat.css",
+          "./landscape.css", // must be the path of your public folder
+        ],
+        timeout: 1000,
+        autoClose: true,
+        windowTitle: window.document.title, // whatever's the window title of the opener
+      },
+      localLandScapeOptions: {
+        styles: [
+          "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css",
+          "https://unpkg.com/kidlat-css/css/kidlat.css",
+          "./landscape.css", // must be the path of your public folder
+        ],
+      },
       typeDepense: [
         {
           id: "0",
@@ -393,13 +548,8 @@ export default {
     };
   },
   created() {
-    // this.getBudgetEclateViseGroupeParActivte();
-    this.getSousBudget();
-    this.getActivite();
-    this.getRapportOp();
-    // this.getNatureDepense();
-    // this.getNatureEconomique();
-    // this.getListeOrdrePaiementGlobal();
+    //  this.getActivite();
+    this.getRapportSituationParComposante();
   },
   computed: {
     ...mapGetters("parametrage", [
@@ -418,48 +568,54 @@ export default {
       "getterBudgetViseParActivite",
       "getterNatureDepense",
     ]),
-    ...mapGetters("Rapport", ["gettersListeOPRapport"]),
-    AfficherParComposante() {
-      if (this.activite_id != 0 && this.sous_budget_id == 0) {
-        return this.getterSousBudget.filter(
-          (item) => item.activite_id == this.activite_id
-        );
-      } else {
-        return this.getterSousBudget.filter(
-          (item) => item.id == this.sous_budget_id
-        );
-      }
-    },
+    ...mapGetters("Rapport", ["gettersSituationParComposante"]),
 
-    libelleSousBudget() {
-      let collet = [];
-      this.getterSousBudget.filter((item) => {
-        if (item.activite_id == this.activite_id) {
-          let data = {
-            id: item.id,
-            libelle: item.libelle,
-          };
-          collet.push(data);
+    afficherSousBudget() {
+      return (id) => {
+        if (id != null && id != "") {
+          return this.gettersSituationParComposante.filter(
+            (qtreel) => qtreel.activite_id == id
+          );
         }
-      });
-      return collet;
+      };
     },
-    afficheActivite() {
-      let collet = [];
-      this.getterActivite.filter((item) => {
-        // if (item.activite_id == this.activite_id) {
-        let data = {
-          id: item.id,
-          libelle: item.code.concat(" ", item.libelle),
-        };
-        collet.push(data);
-        // }
-      });
-      return collet;
+    libellePlan() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.gettersSituationParComposante.find(
+            (qtreel) => qtreel.activite_id == id
+          );
+
+          if (qtereel) {
+            return qtereel.plan_activite;
+          }
+          return 0;
+        }
+      };
+    },
+    groupeParActivite() {
+      // return (id) => {
+
+      let objet = this.gettersSituationParComposante;
+      //  let vm=this
+      let array_exercie = [];
+      if (objet.length > 0) {
+        objet.forEach(function (val) {
+          array_exercie.push(val.activite_id);
+        });
+        let unique = [...new Set(array_exercie)];
+        console.log(unique);
+        if (unique.length == 0) {
+          return [];
+        }
+        return unique.sort((a, b) => (a.unique > b.unique ? 1 : -1));
+      }
+      return [];
+      // };
     },
   },
   methods: {
-    ...mapActions("Rapport", ["getRapportOp"]),
+    ...mapActions("Rapport", ["getRapportSituationParComposante"]),
     ...mapActions("parametrage", [
       "getSousBudget",
       "getBudgetEclateViseGroupeParActivte",
@@ -480,6 +636,79 @@ export default {
       "getBudgetEclate",
       "getOpParActvite",
     ]),
+    Totalmontant_initial($id) {
+      return this.gettersSituationParComposante
+        .filter((item) => item.activite_id == $id)
+        .reduce(
+          (prec, cur) => parseFloat(prec) + parseFloat(cur.montant_initial),
+          0
+        )
+        .toFixed(0);
+    },
+    Totalmontant_actuelle($id) {
+      return this.gettersSituationParComposante
+        .filter((item) => item.activite_id == $id)
+        .reduce(
+          (prec, cur) => parseFloat(prec) + parseFloat(cur.montant_actuelle),
+          0
+        )
+        .toFixed(0);
+    },
+    Totalexecution_definitif($id) {
+      return this.gettersSituationParComposante
+        .filter((item) => item.activite_id == $id)
+        .reduce(
+          (prec, cur) => parseFloat(prec) + parseFloat(cur.execution_definitif),
+          0
+        )
+        .toFixed(0);
+    },
+    Totalexecution_provisoire($id) {
+      return this.gettersSituationParComposante
+        .filter((item) => item.activite_id == $id)
+        .reduce(
+          (prec, cur) =>
+            parseFloat(prec) + parseFloat(cur.execution_provisoire),
+          0
+        )
+        .toFixed(0);
+    },
+    Totaldisponible1($id) {
+      return this.gettersSituationParComposante
+        .filter((item) => item.activite_id == $id)
+        .reduce(
+          (prec, cur) => parseFloat(prec) + parseFloat(cur.disponible1),
+          0
+        )
+        .toFixed(0);
+    },
+    Totaldisponible2($id) {
+      return this.gettersSituationParComposante
+        .filter((item) => item.activite_id == $id)
+        .reduce(
+          (prec, cur) => parseFloat(prec) + parseFloat(cur.disponible2),
+          0
+        )
+        .toFixed(0);
+    },
+    Totalnbre_op_provisoire($id) {
+      return this.gettersSituationParComposante
+        .filter((item) => item.activite_id == $id)
+        .reduce(
+          (prec, cur) => parseFloat(prec) + parseFloat(cur.nbre_op_provisoire),
+          0
+        )
+        .toFixed(0);
+    },
+    Totalnbre_op_definitif($id) {
+      return this.gettersSituationParComposante
+        .filter((item) => item.activite_id == $id)
+        .reduce(
+          (prec, cur) => parseFloat(prec) + parseFloat(cur.nbre_op_definitif),
+          0
+        )
+        .toFixed(0);
+    },
     afficheDecision($id) {
       if ($id == 1) {
         return "Visé";
@@ -591,18 +820,14 @@ export default {
     },
     genererEnPdf4() {
       const localOptions = {
-            styles: [
-              'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
-              'https://unpkg.com/kidlat-css/css/kidlat.css'
-             
-            ]
-          };
-     // this.$htmlToPaper("printMe45,localOptions)
-      this.$htmlToPaper('printMe45', localOptions);
-
-      
+        styles: [
+          "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css",
+          "https://unpkg.com/kidlat-css/css/kidlat.css",
+        ],
+      };
+      // this.$htmlToPaper("printMe45,localOptions)
+      this.$htmlToPaper("printMe45", localOptions);
     },
-
   },
   watch: {
     activite_id: function (value) {
@@ -617,7 +842,6 @@ export default {
 </script>
 
 <style scoped>
-
 /* #customers {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;

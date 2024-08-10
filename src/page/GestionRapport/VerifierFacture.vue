@@ -36,7 +36,7 @@
             <table class="table table-bordered">
               <thead>
                 <tr>
-                  <th colspan="6" style="border:1px solid #000 !important"></th>
+                  <th colspan="6" style="text-align: center !important;border:1px solid #000 !important">INFORMATION SUR LA FACTURE</th>
                   <th colspan="3" style="text-align: center !important;border:1px solid #000 !important">
                     PERIODE DE VALIDATION DE LA FACTURE CHEZ LE CF
                   </th>
@@ -268,7 +268,7 @@ export default {
     this.getVerificationFactureAcheve()
   },
   computed: {
-    ...mapGetters("parametrage", ["gettersVerificationFactureEncours","gettersVerificationFactureAcheve"]),
+    ...mapGetters("Rapport", ["gettersVerificationFactureEncours","gettersVerificationFactureAcheve"]),
     DateJours() {
       let date = new Date();
       let aaaa = date.getFullYear();
@@ -292,7 +292,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions("parametrage", ["getVerificationFactureEncours",'getVerificationFactureAcheve']),
+    ...mapActions("Rapport", ["getVerificationFactureEncours",'getVerificationFactureAcheve']),
 
     DureContrat($id, $id1, $id3) {
       if ($id3 == null) {
