@@ -39,3 +39,11 @@ export function getRapportSituationParComposante({ commit }) {
     })
     .catch(error => console.log(error));
 }
+
+export function getRapportSituationPersonnel({ commit }) {
+  apiGuest.get("/situationSurPersonelle", { headers: authHeader() })
+    .then(response => {
+      commit("GET_RAPPORT_SITUATION_PERSONNEL", response.data);
+    })
+    .catch(error => console.log(error));
+}

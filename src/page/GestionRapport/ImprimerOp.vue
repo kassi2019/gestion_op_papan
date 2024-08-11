@@ -6,11 +6,11 @@
           <div class="d-flex align-items-center">
             <h4 class="card-title">Imprimer Ordre de paiement</h4>
             <span
-                  class="badge badge-warning"
-                  style="cursor: pointer; color: #000"
-                  @click.prevent="retour()"
-                  ><i class="fas fa-arrow-alt-circle-left"></i> Retour</span
-                >
+              class="badge badge-warning"
+              style="cursor: pointer; color: #000"
+              @click.prevent="retour()"
+              ><i class="fas fa-arrow-alt-circle-left"></i> Retour</span
+            >
             <span
               class="badge rounded-pill bg-primary"
               style="cursor: pointer"
@@ -80,7 +80,7 @@
             </tr>
           </table>
           <h3 style="text-align: center; border: 1px solid #000">
-            ORDRE DE PAIEMENT DEPENSE
+            ORDRE DE PAIEMENT DE DEPENSE
           </h3>
           <table
             id="customers"
@@ -753,7 +753,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
- import moment from "moment";
+import moment from "moment";
 import {
   formatageSomme,
   formatageSommeSansFCFA,
@@ -1058,7 +1058,10 @@ export default {
         );
 
         if (qtereel) {
-          return qtereel.numero_facture.concat(" du ", this.formaterDate(qtereel.date_facture));
+          return qtereel.numero_facture.concat(
+            " du ",
+            this.formaterDate(qtereel.date_facture)
+          );
         }
         return 0;
         //     }
@@ -1240,7 +1243,7 @@ export default {
     //     params: { id: id},
     //   });
     //   }
-      
+
     // },
     formaterDate(date) {
       return moment(date, "YYYY-MM-DD").format("DD/MM/YYYY");

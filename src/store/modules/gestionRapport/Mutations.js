@@ -13,3 +13,6 @@ export const GET_RAPPORT_LISTE_OP = (state,value)=>{
 export const GET_RAPPORT_SITUATION_PAR_COMPOSANTE = (state,value)=>{
     state.stateSituationParComposante=value
 }
+export const GET_RAPPORT_SITUATION_PERSONNEL = (state,value)=>{
+    state.stateSituationPersonnel=value
+}

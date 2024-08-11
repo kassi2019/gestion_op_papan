@@ -1199,7 +1199,7 @@
                             title="Imprimer OP"
                             class="fas fa-print"
                             style="cursor: pointer; color: #77abd6"
-                            @click.prevent="fonctionImprimer(item.id)"
+                            @click.prevent="fonctionImprimer(item.id,bordereau_id)"
                           ></span>
                         </div>
                       </td>
@@ -1519,7 +1519,7 @@ export default {
       return this.getterListeOPgloba.filter(
         (item) =>
           item.bordereau_id == this.bordereau_id &&
-          item.type_ordre_paiement == 1
+          item.type_ordre_paiement == 2
       );
     },
     taillerTableau() {
@@ -2368,10 +2368,10 @@ export default {
         name: "InformationBordereau",
       });
     },
-    fonctionImprimer(id) {
+    fonctionImprimer(id,id1) {
       this.$router.push({
-        name: "ImprimerOp",
-        params: { id: id },
+        name: "imprimerToutOP",
+        params: { id: id,id1: id1 },
       });
     },
     AfficheModalModificationFacture(id) {

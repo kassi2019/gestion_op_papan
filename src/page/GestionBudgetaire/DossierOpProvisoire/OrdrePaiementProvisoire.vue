@@ -1205,7 +1205,7 @@
                             title="Imprimer OP"
                             class="fas fa-print"
                             style="cursor: pointer; color: #77abd6"
-                            @click.prevent="fonctionImprimer(item.id)"
+                            @click.prevent="fonctionImprimer(item.id,bordereau_id)"
                           ></span>
                         </div>
                       </td>
@@ -2374,10 +2374,10 @@ export default {
         name: "InformationBordereau",
       });
     },
-    fonctionImprimer(id) {
+    fonctionImprimer(id,id1) {
       this.$router.push({
-        name: "ImprimerOp",
-        params: { id: id },
+        name: "imprimerToutOP",
+        params: { id: id,id1: id1 },
       });
     },
     AfficheModalModificationFacture(id) {

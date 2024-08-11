@@ -518,7 +518,7 @@
                             title="Imprimer OP"
                             class="fas fa-print"
                             style="cursor: pointer; color: #77abd6"
-                            @click.prevent="fonctionImprimer(item.id)"
+                            @click.prevent="fonctionImprimer(item.id,bordereau_id)"
                           ></span>
                         </div>
                       </td>
@@ -1941,10 +1941,16 @@ export default {
     formaterDate(date) {
       return moment(date, "YYYY-MM-DD").format("DD/MM/YYYY");
     },
-    fonctionImprimer(id) {
+    // fonctionImprimer(id) {
+    //   this.$router.push({
+    //     name: "ImprimerOp",
+    //     params: { id: id },
+    //   });
+    // },
+     fonctionImprimer(id,id1) {
       this.$router.push({
-        name: "ImprimerOp",
-        params: { id: id },
+        name: "imprimerToutOP",
+        params: { id: id,id1: id1 },
       });
     },
     retour() {

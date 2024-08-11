@@ -3,7 +3,13 @@ import listeOpProvisoire from "../page/GestionRapport/listeOpProvisoire.vue"
 import VerifierFacture from "../page/GestionRapport/VerifierFacture.vue"
 import ExecutionParLigne from "../page/GestionRapport/ExecutionParLigne.vue"
 import situationComposante from "../page/GestionRapport/SituationParComposante.vue"
+import EtatPersonnel from "../page/GestionRapport/EtatPersonnel.vue"
 const gestionutilisateur = [
+  {
+        path: '/EtatPersonnel',
+        name:"EtatPersonnel",
+       component: EtatPersonnel
+     },
    {
         path: '/situationComposante',
         name:"situationComposante",

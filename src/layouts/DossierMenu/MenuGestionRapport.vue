@@ -86,17 +86,17 @@
               <p>Situation Par Composante</p>
             </a>
           </li>
-          <!-- <li class="nav-item">
+          <li class="nav-item">
             <a
               class="nav-link collapsed"
               href=""
-              @click.prevent="activedOptionMenu('')"
+              @click.prevent="activedOptionMenu('EtatPersonnel')"
             >
               <i class="fas fa-arrow-right"></i>
 
-              <p>Etat Sur les OP</p>
+              <p>Situation sur le personnel</p>
             </a>
-          </li> -->
+          </li>
            <li class="nav-item">
             <a
               class="nav-link collapsed"

@@ -6,11 +6,11 @@
           <div class="d-flex align-items-center">
             <h4 class="card-title">Imprimer Ordre de paiement</h4>
             <span
-                  class="badge badge-warning"
-                  style="cursor: pointer; color: #000"
-                  @click.prevent="retour1"
-                  ><i class="fas fa-arrow-alt-circle-left"></i> Retour</span
-                >
+              class="badge badge-warning"
+              style="cursor: pointer; color: #000"
+              @click.prevent="retour()"
+              ><i class="fas fa-arrow-alt-circle-left"></i> Retour</span
+            >
             <span
               class="badge rounded-pill bg-primary"
               style="cursor: pointer"
@@ -23,13 +23,7 @@
           <!-- Modal -->
           <table class="table table-bordered border-primary">
             <tr>
-              <td
-                style="
-                  text-align: center;
-                  border: 1px solid #000 !important;
-                  width: 40%;
-                "
-              >
+              <td style="text-align: center; width: 40%">
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <h6 style="font-size: 12px">
                   Ministère des Ressources Animales et Halieutiques<br />
@@ -42,13 +36,7 @@
                 </h6>
                 <!-- <img src="/optimisation/skin/img/log3.png" width="80px;"  /> -->
               </td>
-              <td
-                style="
-                  text-align: center;
-                  border: 1px solid #000 !important;
-                  width: 20%;
-                "
-              >
+              <td style="text-align: center; width: 20%">
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                 <img
@@ -61,13 +49,7 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               </td>
 
-              <td
-                style="
-                  text-align: center;
-                  border: 1px solid #000 !important;
-                  width: 40%;
-                "
-              >
+              <td style="text-align: center; width: 40%">
                 <h6 style="font-size: 12px">
                   République de Côte d'Ivoire <br />
                   ------------------------- <br />
@@ -80,7 +62,7 @@
             </tr>
           </table>
           <h3 style="text-align: center; border: 1px solid #000">
-            ORDRE DE PAIEMENT DEPENSE
+            ORDRE DE PAIEMENT DE DEPENSE
           </h3>
           <table
             id="customers"
@@ -90,150 +72,48 @@
               <tr>
                 <th
                   style="
-                    font-size: 12px;
+                    font-size: 16px;
                     font-weight: bold;
                     color: #000;
                     width: 10%;
                     text-align: left;
-                    line-height: 200%;
+                    
                   "
                   title=""
                 >
                   EXERCICE
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <span
-                    style="text-align: center !important; line-height: normal"
-                    >:</span
-                  >
+                  
                 </th>
 
                 <td
                   style="
-                    font-size: 16px;
+                    font-size: 14px;
                     font-weight: bold;
                     color: #000;
                     text-align: left;
+                    line-height: 500% !important;
                   "
                 >
-                  {{ exerciceBudgetaire }}
+                  : {{ exerciceBudgetaire }}
                 </td>
               </tr>
             </thead>
 
             <thead>
-              <tr style="text-align: center; border: 1px solid #000 !important">
+              <tr style="text-align: center">
                 <th
                   style="
-                    font-size: 12px;
+                    font-size: 16px;
                     font-weight: bold;
                     color: #000;
                     width: 40%;
                     text-align: left;
-                    line-height: 200%;
+                    
                   "
                   title=""
                 >
                   NUMERO DE ORDRE PAIEMENT
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
-                    style="text-align: center !important; line-height: normal"
-                    >:</span
-                  >
-                </th>
-                <td
-                  style="
-                    font-size: 16px;
-                    font-weight: bold;
-                    color: #000;
-                    text-align: left;
-                  "
-                >
-                  {{ numero_ordre_paiement }}
-                </td>
-              </tr>
-            </thead>
-            <!-- <thead>
-              <tr style="text-align: center; border: 1px solid #000 !important">
-                <th
-                  style="
-                    font-size: 12px;
-                    font-weight: bold;
-                    color: #000;
-                    width: 10%;
-                    text-align: left;
-                    line-height: 200%;
-                  "
-                  title=""
-                >
-                  NOM DU BENEFICIAIRE
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
-                    style="text-align: center !important; line-height: normal"
-                    >:</span
-                  >
-                </th>
-                <td
-                  style="
-                    font-size: 16px;
-                    font-weight: bold;
-                    color: #000;
-                    text-align: left;
-                  "
-                >
-                  {{ beneficiaire }}
-                </td>
-              </tr>
-            </thead>
-            <thead>
-              <tr style="text-align: center; border: 1px solid #000 !important">
-                <th
-                  style="
-                    font-size: 12px;
-                    font-weight: bold;
-                    color: #000;
-                    width: 10%;
-                    text-align: left;
-                    line-height: 200%;
-                  "
-                  title=""
-                >
-                  ADRESSE
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
-                    style="text-align: center !important; line-height: normal"
-                    >:</span
-                  >
-                </th>
-                <td
-                  style="
-                    font-size: 16px;
-                    font-weight: bold;
-                    color: #000;
-                    text-align: left;
-                  "
-                >
-                  {{ beneficiaire_adresse }}
-                </td>
-              </tr>
-            </thead> -->
-
-            <thead>
-              <tr style="text-align: center; border: 1px solid #000 !important">
-                <th
-                  style="
-                    font-size: 12px;
-                    font-weight: bold;
-                    color: #000;
-                    width: 10%;
-                    text-align: left;
-                    line-height: 200%;
-                  "
-                  title=""
-                >
-                  OBJET DE LA DEPENSE
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
-                    style="text-align: center !important; line-height: normal"
-                    >:</span
-                  >
+                
                 </th>
                 <td
                   style="
@@ -241,508 +121,335 @@
                     font-weight: bold;
                     color: #000;
                     text-align: left;
+                    line-height: 500% !important;
                   "
-                  class="text-break"
                 >
-                  {{ objetDepense }}
+                  : {{ numero_ordre_paiement }}
                 </td>
               </tr>
             </thead>
-            <!-- <thead>
-              <tr style="text-align: center; border: 1px solid #000 !important">
+            
+            
+
+            <thead>
+              <tr style="text-align: center">
                 <th
-                  style="
-                    font-size: 12px;
-                    font-weight: bold;
-                    color: #000;
-                    width: 10%;
-                    text-align: left;
-                    line-height: 200%;
-                  "
-                  title=""
-                >
-                  N° COMPTE CONTRIBUABLE
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
-                    style="text-align: center !important; line-height: normal"
-                    >:</span
-                  >
-                </th>
-                <td
                   style="
                     font-size: 16px;
                     font-weight: bold;
                     color: #000;
+                    width: 10%;
                     text-align: left;
+                    
                   "
+                  title=""
                 >
-                  {{ beneficiaire_numero_cc }}
+                  OBJET DE LA DEPENSE
+                  
+                </th>
+                <td
+                  style="
+                    font-size: 14px;
+                    font-weight: bold;
+                    color: #000;
+                    text-align: left;
+                    line-height: 500% !important;
+                  "
+                  class="text-break"
+                >
+                  : {{ objetDepense }}
                 </td>
               </tr>
-            </thead> -->
+            </thead>
+           
             <thead>
-              <tr style="text-align: center; border: 1px solid #000 !important">
+              <tr style="text-align: center">
                 <th
                   style="
-                    font-size: 12px;
+                    font-size: 16px;
                     font-weight: bold;
                     color: #000;
                     width: 10%;
                     text-align: left;
-                    line-height: 200%;
+                    
                   "
                   title=""
                 >
                   MONTANT DES PRESTATIONS
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
-                    style="text-align: center !important; line-height: normal"
-                    >:</span
-                  >
+               
                 </th>
                 <td
                   style="
-                    font-size: 16px;
+                    font-size: 14px;
                     font-weight: bold;
                     color: #000;
                     text-align: left;
+                    line-height: 500% !important;
                   "
                 >
-                  {{ formatageSomme(parseFloat(montant_prestation)) }}
+                  : {{ formatageSomme(parseFloat(montant_prestation)) }}
                 </td>
               </tr>
             </thead>
-            <!-- <thead>
-              <tr style="text-align: center; border: 1px solid #000 !important">
-                <th
-                  style="
-                    font-size: 12px;
-                    font-weight: bold;
-                    color: #000;
-                    width: 10%;
-                    text-align: left;
-                    line-height: 200%;
-                  "
-                  title=""
-                >
-                  N° COMPTE BANCAIRE &nbsp;&nbsp;&nbsp;<span
-                    style="text-align: center !important; line-height: normal"
-                    >:</span
-                  >
-                </th>
-                <td
-                  style="
-                    font-size: 16px;
-                    font-weight: bold;
-                    color: #000;
-                    text-align: left;
-                  "
-                >
-                  {{ rib_compte(id_compte) }}
-                </td>
-              </tr>
-            </thead> -->
-            <!-- <thead>
-              <tr style="text-align: center; border: 1px solid #000 !important">
-                <th
-                  style="
-                    font-size: 12px;
-                    font-weight: bold;
-                    color: #000;
-                    width: 10%;
-                    text-align: left;
-                    line-height: 200%;
-                  "
-                  title=""
-                >
-                  N°FACTURE &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <span
-                    style="text-align: center !important; line-height: normal"
-                    >:</span
-                  >
-                </th>
-                <td
-                  style="
-                    font-size: 16px;
-                    font-weight: bold;
-                    color: #000;
-                    text-align: left;
-                  "
-                >
-                  {{ listeFactureopt }}
-                </td>
-              </tr>
-            </thead> -->
+            
+            
             <thead>
-              <tr style="text-align: center; border: 1px solid #000 !important">
+              <tr style="text-align: center">
                 <th
                   style="
-                    font-size: 12px;
+                    font-size: 16px;
                     font-weight: bold;
                     color: #000;
                     width: 10%;
                     text-align: left;
-                    line-height: 200%;
+                    
                   "
                   title=""
                 >
                   COMPOSANTE
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <span
-                    style="text-align: center !important; line-height: normal"
-                    >:</span
-                  >
+                  
                 </th>
                 <td
                   style="
-                    font-size: 16px;
+                    font-size: 14px;
                     font-weight: bold;
                     color: #000;
                     text-align: left;
+                    line-height: 500% !important;
                   "
                 >
-                  {{ libellesousbudget }}
+                  : {{ libellesousbudget }}
                 </td>
               </tr>
             </thead>
             <thead>
-              <tr style="text-align: center; border: 1px solid #000 !important">
+              <tr style="text-align: center">
                 <th
                   style="
-                    font-size: 12px;
+                    font-size: 16px;
                     font-weight: bold;
                     color: #000;
                     width: 10%;
                     text-align: left;
-                    line-height: 200%;
+                    
                   "
                   title=""
                 >
                   IMPUTATION
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <span
-                    style="text-align: center !important; line-height: normal"
-                    >:</span
-                  >
+                  
                 </th>
                 <td
                   style="
-                    font-size: 16px;
+                    font-size: 14px;
                     font-weight: bold;
                     color: #000;
                     text-align: left;
+                    line-height: 500% !important;
                   "
                 >
-                  {{ imputation }}
+                  : {{ imputation }}
                 </td>
               </tr>
             </thead>
             <thead>
-              <tr style="text-align: center; border: 1px solid #000 !important">
+              <tr style="text-align: center">
                 <th
                   style="
-                    font-size: 12px;
+                    font-size: 16px;
                     font-weight: bold;
                     color: #000;
                     width: 10%;
                     text-align: left;
-                    line-height: 200%;
+                    
                   "
                   title=""
                 >
                   DOTATION
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <span
-                    style="text-align: center !important; line-height: normal"
-                    >:</span
-                  >
+                  
                 </th>
                 <td
                   style="
-                    font-size: 16px;
+                    font-size: 14px;
                     font-weight: bold;
                     color: #000;
                     text-align: left;
+                    line-height: 500% !important;
                   "
                 >
-                  {{ formatageSomme(parseFloat(afficheDotaion)) }}
+                  : {{ formatageSomme(parseFloat(afficheDotaion)) }}
                 </td>
               </tr>
             </thead>
             <thead>
-              <tr style="text-align: center; border: 1px solid #000 !important">
+              <tr style="text-align: center">
                 <th
                   style="
-                    font-size: 12px;
+                    font-size: 16px;
                     font-weight: bold;
                     color: #000;
                     width: 10%;
                     text-align: left;
-                    line-height: 200%;
+                    
                   "
                   title=""
                 >
                   CUMUL DEPENSE ANTERIEURE
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
-                    style="text-align: center !important; line-height: normal"
-                    >:</span
-                  >
+                 
                 </th>
                 <td
                   style="
-                    font-size: 16px;
+                    font-size: 14px;
                     font-weight: bold;
                     color: #000;
                     text-align: left;
+                    line-height: 500% !important;
                   "
                 >
-                  {{ formatageSomme(parseFloat(cumulAnterieure)) }}
+                  : {{ formatageSomme(parseFloat(cumulAnterieure)) }}
                 </td>
               </tr>
             </thead>
             <thead>
-              <tr style="text-align: center; border: 1px solid #000 !important">
+              <tr style="text-align: center">
                 <th
                   style="
-                    font-size: 12px;
+                    font-size: 16px;
                     font-weight: bold;
                     color: #000;
                     width: 10%;
                     text-align: left;
-                    line-height: 200%;
+                    
                   "
                   title=""
                 >
                   DEPENSES EN COURS
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
-                    style="text-align: center !important; line-height: normal"
-                    >:</span
-                  >
+                 
                 </th>
                 <td
                   style="
-                    font-size: 16px;
+                    font-size: 14px;
                     font-weight: bold;
                     color: #000;
                     text-align: left;
+                    line-height: 500% !important;
                   "
                 >
-                  {{ formatageSomme(parseFloat(montant_prestation)) }}
+                  : {{ formatageSomme(parseFloat(montant_prestation)) }}
                 </td>
               </tr>
             </thead>
             <thead>
-              <tr style="text-align: center; border: 1px solid #000 !important">
+              <tr style="text-align: center">
                 <th
                   style="
-                    font-size: 12px;
+                    font-size: 16px;
                     font-weight: bold;
                     color: #000;
                     width: 10%;
                     text-align: left;
-                    line-height: 200%;
+                    
                   "
                   title=""
                 >
                   CUMUL DEPENSE EN COURS
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
-                    style="text-align: center !important; line-height: normal"
-                    >:</span
-                  >
+                  
                 </th>
                 <td
                   style="
-                    font-size: 16px;
+                    font-size: 14px;
                     font-weight: bold;
                     color: #000;
                     text-align: left;
+                    line-height: 500% !important;
                   "
                 >
-                  {{ formatageSomme(parseFloat(cumulEnCours)) }}
+                  : {{ formatageSomme(parseFloat(cumulEnCours)) }}
                 </td>
               </tr>
             </thead>
             <thead>
-              <tr style="text-align: center; border: 1px solid #000 !important">
+              <tr style="text-align: center">
                 <th
-                  style="
-                    font-size: 12px;
-                    font-weight: bold;
-                    color: #000;
-                    width: 10%;
-                    text-align: left;
-                    line-height: 200%;
-                  "
-                  title=""
-                >
-                  SOLDE A NOUVEAU
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
-                    style="text-align: center !important; line-height: normal"
-                    >:</span
-                  >
-                </th>
-                <td
                   style="
                     font-size: 16px;
                     font-weight: bold;
                     color: #000;
+                    width: 10%;
                     text-align: left;
+                    
+                  "
+                  title=""
+                >
+                  SOLDE A NOUVEAU
+                  
+                </th>
+                <td
+                  style="
+                    font-size: 14px;
+                    font-weight: bold;
+                    color: #000;
+                    text-align: left;
+                    line-height: 500% !important;
                   "
                 >
-                  {{ formatageSomme(parseFloat(disponible)) }}
+                  : {{ formatageSomme(parseFloat(disponible)) }}
                 </td>
               </tr>
             </thead>
           </table>
           <table
             id="customers"
-            style="text-align: center; border: 1px solid #000"
+            style="text-align: center; border: 1px solid #000;width: 100%"
           >
             <tr>
-              <td
-                style="
-                  border: 1px solid #000 !important;
-                  text-align: center;
-                  width: 40%;
-                  font-weight: bold;
-                "
-              >
+              <td style="text-align: center; width: 40%; font-weight: bold;border: 1px solid #000;">
                 SIGNATURES
               </td>
-              <td
-                style="
-                  border: 1px solid #000 !important;
-                  text-align: center;
-                  width: 40%;
-                  font-weight: bold;
-                "
-              >
+              <td style="text-align: center; width: 40%; font-weight: bold;border: 1px solid #000">
                 CACHET ET DATE
               </td>
-              <td
-                style="
-                  border: 1px solid #000 !important;
-                  text-align: center;
-                  width: 100%;
-                  font-weight: bold;
-                "
-              >
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <td style="text-align: center; width: 100%; font-weight: bold;border: 1px solid #000">
+              
                 OBSERVATIONS
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               
               </td>
             </tr>
             <tr>
-              <td
-                style="
-                  border: 1px solid #000 !important;
-                  text-align: left;
-                  width: 40%;
-                "
-              >
+              <td style="text-align: left; width: 40%;border: 1px solid #000;">
                 Approbation et signature de l'Ordonnateur <br /><br /><br />
               </td>
-              <td
-                style="
-                  border: 1px solid #000 !important;
-                  text-align: left;
-                  width: 40%;
-                "
-              >
+              <td style="text-align: left; width: 40%;border: 1px solid #000;">
                 DATE <br /><br /><br />
               </td>
-              <td
-                style="
-                  border: 1px solid #000 !important;
-                  text-align: left;
-                  width: 40%;
-                "
-              ></td>
+              <td style="text-align: left; width: 40%;border: 1px solid #000;"></td>
             </tr>
             <tr>
-              <td
-                style="
-                  border: 1px solid #000 !important;
-                  text-align: left;
-                  width: 40%;
-                "
-              >
-                Visa du contrôleur Financier <br /><br /><br />
+              <td style="text-align: left; width: 40%;border: 1px solid #000;">
+                Visa du contrôleur Financier <br /><br /><br /><br />
               </td>
-              <td
-                style="
-                  border: 1px solid #000 !important;
-                  text-align: left;
-                  width: 40%;
-                "
-              >
-                DATE <br /><br /><br />
+              <td style="text-align: left; width: 40%;border: 1px solid #000;">
+                DATE <br /><br /><br /><br />
               </td>
-              <td
-                style="
-                  border: 1px solid #000 !important;
-                  text-align: left;
-                  width: 40%;
-                "
-              ></td>
+              <td style="text-align: left; width: 40%;border: 1px solid #000;"></td>
             </tr>
             <tr>
-              <td
-                style="
-                  border: 1px solid #000 !important;
-                  text-align: left;
-                  width: 40%;
-                "
-              >
+              <td style="text-align: left; width: 40%;border: 1px solid #000;">
                 Approbation et Signature du Regisseur d'Avances
-                <br /><br /><br />
+                <br /><br /><br /><br />
               </td>
-              <td
-                style="
-                  border: 1px solid #000 !important;
-                  text-align: left;
-                  width: 40%;
-                "
-              >
-                DATE <br /><br /><br />
+              <td style="text-align: left; width: 40%;border: 1px solid #000;">
+                DATE <br /><br /><br /><br />
               </td>
-              <td
-                style="
-                  border: 1px solid #000 !important;
-                  text-align: left;
-                  width: 40%;
-                "
-              ></td>
+              <td style="text-align: left; width: 40%;border: 1px solid #000;"></td>
             </tr>
             <tr>
-              <td
-                style="
-                  border: 1px solid #000 !important;
-                  text-align: left;
-                  width: 40%;
-                "
-              >
+              <td style="text-align: left; width: 40%;border: 1px solid #000;">
                 Acquis Libératoire <br /><br /><br />
               </td>
-              <td
-                style="
-                  border: 1px solid #000 !important;
-                  text-align: left;
-                  width: 40%;
-                "
-              >
+              <td style="text-align: left; width: 40%;border: 1px solid #000;">
                 DATE <br /><br /><br />
               </td>
-              <td
-                style="
-                  border: 1px solid #000 !important;
-                  text-align: left;
-                  width: 40%;
-                "
-              ></td>
+              <td style="text-align: left; width: 40%;border: 1px solid #000;"></td>
             </tr>
           </table>
         </div>
@@ -753,7 +460,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
- import moment from "moment";
+import moment from "moment";
 import {
   formatageSomme,
   formatageSommeSansFCFA,
@@ -1058,7 +765,10 @@ export default {
         );
 
         if (qtereel) {
-          return qtereel.numero_facture.concat(" du ", this.formaterDate(qtereel.date_facture));
+          return qtereel.numero_facture.concat(
+            " du ",
+            this.formaterDate(qtereel.date_facture)
+          );
         }
         return 0;
         //     }
@@ -1215,40 +925,29 @@ export default {
       "getBudgetEclate",
       "getCompteBancaire",
     ]),
-    retour1() {
+    retour() {
       window.history.back();
     },
-    retour(id) {
-      if (this.typeOrdrePaiement == 1) {
-        this.$router.push({
-        name: "AfficheOpActivite",
-        params: { id: id},
-      });
-      } else if (this.typeOrdrePaiement == 2) {
-          this.$router.push({
-        name: "AfficheOpDirectActivite",
-        params: { id: id},
-      });
-      }else if (this.typeOrdrePaiement == 3) {
-          this.$router.push({
-        name: "AfficheOPAnnulation",
-        params: { id: id},
-      });
-      }else if (this.typeOrdrePaiement == 4) {
-          this.$router.push({
-        name: "AfficheOPDefinitif",
-        params: { id: id},
-      });
-      }
-      
-    },
+    // retour(id) {
+    //   this.$router.push({
+    //     name: "listeToutOP",
+    //     params: { id: id },
+    //   });
+    // },
     formaterDate(date) {
       return moment(date, "YYYY-MM-DD").format("DD/MM/YYYY");
     },
     formatageSomme: formatageSomme,
     formatageSommeSansFCFA: formatageSommeSansFCFA,
     genererEnPdf4() {
-      this.$htmlToPaper("printMe45");
+      const localOptions = {
+        styles: [
+          "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css",
+          "https://unpkg.com/kidlat-css/css/kidlat.css",
+        ],
+      };
+      // this.$htmlToPaper("printMe45,localOptions)
+      this.$htmlToPaper("printMe45", localOptions);
     },
   },
 };

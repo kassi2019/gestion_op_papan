@@ -2,3 +2,4 @@ export const gettersVerificationFactureEncours = state => state.stateVerificatio
 export const gettersVerificationFactureAcheve = state => state.stateVerificationFactureAcheve;
 export const gettersListeOPRapport = state => state.stateListeOPRapport;
 export const gettersSituationParComposante = state => state.stateSituationParComposante;
+export const gettersSituationPersonnel = state => state.stateSituationPersonnel;

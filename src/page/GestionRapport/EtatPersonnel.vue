@@ -1,10 +1,11 @@
 <template>
   <div class="container">
+   
     <div class="col-md-12">
       <div class="card" style="box-shadow: 5px 5px #f9d531">
         <div class="card-header">
           <div class="d-flex align-items-center">
-            <h4 class="card-title">Imprimer OP par composante</h4>
+            <h4 class="card-title">Imprimer Etat personnel</h4>
             <span
               class="badge rounded-pill bg-primary"
               style="cursor: pointer"
@@ -12,16 +13,7 @@
               >Exporter en Pdf</span
             >
           </div>
-          <!-- <div class="d-flex align-items-center">
-            <span
-              style="cursor: pointer"
-              class="badge rounded-pill bg-primary"
-              data-bs-toggle="offcanvas"
-              data-bs-target="#offcanvasRight"
-              aria-controls="offcanvasRight"
-              >Recherche</span
-            >
-          </div> -->
+         
         </div>
         <div class="card-body" id="printMe45">
           <!-- Modal -->
@@ -84,7 +76,7 @@
             </tr>
           </table>
           <h6 style="text-align: center; border: 0.5px solid #000">
-            SITUATION D'EXECUTION PAR COMPOSANTE
+            SITUATION SUR LE PERSONNEL
           </h6>
 
           <div class="table-responsive">
@@ -112,7 +104,7 @@
                       font-size: 9px !important;
                     "
                   >
-                    COMPOSANTE
+                    N° contrat
                   </th>
                   <th
                     scope="col"
@@ -123,7 +115,7 @@
                       font-size: 9px !important;
                     "
                   >
-                    BUDGET INITIAL(A)
+                    MATRICULE
                   </th>
                   <th
                     scope="col"
@@ -133,7 +125,7 @@
                       font-size: 9px !important;
                     "
                   >
-                    BUDGET ACTUEL(B)
+                    NOM ET PRENOMS
                   </th>
                   <th
                     scope="col"
@@ -143,7 +135,7 @@
                       font-size: 9px !important;
                     "
                   >
-                    EXECUTION (OP DIRECT + OP DEFINITIF)(C)
+                    FONCTION
                   </th>
                   <th
                     scope="col"
@@ -153,7 +145,7 @@
                       font-size: 9px !important;
                     "
                   >
-                    EXECUTION PROVISOIRE(D)
+                    SERVICE
                   </th>
                   <th
                     scope="col"
@@ -163,7 +155,7 @@
                       font-size: 9px !important;
                     "
                   >
-                    TAUX EXECUTION (E=(C/B)*100)(%)
+                    TYPE PERSONNEL
                   </th>
                   <th
                     scope="col"
@@ -173,7 +165,7 @@
                       font-size: 9px !important;
                     "
                   >
-                    DISPONIBLE 1 (F=B-C)
+                    SALAIRE
                   </th>
                   <th
                     scope="col"
@@ -183,7 +175,7 @@
                       font-size: 9px !important;
                     "
                   >
-                    DISPONIBLE 2 (G =B-(C+D))
+                    INDEMNITE
                   </th>
                   <th
                     scope="col"
@@ -193,7 +185,7 @@
                       font-size: 9px !important;
                     "
                   >
-                    NBRE OP (DEFINITIF ET DIRECT)
+                    NATURE CONTRAT
                   </th>
                   <th
                     scope="col"
@@ -203,7 +195,27 @@
                       font-size: 9px !important;
                     "
                   >
-                    NBRE OP (PROVISOIRE NON REGULARSE)
+                    DATE DEBUT CONTRAT
+                  </th>
+                  <th
+                    scope="col"
+                    style="
+                      text-align: center;
+                      background-color: #faec7f !important;
+                      font-size: 9px !important;
+                    "
+                  >
+                    DATE FIN CONTRAT
+                  </th>
+                  <th
+                    scope="col"
+                    style="
+                      text-align: center;
+                      background-color: #faec7f !important;
+                      font-size: 9px !important;
+                    "
+                  >
+                    DUREE (Jours)
                   </th>
                 </tr>
               </thead>
@@ -214,160 +226,22 @@
                   </td>
                 </tr>
                 <tr
-                  v-for="(data, index) in afficherSousBudget(item)"
-                  :key="data.id"
+                  v-for="(item1, index) in afficheInfoPersonnel(item)"
+                  :key="item1.id"
                 >
                   <td>{{ index + 1 }}</td>
-                  <td>{{ data.composante }}</td>
-
-                  <td style="text-align: right">
-                    {{ formatageSommeSansFCFA(parseFloat(data.montant_initial)) }}
-                  </td>
-                  <td style="text-align: right">
-                    {{
-                      formatageSommeSansFCFA(parseFloat(data.montant_actuelle))
-                    }}
-                  </td>
-                  <td style="text-align: right">
-                    {{
-                      formatageSommeSansFCFA(
-                        parseFloat(data.execution_definitif)
-                      )
-                    }}
-                  </td>
-
-                  <td style="text-align: right">
-                    {{
-                      formatageSommeSansFCFA(
-                        parseFloat(data.execution_provisoire)
-                      )
-                    }}
-                  </td>
-
-                  <td style="text-align: right">
-                    {{ parseFloat(data.taux) }}
-                  </td>
-                  <td style="text-align: right">
-                    {{ formatageSommeSansFCFA(parseFloat(data.disponible1)) }}
-                  </td>
-                  <td style="text-align: right">
-                    {{ formatageSommeSansFCFA(parseFloat(data.disponible2)) }}
-                  </td>
-                  <td style="text-align: right">
-                    {{ data.nbre_op_definitif }}
-                  </td>
-                  <td style="text-align: right">
-                    {{ data.nbre_op_provisoire }}
-                  </td>
-                </tr>
-                <tr>
-                  <td
-                    colspan="2"
-                    style="
-                      text-align: right;
-                      background-color: #e2ad3b !important;
-                    "
-                  >
-                    TOTAL
-                  </td>
-                  <td
-                    style="
-                      text-align: right;
-                      background-color: #e2ad3b !important;
-                    "
-                  >
-                    {{
-                      formatageSommeSansFCFA(
-                        parseFloat(Totalmontant_initial(item))
-                      )
-                    }}
-                  </td>
-                  <td
-                    style="
-                      text-align: right;
-                      background-color: #e2ad3b !important;
-                    "
-                  >
-                    {{
-                      formatageSommeSansFCFA(
-                        parseFloat(Totalmontant_actuelle(item))
-                      )
-                    }}
-                  </td>
-                  <td
-                    style="
-                      text-align: right;
-                      background-color: #e2ad3b !important;
-                    "
-                  >
-                    {{
-                      formatageSommeSansFCFA(
-                        parseFloat(Totalexecution_definitif(item))
-                      )
-                    }}
-                  </td>
-                  <td
-                    style="
-                      text-align: right;
-                      background-color: #e2ad3b !important;
-                    "
-                  >
-                    {{
-                      formatageSommeSansFCFA(
-                        parseFloat(Totalexecution_provisoire(item))
-                      )
-                    }}
-                  </td>
-                  <td
-                    style="
-                      text-align: right;
-                      background-color: #e2ad3b !important;
-                    "
-                  >
-                    {{
-                      (
-                        (parseFloat(Totalexecution_definitif(item)) /
-                          parseFloat(Totalmontant_actuelle(item))) *
-                        100
-                      ).toFixed(2)
-                    }}
-                  </td>
-                  <td
-                    style="
-                      text-align: right;
-                      background-color: #e2ad3b !important;
-                    "
-                  >
-                    {{
-                      formatageSommeSansFCFA(parseFloat(Totaldisponible1(item)))
-                    }}
-                  </td>
-                  <td
-                    style="
-                      text-align: right;
-                      background-color: #e2ad3b !important;
-                    "
-                  >
-                    {{
-                      formatageSommeSansFCFA(parseFloat(Totaldisponible2(item)))
-                    }}
-                  </td>
-                  <td
-                    style="
-                      text-align: right;
-                      background-color: #e2ad3b !important;
-                    "
-                  >
-                    {{ parseFloat(Totalnbre_op_provisoire(item)) }}
-                  </td>
-                  <td
-                    style="
-                      text-align: right;
-                      background-color: #e2ad3b !important;
-                    "
-                  >
-                    {{ parseFloat(Totalnbre_op_definitif(item)) }}
-                  </td>
+                  <td>{{ item1.numero_contrat }}</td>
+                  <td>{{ item1.matricule }}</td>
+                  <td>{{ item1.nom_prenoms }}</td>
+                  <td>{{ item1.fonction }}</td>
+                  <td>{{ item1.service_perso }}</td>
+                  <td>{{ item1.type_personnel }}</td>
+                  <td style="text-align: right;">{{  formatageSommeSansFCFA(parseFloat(item1.salaire)) }}</td>
+                  <td style="text-align: right;">{{  formatageSommeSansFCFA(parseFloat(item1.indemnite))  }}</td>
+                  <td>{{ item1.nature_contrat }}</td>
+                  <td>{{ formaterDate(item1.date_debut) }}</td>
+                  <td>{{ formaterDate(item1.date_fin) }}</td>
+                  <td>{{ item1.dure }}</td>
                 </tr>
               </tbody>
             </table>
@@ -467,7 +341,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 // import { ModelListSelect } from "vue-search-select";
-import moment from "moment";
+ import moment from "moment";
 
 import {
   formatageSomme,
@@ -549,7 +423,7 @@ export default {
   },
   created() {
     //  this.getActivite();
-    this.getRapportSituationParComposante();
+    this.getRapportSituationPersonnel();
   },
   computed: {
     ...mapGetters("parametrage", [
@@ -568,12 +442,15 @@ export default {
       "getterBudgetViseParActivite",
       "getterNatureDepense",
     ]),
-    ...mapGetters("Rapport", ["gettersSituationParComposante"]),
+    ...mapGetters("Rapport", [
+      "gettersSituationParComposante",
+      "gettersSituationPersonnel",
+    ]),
 
-    afficherSousBudget() {
+    afficheInfoPersonnel() {
       return (id) => {
         if (id != null && id != "") {
-          return this.gettersSituationParComposante.filter(
+          return this.gettersSituationPersonnel.filter(
             (qtreel) => qtreel.activite_id == id
           );
         }
@@ -582,7 +459,7 @@ export default {
     libellePlan() {
       return (id) => {
         if (id != null && id != "") {
-          const qtereel = this.gettersSituationParComposante.find(
+          const qtereel = this.gettersSituationPersonnel.find(
             (qtreel) => qtreel.activite_id == id
           );
 
@@ -596,7 +473,7 @@ export default {
     groupeParActivite() {
       // return (id) => {
 
-      let objet = this.gettersSituationParComposante;
+      let objet = this.gettersSituationPersonnel;
       //  let vm=this
       let array_exercie = [];
       if (objet.length > 0) {
@@ -615,7 +492,10 @@ export default {
     },
   },
   methods: {
-    ...mapActions("Rapport", ["getRapportSituationParComposante"]),
+    ...mapActions("Rapport", [
+      "getRapportSituationParComposante",
+      "getRapportSituationPersonnel",
+    ]),
     ...mapActions("parametrage", [
       "getSousBudget",
       "getBudgetEclateViseGroupeParActivte",
@@ -823,6 +703,7 @@ export default {
         styles: [
           "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css",
           "https://unpkg.com/kidlat-css/css/kidlat.css",
+          './landscape.css'
         ],
       };
       // this.$htmlToPaper("printMe45,localOptions)
