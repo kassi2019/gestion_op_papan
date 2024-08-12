@@ -97,6 +97,17 @@
               <p>Situation sur le personnel</p>
             </a>
           </li>
+          <li class="nav-item">
+            <a
+              class="nav-link collapsed"
+              href=""
+              @click.prevent="activedOptionMenu('SituataionMission')"
+            >
+              <i class="fas fa-arrow-right"></i>
+
+              <p>Situation des missions</p>
+            </a>
+          </li>
            <li class="nav-item">
             <a
               class="nav-link collapsed"

@@ -4,7 +4,13 @@ import VerifierFacture from "../page/GestionRapport/VerifierFacture.vue"
 import ExecutionParLigne from "../page/GestionRapport/ExecutionParLigne.vue"
 import situationComposante from "../page/GestionRapport/SituationParComposante.vue"
 import EtatPersonnel from "../page/GestionRapport/EtatPersonnel.vue"
+import SituataionMission from "../page/GestionRapport/SituataionMission.vue"
 const gestionutilisateur = [
+  {
+        path: '/SituataionMission',
+        name:"SituataionMission",
+       component: SituataionMission
+     },
   {
         path: '/EtatPersonnel',
         name:"EtatPersonnel",

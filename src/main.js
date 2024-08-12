@@ -8,14 +8,25 @@ import 'vue-search-select/dist/VueSearchSelect.css';
 import VueHtmlToPaper from 'vue-html-to-paper';
 import money from 'v-money3'
 import "vue3-form-wizard/dist/style.css";
-
+// const options = {
+//   name: '_blank',
+//   specs: [
+//     'fullscreen=yes',
+//     'titlebar=yes',
+//     'scrollbars=yes'
+//   ],
+//   styles: [
+//     'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
+//     'https://unpkg.com/kidlat-css/css/kidlat.css'
+//   ]
+// }
 
 
 const app = createApp(App)
 
 app.component('default-layout', TheDefault)
 app.component('no-sidebar-layout', TheNoSidebar)
-app.use(VueHtmlToPaper);
+ app.use(VueHtmlToPaper);
 app.use(money);
 
 // createApp(App).mount('#app')

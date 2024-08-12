@@ -558,7 +558,7 @@
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
-              @click.prevent="this.getActivite()"
+             
             >
               Fermer
             </button>
