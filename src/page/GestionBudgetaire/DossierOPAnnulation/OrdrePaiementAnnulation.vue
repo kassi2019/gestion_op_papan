@@ -497,22 +497,24 @@
                           role="group"
                           aria-label="Basic mixed styles example"
                         >
-                          <!-- <span
+                           <!--<span
                             title="Modifier"
                             class="fas fa-edit"
                             data-bs-toggle="modal"
                             data-bs-target="#largeModal1"
                             style="cursor: pointer; color: blue"
                           ></span>
-                          <span
-                            title="Supprimer"
-                            class="fas fa-archive"
-                            style="cursor: pointer; color: red"
-                          ></span>
+                          
                           <span
                             title="Voir facture"
                             class="fas fa-eye"
                             style="cursor: pointer; color: #006d80"
+                          ></span> -->
+                          <!-- <span
+                            title="Supprimer"
+                            class="fas fa-archive"
+                            style="cursor: pointer; color: red"
+                            @click.prevent="supprimerOrdrePaiement(item.id)"
                           ></span> -->
                           <span
                             title="Imprimer OP"
@@ -821,7 +823,286 @@ export default {
       "getterOpParActivite",
       "getterInfoOrdrePaiement",
     ]),
-     
+      libelleSousBudgetModifier() {
+      let collet = [];
+      this.getterSousBudget.filter((item) => {
+        if (item.activite_id == this.modNatureDepense.activite_id) {
+          let data = {
+            id: item.id,
+            libelle: item.libelle,
+          };
+          collet.push(data);
+        }
+      });
+      return collet;
+},
+    
+ AfficheNatureEconomiqueModifier() {
+      let collet = [];
+      this.GroupeParNatureEconomiqueModifier.filter((item) => {
+        // if (item.activite_id == this.activite_id)
+        {
+          let data = {
+            id: item,
+            objet: this.afficheNatureEconomique(item),
+          };
+          collet.push(data);
+        }
+      });
+      return collet;
+},
+  GroupeParNatureEconomiqueModifier() {
+      // return (id) => {
+      if (
+        this.modNatureDepense.sous_budget_id == 0 &&
+        this.modNatureDepense.activite_id != 0
+      ) {
+        let objet = this.getterBudgetViseParActivite.filter(
+          (item) =>
+            item.activite_id == this.modNatureDepense.activite_id &&
+            item.actuelle == 1
+        );
+        //  let vm=this
+        let array_exercie = [];
+        if (objet.length > 0) {
+          objet.forEach(function (val) {
+            array_exercie.push(val.ligneeconomique_id);
+          });
+          let unique = [...new Set(array_exercie)];
+
+          if (unique.length == 0) {
+            return [];
+          }
+          return unique.sort((a, b) => (a.unique > b.unique ? 1 : -1));
+        }
+        return [];
+        // };
+      } else {
+        let objet = this.getterBudgetViseParActivite.filter(
+          (item) =>
+            item.sous_budget_id == this.modNatureDepense.sous_budget_id &&
+            item.actuelle == 1
+        );
+        //  let vm=this
+        let array_exercie = [];
+        if (objet.length > 0) {
+          objet.forEach(function (val) {
+            array_exercie.push(val.ligneeconomique_id);
+          });
+          let unique = [...new Set(array_exercie)];
+
+          if (unique.length == 0) {
+            return [];
+          }
+          return unique.sort((a, b) => (a.unique > b.unique ? 1 : -1));
+        }
+        return [];
+        // };
+      }
+},
+   libelleNatureDepenseModifier() {
+      if (this.modNatureDepense.sous_budget_id == 0 && this.modNatureDepense.activite_id != 0) {
+        // return (id) => {
+        //   if (id != null && id != "") {
+        const qtereel = this.getterBudgetViseParActivite.find(
+          (qtreel) =>
+            qtreel.ligneeconomique_id == this.modNatureDepense.nature_economique_id &&
+            qtreel.type_financement_id == this.modNatureDepense.type_financement_id &&
+            qtreel.source_financement_id == this.modNatureDepense.source_financement_id &&
+            qtreel.actuelle == 1
+        );
+
+        if (qtereel) {
+          return this.afficheNatureDepense(qtereel.nature_depense_id);
+        }
+        return 0;
+        //   }
+        // };
+      } else {
+        // return (id) => {
+        //   if (id != null && id != "") {
+        const qtereel = this.getterBudgetViseParActivite.find(
+          (qtreel) =>
+            qtreel.ligneeconomique_id == this.modNatureDepense.nature_economique_id &&
+            qtreel.sous_budget_id == this.modNatureDepense.sous_budget_id &&
+            qtreel.type_financement_id == this.modNatureDepense.type_financement_id &&
+            qtreel.source_financement_id == this.modNatureDepense.source_financement_id &&
+            qtreel.actuelle == 1
+        );
+
+        if (qtereel) {
+          return this.afficheNatureDepense(qtereel.nature_depense_id);
+        }
+        return 0;
+        //   }
+        // };
+      }
+},
+    AfficheTypeFinancementModifier() {
+      let collet = [];
+      this.GroupeParTypeFinancementModifier.filter((item) => {
+        // if (item.activite_id == this.activite_id)
+        {
+          let data = {
+            id: item,
+            objet: this.libelleTypeFinancement(item),
+          };
+          collet.push(data);
+        }
+      });
+      return collet;
+    },
+      GroupeParTypeFinancementModifier() {
+      // return (id) => {
+      if (this.modNatureDepense.sous_budget_id == 0 && this.modNatureDepense.activite_id != 0) {
+        let objet = this.getterBudgetViseParActivite.filter(
+          (item) =>
+            item.activite_id == this.modNatureDepense.activite_id &&
+            item.ligneeconomique_id == this.modNatureDepense.nature_economique_id &&
+            item.actuelle == 1
+        );
+        //  let vm=this
+        let array_exercie = [];
+        if (objet.length > 0) {
+          objet.forEach(function (val) {
+            array_exercie.push(val.type_financement_id);
+          });
+          let unique = [...new Set(array_exercie)];
+
+          if (unique.length == 0) {
+            return [];
+          }
+          return unique.sort((a, b) => (a.unique > b.unique ? 1 : -1));
+        }
+        return [];
+        // };
+      } else {
+        let objet = this.getterBudgetViseParActivite.filter(
+          (item) =>
+            item.sous_budget_id == this.modNatureDepense.sous_budget_id &&
+            item.ligneeconomique_id == this.modNatureDepense.nature_economique_id &&
+            item.actuelle == 1
+        );
+        //  let vm=this
+        let array_exercie = [];
+        if (objet.length > 0) {
+          objet.forEach(function (val) {
+            array_exercie.push(val.type_financement_id);
+          });
+          let unique = [...new Set(array_exercie)];
+
+          if (unique.length == 0) {
+            return [];
+          }
+          return unique.sort((a, b) => (a.unique > b.unique ? 1 : -1));
+        }
+        return [];
+        // };
+      }
+},
+       AfficheSourceFinancementModifier() {
+      let collet = [];
+      this.GroupeParSourceFinancementModifier.filter((item) => {
+        // if (item.activite_id == this.activite_id)
+        {
+          let data = {
+            id: item,
+            objet: this.libelleSourceFinancement(item),
+          };
+          collet.push(data);
+        }
+      });
+      return collet;
+    },
+      GroupeParSourceFinancementModifier() {
+      // return (id) => {
+      if (this.modNatureDepense.sous_budget_id == 0 && this.modNatureDepense.activite_id != 0) {
+        let objet = this.getterBudgetViseParActivite.filter(
+          (item) =>
+            item.activite_id == this.activite_id &&
+            item.ligneeconomique_id == this.modNatureDepense.nature_economique_id &&
+            item.type_financement_id == this.modNatureDepense.type_financement_id &&
+            item.actuelle == 1
+        );
+        //  let vm=this
+        let array_exercie = [];
+        if (objet.length > 0) {
+          objet.forEach(function (val) {
+            array_exercie.push(val.source_financement_id);
+          });
+          let unique = [...new Set(array_exercie)];
+
+          if (unique.length == 0) {
+            return [];
+          }
+          return unique.sort((a, b) => (a.unique > b.unique ? 1 : -1));
+        }
+        return [];
+        // };
+      } else {
+        let objet = this.getterBudgetViseParActivite.filter(
+          (item) =>
+            item.sous_budget_id == this.modNatureDepense.sous_budget_id &&
+            item.ligneeconomique_id == this.modNatureDepense.nature_economique_id &&
+            item.type_financement_id == this.modNatureDepense.type_financement_id &&
+            item.actuelle == 1
+        );
+        //  let vm=this
+        let array_exercie = [];
+        if (objet.length > 0) {
+          objet.forEach(function (val) {
+            array_exercie.push(val.source_financement_id);
+          });
+          let unique = [...new Set(array_exercie)];
+
+          if (unique.length == 0) {
+            return [];
+          }
+          return unique.sort((a, b) => (a.unique > b.unique ? 1 : -1));
+        }
+        return [];
+        // };
+      }
+},
+       NatureDepenseModifier_id() {
+      if (this.modNatureDepense.sous_budget_id == 0 && this.modNatureDepense.activite_id != 0) {
+        // return (id) => {
+        //   if (id != null && id != "") {
+        const qtereel = this.getterBudgetViseParActivite.find(
+          (qtreel) =>
+            qtreel.ligneeconomique_id == this.modNatureDepense.nature_economique_id &&
+            qtreel.type_financement_id == this.modNatureDepense.type_financement_id &&
+            qtreel.source_financement_id == this.modNatureDepense.source_financement_id &&
+            qtreel.actuelle == 1
+        );
+
+        if (qtereel) {
+          return qtereel.nature_depense_id;
+        }
+        return 0;
+        //   }
+        // };
+      } else {
+        // return (id) => {
+        //   if (id != null && id != "") {
+        const qtereel = this.getterBudgetViseParActivite.find(
+          (qtreel) =>
+            qtreel.ligneeconomique_id == this.modNatureDepense.nature_economique_id &&
+            qtreel.sous_budget_id == this.modNatureDepense.sous_budget_id &&
+            qtreel.type_financement_id == this.modNatureDepense.type_financement_id &&
+            qtreel.source_financement_id == this.modNatureDepense.source_financement_id &&
+            qtreel.actuelle == 1
+        );
+
+        if (qtereel) {
+          return qtereel.nature_depense_id;
+        }
+        return 78;
+        //   }
+        // };
+      }
+    },
+
     afficheListeOPprovisoire() {
       return this.getterListeOPgloba.filter(
         (item) =>
@@ -1913,7 +2194,7 @@ export default {
   },
   methods: {
     ...mapActions("parametrage", [
-      "getActivite",
+      "getActivite","supprimerOrdrePaiement",
       "getListeOrdrePaiementGlobal",
       "getCompteBancaire",
       "getActiviteOp",

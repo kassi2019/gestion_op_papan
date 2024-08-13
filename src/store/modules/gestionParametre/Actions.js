@@ -2659,3 +2659,27 @@ export function ajouterFichier({ commit }, nouveau) {
 }
 
 // RAPPORT
+export function supprimerOrdrePaiement({ commit}, id) {
+  Swal.fire({
+  text: "Voulez vous vraiment supprimer ?",
+  icon: "question",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Confimer"
+}).then((result) => {
+  if (result.isConfirmed) {
+    apiGuest.delete('/supprimerOrdrePaiement/' + id, { headers: authHeader() })
+    commit('GET_OP_SUPPRIMER', id);
+    // dispatch('getBanque');
+    Swal.fire({
+      title: "Suppression",
+      text: "effectué avec succès.",
+      icon: "success"
+    });
+    
+    
+  }
+});
+
+}

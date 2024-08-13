@@ -1192,12 +1192,13 @@
                             style="cursor: pointer; color: blue"
                             @click.prevent="AfficheModalModification(item.id)"
                           ></span>
-                          <!--<span
+                         <!-- <span
                       title="Supprimer"
                       class="fas fa-archive"
                       style="cursor: pointer; color: red"
-                    ></span>
-                    <span
+                       @click.prevent="supprimerOrdrePaiement(item.id)"
+                    ></span> -->
+                     <!--<span
                       title="Voir facture"
                       class="fas fa-eye"
                       style="cursor: pointer; color: #006d80"
@@ -1591,6 +1592,44 @@ export default {
       "getterOpParActivite",
       "getterListeOPParUser",
     ]),
+     NatureDepenseModifier_id() {
+      if (this.modNatureDepense.sous_budget_id == 0 && this.modNatureDepense.activite_id != 0) {
+        // return (id) => {
+        //   if (id != null && id != "") {
+        const qtereel = this.getterBudgetViseParActivite.find(
+          (qtreel) =>
+            qtreel.ligneeconomique_id == this.modNatureDepense.nature_economique_id &&
+            qtreel.type_financement_id == this.modNatureDepense.type_financement_id &&
+            qtreel.source_financement_id == this.modNatureDepense.source_financement_id &&
+            qtreel.actuelle == 1
+        );
+
+        if (qtereel) {
+          return qtereel.nature_depense_id;
+        }
+        return 0;
+        //   }
+        // };
+      } else {
+        // return (id) => {
+        //   if (id != null && id != "") {
+        const qtereel = this.getterBudgetViseParActivite.find(
+          (qtreel) =>
+            qtreel.ligneeconomique_id == this.modNatureDepense.nature_economique_id &&
+            qtreel.sous_budget_id == this.modNatureDepense.sous_budget_id &&
+            qtreel.type_financement_id == this.modNatureDepense.type_financement_id &&
+            qtreel.source_financement_id == this.modNatureDepense.source_financement_id &&
+            qtreel.actuelle == 1
+        );
+
+        if (qtereel) {
+          return qtereel.nature_depense_id;
+        }
+        return 78;
+        //   }
+        // };
+      }
+    },
      libelleNatureDepenseModifier() {
       if (this.modNatureDepense.sous_budget_id == 0 && this.modNatureDepense.activite_id != 0) {
         // return (id) => {
@@ -2654,7 +2693,7 @@ export default {
   },
   methods: {
     ...mapActions("parametrage", [
-      "getActivite","modifierOrdrePaiement",
+      "getActivite","modifierOrdrePaiement","supprimerOrdrePaiement",
       "getListeOrdrePaiementGlobal",
       "getCompteBancaire",
       "getActiviteOp",
@@ -2692,7 +2731,7 @@ export default {
         type_ordre_paiement: this.modNatureDepense.type_ordre_paiement,
         montant_prestation: this.modNatureDepense.montant_prestation,
         nature_economique_id: this.modNatureDepense.nature_economique_id,
-        nature_depense_id: this.modNatureDepense.nature_depense_id,
+        nature_depense_id: this.NatureDepenseModifier_id,
         type_financement_id: this.modNatureDepense.type_financement_id,
         source_financement_id: this.modNatureDepense.source_financement_id,
         cumul_anterieure: this.modNatureDepense.cumul_anterieure,

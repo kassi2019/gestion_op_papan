@@ -138,7 +138,7 @@
                       title="Supprimer"
                       class="badge bg-danger"
                       style="cursor: pointer"
-                      @click.prevent="supprimerInformationBudget(item.id)"
+                      @click.prevent="supprimerOrdrePaiement(item.id)"
                       ><i class="fas fa-archive"></i> Supprimer</span
                     >
                     <!-- <span
@@ -1123,7 +1123,7 @@ export default {
   },
   methods: {
     ...mapActions("parametrage", [
-      "getActivite",
+      "getActivite","supprimerOrdrePaiement",
       "modifierOrdrePaiement",
       "getNatureEconomique",
       "getListeOrdrePaiementGlobal",

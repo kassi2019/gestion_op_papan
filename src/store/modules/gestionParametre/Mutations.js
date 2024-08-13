@@ -511,6 +511,9 @@ export const GET_LISTE_OP_GLOBAL= (state,value)=>{
     state.stateListeOPgloba=value
 }
 
+export const GET_OP_SUPPRIMER = (state,value)=>{
+    state.stateListeOPgloba=value
+}
 export const GET_OP_PAR_ACTIVITE = (state,value)=>{
     state.stateOpParActivite=value
 }
