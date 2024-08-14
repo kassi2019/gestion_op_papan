@@ -482,6 +482,9 @@ export const ENCOURS_TAUX = (state, elementModif) => {
     })
 }
 // ORDRE PAIEMENT
+export const GET_LISTE_ORDRE_PAIEMENT= (state,value)=>{
+    state.stateOrdrePaiement=value
+}
 export const AJOUTER_ORDRE_PAIEMENT= (state, elementAjouter) => {
     state.stateOrdrePaiement.unshift(elementAjouter)
 }
@@ -510,10 +513,19 @@ export const GET_ACTIVITE_GLOBAL= (state,value)=>{
 export const GET_LISTE_OP_GLOBAL= (state,value)=>{
     state.stateListeOPgloba=value
 }
-
-export const GET_OP_SUPPRIMER = (state,value)=>{
-    state.stateListeOPgloba=value
+export const GET_LISTE_OP_PAR_BORDEREAU= (state,value)=>{
+    state.stateOpBordereau=value
 }
+
+export const GET_OP_PERSO_SUPPRIMER = (state, id) => {
+    state.stateOpPersonnelParUser = state.stateOpPersonnelParUser.filter(titre => titre.id != id)
+};
+export const GET_OP_SUPPRIMER_BORDEREAU = (state, id) => {
+    state.stateOpBordereau = state.stateOpBordereau.filter(titre => titre.id != id)
+};
+export const GET_OP_SUPPRIMER = (state, id) => {
+    state.stateOrdrePaiement = state.stateOrdrePaiement.filter(titre => titre.id != id)
+};
 export const GET_OP_PAR_ACTIVITE = (state,value)=>{
     state.stateOpParActivite=value
 }

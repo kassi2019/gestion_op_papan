@@ -1448,35 +1448,35 @@
                         }}
                       </td>
                       <td style="border: 1px solid #000">
-                        {{ item.nature_economique }}
+                        {{ NatureEconomiqueLibelle(item.nature_economique_id) }}
                       </td>
                       <td style="border: 1px solid #000">
-                        {{ item.beneficiaire }}
+                        {{ InfoEntreprise(item.entreprise_id) }}
                       </td>
                       <td style="border: 1px solid #000">
                         <span
-                          v-if="item.decision == 1"
+                          v-if="item.decision_cf == 1"
                           class="badge badge-success"
                           style="cursor: pointer; text-align: center"
-                          >{{ afficheDecision(item.decision) }}</span
+                          >{{ afficheDecision(item.decision_cf) }}</span
                         >
                         <span
-                          v-if="item.decision == 2"
+                          v-if="item.decision_cf == 2"
                           class="badge badge-success"
                           style="cursor: pointer"
-                          >{{ afficheDecision(item.decision) }}</span
+                          >{{ afficheDecision(item.decision_cf) }}</span
                         >
                         <span
-                          v-if="item.decision == 3"
+                          v-if="item.decision_cf == 3"
                           class="badge badge-warning"
                           style="cursor: pointer"
-                          >{{ afficheDecision(item.decision) }}</span
+                          >{{ afficheDecision(item.decision_cf) }}</span
                         >
                         <span
-                          v-if="item.decision == 4"
+                          v-if="item.decision_cf == 4"
                           class="badge badge-danger"
                           style="cursor: pointer"
-                          >{{ afficheDecision(item.decision) }}</span
+                          >{{ afficheDecision(item.decision_cf) }}</span
                         >
                       </td>
                       <td style="border: 1px solid #000">
@@ -1496,14 +1496,14 @@
                             style="cursor: pointer; color: blue"
                             @click.prevent="AfficheModalModification(item.id)"
                           ></span> -->
-                          <!-- <span
+                          <span
                             title="Supprimer"
                             class="fas fa-archive"
-                             @click.prevent="supprimerOrdrePaiement(item.id)"
+                            @click.prevent="supprimerOP(item.id)"
                             style="cursor: pointer; color: red"
-                          ></span> -->
-                         
-                           <!-- <span
+                          ></span>
+
+                          <!-- <span
                             title="Voir facture"
                             class="fas fa-eye"
                             style="cursor: pointer; color: #006d80"
@@ -1616,7 +1616,9 @@
                           type="text"
                           class="form-control"
                           readonly
-                          :value="afficheNomProjetModifier(modNatureDepense.parent_id)"
+                          :value="
+                            afficheNomProjetModifier(modNatureDepense.parent_id)
+                          "
                           style="border: 1px solid #000 !important"
                         />
                       </div>
@@ -2041,6 +2043,7 @@ export default {
     this.bordereau_id = this.$route.params.id;
     this.getExerciceBudgetaire();
     this.getActivite();
+    this.getListeOrdrePiementAutreDepense();
     this.getSousBudget();
     this.getEntreprise();
     this.getBudgetEclateViseGroupeParActivte();
@@ -2079,6 +2082,7 @@ export default {
   computed: {
     ...mapGetters("parametrage", [
       "getterProjet",
+      "gettersOrdrePaiementopt",
       "getterBudgetViseGroupeUniteOp",
       "getterstateFactureParOp",
       "getterCompteBancaire",
@@ -2583,7 +2587,7 @@ export default {
     },
 
     afficheListeOPprovisoire() {
-      return this.getterListeOPgloba.filter(
+      return this.gettersOrdrePaiementopt.filter(
         (item) =>
           item.bordereau_id == this.bordereau_id &&
           item.type_ordre_paiement == 4
@@ -2619,8 +2623,8 @@ export default {
         return 0;
       }
     },
-    
-     afficheNomProjetModifier() {
+
+    afficheNomProjetModifier() {
       return (id) => {
         if (id != null && id != "") {
           const qtereel = this.getterOpParActivite.find(
@@ -3721,6 +3725,34 @@ export default {
       });
       return collet;
     },
+    InfoEntreprise() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.getterEntreprise.find(
+            (qtreel) => qtreel.id == id
+          );
+
+          if (qtereel) {
+            return qtereel.numero_cc.concat(" ", qtereel.raison_sociale);
+          }
+          return 0;
+        }
+      };
+    },
+    NatureEconomiqueLibelle() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.getterNatureEconomique.find(
+            (qtreel) => qtreel.id == id
+          );
+
+          if (qtereel) {
+            return qtereel.libelle_code;
+          }
+          return 0;
+        }
+      };
+    },
     libelleNatureEconomique() {
       let collet = [];
       this.getterNatureEconomique.filter((item) => {
@@ -3736,7 +3768,10 @@ export default {
   },
   methods: {
     ...mapActions("parametrage", [
-      "getActivite","supprimerOrdrePaiement",
+      "getActivite",
+      "supprimerOrdrePaiement",
+      "supprimerOP",
+      "getListeOrdrePiementAutreDepense",
       "modifierOrdrePaiement",
       "getFactureParOP",
       "getListeOrdrePaiementGlobal",

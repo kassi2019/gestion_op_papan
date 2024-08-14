@@ -19,7 +19,7 @@ export const getterDotationRessourcePropre = state => state.stateDotationRessour
 export const getterDotationAutreRessource = state => state.stateDotationAutreRessource;
 export const getterInformationBudget = state => state.stateInformationBudget.sort((a, b) => (a.numero_dossier < b.numero_dossier) ? -1 : 1);
 export const getterBordereauParUser = state => state.stateBordereauParUser;
-
+export const gettersOpBordereau = state => state.stateOpBordereau;
 export const getterListeBudgetEclate = state => state.stateListeBudgetEclate;
 export const getterEntreprise = state => state.stateEntreprise;
 export const getterBudgetViseParActivite = state => state.stateBudgetViseParActivite;
@@ -55,3 +55,4 @@ export const gettersBordereauParUser = state => state.stateBordereauParUser.sort
 export const gettersDocumentation = state => state.stateDocumentation;
 
 
+export const gettersOrdrePaiementopt = state => state.stateOrdrePaiement;

@@ -1492,14 +1492,34 @@ export function encoursTaux({ commit,dispatch}, nouveau) {
 }
 /// ORDRE PAIEMENT
 
-export function ajouterOrdrePaiement({ commit,dispatch }, nouveau) {
- 
+
+// export function getOP({ commit }, objet) {
+
+//   return new Promise((resolve, reject) => {
+//     apiGuest
+//       .get("/listeOPAutreDepenseParUtilisateurBordereau/" + objet.id, { headers: authHeader() })
+//       .then(response => {
+//         resolve(response);
+//         commit("GET_BUDGET_VISE_PAR_ACTIVITE", response.data);
+//       }).catch(error => {
+//         reject(error);
+//       });
+//   });
+
+// }
+export function getListeOrdrePiementAutreDepense({ commit }) {
+  apiGuest.get("/listeOrdrePaiementAutreDepenseParUtilisateur", { headers: authHeader() })
+    .then(response => {
+      commit("GET_LISTE_ORDRE_PAIEMENT", response.data);
+    })
+    .catch(error => console.log(error));
+}
+export function ajouterOrdrePaiement({ commit }, nouveau) {
     apiGuest.post("/EnregistrementOrdrePaiement", nouveau, { headers: authHeader() })
     .then(response => {
       if (response.status == 201) {
         commit("AJOUTER_ORDRE_PAIEMENT", response.data);
-        dispatch("getActiviteOp");
-        dispatch('getListeOrdrePaiementGlobal');
+        // dispatch('getOpParBordereau');
        toast("Enregistrement effectué avec succès!", {
         "theme": "auto",
         "type": "success",
@@ -1603,6 +1623,18 @@ export function getListeOrdrePaiementGlobal({ commit }) {
     .catch(error => console.log(error));
 }
 
+export function getOpParBordereau({ commit }, objet) {
+  return new Promise((resolve, reject) => {
+    apiGuest
+      .get("/listeOpParBordereau/" + objet.id, { headers: authHeader() })
+      .then(response => {
+        resolve(response);
+        commit("GET_LISTE_OP_PAR_BORDEREAU", response.data);
+      }).catch(error => {
+        reject(error);
+      });
+  });
+}
 export function getOpParActvite({ commit }, objet) {
 
   return new Promise((resolve, reject) => {
@@ -1739,6 +1771,66 @@ export function supprimerBanque({ commit,dispatch}, id) {
 }
 
 
+export function supprimerOpBordereau({ commit}, id) {
+
+
+  Swal.fire({
+
+  text: "Voulez vous vraiment supprimer ?",
+  icon: "question",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Confimer"
+}).then((result) => {
+  if (result.isConfirmed) {
+   
+    apiGuest.delete('/supprimerOrdrePaiement/' + id, { headers: authHeader() })
+    commit('GET_OP_SUPPRIMER_BORDEREAU', id);
+    // dispatch('getBanque');
+  
+    Swal.fire({
+      title: "Suppression",
+      text: "effectué avec succès.",
+      icon: "success"
+    });
+    
+    
+  }
+});
+
+}
+
+
+export function supprimerOpPersonnel({ commit}, id) {
+
+
+  Swal.fire({
+
+  text: "Voulez vous vraiment supprimer ?",
+  icon: "question",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Confimer"
+}).then((result) => {
+  if (result.isConfirmed) {
+   
+    apiGuest.delete('/supprimerOrdrePaiement/' + id, { headers: authHeader() })
+    commit('GET_OP_PERSO_SUPPRIMER', id);
+    // dispatch('getBanque');
+  
+    Swal.fire({
+      title: "Suppression",
+      text: "effectué avec succès.",
+      icon: "success"
+    });
+    
+    
+  }
+});
+
+}
 // COMPTE BANCAIRE
 
 
@@ -2659,7 +2751,7 @@ export function ajouterFichier({ commit }, nouveau) {
 }
 
 // RAPPORT
-export function supprimerOrdrePaiement({ commit}, id) {
+export function supprimerOP({ commit}, id) {
   Swal.fire({
   text: "Voulez vous vraiment supprimer ?",
   icon: "question",
@@ -2671,7 +2763,7 @@ export function supprimerOrdrePaiement({ commit}, id) {
   if (result.isConfirmed) {
     apiGuest.delete('/supprimerOrdrePaiement/' + id, { headers: authHeader() })
     commit('GET_OP_SUPPRIMER', id);
-    // dispatch('getBanque');
+    // dispatch('getListeOrdrePiementAutreDepense');
     Swal.fire({
       title: "Suppression",
       text: "effectué avec succès.",

@@ -1129,54 +1129,59 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="item in afficheListeOPprovisoire" :key="item.id">
+                    <tr
+                      v-for="item1 in afficheListeOPprovisoire(bordereau_id)"
+                      :key="item1.id"
+                    >
                       <td style="border: 1px solid #000">
-                        {{ item.numero_ordre_paiement }}
+                        {{ item1.numero_ordre_paiement }}
                       </td>
                       <td style="border: 1px solid #000" class="text-break">
-                        {{ item.objet_depense }}
+                        {{ item1.objet_depense }}
                       </td>
                       <td style="border: 1px solid #000; text-align: right">
                         {{
                           formatageSommeSansFCFA(
-                            parseFloat(item.montant_prestation)
+                            parseFloat(item1.montant_prestation)
                           )
                         }}
                       </td>
                       <td style="border: 1px solid #000">
-                        {{ item.nature_economique }}
+                        {{
+                          afficheNatureEconomique(item1.nature_economique_id)
+                        }}
                       </td>
                       <td style="border: 1px solid #000">
-                        {{ item.beneficiaire }}
+                        {{ InfoEntreprise(item1.entreprise_id) }}
                       </td>
                       <td style="border: 1px solid #000">
                         <span
-                          v-if="item.decision == 1"
+                          v-if="item1.decision_cf == 1"
                           class="badge badge-success"
                           style="cursor: pointer; text-align: center"
-                          >{{ afficheDecision(item.decision) }}</span
+                          >{{ afficheDecision(item1.decision_cf) }}</span
                         >
                         <span
-                          v-if="item.decision == 2"
+                          v-if="item1.decision_cf == 2"
                           class="badge badge-success"
                           style="cursor: pointer"
-                          >{{ afficheDecision(item.decision) }}</span
+                          >{{ afficheDecision(item1.decision_cf) }}</span
                         >
                         <span
-                          v-if="item.decision == 3"
+                          v-if="item1.decision_cf == 3"
                           class="badge badge-warning"
                           style="cursor: pointer"
-                          >{{ afficheDecision(item.decision) }}</span
+                          >{{ afficheDecision(item1.decision_cf) }}</span
                         >
                         <span
-                          v-if="item.decision == 4"
+                          v-if="item1.decision_cf == 4"
                           class="badge badge-danger"
                           style="cursor: pointer"
-                          >{{ afficheDecision(item.decision) }}</span
+                          >{{ afficheDecision(item1.decision_cf) }}</span
                         >
                       </td>
                       <td style="border: 1px solid #000">
-                        {{ formaterDate(item.date_decision) }}
+                        {{ formaterDate(item1.date_decision) }}
                       </td>
                       <td style="border: 1px solid #000">
                         <div
@@ -1190,15 +1195,15 @@
                             data-bs-toggle="modal"
                             data-bs-target="#largeModal1"
                             style="cursor: pointer; color: blue"
-                            @click.prevent="AfficheModalModification(item.id)"
+                            @click.prevent="AfficheModalModification(item1.id)"
                           ></span>
-                         <!-- <span
-                      title="Supprimer"
-                      class="fas fa-archive"
-                      style="cursor: pointer; color: red"
-                       @click.prevent="supprimerOrdrePaiement(item.id)"
-                    ></span> -->
-                     <!--<span
+                          <span
+                            title="Supprimer"
+                            class="fas fa-archive"
+                            style="cursor: pointer; color: red"
+                            @click.prevent="supprimerOP(item1.id)"
+                          ></span>
+                          <!--<span
                       title="Voir facture"
                       class="fas fa-eye"
                       style="cursor: pointer; color: #006d80"
@@ -1208,7 +1213,7 @@
                             class="fas fa-print"
                             style="cursor: pointer; color: #77abd6"
                             @click.prevent="
-                              fonctionImprimer(item.id, bordereau_id)
+                              fonctionImprimer(item1.id, bordereau_id)
                             "
                           ></span>
                         </div>
@@ -1365,7 +1370,7 @@
                     <label class="form-label">Type financement</label>
 
                     <model-list-select
-                    v-model="modNatureDepense.type_financement_id"
+                      v-model="modNatureDepense.type_financement_id"
                       :list="AfficheTypeFinancementModifier"
                       option-value="id"
                       option-text="objet"
@@ -1378,7 +1383,7 @@
                     <label class="form-label">Source de financement</label>
 
                     <model-list-select
-                    v-model="modNatureDepense.source_financement_id"
+                      v-model="modNatureDepense.source_financement_id"
                       :list="AfficheSourceFinancementModifier"
                       option-value="id"
                       option-text="objet"
@@ -1534,6 +1539,11 @@ export default {
   },
   created() {
     this.bordereau_id = this.$route.params.id;
+    // let objet = {
+    //   id: this.bordereau_id,
+    // };
+    // this.getOpParBordereau(objet);
+    this.getListeOrdrePiementAutreDepense();
     this.getExerciceBudgetaire();
     this.getActivite();
     this.getSousBudget();
@@ -1548,6 +1558,7 @@ export default {
     this.getTaux();
     this.getActiviteOp();
     this.getCompteBancaire();
+
     this.getListeOrdrePaiementGlobal();
 
     if (this.modNatureDepense.activite_id != 0) {
@@ -1569,6 +1580,8 @@ export default {
   computed: {
     ...mapGetters("parametrage", [
       "getterProjet",
+      "gettersOpBordereau",
+      "gettersOrdrePaiementopt",
       "getterCompteBancaire",
       "getterActiviteSurOP",
       "getterTaux",
@@ -1592,15 +1605,22 @@ export default {
       "getterOpParActivite",
       "getterListeOPParUser",
     ]),
-     NatureDepenseModifier_id() {
-      if (this.modNatureDepense.sous_budget_id == 0 && this.modNatureDepense.activite_id != 0) {
+
+    NatureDepenseModifier_id() {
+      if (
+        this.modNatureDepense.sous_budget_id == 0 &&
+        this.modNatureDepense.activite_id != 0
+      ) {
         // return (id) => {
         //   if (id != null && id != "") {
         const qtereel = this.getterBudgetViseParActivite.find(
           (qtreel) =>
-            qtreel.ligneeconomique_id == this.modNatureDepense.nature_economique_id &&
-            qtreel.type_financement_id == this.modNatureDepense.type_financement_id &&
-            qtreel.source_financement_id == this.modNatureDepense.source_financement_id &&
+            qtreel.ligneeconomique_id ==
+              this.modNatureDepense.nature_economique_id &&
+            qtreel.type_financement_id ==
+              this.modNatureDepense.type_financement_id &&
+            qtreel.source_financement_id ==
+              this.modNatureDepense.source_financement_id &&
             qtreel.actuelle == 1
         );
 
@@ -1615,10 +1635,13 @@ export default {
         //   if (id != null && id != "") {
         const qtereel = this.getterBudgetViseParActivite.find(
           (qtreel) =>
-            qtreel.ligneeconomique_id == this.modNatureDepense.nature_economique_id &&
+            qtreel.ligneeconomique_id ==
+              this.modNatureDepense.nature_economique_id &&
             qtreel.sous_budget_id == this.modNatureDepense.sous_budget_id &&
-            qtreel.type_financement_id == this.modNatureDepense.type_financement_id &&
-            qtreel.source_financement_id == this.modNatureDepense.source_financement_id &&
+            qtreel.type_financement_id ==
+              this.modNatureDepense.type_financement_id &&
+            qtreel.source_financement_id ==
+              this.modNatureDepense.source_financement_id &&
             qtreel.actuelle == 1
         );
 
@@ -1630,15 +1653,21 @@ export default {
         // };
       }
     },
-     libelleNatureDepenseModifier() {
-      if (this.modNatureDepense.sous_budget_id == 0 && this.modNatureDepense.activite_id != 0) {
+    libelleNatureDepenseModifier() {
+      if (
+        this.modNatureDepense.sous_budget_id == 0 &&
+        this.modNatureDepense.activite_id != 0
+      ) {
         // return (id) => {
         //   if (id != null && id != "") {
         const qtereel = this.getterBudgetViseParActivite.find(
           (qtreel) =>
-            qtreel.ligneeconomique_id == this.modNatureDepense.nature_economique_id &&
-            qtreel.type_financement_id == this.modNatureDepense.type_financement_id &&
-            qtreel.source_financement_id == this.modNatureDepense.source_financement_id &&
+            qtreel.ligneeconomique_id ==
+              this.modNatureDepense.nature_economique_id &&
+            qtreel.type_financement_id ==
+              this.modNatureDepense.type_financement_id &&
+            qtreel.source_financement_id ==
+              this.modNatureDepense.source_financement_id &&
             qtreel.actuelle == 1
         );
 
@@ -1653,10 +1682,13 @@ export default {
         //   if (id != null && id != "") {
         const qtereel = this.getterBudgetViseParActivite.find(
           (qtreel) =>
-            qtreel.ligneeconomique_id == this.modNatureDepense.nature_economique_id &&
+            qtreel.ligneeconomique_id ==
+              this.modNatureDepense.nature_economique_id &&
             qtreel.sous_budget_id == this.modNatureDepense.sous_budget_id &&
-            qtreel.type_financement_id == this.modNatureDepense.type_financement_id &&
-            qtreel.source_financement_id == this.modNatureDepense.source_financement_id &&
+            qtreel.type_financement_id ==
+              this.modNatureDepense.type_financement_id &&
+            qtreel.source_financement_id ==
+              this.modNatureDepense.source_financement_id &&
             qtreel.actuelle == 1
         );
 
@@ -1668,7 +1700,7 @@ export default {
         // };
       }
     },
-     AfficheSourceFinancementModifier() {
+    AfficheSourceFinancementModifier() {
       let collet = [];
       this.GroupeParSourceFinancementModifier.filter((item) => {
         // if (item.activite_id == this.activite_id)
@@ -1682,14 +1714,19 @@ export default {
       });
       return collet;
     },
-      GroupeParSourceFinancementModifier() {
+    GroupeParSourceFinancementModifier() {
       // return (id) => {
-      if (this.modNatureDepense.sous_budget_id == 0 && this.modNatureDepense.activite_id != 0) {
+      if (
+        this.modNatureDepense.sous_budget_id == 0 &&
+        this.modNatureDepense.activite_id != 0
+      ) {
         let objet = this.getterBudgetViseParActivite.filter(
           (item) =>
             item.activite_id == this.activite_id &&
-            item.ligneeconomique_id == this.modNatureDepense.nature_economique_id &&
-            item.type_financement_id == this.modNatureDepense.type_financement_id &&
+            item.ligneeconomique_id ==
+              this.modNatureDepense.nature_economique_id &&
+            item.type_financement_id ==
+              this.modNatureDepense.type_financement_id &&
             item.actuelle == 1
         );
         //  let vm=this
@@ -1711,8 +1748,10 @@ export default {
         let objet = this.getterBudgetViseParActivite.filter(
           (item) =>
             item.sous_budget_id == this.modNatureDepense.sous_budget_id &&
-            item.ligneeconomique_id == this.modNatureDepense.nature_economique_id &&
-            item.type_financement_id == this.modNatureDepense.type_financement_id &&
+            item.ligneeconomique_id ==
+              this.modNatureDepense.nature_economique_id &&
+            item.type_financement_id ==
+              this.modNatureDepense.type_financement_id &&
             item.actuelle == 1
         );
         //  let vm=this
@@ -1732,7 +1771,7 @@ export default {
         // };
       }
     },
-     AfficheTypeFinancementModifier() {
+    AfficheTypeFinancementModifier() {
       let collet = [];
       this.GroupeParTypeFinancementModifier.filter((item) => {
         // if (item.activite_id == this.activite_id)
@@ -1746,13 +1785,17 @@ export default {
       });
       return collet;
     },
-      GroupeParTypeFinancementModifier() {
+    GroupeParTypeFinancementModifier() {
       // return (id) => {
-      if (this.modNatureDepense.sous_budget_id == 0 && this.modNatureDepense.activite_id != 0) {
+      if (
+        this.modNatureDepense.sous_budget_id == 0 &&
+        this.modNatureDepense.activite_id != 0
+      ) {
         let objet = this.getterBudgetViseParActivite.filter(
           (item) =>
             item.activite_id == this.modNatureDepense.activite_id &&
-            item.ligneeconomique_id == this.modNatureDepense.nature_economique_id &&
+            item.ligneeconomique_id ==
+              this.modNatureDepense.nature_economique_id &&
             item.actuelle == 1
         );
         //  let vm=this
@@ -1774,7 +1817,8 @@ export default {
         let objet = this.getterBudgetViseParActivite.filter(
           (item) =>
             item.sous_budget_id == this.modNatureDepense.sous_budget_id &&
-            item.ligneeconomique_id == this.modNatureDepense.nature_economique_id &&
+            item.ligneeconomique_id ==
+              this.modNatureDepense.nature_economique_id &&
             item.actuelle == 1
         );
         //  let vm=this
@@ -1844,12 +1888,23 @@ export default {
       }
     },
     afficheListeOPprovisoire() {
-      return this.getterListeOPgloba.filter(
-        (item) =>
-          item.bordereau_id == this.bordereau_id &&
-          item.type_ordre_paiement == 1
-      );
+      return (id) => {
+        if (id != null && id != "") {
+          return this.gettersOrdrePaiementopt.filter(
+            (qtreel) =>
+              qtreel.bordereau_id == id && qtreel.type_ordre_paiement == 1
+          );
+        }
+      };
     },
+    // afficheListeOPprovisoire() {
+    //   return this.gettersOrdrePaiementopt.filter(
+    //     (item) =>
+    //       item.bordereau_id == this.bordereau_id &&
+    //       item.type_ordre_paiement == 1
+    //   );
+    // },
+
     taillerTableau() {
       return this.TableauDossier.length;
     },
@@ -1949,6 +2004,7 @@ export default {
       if (this.FormDataDossierMod.exonere == 1) {
         return 0;
       } else {
+        2;
         // return (id) => {
         //   if (id != null && id != "") {
         const qtereel = this.getterTaux.find((qtreel) => qtreel.encours == 1);
@@ -2473,6 +2529,20 @@ export default {
         // };
       }
     },
+    InfoEntreprise() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.getterEntreprise.find(
+            (qtreel) => qtreel.id == id
+          );
+
+          if (qtereel) {
+            return qtereel.numero_cc.concat(" ", qtereel.raison_sociale);
+          }
+          return 0;
+        }
+      };
+    },
     AdresseEntreprise() {
       return (id) => {
         if (id != null && id != "") {
@@ -2693,7 +2763,11 @@ export default {
   },
   methods: {
     ...mapActions("parametrage", [
-      "getActivite","modifierOrdrePaiement","supprimerOrdrePaiement",
+      "getActivite",
+      "getOpParBordereau",
+      "getListeOrdrePiementAutreDepense",
+      "modifierOrdrePaiement",
+      "supprimerOP",
       "getListeOrdrePaiementGlobal",
       "getCompteBancaire",
       "getActiviteOp",
@@ -2718,7 +2792,7 @@ export default {
       "ajouterOrdrePaiement",
       "getOpParActvite",
     ]),
-     modificationOrdrePaiement() {
+    modificationOrdrePaiement() {
       var objetDirect1 = {
         id: this.modNatureDepense.id,
         exercice: this.modNatureDepense.exercice,
@@ -2745,9 +2819,9 @@ export default {
       this.modNatureDepense = {};
     },
     AfficheModalModification(id) {
-      this.modNatureDepense = this.afficheListeOPprovisoire.find(
-        (items) => items.id == id
-      );
+      this.modNatureDepense = this.afficheListeOPprovisoire(
+        this.bordereau_id
+      ).find((items) => items.id == id);
     },
     retour() {
       this.$router.push({
@@ -2888,7 +2962,6 @@ export default {
         (this.FormDataDossier.exonere = 0);
       this.FormDataDossier.taux = 0;
       (this.objet_depense = ""),
-        (this.activite_id = 0),
         (this.unite_operationnelle_id = 0),
         (this.nature_depense_id = 0),
         (this.entreprise_id = 0),

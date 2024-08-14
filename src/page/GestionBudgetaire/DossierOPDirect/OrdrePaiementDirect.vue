@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+   
     <div class="col-md-12">
       <div class="card" style="box-shadow: 5px 5px #f9d531">
         <div class="card-header">
@@ -1144,10 +1145,12 @@
                         }}
                       </td>
                       <td style="border: 1px solid #000">
-                        {{ item.nature_economique }}
+                        {{
+                          afficheNatureEconomique(item.nature_economique_id)
+                        }}
                       </td>
                       <td style="border: 1px solid #000">
-                        {{ item.beneficiaire }}
+                        {{ InfoEntreprise(item.entreprise_id) }}
                       </td>
                       <td style="border: 1px solid #000">
                         <span
@@ -1192,13 +1195,14 @@
                             @click.prevent="AfficheModalModification(item.id)"
                             style="cursor: pointer; color: blue"
                           ></span>
-                           <!-- <span
-                      title="Supprimer"
-                      class="fas fa-archive"
-                      style="cursor: pointer; color: red"
-                      @click.prevent="supprimerOrdrePaiement(item.id)"
-                    ></span> -->
-                    <!--<span
+
+                          <span
+                            title="Supprimer"
+                            class="fas fa-archive"
+                            style="cursor: pointer; color: red"
+                            @click.prevent="supprimerOP(item.id)"
+                          ></span>
+                          <!--<span
                       title="Voir facture"
                       class="fas fa-eye"
                       style="cursor: pointer; color: #006d80"
@@ -1233,7 +1237,9 @@
         <div class="modal-dialog modal-xl">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">Modifier Ordre Paiement{{ NatureDepenseModifier_id }}</h5>
+              <h5 class="modal-title">
+                Modifier Ordre Paiement{{ NatureDepenseModifier_id }}
+              </h5>
               <button
                 type="button"
                 class="btn-close"
@@ -1535,6 +1541,7 @@ export default {
   created() {
     this.bordereau_id = this.$route.params.id;
     this.getExerciceBudgetaire();
+    this.getListeOrdrePiementAutreDepense();
     this.getActivite();
     this.getSousBudget();
     this.getEntreprise();
@@ -1567,6 +1574,7 @@ export default {
   computed: {
     ...mapGetters("parametrage", [
       "getterProjet",
+      "gettersOrdrePaiementopt",
       "getterCompteBancaire",
       "getterActiviteSurOP",
       "getterTaux",
@@ -1590,15 +1598,21 @@ export default {
       "getterOpParActivite",
       "getterListeOPParUser",
     ]),
-      NatureDepenseModifier_id() {
-      if (this.modNatureDepense.sous_budget_id == 0 && this.modNatureDepense.activite_id != 0) {
+    NatureDepenseModifier_id() {
+      if (
+        this.modNatureDepense.sous_budget_id == 0 &&
+        this.modNatureDepense.activite_id != 0
+      ) {
         // return (id) => {
         //   if (id != null && id != "") {
         const qtereel = this.getterBudgetViseParActivite.find(
           (qtreel) =>
-            qtreel.ligneeconomique_id == this.modNatureDepense.nature_economique_id &&
-            qtreel.type_financement_id == this.modNatureDepense.type_financement_id &&
-            qtreel.source_financement_id == this.modNatureDepense.source_financement_id &&
+            qtreel.ligneeconomique_id ==
+              this.modNatureDepense.nature_economique_id &&
+            qtreel.type_financement_id ==
+              this.modNatureDepense.type_financement_id &&
+            qtreel.source_financement_id ==
+              this.modNatureDepense.source_financement_id &&
             qtreel.actuelle == 1
         );
 
@@ -1613,10 +1627,13 @@ export default {
         //   if (id != null && id != "") {
         const qtereel = this.getterBudgetViseParActivite.find(
           (qtreel) =>
-            qtreel.ligneeconomique_id == this.modNatureDepense.nature_economique_id &&
+            qtreel.ligneeconomique_id ==
+              this.modNatureDepense.nature_economique_id &&
             qtreel.sous_budget_id == this.modNatureDepense.sous_budget_id &&
-            qtreel.type_financement_id == this.modNatureDepense.type_financement_id &&
-            qtreel.source_financement_id == this.modNatureDepense.source_financement_id &&
+            qtreel.type_financement_id ==
+              this.modNatureDepense.type_financement_id &&
+            qtreel.source_financement_id ==
+              this.modNatureDepense.source_financement_id &&
             qtreel.actuelle == 1
         );
 
@@ -1891,7 +1908,7 @@ export default {
       return collet;
     },
     afficheListeOPprovisoire() {
-      return this.getterListeOPgloba.filter(
+      return this.gettersOrdrePaiementopt.filter(
         (item) =>
           item.bordereau_id == this.bordereau_id &&
           item.type_ordre_paiement == 2
@@ -2644,7 +2661,20 @@ export default {
         }
       };
     },
+    InfoEntreprise() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.getterEntreprise.find(
+            (qtreel) => qtreel.id == id
+          );
 
+          if (qtereel) {
+            return qtereel.numero_cc.concat(" ", qtereel.raison_sociale);
+          }
+          return 0;
+        }
+      };
+    },
     afficheNatureEconomique() {
       return (id) => {
         if (id != null && id != "") {
@@ -2713,8 +2743,11 @@ export default {
   },
   methods: {
     ...mapActions("parametrage", [
-      "getActivite","supprimerOrdrePaiement",
+      "getActivite",
+      "supprimerOrdrePaiement",
+      "getListeOrdrePiementAutreDepense",
       "modifierOrdrePaiement",
+      "supprimerOP",
       "getListeOrdrePaiementGlobal",
       "getCompteBancaire",
       "getActiviteOp",
@@ -2766,9 +2799,7 @@ export default {
       this.modNatureDepense = {};
     },
     retour() {
-      this.$router.push({
-        name: "InformationBordereau",
-      });
+      window.history.back();
     },
     fonctionImprimer(id, id1) {
       this.$router.push({
@@ -2904,7 +2935,6 @@ export default {
         (this.FormDataDossier.exonere = 0);
       this.FormDataDossier.taux = 0;
       (this.objet_depense = ""),
-        (this.activite_id = 0),
         (this.unite_operationnelle_id = 0),
         (this.nature_depense_id = 0),
         (this.entreprise_id = 0),

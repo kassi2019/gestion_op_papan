@@ -21,7 +21,7 @@
                 <i class="icon-arrow-right"></i>
               </li>
               <li class="nav-item">
-                <a href="#">OP Direct Personnel</a>
+                <a href="#">OP Provisoire Direct</a>
               </li>
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -646,7 +646,7 @@
                       <th>Objet dépense</th>
                       <th>Montant</th>
                       <th>nature économique</th>
-                      <th>Bénéficiaire</th>
+                      <!-- <th>Bénéficiaire</th> -->
                       <th>Décision</th>
                       <th>Date Décision</th>
                       <th></th>
@@ -668,35 +668,35 @@
                         }}
                       </td>
                       <td style="border: 1px solid #000">
-                        {{ item.nature_economique }}
+                        {{ NatureEconomique1(item.nature_economique_id) }}
                       </td>
-                      <td style="border: 1px solid #000">
+                      <!-- <td style="border: 1px solid #000">
                         {{ item.beneficiaire }}
-                      </td>
+                      </td> -->
                       <td style="border: 1px solid #000">
                         <span
-                          v-if="item.decision == 1"
+                          v-if="item.decision_cf == 1"
                           class="badge badge-success"
                           style="cursor: pointer; text-align: center"
-                          >{{ afficheDecision(item.decision) }}</span
+                          >{{ afficheDecision(item.decision_cf) }}</span
                         >
                         <span
-                          v-if="item.decision == 2"
+                          v-if="item.decision_cf == 2"
                           class="badge badge-success"
                           style="cursor: pointer"
-                          >{{ afficheDecision(item.decision) }}</span
+                          >{{ afficheDecision(item.decision_cf) }}</span
                         >
                         <span
-                          v-if="item.decision == 3"
+                          v-if="item.decision_cf == 3"
                           class="badge badge-warning"
                           style="cursor: pointer"
-                          >{{ afficheDecision(item.decision) }}</span
+                          >{{ afficheDecision(item.decision_cf) }}</span
                         >
                         <span
-                          v-if="item.decision == 4"
+                          v-if="item.decision_cf == 4"
                           class="badge badge-danger"
                           style="cursor: pointer"
-                          >{{ afficheDecision(item.decision) }}</span
+                          >{{ afficheDecision(item.decision_cf) }}</span
                         >
                       </td>
                       <td style="border: 1px solid #000">
@@ -708,7 +708,7 @@
                           role="group"
                           aria-label="Basic mixed styles example"
                         >
-                          <!-- <span
+                          <span
                             title="Modifier"
                             class="badge bg-primary"
                             data-bs-toggle="modal"
@@ -721,9 +721,9 @@
                             title="Supprimer"
                             class="badge bg-danger"
                             style="cursor: pointer"
-                            @click.prevent="supprimerInformationBudget(item.id)"
-                            ><i class="fas fa-archive"></i> Supprimer</span
-                          > -->
+                            @click.prevent="supprimerOpPersonnel(item.id)"
+                            ><i class="fas fa-archive"></i>Supprimer</span
+                          >
                           <span
                             title="Voir Personnel"
                             class="badge bg-info"
@@ -764,6 +764,205 @@
         </div>
       </div>
     </div>
+
+    <div
+      class="modal fade"
+      id="largeModal1"
+      tabindex="-1"
+      data-bs-keyboard="false"
+      data-bs-backdrop="static"
+      aria-labelledby="staticBackdropLabel"
+    >
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Modifier Ordre Paiement</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="row">
+                <div class="col-3">
+                  <label for="inputNanme4" class="form-label">Exercice</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    :value="exerciceBudgetaire"
+                    style="
+                      border: 1px solid #000 !important;
+                      background-color: #dcdcdc !important;
+                    "
+                    readonly
+                  />
+                </div>
+                <div class="col-9">
+                  <label class="form-label">Unité Opérationnelle</label>
+
+                  <model-list-select
+                    v-model="modNatureDepense.unite_operationnelle_id"
+                    :list="getterBudgetViseGroupeUniteOp"
+                    option-value="unite_operationnelle_id"
+                    option-text="nom_projet"
+                    placeholder="select item"
+                    style="border: 1px solid #000"
+                  >
+                  </model-list-select>
+                </div>
+                <div class="col-12">
+                  <label class="form-label">Activité</label>
+                  <model-list-select
+                    v-model="modNatureDepense.activite_id"
+                    :list="getterBudgetViseGroupeParActivite"
+                    option-value="activite_id"
+                    option-text="plan_activite"
+                    placeholder="select item"
+                    style="border: 1px solid #000"
+                  >
+                  </model-list-select>
+                </div>
+                <div class="col-12">
+                  <label class="form-label">Composante</label>
+                  <model-list-select
+                    v-model="modNatureDepense.sous_budget_id"
+                    :list="libelleSousBudgetModifier"
+                    option-value="id"
+                    option-text="libelle"
+                    placeholder="select item"
+                    style="border: 1px solid #000"
+                  >
+                  </model-list-select>
+                </div>
+
+                <div class="col-12">
+                  <label class="form-label">Objet de la depense</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    style="border: 1px solid #000 !important"
+                    v-model="modNatureDepense.objet_depense"
+                  />
+                </div>
+                <div class="col-6">
+                  <label class="form-label">Numéro de ordre de paiement</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    style="border: 1px solid #000 !important"
+                    v-model="modNatureDepense.numero_ordre_paiement"
+                  />
+                </div>
+                <div class="col-6">
+                  <label class="form-label">Montant des préstations</label>
+
+                  <money3
+                    class="form-control"
+                    v-bind="config"
+                    style="border: 1px solid #000 !important"
+                    v-model="modNatureDepense.montant_prestation"
+                  ></money3>
+                </div>
+                <div class="col-9">
+                  <label class="form-label"
+                    >Nature économique / Imputation</label
+                  >
+                  <model-list-select
+                    v-model="modNatureDepense.nature_economique_id"
+                    :list="AfficheNatureEconomiqueModifier"
+                    option-value="id"
+                    option-text="objet"
+                    placeholder="select item"
+                    style="border: 1px solid #000"
+                  >
+                  </model-list-select>
+                </div>
+                <div class="col-3">
+                  <label class="form-label">Nature de depense</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    style="border: 1px solid #000 !important"
+                    readonly
+                    :value="libelleNatureDepenseModifier"
+                  />
+                </div>
+                <div class="col-3">
+                  <label class="form-label">Type financement</label>
+
+                  <model-list-select
+                    v-model="modNatureDepense.type_financement_id"
+                    :list="AfficheTypeFinancementModifier"
+                    option-value="id"
+                    option-text="objet"
+                    placeholder="select item"
+                    style="border: 1px solid #000"
+                  >
+                  </model-list-select>
+                </div>
+                <div class="col-9">
+                  <label class="form-label">Source de financement</label>
+
+                  <model-list-select
+                    v-model="modNatureDepense.source_financement_id"
+                    :list="AfficheSourceFinancementModifier"
+                    option-value="id"
+                    option-text="objet"
+                    placeholder="select item"
+                    style="border: 1px solid #000"
+                  >
+                  </model-list-select>
+                </div>
+                <!-- <div class="col-6">
+                    <label for="inputNanme4" class="form-label">Décision</label>
+                    <select
+                      class="form-select"
+                      style="border: 1px solid #000"
+                      
+                    >
+                      <option selected></option>
+                      <option :value="1">Visé</option>
+                      <option :value="2">Visé avec observation</option>
+                      <option :value="0">En attente</option>
+                    </select>
+                  </div>
+                  <div class="col-6">
+                    <label for="inputNanme4" class="form-label"
+                      >Date décision</label
+                    >
+                    <input
+                      type="date"
+                      class="form-control"
+                      style="border: 1px solid #000"
+                      
+                    />
+                  </div> -->
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Fermer
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              @click.prevent="modificationOrdrePaiement()"
+              data-bs-dismiss="modal"
+            >
+              Modifier
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -790,6 +989,23 @@ export default {
   },
   data() {
     return {
+      modNatureDepense: {
+        activite_id: 0,
+        unite_operationnelle_id: 0,
+        sous_budget_id: 0,
+        objet_depense: "",
+        nature_depense_id: 0,
+        date_paiement: "",
+        entreprise_id: 0,
+        type_financement_id: 0,
+        source_financement_id: 0,
+        numero_ordre_paiement: "",
+        nature_economique_id: 0,
+        type_ordre_paiement: 0,
+        montant_prestation: 0,
+        cumul_anterieure: 0,
+        type_depense: 0,
+      },
       type_indemnite_id: 0,
       personnel_id: 0,
       montant: 0,
@@ -847,10 +1063,12 @@ export default {
   created() {
     this.bordereau_id = this.$route.params.id;
     this.getExerciceBudgetaire();
+
     this.getActivite();
     this.getSousBudget();
     this.getEntreprise();
     this.getBudgetEclateViseGroupeParActivte();
+    this.getBudgetEclateViseGroupeUO();
     this.getNatureEconomique();
     this.getTypeIndemnite();
     this.getNatureDepense();
@@ -886,8 +1104,10 @@ export default {
       "gettersPersonnelParActivite",
     ]),
     ...mapGetters("parametrage", [
-      "getterProjet","getterBudgetViseGroupeUniteOp",
+      "getterProjet",
+      "supprimerOP",
       "getterOpPersonnelParUser",
+      "getterBudgetViseGroupeUniteOp",
       "getterCompteBancaire",
       "getterActiviteSurOP",
       "getterTaux",
@@ -909,6 +1129,331 @@ export default {
       "getterListeOPgloba",
       "getterOpParActivite",
     ]),
+
+    NatureEconomique1() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.getterNatureEconomique.find(
+            (qtreel) => qtreel.id == id
+          );
+
+          if (qtereel) {
+            return qtereel.libelle_code;
+          }
+          return 0;
+        }
+      };
+    },
+    libelleSousBudgetModifier() {
+      let collet = [];
+      this.getterSousBudget.filter((item) => {
+        if (item.activite_id == this.modNatureDepense.activite_id) {
+          let data = {
+            id: item.id,
+            libelle: item.libelle,
+          };
+          collet.push(data);
+        }
+      });
+      return collet;
+    },
+
+    AfficheNatureEconomiqueModifier() {
+      let collet = [];
+      this.GroupeParNatureEconomiqueModifier.filter((item) => {
+        // if (item.activite_id == this.activite_id)
+        {
+          let data = {
+            id: item,
+            objet: this.afficheNatureEconomique(item),
+          };
+          collet.push(data);
+        }
+      });
+      return collet;
+    },
+    GroupeParNatureEconomiqueModifier() {
+      // return (id) => {
+      if (
+        this.modNatureDepense.sous_budget_id == 0 &&
+        this.modNatureDepense.activite_id != 0
+      ) {
+        let objet = this.getterBudgetViseParActivite.filter(
+          (item) =>
+            item.activite_id == this.modNatureDepense.activite_id &&
+            item.actuelle == 1
+        );
+        //  let vm=this
+        let array_exercie = [];
+        if (objet.length > 0) {
+          objet.forEach(function (val) {
+            array_exercie.push(val.ligneeconomique_id);
+          });
+          let unique = [...new Set(array_exercie)];
+
+          if (unique.length == 0) {
+            return [];
+          }
+          return unique.sort((a, b) => (a.unique > b.unique ? 1 : -1));
+        }
+        return [];
+        // };
+      } else {
+        let objet = this.getterBudgetViseParActivite.filter(
+          (item) =>
+            item.sous_budget_id == this.modNatureDepense.sous_budget_id &&
+            item.actuelle == 1
+        );
+        //  let vm=this
+        let array_exercie = [];
+        if (objet.length > 0) {
+          objet.forEach(function (val) {
+            array_exercie.push(val.ligneeconomique_id);
+          });
+          let unique = [...new Set(array_exercie)];
+
+          if (unique.length == 0) {
+            return [];
+          }
+          return unique.sort((a, b) => (a.unique > b.unique ? 1 : -1));
+        }
+        return [];
+        // };
+      }
+    },
+    libelleNatureDepenseModifier() {
+      if (
+        this.modNatureDepense.sous_budget_id == 0 &&
+        this.modNatureDepense.activite_id != 0
+      ) {
+        // return (id) => {
+        //   if (id != null && id != "") {
+        const qtereel = this.getterBudgetViseParActivite.find(
+          (qtreel) =>
+            qtreel.ligneeconomique_id ==
+              this.modNatureDepense.nature_economique_id &&
+            qtreel.type_financement_id ==
+              this.modNatureDepense.type_financement_id &&
+            qtreel.source_financement_id ==
+              this.modNatureDepense.source_financement_id &&
+            qtreel.actuelle == 1
+        );
+
+        if (qtereel) {
+          return this.afficheNatureDepense(qtereel.nature_depense_id);
+        }
+        return 0;
+        //   }
+        // };
+      } else {
+        // return (id) => {
+        //   if (id != null && id != "") {
+        const qtereel = this.getterBudgetViseParActivite.find(
+          (qtreel) =>
+            qtreel.ligneeconomique_id ==
+              this.modNatureDepense.nature_economique_id &&
+            qtreel.sous_budget_id == this.modNatureDepense.sous_budget_id &&
+            qtreel.type_financement_id ==
+              this.modNatureDepense.type_financement_id &&
+            qtreel.source_financement_id ==
+              this.modNatureDepense.source_financement_id &&
+            qtreel.actuelle == 1
+        );
+
+        if (qtereel) {
+          return this.afficheNatureDepense(qtereel.nature_depense_id);
+        }
+        return 0;
+        //   }
+        // };
+      }
+    },
+    AfficheTypeFinancementModifier() {
+      let collet = [];
+      this.GroupeParTypeFinancementModifier.filter((item) => {
+        // if (item.activite_id == this.activite_id)
+        {
+          let data = {
+            id: item,
+            objet: this.libelleTypeFinancement(item),
+          };
+          collet.push(data);
+        }
+      });
+      return collet;
+    },
+    GroupeParTypeFinancementModifier() {
+      // return (id) => {
+      if (
+        this.modNatureDepense.sous_budget_id == 0 &&
+        this.modNatureDepense.activite_id != 0
+      ) {
+        let objet = this.getterBudgetViseParActivite.filter(
+          (item) =>
+            item.activite_id == this.modNatureDepense.activite_id &&
+            item.ligneeconomique_id ==
+              this.modNatureDepense.nature_economique_id &&
+            item.actuelle == 1
+        );
+        //  let vm=this
+        let array_exercie = [];
+        if (objet.length > 0) {
+          objet.forEach(function (val) {
+            array_exercie.push(val.type_financement_id);
+          });
+          let unique = [...new Set(array_exercie)];
+
+          if (unique.length == 0) {
+            return [];
+          }
+          return unique.sort((a, b) => (a.unique > b.unique ? 1 : -1));
+        }
+        return [];
+        // };
+      } else {
+        let objet = this.getterBudgetViseParActivite.filter(
+          (item) =>
+            item.sous_budget_id == this.modNatureDepense.sous_budget_id &&
+            item.ligneeconomique_id ==
+              this.modNatureDepense.nature_economique_id &&
+            item.actuelle == 1
+        );
+        //  let vm=this
+        let array_exercie = [];
+        if (objet.length > 0) {
+          objet.forEach(function (val) {
+            array_exercie.push(val.type_financement_id);
+          });
+          let unique = [...new Set(array_exercie)];
+
+          if (unique.length == 0) {
+            return [];
+          }
+          return unique.sort((a, b) => (a.unique > b.unique ? 1 : -1));
+        }
+        return [];
+        // };
+      }
+    },
+    AfficheSourceFinancementModifier() {
+      let collet = [];
+      this.GroupeParSourceFinancementModifier.filter((item) => {
+        // if (item.activite_id == this.activite_id)
+        {
+          let data = {
+            id: item,
+            objet: this.libelleSourceFinancement(item),
+          };
+          collet.push(data);
+        }
+      });
+      return collet;
+    },
+    GroupeParSourceFinancementModifier() {
+      // return (id) => {
+      if (
+        this.modNatureDepense.sous_budget_id == 0 &&
+        this.modNatureDepense.activite_id != 0
+      ) {
+        let objet = this.getterBudgetViseParActivite.filter(
+          (item) =>
+            item.activite_id == this.activite_id &&
+            item.ligneeconomique_id ==
+              this.modNatureDepense.nature_economique_id &&
+            item.type_financement_id ==
+              this.modNatureDepense.type_financement_id &&
+            item.actuelle == 1
+        );
+        //  let vm=this
+        let array_exercie = [];
+        if (objet.length > 0) {
+          objet.forEach(function (val) {
+            array_exercie.push(val.source_financement_id);
+          });
+          let unique = [...new Set(array_exercie)];
+
+          if (unique.length == 0) {
+            return [];
+          }
+          return unique.sort((a, b) => (a.unique > b.unique ? 1 : -1));
+        }
+        return [];
+        // };
+      } else {
+        let objet = this.getterBudgetViseParActivite.filter(
+          (item) =>
+            item.sous_budget_id == this.modNatureDepense.sous_budget_id &&
+            item.ligneeconomique_id ==
+              this.modNatureDepense.nature_economique_id &&
+            item.type_financement_id ==
+              this.modNatureDepense.type_financement_id &&
+            item.actuelle == 1
+        );
+        //  let vm=this
+        let array_exercie = [];
+        if (objet.length > 0) {
+          objet.forEach(function (val) {
+            array_exercie.push(val.source_financement_id);
+          });
+          let unique = [...new Set(array_exercie)];
+
+          if (unique.length == 0) {
+            return [];
+          }
+          return unique.sort((a, b) => (a.unique > b.unique ? 1 : -1));
+        }
+        return [];
+        // };
+      }
+    },
+    NatureDepenseModifier_id() {
+      if (
+        this.modNatureDepense.sous_budget_id == 0 &&
+        this.modNatureDepense.activite_id != 0
+      ) {
+        // return (id) => {
+        //   if (id != null && id != "") {
+        const qtereel = this.getterBudgetViseParActivite.find(
+          (qtreel) =>
+            qtreel.ligneeconomique_id ==
+              this.modNatureDepense.nature_economique_id &&
+            qtreel.type_financement_id ==
+              this.modNatureDepense.type_financement_id &&
+            qtreel.source_financement_id ==
+              this.modNatureDepense.source_financement_id &&
+            qtreel.actuelle == 1
+        );
+
+        if (qtereel) {
+          return qtereel.nature_depense_id;
+        }
+        return 0;
+        //   }
+        // };
+      } else {
+        // return (id) => {
+        //   if (id != null && id != "") {
+        const qtereel = this.getterBudgetViseParActivite.find(
+          (qtreel) =>
+            qtreel.ligneeconomique_id ==
+              this.modNatureDepense.nature_economique_id &&
+            qtreel.sous_budget_id == this.modNatureDepense.sous_budget_id &&
+            qtreel.type_financement_id ==
+              this.modNatureDepense.type_financement_id &&
+            qtreel.source_financement_id ==
+              this.modNatureDepense.source_financement_id &&
+            qtreel.actuelle == 1
+        );
+
+        if (qtereel) {
+          return qtereel.nature_depense_id;
+        }
+        return 78;
+        //   }
+        // };
+      }
+    },
+
     afficherTypeDepense() {
       return (id) => {
         if (id != null && id != "") {
@@ -1789,8 +2334,10 @@ export default {
       "AjouterPersonnel",
     ]),
     ...mapActions("parametrage", [
-      "getActivite","getBudgetEclateViseGroupeUO",
+      "getActivite",
+      "supprimerOpPersonnel",
       "getListeOrdrePaiementPersonnnelParUtilisateur",
+      "modifierOrdrePaiement",
       "getListeOrdrePaiementGlobal",
       "getCompteBancaire",
       "getActiviteOp",
@@ -1798,6 +2345,7 @@ export default {
       "getSousBudget",
       "getBudgetViseParActvite",
       "getBudgetEclateViseGroupeParActivte",
+      "getBudgetEclateViseGroupeUO",
       "getBudgetEclate",
       "getDotationRessourcePropre",
       "getTypeFinancement",
@@ -1814,6 +2362,37 @@ export default {
       "AjouterOpPersonnel",
       "getOpParActvite",
     ]),
+    modificationOrdrePaiement() {
+      var objetDirect1 = {
+        id: this.modNatureDepense.id,
+        exercice: this.modNatureDepense.exercice,
+        unite_operationnelle_id: this.modNatureDepense.unite_operationnelle_id,
+        activite_id: this.modNatureDepense.activite_id,
+        sous_budget_id: this.modNatureDepense.sous_budget_id,
+        entreprise_id: this.modNatureDepense.entreprise_id,
+        objet_depense: this.modNatureDepense.objet_depense,
+        numero_ordre_paiement: this.modNatureDepense.numero_ordre_paiement,
+        type_ordre_paiement: this.modNatureDepense.type_ordre_paiement,
+        montant_prestation: this.modNatureDepense.montant_prestation,
+        nature_economique_id: this.modNatureDepense.nature_economique_id,
+        nature_depense_id: this.NatureDepenseModifier_id,
+        type_financement_id: this.modNatureDepense.type_financement_id,
+        source_financement_id: this.modNatureDepense.source_financement_id,
+        cumul_anterieure: this.modNatureDepense.cumul_anterieure,
+        date_decision: this.modNatureDepense.date_decision,
+        decision_cf: this.modNatureDepense.decision_cf,
+        date_paiement: this.modNatureDepense.date_paiement,
+        type_depense: this.modNatureDepense.type_depense,
+      };
+
+      this.modifierOrdrePaiement(objetDirect1);
+      this.modNatureDepense = {};
+    },
+    AfficheModalModification(id) {
+      this.modNatureDepense = this.afficheListeOPprovisoire.find(
+        (items) => items.id == id
+      );
+    },
     fonctionImprimerListePersonnel(id) {
       this.$router.push({
         name: "ImprimerPersonnelOP",
@@ -1869,11 +2448,7 @@ export default {
         )
         .toFixed(0);
     },
-    AfficheModalModification(id) {
-      this.ModifierBudget = this.getterListeBudgetEclate.find(
-        (items) => items.id == id
-      );
-    },
+
     formatageSomme: formatageSomme,
     formatageSommeSansFCFA: formatageSommeSansFCFA,
     deletePartieRequerante(item) {
@@ -1932,7 +2507,6 @@ export default {
         (this.FormDataDossier.personnel_id = ""),
         (this.FormDataDossier.montant = 0),
         (this.objet_depense = ""),
-        (this.activite_id = 0),
         (this.unite_operationnelle_id = 0),
         (this.nature_depense_id = 0),
         (this.sous_budget_id = 0),

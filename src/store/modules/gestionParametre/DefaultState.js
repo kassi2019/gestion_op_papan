@@ -31,9 +31,9 @@ const defaultstate = {
     stateActiviteSurOP: [],
     stateListeOPParUser: [],
     stateFacture: [],
-     stateOpParActivite:[],
-      stateActiviteglobal: [],
-  stateListeOPgloba: [],
+    stateOpParActivite:[],
+    stateActiviteglobal: [],
+    stateListeOPgloba: [],
     stateAfficheBudgetVise: [],
     stateBanque: [],
     stateCompteBancaire: [],
@@ -49,7 +49,7 @@ const defaultstate = {
     stateOpPersonnelParUser: [],
     stateBordereauParUser: [],
     stateDocumentation: [],
-    
+    stateOpBordereau:[]
     // stateAfficheDotation:[]
 
 };

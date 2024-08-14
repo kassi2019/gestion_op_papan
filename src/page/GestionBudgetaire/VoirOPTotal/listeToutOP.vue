@@ -21,7 +21,7 @@
                 <i class="icon-arrow-right"></i>
               </li>
               <li class="nav-item">
-                <a href="#">Liste des OP</a>
+                <a href="#">Liste des Ordres Paiements</a>
               </li>
 
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -31,8 +31,7 @@
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
+              
               <li class="nav-item">
                 <span
                   class="badge badge-warning"
@@ -70,7 +69,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="item in afficheListeOPprovisoire" :key="item.id">
+                <tr v-for="item in gettersOpBordereau" :key="item.id">
                   <td style="border: 1px solid #000">
                     {{ item.numero_ordre_paiement }}
                   </td>
@@ -138,7 +137,7 @@
                       title="Supprimer"
                       class="badge bg-danger"
                       style="cursor: pointer"
-                      @click.prevent="supprimerOrdrePaiement(item.id)"
+                      @click.prevent="supprimerOpBordereau(item.id)"
                       ><i class="fas fa-archive"></i> Supprimer</span
                     >
                     <!-- <span
@@ -558,7 +557,6 @@
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
-             
             >
               Fermer
             </button>
@@ -705,7 +703,10 @@ export default {
   },
   created() {
     this.dossier_id = this.$route.params.id;
-
+    let objet = {
+      id: this.dossier_id,
+    };
+    this.getOpParBordereau(objet);
     this.getListeOrdrePaiementGlobal();
     this.getBudgetEclateViseGroupeParActivte();
     this.getSousBudget();
@@ -725,6 +726,7 @@ export default {
   computed: {
     ...mapGetters("parametrage", [
       "getterActivite",
+      "gettersOpBordereau",
       "getterSousBudget",
       "getterListeOPgloba",
       "getterExerciceBudgetaire",
@@ -1123,7 +1125,9 @@ export default {
   },
   methods: {
     ...mapActions("parametrage", [
-      "getActivite","supprimerOrdrePaiement",
+      "getActivite","supprimerOpBordereau",
+      "supprimerOrdrePaiement",
+      "getOpParBordereau",
       "modifierOrdrePaiement",
       "getNatureEconomique",
       "getListeOrdrePaiementGlobal",

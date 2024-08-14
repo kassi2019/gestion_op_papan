@@ -383,7 +383,7 @@
                       <th>Objet dépense</th>
                       <th>Montant</th>
                       <th>nature économique</th>
-                      <th>Bénéficiaire</th>
+
                       <th>Décision</th>
                       <th>Date Décision</th>
                       <th></th>
@@ -405,35 +405,33 @@
                         }}
                       </td>
                       <td style="border: 1px solid #000">
-                        {{ item.nature_economique }}
+                        {{ NatureEconomique1(item.nature_economique_id) }}
                       </td>
-                      <td style="border: 1px solid #000">
-                        {{ item.beneficiaire }}
-                      </td>
+
                       <td style="border: 1px solid #000">
                         <span
-                          v-if="item.decision == 1"
+                          v-if="item.decision_cf == 1"
                           class="badge badge-success"
                           style="cursor: pointer; text-align: center"
-                          >{{ afficheDecision(item.decision) }}</span
+                          >{{ afficheDecision(item.decision_cf) }}</span
                         >
                         <span
-                          v-if="item.decision == 2"
+                          v-if="item.decision_cf == 2"
                           class="badge badge-success"
                           style="cursor: pointer"
-                          >{{ afficheDecision(item.decision) }}</span
+                          >{{ afficheDecision(item.decision_cf) }}</span
                         >
                         <span
-                          v-if="item.decision == 3"
+                          v-if="item.decision_cf == 3"
                           class="badge badge-warning"
                           style="cursor: pointer"
-                          >{{ afficheDecision(item.decision) }}</span
+                          >{{ afficheDecision(item.decision_cf) }}</span
                         >
                         <span
-                          v-if="item.decision == 4"
+                          v-if="item.decision_cf == 4"
                           class="badge badge-danger"
                           style="cursor: pointer"
-                          >{{ afficheDecision(item.decision) }}</span
+                          >{{ afficheDecision(item.decision_cf) }}</span
                         >
                       </td>
                       <td style="border: 1px solid #000">
@@ -445,30 +443,13 @@
                           role="group"
                           aria-label="Basic mixed styles example"
                         >
-                          <!-- <span
-                            title="Modifier"
-                            class="badge bg-primary"
-                            data-bs-toggle="modal"
-                            data-bs-target="#largeModal1"
-                            style="cursor: pointer"
-                            ><i class="fas fa-edit"></i> Modifier</span
-                          >
                           <span
                             title="Supprimer"
                             class="badge bg-danger"
                             style="cursor: pointer"
-                            ><i class="fas fa-archive"></i> Supprimer</span
-                          > -->
-                          <!-- <span
-                      
-                        title="Voir Personnel"
-                         class="badge bg-info"
-                        style="cursor: pointer; color: #000;
-                          font-weight: bolder;"
-                        @click.prevent="fonctionImprimerListePersonnel(item.id)"
-                        ><i class="fas fa-user-friends" style="color: #000"> Imprimer Personnel</i
-                        > </span
-                      > -->
+                            @click.prevent="supprimerOpPersonnel(item.id)"
+                            ><i class="fas fa-archive"></i>Supprimer</span
+                          >
 
                           <span
                             title="Imprimer OP"
@@ -621,6 +602,20 @@ export default {
       "getterOpParActivite",
       "getterInfoOrdrePaiement",
     ]),
+    NatureEconomique1() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.getterNatureEconomique.find(
+            (qtreel) => qtreel.id == id
+          );
+
+          if (qtereel) {
+            return qtereel.libelle_code;
+          }
+          return 0;
+        }
+      };
+    },
     afficheListeOPprovisoire() {
       return this.getterOpPersonnelParUser.filter(
         (item) =>
@@ -1713,6 +1708,7 @@ export default {
   methods: {
     ...mapActions("parametrage", [
       "getActivite",
+      "supprimerOpPersonnel",
       "getListeOrdrePaiementPersonnnelParUtilisateur",
       "getListeOrdrePaiementGlobal",
       "getCompteBancaire",

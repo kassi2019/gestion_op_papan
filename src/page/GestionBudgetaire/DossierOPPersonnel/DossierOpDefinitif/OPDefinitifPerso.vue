@@ -30,7 +30,7 @@
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-             
+
               <li class="nav-item">
                 <span
                   class="badge badge-warning"
@@ -197,11 +197,8 @@
                     </div>
                   </div>
                 </TabContent>
-               
-                <TabContent
-                  title="BAILLEUR"
-                  icon="fas fa-hands-helping"
-                >
+
+                <TabContent title="BAILLEUR" icon="fas fa-hands-helping">
                   <div class="row">
                     <div class="col-lg-12">
                       <form class="row g-3">
@@ -347,40 +344,32 @@
                         </div>
                         <div class="col-9"></div>
                         <div class="col-3">
-                             <button
-                              v-if="
-                                activite_id == 0 ||
-                                montant_prestation == 0 ||
-                                ordre_paiement_id == 0
-                                
-                              "
-                              disabled
-                              type="button"
-                              class="btn btn-success"
-                              @click.prevent="
-                                enregistrementSansTypeFiancement2()
-                              "
-                            >
-                              Enregistrer
-                            </button>
-                            <button
-                              v-else
-                              type="button"
-                              class="btn btn-success"
-                              @click.prevent="
-                                enregistrementSansTypeFiancement2()
-                              "
-                            >
-                              Enregistrer
-                            </button>
+                          <button
+                            v-if="
+                              activite_id == 0 ||
+                              montant_prestation == 0 ||
+                              ordre_paiement_id == 0
+                            "
+                            disabled
+                            type="button"
+                            class="btn btn-success"
+                            @click.prevent="enregistrementSansTypeFiancement2()"
+                          >
+                            Enregistrer
+                          </button>
+                          <button
+                            v-else
+                            type="button"
+                            class="btn btn-success"
+                            @click.prevent="enregistrementSansTypeFiancement2()"
+                          >
+                            Enregistrer
+                          </button>
                         </div>
                       </form>
                     </div>
-                    
                   </div>
                 </TabContent>
-               
-              
               </FormWizard>
             </TabContent>
             <TabContent
@@ -396,7 +385,7 @@
                       <th>Objet dépense</th>
                       <th>Montant</th>
                       <th>nature économique</th>
-                      <th>Bénéficiaire</th>
+
                       <th>Décision</th>
                       <th>Date Décision</th>
                       <th></th>
@@ -418,75 +407,65 @@
                         }}
                       </td>
                       <td style="border: 1px solid #000">
-                        {{ item.nature_economique }}
+                        {{ NatureEconomique1(item.nature_economique_id) }}
                       </td>
-                      <td style="border: 1px solid #000">
-                        {{ item.beneficiaire }}
-                      </td>
+
                       <td style="border: 1px solid #000">
                         <span
-                          v-if="item.decision == 1"
+                          v-if="item.decision_cf == 1"
                           class="badge badge-success"
                           style="cursor: pointer; text-align: center"
-                          >{{ afficheDecision(item.decision) }}</span
+                          >{{ afficheDecision(item.decision_cf) }}</span
                         >
                         <span
-                          v-if="item.decision == 2"
+                          v-if="item.decision_cf == 2"
                           class="badge badge-success"
                           style="cursor: pointer"
-                          >{{ afficheDecision(item.decision) }}</span
+                          >{{ afficheDecision(item.decision_cf) }}</span
                         >
                         <span
-                          v-if="item.decision == 3"
+                          v-if="item.decision_cf == 3"
                           class="badge badge-warning"
                           style="cursor: pointer"
-                          >{{ afficheDecision(item.decision) }}</span
+                          >{{ afficheDecision(item.decision_cf) }}</span
                         >
                         <span
-                          v-if="item.decision == 4"
+                          v-if="item.decision_cf == 4"
                           class="badge badge-danger"
                           style="cursor: pointer"
-                          >{{ afficheDecision(item.decision) }}</span
+                          >{{ afficheDecision(item.decision_cf) }}</span
                         >
                       </td>
                       <td style="border: 1px solid #000">
                         {{ formaterDate(item.date_decision) }}
                       </td>
                       <td style="border: 1px solid #000">
-                         <div class="btn-group" role="group" aria-label="Basic mixed styles example">
- <!-- <span
-                        title="Modifier"
-                         class="badge bg-primary"
-                        data-bs-toggle="modal"
-                        data-bs-target="#largeModal1"
-                        style="cursor: pointer"
-                       
-                      ><i class="fas fa-edit"></i> Modifier</span>
-                      <span
-                        title="Supprimer"
-                         class="badge bg-danger"
-                        
-                        style="cursor: pointer;"
-                       
-                      ><i class="fas fa-archive"></i> Supprimer</span> -->
-                      <span
-                       
-                        title="Imprimer OP"
-                         class="badge bg-warning"
-                        style="
-                          cursor: pointer;
-                          color: #000;
-                          font-weight: bolder;
-                        "
-                        @click.prevent="
-                          fonctionImprimerPersonnel(item.id)
-                        "
-                      >
-                        <i class="fas fa-print" style="color: #000"></i>
-                        Imprimer OP</span
-                      >
-                    </div>
-                   
+                        <div
+                          class="btn-group"
+                          role="group"
+                          aria-label="Basic mixed styles example"
+                        >
+                          <span
+                            title="Supprimer"
+                            class="badge bg-danger"
+                            style="cursor: pointer"
+                            @click.prevent="supprimerOpPersonnel(item.id)"
+                            ><i class="fas fa-archive"></i>Supprimer</span
+                          >
+                          <span
+                            title="Imprimer OP"
+                            class="badge bg-warning"
+                            style="
+                              cursor: pointer;
+                              color: #000;
+                              font-weight: bolder;
+                            "
+                            @click.prevent="fonctionImprimerPersonnel(item.id)"
+                          >
+                            <i class="fas fa-print" style="color: #000"></i>
+                            Imprimer OP</span
+                          >
+                        </div>
                       </td>
                     </tr>
                   </tbody>
@@ -497,13 +476,12 @@
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex";
- import moment from "moment";
+import moment from "moment";
 import { ModelListSelect } from "vue-search-select";
 import { Money3Component } from "v-money3";
 import { FormWizard, TabContent } from "vue3-form-wizard";
@@ -582,6 +560,7 @@ export default {
     this.bordereau_id = this.$route.params.id;
     this.getExerciceBudgetaire();
     this.getActivite();
+    this.getListeOrdrePaiementPersonnnelParUtilisateur();
     this.getSousBudget();
     this.getEntreprise();
     this.getBudgetEclateViseGroupeParActivte();
@@ -605,6 +584,7 @@ export default {
   computed: {
     ...mapGetters("parametrage", [
       "getterProjet",
+      "getterOpPersonnelParUser",
       "getterstateFactureParOp",
       "getterCompteBancaire",
       "getterActiviteSurOP",
@@ -628,8 +608,22 @@ export default {
       "getterOpParActivite",
       "getterInfoOrdrePaiement",
     ]),
-     afficheListeOPprovisoire() {
-      return this.getterListeOPgloba.filter(
+    NatureEconomique1() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.getterNatureEconomique.find(
+            (qtreel) => qtreel.id == id
+          );
+
+          if (qtereel) {
+            return qtereel.libelle_code;
+          }
+          return 0;
+        }
+      };
+    },
+    afficheListeOPprovisoire() {
+      return this.getterOpPersonnelParUser.filter(
         (item) =>
           item.bordereau_id == this.bordereau_id &&
           item.type_ordre_paiement == 4
@@ -956,14 +950,17 @@ export default {
         //     if (id != null && id != "") {
         return this.getterOpParActivite.filter(
           (qtreel) =>
-            qtreel.type_ordre_paiement == 1 && qtreel.regularisation == 0 && qtreel.type_depense == 1
+            qtreel.type_ordre_paiement == 1 &&
+            qtreel.regularisation == 0 &&
+            qtreel.type_depense == 1
         );
       } else {
         return this.getterOpParActivite.filter(
           (qtreel) =>
             qtreel.type_ordre_paiement == 1 &&
             qtreel.sous_budget_id == this.sous_budget_id &&
-            qtreel.regularisation == 0 && qtreel.type_depense == 1
+            qtreel.regularisation == 0 &&
+            qtreel.type_depense == 1
         );
       }
     },
@@ -1747,6 +1744,8 @@ export default {
   methods: {
     ...mapActions("parametrage", [
       "getActivite",
+      "supprimerOpPersonnel",
+      "getListeOrdrePaiementPersonnnelParUtilisateur",
       "getFactureParOP",
       "getListeOrdrePaiementGlobal",
       "getCompteBancaire",
@@ -1773,13 +1772,13 @@ export default {
       "ajouterOrdrePaiement",
       "getInformationOp",
     ]),
-     fonctionImprimerPersonnel(id) {
+    fonctionImprimerPersonnel(id) {
       this.$router.push({
         name: "ImprimerOpPersonnel",
         params: { id: id },
       });
     },
-     formaterDate(date) {
+    formaterDate(date) {
       return moment(date, "YYYY-MM-DD").format("DD/MM/YYYY");
     },
     fonctionImprimer(id) {
@@ -1917,7 +1916,6 @@ export default {
         decision_cf: this.decision_cf,
         date_decision: this.date_decision,
         bordereau_id: this.bordereau_id,
-        
       };
 
       this.ajouterOPDefinitifPerso(nouvelObjettrsor);
@@ -1934,8 +1932,7 @@ export default {
         (this.nature_economique_id = 0),
         (this.type_ordre_paiement = 0),
         (this.montant_prestation = 0),
-        (this.cumul_anterieure = 0)
-        
+        (this.cumul_anterieure = 0);
     },
 
     enregistrementAvecFacture() {

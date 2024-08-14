@@ -32,7 +32,6 @@
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-
               <li class="nav-item">
                 <span
                   class="badge badge-warning"
@@ -114,7 +113,6 @@
                             style="border: 1px solid #000 !important"
                           />
                         </div>
-
                       </form>
                     </div>
                   </div>
@@ -187,16 +185,12 @@
                             :model-value="montantPrestation"
                             readonly
                           ></money3>
-                          
                         </div>
                       </form>
                     </div>
                   </div>
                 </TabContent>
-                <TabContent
-                  title="FOURNISSEUR"
-                  icon="fas fa-money-bill-wave"
-                >
+                <TabContent title="FOURNISSEUR" icon="fas fa-money-bill-wave">
                   <div class="row">
                     <div class="col-lg-12">
                       <form class="row g-3">
@@ -246,10 +240,7 @@
                     </div>
                   </div>
                 </TabContent>
-                <TabContent
-                  title="BAILLEUR"
-                  icon="fas fa-hands-helping"
-                >
+                <TabContent title="BAILLEUR" icon="fas fa-hands-helping">
                   <div class="row">
                     <div class="col-lg-12">
                       <form class="row g-3">
@@ -457,35 +448,35 @@
                         }}
                       </td>
                       <td style="border: 1px solid #000">
-                        {{ item.nature_economique }}
+                        {{ libelleNatureEconomique(item.nature_economique_id) }}
                       </td>
                       <td style="border: 1px solid #000">
-                        {{ item.beneficiaire }}
+                        {{ InfoEntreprise(item.entreprise_id) }}
                       </td>
                       <td style="border: 1px solid #000">
                         <span
-                          v-if="item.decision == 1"
+                          v-if="item.decision_cf == 1"
                           class="badge badge-success"
                           style="cursor: pointer; text-align: center"
-                          >{{ afficheDecision(item.decision) }}</span
+                          >{{ afficheDecision(item.decision_cf) }}</span
                         >
                         <span
-                          v-if="item.decision == 2"
+                          v-if="item.decision_cf == 2"
                           class="badge badge-success"
                           style="cursor: pointer"
-                          >{{ afficheDecision(item.decision) }}</span
+                          >{{ afficheDecision(item.decision_cf) }}</span
                         >
                         <span
-                          v-if="item.decision == 3"
+                          v-if="item.decision_cf == 3"
                           class="badge badge-warning"
                           style="cursor: pointer"
-                          >{{ afficheDecision(item.decision) }}</span
+                          >{{ afficheDecision(item.decision_cf) }}</span
                         >
                         <span
-                          v-if="item.decision == 4"
+                          v-if="item.decision_cf == 4"
                           class="badge badge-danger"
                           style="cursor: pointer"
-                          >{{ afficheDecision(item.decision) }}</span
+                          >{{ afficheDecision(item.decision_cf) }}</span
                         >
                       </td>
                       <td style="border: 1px solid #000">
@@ -497,7 +488,7 @@
                           role="group"
                           aria-label="Basic mixed styles example"
                         >
-                           <!--<span
+                          <!--<span
                             title="Modifier"
                             class="fas fa-edit"
                             data-bs-toggle="modal"
@@ -510,17 +501,19 @@
                             class="fas fa-eye"
                             style="cursor: pointer; color: #006d80"
                           ></span> -->
-                          <!-- <span
+                          <span
                             title="Supprimer"
                             class="fas fa-archive"
                             style="cursor: pointer; color: red"
-                            @click.prevent="supprimerOrdrePaiement(item.id)"
-                          ></span> -->
+                            @click.prevent="supprimerOP(item.id)"
+                          ></span>
                           <span
                             title="Imprimer OP"
                             class="fas fa-print"
                             style="cursor: pointer; color: #77abd6"
-                            @click.prevent="fonctionImprimer(item.id,bordereau_id)"
+                            @click.prevent="
+                              fonctionImprimer(item.id, bordereau_id)
+                            "
                           ></span>
                         </div>
                       </td>
@@ -777,6 +770,7 @@ export default {
   created() {
     this.bordereau_id = this.$route.params.id;
     this.getExerciceBudgetaire();
+    this.getListeOrdrePiementAutreDepense();
     this.getActivite();
     this.getSousBudget();
     this.getEntreprise();
@@ -801,6 +795,7 @@ export default {
   computed: {
     ...mapGetters("parametrage", [
       "getterProjet",
+      "gettersOrdrePaiementopt",
       "getterCompteBancaire",
       "getterActiviteSurOP",
       "getterTaux",
@@ -823,7 +818,7 @@ export default {
       "getterOpParActivite",
       "getterInfoOrdrePaiement",
     ]),
-      libelleSousBudgetModifier() {
+    libelleSousBudgetModifier() {
       let collet = [];
       this.getterSousBudget.filter((item) => {
         if (item.activite_id == this.modNatureDepense.activite_id) {
@@ -835,9 +830,22 @@ export default {
         }
       });
       return collet;
-},
-    
- AfficheNatureEconomiqueModifier() {
+    },
+    InfoEntreprise() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.getterEntreprise.find(
+            (qtreel) => qtreel.id == id
+          );
+
+          if (qtereel) {
+            return qtereel.numero_cc.concat(" ", qtereel.raison_sociale);
+          }
+          return 0;
+        }
+      };
+    },
+    AfficheNatureEconomiqueModifier() {
       let collet = [];
       this.GroupeParNatureEconomiqueModifier.filter((item) => {
         // if (item.activite_id == this.activite_id)
@@ -850,8 +858,8 @@ export default {
         }
       });
       return collet;
-},
-  GroupeParNatureEconomiqueModifier() {
+    },
+    GroupeParNatureEconomiqueModifier() {
       // return (id) => {
       if (
         this.modNatureDepense.sous_budget_id == 0 &&
@@ -899,16 +907,22 @@ export default {
         return [];
         // };
       }
-},
-   libelleNatureDepenseModifier() {
-      if (this.modNatureDepense.sous_budget_id == 0 && this.modNatureDepense.activite_id != 0) {
+    },
+    libelleNatureDepenseModifier() {
+      if (
+        this.modNatureDepense.sous_budget_id == 0 &&
+        this.modNatureDepense.activite_id != 0
+      ) {
         // return (id) => {
         //   if (id != null && id != "") {
         const qtereel = this.getterBudgetViseParActivite.find(
           (qtreel) =>
-            qtreel.ligneeconomique_id == this.modNatureDepense.nature_economique_id &&
-            qtreel.type_financement_id == this.modNatureDepense.type_financement_id &&
-            qtreel.source_financement_id == this.modNatureDepense.source_financement_id &&
+            qtreel.ligneeconomique_id ==
+              this.modNatureDepense.nature_economique_id &&
+            qtreel.type_financement_id ==
+              this.modNatureDepense.type_financement_id &&
+            qtreel.source_financement_id ==
+              this.modNatureDepense.source_financement_id &&
             qtreel.actuelle == 1
         );
 
@@ -923,10 +937,13 @@ export default {
         //   if (id != null && id != "") {
         const qtereel = this.getterBudgetViseParActivite.find(
           (qtreel) =>
-            qtreel.ligneeconomique_id == this.modNatureDepense.nature_economique_id &&
+            qtreel.ligneeconomique_id ==
+              this.modNatureDepense.nature_economique_id &&
             qtreel.sous_budget_id == this.modNatureDepense.sous_budget_id &&
-            qtreel.type_financement_id == this.modNatureDepense.type_financement_id &&
-            qtreel.source_financement_id == this.modNatureDepense.source_financement_id &&
+            qtreel.type_financement_id ==
+              this.modNatureDepense.type_financement_id &&
+            qtreel.source_financement_id ==
+              this.modNatureDepense.source_financement_id &&
             qtreel.actuelle == 1
         );
 
@@ -937,7 +954,7 @@ export default {
         //   }
         // };
       }
-},
+    },
     AfficheTypeFinancementModifier() {
       let collet = [];
       this.GroupeParTypeFinancementModifier.filter((item) => {
@@ -952,13 +969,17 @@ export default {
       });
       return collet;
     },
-      GroupeParTypeFinancementModifier() {
+    GroupeParTypeFinancementModifier() {
       // return (id) => {
-      if (this.modNatureDepense.sous_budget_id == 0 && this.modNatureDepense.activite_id != 0) {
+      if (
+        this.modNatureDepense.sous_budget_id == 0 &&
+        this.modNatureDepense.activite_id != 0
+      ) {
         let objet = this.getterBudgetViseParActivite.filter(
           (item) =>
             item.activite_id == this.modNatureDepense.activite_id &&
-            item.ligneeconomique_id == this.modNatureDepense.nature_economique_id &&
+            item.ligneeconomique_id ==
+              this.modNatureDepense.nature_economique_id &&
             item.actuelle == 1
         );
         //  let vm=this
@@ -980,7 +1001,8 @@ export default {
         let objet = this.getterBudgetViseParActivite.filter(
           (item) =>
             item.sous_budget_id == this.modNatureDepense.sous_budget_id &&
-            item.ligneeconomique_id == this.modNatureDepense.nature_economique_id &&
+            item.ligneeconomique_id ==
+              this.modNatureDepense.nature_economique_id &&
             item.actuelle == 1
         );
         //  let vm=this
@@ -999,8 +1021,8 @@ export default {
         return [];
         // };
       }
-},
-       AfficheSourceFinancementModifier() {
+    },
+    AfficheSourceFinancementModifier() {
       let collet = [];
       this.GroupeParSourceFinancementModifier.filter((item) => {
         // if (item.activite_id == this.activite_id)
@@ -1014,14 +1036,19 @@ export default {
       });
       return collet;
     },
-      GroupeParSourceFinancementModifier() {
+    GroupeParSourceFinancementModifier() {
       // return (id) => {
-      if (this.modNatureDepense.sous_budget_id == 0 && this.modNatureDepense.activite_id != 0) {
+      if (
+        this.modNatureDepense.sous_budget_id == 0 &&
+        this.modNatureDepense.activite_id != 0
+      ) {
         let objet = this.getterBudgetViseParActivite.filter(
           (item) =>
             item.activite_id == this.activite_id &&
-            item.ligneeconomique_id == this.modNatureDepense.nature_economique_id &&
-            item.type_financement_id == this.modNatureDepense.type_financement_id &&
+            item.ligneeconomique_id ==
+              this.modNatureDepense.nature_economique_id &&
+            item.type_financement_id ==
+              this.modNatureDepense.type_financement_id &&
             item.actuelle == 1
         );
         //  let vm=this
@@ -1043,8 +1070,10 @@ export default {
         let objet = this.getterBudgetViseParActivite.filter(
           (item) =>
             item.sous_budget_id == this.modNatureDepense.sous_budget_id &&
-            item.ligneeconomique_id == this.modNatureDepense.nature_economique_id &&
-            item.type_financement_id == this.modNatureDepense.type_financement_id &&
+            item.ligneeconomique_id ==
+              this.modNatureDepense.nature_economique_id &&
+            item.type_financement_id ==
+              this.modNatureDepense.type_financement_id &&
             item.actuelle == 1
         );
         //  let vm=this
@@ -1063,16 +1092,22 @@ export default {
         return [];
         // };
       }
-},
-       NatureDepenseModifier_id() {
-      if (this.modNatureDepense.sous_budget_id == 0 && this.modNatureDepense.activite_id != 0) {
+    },
+    NatureDepenseModifier_id() {
+      if (
+        this.modNatureDepense.sous_budget_id == 0 &&
+        this.modNatureDepense.activite_id != 0
+      ) {
         // return (id) => {
         //   if (id != null && id != "") {
         const qtereel = this.getterBudgetViseParActivite.find(
           (qtreel) =>
-            qtreel.ligneeconomique_id == this.modNatureDepense.nature_economique_id &&
-            qtreel.type_financement_id == this.modNatureDepense.type_financement_id &&
-            qtreel.source_financement_id == this.modNatureDepense.source_financement_id &&
+            qtreel.ligneeconomique_id ==
+              this.modNatureDepense.nature_economique_id &&
+            qtreel.type_financement_id ==
+              this.modNatureDepense.type_financement_id &&
+            qtreel.source_financement_id ==
+              this.modNatureDepense.source_financement_id &&
             qtreel.actuelle == 1
         );
 
@@ -1087,10 +1122,13 @@ export default {
         //   if (id != null && id != "") {
         const qtereel = this.getterBudgetViseParActivite.find(
           (qtreel) =>
-            qtreel.ligneeconomique_id == this.modNatureDepense.nature_economique_id &&
+            qtreel.ligneeconomique_id ==
+              this.modNatureDepense.nature_economique_id &&
             qtreel.sous_budget_id == this.modNatureDepense.sous_budget_id &&
-            qtreel.type_financement_id == this.modNatureDepense.type_financement_id &&
-            qtreel.source_financement_id == this.modNatureDepense.source_financement_id &&
+            qtreel.type_financement_id ==
+              this.modNatureDepense.type_financement_id &&
+            qtreel.source_financement_id ==
+              this.modNatureDepense.source_financement_id &&
             qtreel.actuelle == 1
         );
 
@@ -1104,7 +1142,7 @@ export default {
     },
 
     afficheListeOPprovisoire() {
-      return this.getterListeOPgloba.filter(
+      return this.gettersOrdrePaiementopt.filter(
         (item) =>
           item.bordereau_id == this.bordereau_id &&
           item.type_ordre_paiement == 3
@@ -1298,6 +1336,20 @@ export default {
 
           if (qtereel) {
             return qtereel.objet_depense;
+          }
+          return 0;
+        }
+      };
+    },
+    libelleNatureEconomique() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.getterNatureEconomique.find(
+            (qtreel) => qtreel.id == id
+          );
+
+          if (qtereel) {
+            return qtereel.libelle_code;
           }
           return 0;
         }
@@ -2179,22 +2231,13 @@ export default {
       });
       return collet;
     },
-    libelleNatureEconomique() {
-      let collet = [];
-      this.getterNatureEconomique.filter((item) => {
-        let data = {
-          id: item.id,
-          libelle: item.code.concat("  ", item.libelle),
-        };
-        collet.push(data);
-        //}
-      });
-      return collet;
-    },
   },
   methods: {
     ...mapActions("parametrage", [
-      "getActivite","supprimerOrdrePaiement",
+      "getActivite",
+      "supprimerOrdrePaiement",
+      "supprimerOP",
+      "getListeOrdrePiementAutreDepense",
       "getListeOrdrePaiementGlobal",
       "getCompteBancaire",
       "getActiviteOp",
@@ -2228,10 +2271,10 @@ export default {
     //     params: { id: id },
     //   });
     // },
-     fonctionImprimer(id,id1) {
+    fonctionImprimer(id, id1) {
       this.$router.push({
         name: "imprimerToutOP",
-        params: { id: id,id1: id1 },
+        params: { id: id, id1: id1 },
       });
     },
     retour() {
