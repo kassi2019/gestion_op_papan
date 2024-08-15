@@ -21,7 +21,7 @@
                 <i class="icon-arrow-right"></i>
               </li>
               <li class="nav-item">
-                <a href="#">Bordereau OP Annulation</a>
+                <a href="#">Bordereau OP Direct</a>
               </li>
             </ul>
           </div>
@@ -94,7 +94,7 @@
                       class="badge badge-black"
                       style="cursor: pointer"
                       @click.prevent="AfficheVentilationBudget(item.id)"
-                      >Saisir OP Annulation</span
+                      >Saisir OP Direct</span
                     >
                     <!-- <span
                       data-bs-toggle="modal"
@@ -474,7 +474,7 @@
 import { mapActions, mapGetters } from "vuex";
 import moment from "moment";
 import { ModelListSelect } from "vue-search-select";
-import { formatageSommeSansFCFA } from "../../Repositories/Repository";
+import { formatageSommeSansFCFA } from "../../../Repositories/Repository";
 export default {
   components: { ModelListSelect },
   data() {
@@ -537,7 +537,7 @@ export default {
       );
     },
     AfficherBudgetGlobal() {
-      return this.gettersBordereauParUser.filter((item) => item.statut == 5);
+      return this.gettersBordereauParUser.filter((item) => item.statut == 3);
     },
 
     AfficherTailleBordereau() {
@@ -653,7 +653,7 @@ export default {
     },
     AfficheVentilationBudget(id) {
       this.$router.push({
-        name: "OrdrePaiementAnnulation",
+        name: "OrdrePaiementDirect",
         params: { id: id },
       });
     },
@@ -687,7 +687,7 @@ export default {
         libelle: this.ajouterNatureDepense.libelle,
         activite_id: this.ajouterNatureDepense.activite_id,
         decision: this.ajouterNatureDepense.decision,
-        statut: 5,
+        statut: 3,
         observation: this.ajouterNatureDepense.observation,
         numero_dossier: this.automatiseBordereau,
       };
@@ -705,7 +705,7 @@ export default {
         libelle: this.modNatureDepense.libelle,
         date_decision: this.modNatureDepense.date_decision,
         decision: this.modNatureDepense.decision,
-        statut: 5,
+        statut: 3,
         observation: this.modNatureDepense.observation,
       };
 

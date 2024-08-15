@@ -21,7 +21,7 @@
                 <i class="icon-arrow-right"></i>
               </li>
               <li class="nav-item">
-                <a href="#">Bordereau OP Définitif</a>
+                <a href="#">Bordereau OP Annulation</a>
               </li>
             </ul>
           </div>
@@ -94,7 +94,7 @@
                       class="badge badge-black"
                       style="cursor: pointer"
                       @click.prevent="AfficheVentilationBudget(item.id)"
-                      >Saisir OP Définitif</span
+                      >Saisir OP Annulation</span
                     >
                     <!-- <span
                       data-bs-toggle="modal"
@@ -426,7 +426,7 @@
                   v-bind="config"
                   style="border: 1px solid #000"
                 ></money3>
-                
+               
               </div> -->
               <div class="col-12">
                 <label for="inputNanme4" class="form-label">Observation</label>
@@ -474,7 +474,7 @@
 import { mapActions, mapGetters } from "vuex";
 import moment from "moment";
 import { ModelListSelect } from "vue-search-select";
-import { formatageSommeSansFCFA } from "../../Repositories/Repository";
+import { formatageSommeSansFCFA } from "../../../Repositories/Repository";
 export default {
   components: { ModelListSelect },
   data() {
@@ -521,11 +521,11 @@ export default {
   },
   computed: {
     ...mapGetters("parametrage", [
-      "getterActivite","getterInformationBudget",
+      "getterActivite",
       "getterDotationReport",
       "getterDotationNotifie",
       "getterExerciceBudgetaire",
-      "gettersBordereauParUser",
+      "gettersBordereauParUser","getterInformationBudget"
     ]),
     automatiseBordereau() {
       return (
@@ -537,15 +537,12 @@ export default {
       );
     },
     AfficherBudgetGlobal() {
-      return this.gettersBordereauParUser.filter((item) => item.statut == 4);
+      return this.gettersBordereauParUser.filter((item) => item.statut == 5);
     },
 
     AfficherTailleBordereau() {
       return this.getterInformationBudget.filter(
-        (item) =>
-          item.statut != 0 &&
-          item.statut != 1 
-          
+        (item) => item.statut != 0 && item.statut != 1
       ).length;
     },
     // afficher
@@ -637,7 +634,8 @@ export default {
   },
   methods: {
     ...mapActions("parametrage", [
-      "getActivite","getInformationBudget",
+      "getActivite",
+      "getInformationBudget",
       "appliqueDecision",
       "getDotationNotifie",
       "getDotationReport",
@@ -655,7 +653,7 @@ export default {
     },
     AfficheVentilationBudget(id) {
       this.$router.push({
-        name: "OrdrePaiementDefinitif",
+        name: "OrdrePaiementAnnulation",
         params: { id: id },
       });
     },
@@ -689,7 +687,7 @@ export default {
         libelle: this.ajouterNatureDepense.libelle,
         activite_id: this.ajouterNatureDepense.activite_id,
         decision: this.ajouterNatureDepense.decision,
-        statut: 4,
+        statut: 5,
         observation: this.ajouterNatureDepense.observation,
         numero_dossier: this.automatiseBordereau,
       };
@@ -707,7 +705,7 @@ export default {
         libelle: this.modNatureDepense.libelle,
         date_decision: this.modNatureDepense.date_decision,
         decision: this.modNatureDepense.decision,
-        statut: 4,
+        statut: 5,
         observation: this.modNatureDepense.observation,
       };
 
@@ -718,7 +716,6 @@ export default {
     AppliqueDecision() {
       var objetDirect1 = {
         id: this.DecisionApp.id,
-
         date_decision: this.DecisionApp.date_decision,
         decision: this.DecisionApp.decision,
       };

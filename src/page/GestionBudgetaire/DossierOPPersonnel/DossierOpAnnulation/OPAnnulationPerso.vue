@@ -318,7 +318,7 @@
                             readonly
                           ></money3>
                         </div>
-                        <div class="col-6">
+                        <!-- <div class="col-6">
                           <label for="inputNanme4" class="form-label"
                             >Décision</label
                           >
@@ -344,7 +344,7 @@
                             style="border: 1px solid #000"
                             v-model="date_decision"
                           />
-                        </div>
+                        </div> -->
                         <div class="col-10"></div>
                         <div class="col-2">
                           <button
@@ -380,12 +380,10 @@
                   <thead>
                     <tr>
                       <th>Numero OP</th>
-                      <th>Objet dépense</th>
+                      <th style="width: 50%;">Objet dépense</th>
                       <th>Montant</th>
                       <th>nature économique</th>
 
-                      <th>Décision</th>
-                      <th>Date Décision</th>
                       <th></th>
                     </tr>
                   </thead>
@@ -408,35 +406,7 @@
                         {{ NatureEconomique1(item.nature_economique_id) }}
                       </td>
 
-                      <td style="border: 1px solid #000">
-                        <span
-                          v-if="item.decision_cf == 1"
-                          class="badge badge-success"
-                          style="cursor: pointer; text-align: center"
-                          >{{ afficheDecision(item.decision_cf) }}</span
-                        >
-                        <span
-                          v-if="item.decision_cf == 2"
-                          class="badge badge-success"
-                          style="cursor: pointer"
-                          >{{ afficheDecision(item.decision_cf) }}</span
-                        >
-                        <span
-                          v-if="item.decision_cf == 3"
-                          class="badge badge-warning"
-                          style="cursor: pointer"
-                          >{{ afficheDecision(item.decision_cf) }}</span
-                        >
-                        <span
-                          v-if="item.decision_cf == 4"
-                          class="badge badge-danger"
-                          style="cursor: pointer"
-                          >{{ afficheDecision(item.decision_cf) }}</span
-                        >
-                      </td>
-                      <td style="border: 1px solid #000">
-                        {{ formaterDate(item.date_decision) }}
-                      </td>
+                     
                       <td style="border: 1px solid #000">
                         <div
                           class="btn-group"

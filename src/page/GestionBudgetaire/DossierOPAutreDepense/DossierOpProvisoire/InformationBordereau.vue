@@ -474,7 +474,7 @@
 import { mapActions, mapGetters } from "vuex";
 import moment from "moment";
 import { ModelListSelect } from "vue-search-select";
-import { formatageSommeSansFCFA } from "../../Repositories/Repository";
+import { formatageSommeSansFCFA } from "../../../Repositories/Repository";
 export default {
   components: { ModelListSelect },
   data() {

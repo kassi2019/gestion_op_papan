@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+   
     <div class="col-md-12">
       <div class="card" style="box-shadow: 5px 5px #f9d531">
         <div class="card-header">
@@ -21,7 +22,7 @@
                 <i class="icon-arrow-right"></i>
               </li>
               <li class="nav-item">
-                <a href="#">OP Provisoire</a>
+                <a href="#">OP Direct</a>
               </li>
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -444,7 +445,7 @@
                             readonly
                           ></money3>
                         </div>
-                        <div class="col-6">
+                        <!-- <div class="col-6">
                           <label for="inputNanme4" class="form-label"
                             >Décision</label
                           >
@@ -470,7 +471,7 @@
                             style="border: 1px solid #000"
                             v-model="date_decision"
                           />
-                        </div>
+                        </div> -->
                       </form>
                     </div></div
                 ></TabContent>
@@ -1119,70 +1120,38 @@
                   <thead>
                     <tr>
                       <th>Numero OP</th>
-                      <th>Objet dépense</th>
+                      <th style="width: 50%;">Objet dépense</th>
                       <th>Montant</th>
                       <th>nature économique</th>
                       <th>Bénéficiaire</th>
-                      <th>Décision</th>
-                      <th>Date Décision</th>
+                     
                       <th></th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr
-                      v-for="item1 in afficheListeOPprovisoire(bordereau_id)"
-                      :key="item1.id"
-                    >
+                    <tr v-for="item in afficheListeOPprovisoire" :key="item.id">
                       <td style="border: 1px solid #000">
-                        {{ item1.numero_ordre_paiement }}
+                        {{ item.numero_ordre_paiement }}
                       </td>
                       <td style="border: 1px solid #000" class="text-break">
-                        {{ item1.objet_depense }}
+                        {{ item.objet_depense }}
                       </td>
                       <td style="border: 1px solid #000; text-align: right">
                         {{
                           formatageSommeSansFCFA(
-                            parseFloat(item1.montant_prestation)
+                            parseFloat(item.montant_prestation)
                           )
                         }}
                       </td>
                       <td style="border: 1px solid #000">
                         {{
-                          afficheNatureEconomique(item1.nature_economique_id)
+                          afficheNatureEconomique(item.nature_economique_id)
                         }}
                       </td>
                       <td style="border: 1px solid #000">
-                        {{ InfoEntreprise(item1.entreprise_id) }}
+                        {{ InfoEntreprise(item.entreprise_id) }}
                       </td>
-                      <td style="border: 1px solid #000">
-                        <span
-                          v-if="item1.decision_cf == 1"
-                          class="badge badge-success"
-                          style="cursor: pointer; text-align: center"
-                          >{{ afficheDecision(item1.decision_cf) }}</span
-                        >
-                        <span
-                          v-if="item1.decision_cf == 2"
-                          class="badge badge-success"
-                          style="cursor: pointer"
-                          >{{ afficheDecision(item1.decision_cf) }}</span
-                        >
-                        <span
-                          v-if="item1.decision_cf == 3"
-                          class="badge badge-warning"
-                          style="cursor: pointer"
-                          >{{ afficheDecision(item1.decision_cf) }}</span
-                        >
-                        <span
-                          v-if="item1.decision_cf == 4"
-                          class="badge badge-danger"
-                          style="cursor: pointer"
-                          >{{ afficheDecision(item1.decision_cf) }}</span
-                        >
-                      </td>
-                      <td style="border: 1px solid #000">
-                        {{ formaterDate(item1.date_decision) }}
-                      </td>
+                      
                       <td style="border: 1px solid #000">
                         <div
                           class="btn-group"
@@ -1194,14 +1163,15 @@
                             class="fas fa-edit"
                             data-bs-toggle="modal"
                             data-bs-target="#largeModal1"
+                            @click.prevent="AfficheModalModification(item.id)"
                             style="cursor: pointer; color: blue"
-                            @click.prevent="AfficheModalModification(item1.id)"
                           ></span>
+
                           <span
                             title="Supprimer"
                             class="fas fa-archive"
                             style="cursor: pointer; color: red"
-                            @click.prevent="supprimerOP(item1.id)"
+                            @click.prevent="supprimerOP(item.id)"
                           ></span>
                           <!--<span
                       title="Voir facture"
@@ -1213,7 +1183,7 @@
                             class="fas fa-print"
                             style="cursor: pointer; color: #77abd6"
                             @click.prevent="
-                              fonctionImprimer(item1.id, bordereau_id)
+                              fonctionImprimer(item.id, bordereau_id)
                             "
                           ></span>
                         </div>
@@ -1238,7 +1208,9 @@
         <div class="modal-dialog modal-xl">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">Modifier Ordre Paiement</h5>
+              <h5 class="modal-title">
+                Modifier Ordre Paiement{{ NatureDepenseModifier_id }}
+              </h5>
               <button
                 type="button"
                 class="btn-close"
@@ -1424,7 +1396,7 @@
                 type="button"
                 class="btn btn-secondary"
                 data-bs-dismiss="modal"
-                @click.prevent="this.getActivite()"
+                @click.prevent="this.getListeOrdrePaiementGlobal()"
               >
                 Fermer
               </button>
@@ -1455,7 +1427,7 @@ import { Money3Component } from "v-money3";
 import {
   formatageSomme,
   formatageSommeSansFCFA,
-} from "../../Repositories/Repository";
+} from "../../../Repositories/Repository";
 export default {
   components: {
     money3: Money3Component,
@@ -1539,12 +1511,8 @@ export default {
   },
   created() {
     this.bordereau_id = this.$route.params.id;
-    // let objet = {
-    //   id: this.bordereau_id,
-    // };
-    // this.getOpParBordereau(objet);
-    this.getListeOrdrePiementAutreDepense();
     this.getExerciceBudgetaire();
+    this.getListeOrdrePiementAutreDepense();
     this.getActivite();
     this.getSousBudget();
     this.getEntreprise();
@@ -1558,16 +1526,13 @@ export default {
     this.getTaux();
     this.getActiviteOp();
     this.getCompteBancaire();
-
     this.getListeOrdrePaiementGlobal();
-
     if (this.modNatureDepense.activite_id != 0) {
       let objet = {
         id: this.modNatureDepense.activite_id,
       };
       this.getBudgetViseParActvite(objet);
     }
-
     // this.getListeOrdrePaiementParUtilisateur();
     // this.getDotationNotifie();
     // this.getDotationReport();
@@ -1580,7 +1545,6 @@ export default {
   computed: {
     ...mapGetters("parametrage", [
       "getterProjet",
-      "gettersOpBordereau",
       "gettersOrdrePaiementopt",
       "getterCompteBancaire",
       "getterActiviteSurOP",
@@ -1605,7 +1569,6 @@ export default {
       "getterOpParActivite",
       "getterListeOPParUser",
     ]),
-
     NatureDepenseModifier_id() {
       if (
         this.modNatureDepense.sous_budget_id == 0 &&
@@ -1653,53 +1616,7 @@ export default {
         // };
       }
     },
-    libelleNatureDepenseModifier() {
-      if (
-        this.modNatureDepense.sous_budget_id == 0 &&
-        this.modNatureDepense.activite_id != 0
-      ) {
-        // return (id) => {
-        //   if (id != null && id != "") {
-        const qtereel = this.getterBudgetViseParActivite.find(
-          (qtreel) =>
-            qtreel.ligneeconomique_id ==
-              this.modNatureDepense.nature_economique_id &&
-            qtreel.type_financement_id ==
-              this.modNatureDepense.type_financement_id &&
-            qtreel.source_financement_id ==
-              this.modNatureDepense.source_financement_id &&
-            qtreel.actuelle == 1
-        );
 
-        if (qtereel) {
-          return this.afficheNatureDepense(qtereel.nature_depense_id);
-        }
-        return 0;
-        //   }
-        // };
-      } else {
-        // return (id) => {
-        //   if (id != null && id != "") {
-        const qtereel = this.getterBudgetViseParActivite.find(
-          (qtreel) =>
-            qtreel.ligneeconomique_id ==
-              this.modNatureDepense.nature_economique_id &&
-            qtreel.sous_budget_id == this.modNatureDepense.sous_budget_id &&
-            qtreel.type_financement_id ==
-              this.modNatureDepense.type_financement_id &&
-            qtreel.source_financement_id ==
-              this.modNatureDepense.source_financement_id &&
-            qtreel.actuelle == 1
-        );
-
-        if (qtereel) {
-          return this.afficheNatureDepense(qtereel.nature_depense_id);
-        }
-        return 0;
-        //   }
-        // };
-      }
-    },
     AfficheSourceFinancementModifier() {
       let collet = [];
       this.GroupeParSourceFinancementModifier.filter((item) => {
@@ -1838,6 +1755,53 @@ export default {
         // };
       }
     },
+    libelleNatureDepenseModifier() {
+      if (
+        this.modNatureDepense.sous_budget_id == 0 &&
+        this.modNatureDepense.activite_id != 0
+      ) {
+        // return (id) => {
+        //   if (id != null && id != "") {
+        const qtereel = this.getterBudgetViseParActivite.find(
+          (qtreel) =>
+            qtreel.ligneeconomique_id ==
+              this.modNatureDepense.nature_economique_id &&
+            qtreel.type_financement_id ==
+              this.modNatureDepense.type_financement_id &&
+            qtreel.source_financement_id ==
+              this.modNatureDepense.source_financement_id &&
+            qtreel.actuelle == 1
+        );
+
+        if (qtereel) {
+          return this.afficheNatureDepense(qtereel.nature_depense_id);
+        }
+        return 0;
+        //   }
+        // };
+      } else {
+        // return (id) => {
+        //   if (id != null && id != "") {
+        const qtereel = this.getterBudgetViseParActivite.find(
+          (qtreel) =>
+            qtreel.ligneeconomique_id ==
+              this.modNatureDepense.nature_economique_id &&
+            qtreel.sous_budget_id == this.modNatureDepense.sous_budget_id &&
+            qtreel.type_financement_id ==
+              this.modNatureDepense.type_financement_id &&
+            qtreel.source_financement_id ==
+              this.modNatureDepense.source_financement_id &&
+            qtreel.actuelle == 1
+        );
+
+        if (qtereel) {
+          return this.afficheNatureDepense(qtereel.nature_depense_id);
+        }
+        return 0;
+        //   }
+        // };
+      }
+    },
     GroupeParNatureEconomiqueModifier() {
       // return (id) => {
       if (
@@ -1887,24 +1851,40 @@ export default {
         // };
       }
     },
-    afficheListeOPprovisoire() {
-      return (id) => {
-        if (id != null && id != "") {
-          return this.gettersOrdrePaiementopt.filter(
-            (qtreel) =>
-              qtreel.bordereau_id == id && qtreel.type_ordre_paiement == 1
-          );
+    AfficheNatureEconomiqueModifier() {
+      let collet = [];
+      this.GroupeParNatureEconomiqueModifier.filter((item) => {
+        // if (item.activite_id == this.activite_id)
+        {
+          let data = {
+            id: item,
+            objet: this.afficheNatureEconomique(item),
+          };
+          collet.push(data);
         }
-      };
+      });
+      return collet;
     },
-    // afficheListeOPprovisoire() {
-    //   return this.gettersOrdrePaiementopt.filter(
-    //     (item) =>
-    //       item.bordereau_id == this.bordereau_id &&
-    //       item.type_ordre_paiement == 1
-    //   );
-    // },
-
+    libelleSousBudgetModifier() {
+      let collet = [];
+      this.getterSousBudget.filter((item) => {
+        if (item.activite_id == this.modNatureDepense.activite_id) {
+          let data = {
+            id: item.id,
+            libelle: item.libelle,
+          };
+          collet.push(data);
+        }
+      });
+      return collet;
+    },
+    afficheListeOPprovisoire() {
+      return this.gettersOrdrePaiementopt.filter(
+        (item) =>
+          item.bordereau_id == this.bordereau_id &&
+          item.type_ordre_paiement == 2
+      );
+    },
     taillerTableau() {
       return this.TableauDossier.length;
     },
@@ -2004,7 +1984,6 @@ export default {
       if (this.FormDataDossierMod.exonere == 1) {
         return 0;
       } else {
-        2;
         // return (id) => {
         //   if (id != null && id != "") {
         const qtereel = this.getterTaux.find((qtreel) => qtreel.encours == 1);
@@ -2457,21 +2436,6 @@ export default {
         // };
       }
     },
-
-    AfficheNatureEconomiqueModifier() {
-      let collet = [];
-      this.GroupeParNatureEconomiqueModifier.filter((item) => {
-        // if (item.activite_id == this.activite_id)
-        {
-          let data = {
-            id: item,
-            objet: this.afficheNatureEconomique(item),
-          };
-          collet.push(data);
-        }
-      });
-      return collet;
-    },
     AfficheNatureEconomique() {
       let collet = [];
       this.GroupeParNatureEconomique.filter((item) => {
@@ -2529,20 +2493,6 @@ export default {
         // };
       }
     },
-    InfoEntreprise() {
-      return (id) => {
-        if (id != null && id != "") {
-          const qtereel = this.getterEntreprise.find(
-            (qtreel) => qtreel.id == id
-          );
-
-          if (qtereel) {
-            return qtereel.numero_cc.concat(" ", qtereel.raison_sociale);
-          }
-          return 0;
-        }
-      };
-    },
     AdresseEntreprise() {
       return (id) => {
         if (id != null && id != "") {
@@ -2599,19 +2549,7 @@ export default {
       });
       return collet;
     },
-    libelleSousBudgetModifier() {
-      let collet = [];
-      this.getterSousBudget.filter((item) => {
-        if (item.activite_id == this.modNatureDepense.activite_id) {
-          let data = {
-            id: item.id,
-            libelle: item.libelle,
-          };
-          collet.push(data);
-        }
-      });
-      return collet;
-    },
+
     afficheBudgetParActivite() {
       return this.getterListeBudgetEclate.filter(
         (item) => item.activite_id == this.activite_id
@@ -2694,7 +2632,20 @@ export default {
         }
       };
     },
+    InfoEntreprise() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.getterEntreprise.find(
+            (qtreel) => qtreel.id == id
+          );
 
+          if (qtereel) {
+            return qtereel.numero_cc.concat(" ", qtereel.raison_sociale);
+          }
+          return 0;
+        }
+      };
+    },
     afficheNatureEconomique() {
       return (id) => {
         if (id != null && id != "") {
@@ -2764,7 +2715,7 @@ export default {
   methods: {
     ...mapActions("parametrage", [
       "getActivite",
-      "getOpParBordereau",
+      "supprimerOrdrePaiement",
       "getListeOrdrePiementAutreDepense",
       "modifierOrdrePaiement",
       "supprimerOP",
@@ -2818,15 +2769,8 @@ export default {
       this.modifierOrdrePaiement(objetDirect1);
       this.modNatureDepense = {};
     },
-    AfficheModalModification(id) {
-      this.modNatureDepense = this.afficheListeOPprovisoire(
-        this.bordereau_id
-      ).find((items) => items.id == id);
-    },
     retour() {
-      this.$router.push({
-        name: "InformationBordereau",
-      });
+      window.history.back();
     },
     fonctionImprimer(id, id1) {
       this.$router.push({
@@ -2866,11 +2810,11 @@ export default {
         )
         .toFixed(0);
     },
-    // AfficheModalModification(id) {
-    //   this.ModifierBudget = this.getterListeBudgetEclate.find(
-    //     (items) => items.id == id
-    //   );
-    // },
+    AfficheModalModification(id) {
+      this.modNatureDepense = this.afficheListeOPprovisoire.find(
+        (items) => items.id == id
+      );
+    },
     formatageSomme: formatageSomme,
     formatageSommeSansFCFA: formatageSommeSansFCFA,
     deletePartieRequerante(item) {
@@ -2938,7 +2882,7 @@ export default {
         compte_id: this.compte_id,
         objet_depense: this.objet_depense,
         numero_ordre_paiement: this.automatiseNumeroOP,
-        type_ordre_paiement: 1,
+        type_ordre_paiement: 2,
         montant_prestation: this.montant_prestation,
         nature_economique_id: this.nature_economique_id,
         nature_depense_id: this.NatureDepense_id,

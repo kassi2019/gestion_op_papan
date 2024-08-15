@@ -29,8 +29,8 @@ import VoirBudgetModifierEnProjet from "../page/GestionBudgetaire/DossierBudget/
 import AfficherBudgetVise from "../page/GestionBudgetaire/DossierBudget/AfficherBudgetVise.vue"
 import VentilationSousBudget from "../page/GestionBudgetaire/DossierBudget/VentilationSousBudget.vue"
 import BudgetComposanteVise from "../page/GestionBudgetaire/DossierBudget/BudgetComposanteVise.vue"
-import OrdrePaiementProvisoire from "../page/GestionBudgetaire/DossierOpProvisoire/OrdrePaiementProvisoire.vue"
-import OrdrePaiementDirect from "../page/GestionBudgetaire/DossierOPDirect/OrdrePaiementDirect.vue"
+import OrdrePaiementProvisoire from "../page/GestionBudgetaire/DossierOPAutreDepense/DossierOpProvisoire/OrdrePaiementProvisoire.vue"
+import OrdrePaiementDirect from "../page/GestionBudgetaire/DossierOPAutreDepense/DossierOPDirect/OrdrePaiementDirect.vue"
 
 
 import ImprimerOp from "../page/GestionRapport/ImprimerOp.vue"
@@ -43,21 +43,21 @@ import listeToutOP from "../page/GestionBudgetaire/VoirOPTotal/listeToutOP.vue"
 import ExecutionBailleur from "../page/GestionRapport/ExecutionBailleur.vue"
 
 import PresentationBudgetVise from "../page/GestionBudgetaire/DossierBudget/PresentationBudgetVise.vue"
-import OrdrePaiementDefinitif from "../page/GestionBudgetaire/DossierOPDefinitif/OrdrePaiementDefinitif.vue"
+import OrdrePaiementDefinitif from "../page/GestionBudgetaire/DossierOPAutreDepense/DossierOPDefinitif/OrdrePaiementDefinitif.vue"
 
-import OrdrePaiementAnnulation from "../page/GestionBudgetaire/DossierOPAnnulation/OrdrePaiementAnnulation.vue"
+import OrdrePaiementAnnulation from "../page/GestionBudgetaire/DossierOPAutreDepense/DossierOPAnnulation/OrdrePaiementAnnulation.vue"
 import Banque from "../page/ParametreGeneraux/Banque.vue"
 import CompteBancaire from "../page/ParametreGeneraux/CompteBancaire.vue"
 
 import InformationBudgetModifier from "../page/GestionBudgetaire/DossierBudget/InformationBudgetModifier.vue"
  
 import modificationBudgetaire from "../page/GestionBudgetaire/DossierBudget/modificationBudgetaire.vue"
-import InformationBordereau from "../page/GestionBudgetaire/DossierOpProvisoire/InformationBordereau.vue"
+import InformationBordereau from "../page/GestionBudgetaire/DossierOPAutreDepense/DossierOpProvisoire/InformationBordereau.vue"
 import ImprimerBordereau from "../page/GestionBudgetaire/DossierImpression/ImprimerBordereau.vue"
 import ImprimerPersonnelOP from "../page/GestionBudgetaire/DossierImpression/ImprimerListePersonnelOP.vue"
-import InformationBordereauOPDirect from "../page/GestionBudgetaire/DossierOPDirect/InformationBordereauOPDirect.vue"
-import InformationBordereauOPDefinitif from "../page/GestionBudgetaire/DossierOPDefinitif/InformationBordereauOPDefinitif.vue"
-import InformationBordereauOPAnnulation from "../page/GestionBudgetaire/DossierOPAnnulation/InformationBordereauOPAnnulation.vue"
+import InformationBordereauOPDirect from "../page/GestionBudgetaire/DossierOPAutreDepense/DossierOPDirect/InformationBordereauOPDirect.vue"
+import InformationBordereauOPDefinitif from "../page/GestionBudgetaire/DossierOPAutreDepense/DossierOPDefinitif/InformationBordereauOPDefinitif.vue"
+import InformationBordereauOPAnnulation from "../page/GestionBudgetaire/DossierOPAutreDepense/DossierOPAnnulation/InformationBordereauOPAnnulation.vue"
 import infoBordereauTotal from "../page/GestionBudgetaire/VoirOPTotal/infoBordereauTotal.vue"
 import infoBordereauTotalOpPerso from "../page/GestionBudgetaire/VoirOPTotal/infoBordereauTotalOpPerso.vue"
 import signataire from "../page/ParametreGeneraux/signataire.vue"

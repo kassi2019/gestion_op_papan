@@ -265,7 +265,7 @@
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
-              @click.prevent=""
+              @click.prevent="fonctionActualise()"
             >
               Fermer
             </button>
@@ -327,7 +327,7 @@
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
-              @click.prevent=""
+            @click.prevent="fonctionActualise()"
             >
               Fermer
             </button>
@@ -557,6 +557,7 @@
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
+              @click.prevent="fonctionActualise()"
             >
               Fermer
             </button>
@@ -1153,8 +1154,14 @@ export default {
       "getProjet",
       "getNatureDepense",
     ]),
+    fonctionActualise() {
+      let objet = {
+      id: this.dossier_id,
+    };
+    this.getOpParBordereau(objet);
+    },
     ModalAppliqueDecision(id) {
-      this.modNatureDepense = this.afficheListeOPprovisoire.find(
+      this.modNatureDepense = this.gettersOpBordereau.find(
         (items) => items.id == id
       );
     },
@@ -1194,7 +1201,7 @@ export default {
       this.modNatureDepense = {};
     },
     AfficheModalModification(id) {
-      this.modNatureDepense = this.getterListeOPgloba.find(
+      this.modNatureDepense = this.gettersOpBordereau.find(
         (items) => items.id == id
       );
     },
