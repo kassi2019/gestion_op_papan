@@ -1739,7 +1739,35 @@ export function modifierBanque({ commit }, nouveau) {
     });
 }
 
+export function supprimerFacture({ commit}, id) {
 
+
+  Swal.fire({
+
+  text: "Voulez vous vraiment supprimer ?",
+  icon: "question",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Confimer"
+}).then((result) => {
+  if (result.isConfirmed) {
+   
+    apiGuest.delete('/supprimerOrdrePaiement/' + id, { headers: authHeader() })
+    commit('GET_SUPPRIMER_FACTURE', id);
+   
+  
+    Swal.fire({
+      title: "Suppression",
+      text: "effectué avec succès.",
+      icon: "success"
+    });
+    
+    
+  }
+});
+
+}
 export function supprimerBanque({ commit,dispatch}, id) {
 
 

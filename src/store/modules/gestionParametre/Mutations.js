@@ -535,6 +535,9 @@ export const GET_INFORMATION_ORDRE_PAIEMENT = (state,value)=>{
 export const GET_FACTURE_PAR_OP = (state,value)=>{
     state.stateFactureParOp=value
 }
+export const GET_SUPPRIMER_FACTURE = (state, id) => {
+    state.stateFactureParOp = state.stateFactureParOp.filter(titre => titre.id != id)
+};
 export const GET_BUDGET_VISE = (state,value)=>{
     state.stateAfficheBudgetVise=value
 }

@@ -125,7 +125,7 @@
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Modifier Exercice budgétaire</h5>
+            <h5 class="modal-title">Modifier Taux</h5>
             <button
               type="button"
               class="btn-close"

@@ -174,7 +174,12 @@
                         Imprimer Personnel</i
                       >
                     </span>
-
+ <span v-if="afficherTypeDepense(dossier_id) == 0"
+                            title="Voir facture"
+                            class="badge badge-info"
+                            style="cursor: pointer;"
+                            @click.prevent="FonctionDetailFacture(item.id)"
+                          ><i class="fas fa-eye"></i> Voir Facture</span>
                     <span
                       v-if="afficherTypeDepense(dossier_id) == 0"
                       class="badge bg-warning"
@@ -1205,7 +1210,12 @@ export default {
         (items) => items.id == id
       );
     },
-
+FonctionDetailFacture(id) {
+      this.$router.push({
+        name: "detailFacture",
+        params: { id: id},
+      });
+    },
     fonctionImprimerListePersonnel(id) {
       this.$router.push({
         name: "ImprimerPersonnelOP",

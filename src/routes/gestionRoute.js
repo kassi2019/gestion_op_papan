@@ -68,7 +68,13 @@ import RegimeImpossition from "../page/ParametreGeneraux/RegimeImpossition.vue"
 
 import afficheBudgetViseParActivite from "../page/GestionBudgetaire/DossierBudget/afficheBudgetViseParActivite.vue"
 import mettreDecisionBudget from "../page/GestionBudgetaire/DossierBudget/mettreDecisionBudget.vue"
+import detailFacture from "../page/GestionBudgetaire/DossierOPAutreDepense/detailFacture.vue"
 const gestionutilisateur = [
+  {
+        path: '/detailFacture/:id',
+        name:"detailFacture",
+       component: detailFacture
+     },
     {
         path: '/mettreDecisionBudget',
         name:"mettreDecisionBudget",

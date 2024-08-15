@@ -1158,35 +1158,43 @@
                           role="group"
                           aria-label="Basic mixed styles example"
                         >
+                       
                           <span
+                          class="badge badge-primary"
                             title="Modifier"
-                            class="fas fa-edit"
+                            
                             data-bs-toggle="modal"
                             data-bs-target="#largeModal1"
-                            @click.prevent="AfficheModalModification(item.id)"
-                            style="cursor: pointer; color: blue"
-                          ></span>
-
+                            style="cursor: pointer;"
+                            @click.prevent="AfficheModalModification(item1.id)"
+                          ><i class="fas fa-edit"></i>Modifier</span>
                           <span
                             title="Supprimer"
-                            class="fas fa-archive"
-                            style="cursor: pointer; color: red"
-                            @click.prevent="supprimerOP(item.id)"
-                          ></span>
-                          <!--<span
-                      title="Voir facture"
-                      class="fas fa-eye"
-                      style="cursor: pointer; color: #006d80"
-                    ></span> -->
+                            class="badge badge-danger"
+                            style="cursor: pointer;"
+                            @click.prevent="supprimerOP(item1.id)"
+                          ><i class="fas fa-archive"></i> Supprimer</span>
+
+ <span
+                            title="Voir facture"
+                            class="badge badge-info"
+                            style="cursor: pointer;"
+                            @click.prevent="FonctionDetailFacture(item1.id)"
+                          ><i class="fas fa-eye"></i> Voir Facture</span>
+
                           <span
                             title="Imprimer OP"
-                            class="fas fa-print"
-                            style="cursor: pointer; color: #77abd6"
+                            
+                             class="badge badge-secondary"
+                            style="cursor: pointer;"
                             @click.prevent="
-                              fonctionImprimer(item.id, bordereau_id)
+                              fonctionImprimer(item1.id, bordereau_id)
                             "
-                          ></span>
+                          ><i class="fas fa-print"></i> Imrimer OP</span>
                         </div>
+
+
+                        
                       </td>
                     </tr>
                   </tbody>
@@ -2771,6 +2779,12 @@ export default {
     },
     retour() {
       window.history.back();
+    },
+    FonctionDetailFacture(id) {
+      this.$router.push({
+        name: "detailFacture",
+        params: { id: id},
+      });
     },
     fonctionImprimer(id, id1) {
       this.$router.push({

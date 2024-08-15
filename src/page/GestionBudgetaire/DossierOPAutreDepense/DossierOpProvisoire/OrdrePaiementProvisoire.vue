@@ -472,8 +472,9 @@
                           />
                         </div> -->
                       </form>
-                    </div></div
-                ></TabContent>
+                    </div>
+                  </div></TabContent
+                >
                 <TabContent title="SAISIR FACTURE" icon="ti-files">
                   <div class="row">
                     <div class="col-lg-12">
@@ -1119,11 +1120,11 @@
                   <thead>
                     <tr>
                       <th>Numero OP</th>
-                      <th style="width: 50%;">Objet dépense</th>
+                      <th style="width: 50%">Objet dépense</th>
                       <th>Montant</th>
                       <th>nature économique</th>
                       <th>Bénéficiaire</th>
-                     
+
                       <th></th>
                     </tr>
                   </thead>
@@ -1153,7 +1154,7 @@
                       <td style="border: 1px solid #000">
                         {{ InfoEntreprise(item1.entreprise_id) }}
                       </td>
-                     
+
                       <td style="border: 1px solid #000">
                         <div
                           class="btn-group"
@@ -1161,32 +1162,39 @@
                           aria-label="Basic mixed styles example"
                         >
                           <span
+                            class="badge badge-primary"
                             title="Modifier"
-                            class="fas fa-edit"
                             data-bs-toggle="modal"
                             data-bs-target="#largeModal1"
-                            style="cursor: pointer; color: blue"
+                            style="cursor: pointer"
                             @click.prevent="AfficheModalModification(item1.id)"
-                          ></span>
+                            ><i class="fas fa-edit"></i>Modifier</span
+                          >
                           <span
                             title="Supprimer"
-                            class="fas fa-archive"
-                            style="cursor: pointer; color: red"
+                            class="badge badge-danger"
+                            style="cursor: pointer"
                             @click.prevent="supprimerOP(item1.id)"
-                          ></span>
-                          <!--<span
-                      title="Voir facture"
-                      class="fas fa-eye"
-                      style="cursor: pointer; color: #006d80"
-                    ></span> -->
+                            ><i class="fas fa-archive"></i> Supprimer</span
+                          >
+
+                          <span
+                            title="Voir facture"
+                            class="badge badge-info"
+                            style="cursor: pointer"
+                            @click.prevent="FonctionDetailFacture(item1.id)"
+                            ><i class="fas fa-eye"></i> Voir Facture</span
+                          >
+
                           <span
                             title="Imprimer OP"
-                            class="fas fa-print"
-                            style="cursor: pointer; color: #77abd6"
+                            class="badge badge-secondary"
+                            style="cursor: pointer"
                             @click.prevent="
                               fonctionImprimer(item1.id, bordereau_id)
                             "
-                          ></span>
+                            ><i class="fas fa-print"></i> Imrimer OP</span
+                          >
                         </div>
                       </td>
                     </tr>
@@ -2797,6 +2805,12 @@ export default {
     retour() {
       this.$router.push({
         name: "InformationBordereau",
+      });
+    },
+    FonctionDetailFacture(id) {
+      this.$router.push({
+        name: "detailFacture",
+        params: { id: id },
       });
     },
     fonctionImprimer(id, id1) {
