@@ -12,7 +12,7 @@
   <div class="carousel-inner">
     <div class="carousel-item active">
       <img
-                src="../../../public//csslogin/images/logo1.jpg"
+                src="../../../public/csslogin/images/logo1.jpg"
                 alt="navbar brand"
                 class="navbar-brand d-block w-100"
                 height="600px"
@@ -32,7 +32,7 @@
     </div> -->
     <div class="carousel-item">
       <img
-                src="../../../public//csslogin/images/poulet1.jpg"
+                src="../../../public/csslogin/images/poulet1.jpg"
                 alt="navbar brand"
                 class="navbar-brand d-block w-100"
                 height="600px"
