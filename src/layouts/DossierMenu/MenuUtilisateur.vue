@@ -26,6 +26,17 @@
               <p>Utilisateur</p>
             </a>
           </li>
+          <li class="nav-item">
+            <a
+              class="nav-link collapsed"
+              href=""
+              @click.prevent="activedOptionMenu('PermissionUtilisateur')"
+            >
+              <i class="fas fa-file"></i>
+
+              <p>Permission</p>
+            </a>
+          </li>
         </ul>
       </div>
     </div>

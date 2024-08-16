@@ -395,8 +395,9 @@
                           />
                         </div> -->
                       </form>
-                    </div></div
-                ></TabContent>
+                    </div>
+                  </div></TabContent
+                >
                 <TabContent title="SAISIR PERSONNEL" icon="fas fa-user-friends">
                   <div class="row">
                     <div class="col-lg-12">
@@ -643,10 +644,10 @@
                   <thead>
                     <tr>
                       <th>Numero OP</th>
-                      <th style="width: 50%;">Objet dépense</th>
+                      <th style="width: 50%">Objet dépense</th>
                       <th>Montant</th>
                       <th>nature économique</th>
-                      
+
                       <th></th>
                     </tr>
                   </thead>
@@ -671,7 +672,7 @@
                       <!-- <td style="border: 1px solid #000">
                         {{ item.beneficiaire }}
                       </td> -->
-                     
+
                       <td style="border: 1px solid #000">
                         <div
                           class="btn-group"

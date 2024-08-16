@@ -6,7 +6,13 @@ import Accueil from '../../page/login/Accueil.vue'
 // import serviceProjet from '../../page/gestionutilisateur/serviceProjet.vue'
  import roleUtilisateur from '../../page/gestionutilisateur/roleUtilisateur.vue'
 import Utilisateur from '../../page/gestionutilisateur/Utilisateur.vue'
+import PermissionUtilisateur from '../../page/gestionutilisateur/PermissionUtilisateur.vue'
 const AuthRoutes = [
+  {
+        path: '/PermissionUtilisateur',
+        name:"PermissionUtilisateur",
+       component: PermissionUtilisateur
+  },
   {
         path: '/Utilisateur',
         name:"Utilisateur",
