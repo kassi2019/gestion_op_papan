@@ -538,6 +538,18 @@ export const GET_FACTURE_PAR_OP = (state,value)=>{
 export const GET_SUPPRIMER_FACTURE = (state, id) => {
     state.stateFactureParOp = state.stateFactureParOp.filter(titre => titre.id != id)
 };
+
+export const MODIFIER_FACTURE = (state, elementModif) => {
+    state.stateFactureParOp = state.stateFactureParOp.map(response => {
+
+        if (response.id == elementModif.id) {
+            response = { ...elementModif }
+        }
+        return response
+    })
+}
+
+
 export const GET_BUDGET_VISE = (state,value)=>{
     state.stateAfficheBudgetVise=value
 }

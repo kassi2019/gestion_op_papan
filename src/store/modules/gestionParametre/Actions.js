@@ -1739,6 +1739,21 @@ export function modifierBanque({ commit }, nouveau) {
     });
 }
 
+
+export function modifierFacture({ commit }, nouveau) {
+  apiGuest.
+    put("/ModifierFacture/" + nouveau.id, nouveau, { headers: authHeader() })
+    .then(response => {
+      commit("MODIFIER_FACTURE", response.data);
+      
+      toast("Modification effectué avec succès!", {
+        "theme": "auto",
+        "type": "success",
+        "dangerouslyHTMLString": true
+})
+    });
+}
+
 export function supprimerFacture({ commit}, id) {
 
 
