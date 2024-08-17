@@ -1,59 +1,21 @@
 <template>
   <div class="sidebar" data-background-color="dark">
     <logo></logo>
-    <div class="sidebar-wrapper scrollbar scrollbar-inner">
+
+    <div class="sidebar-wrapper scrollbar scrollbar-inner" v-if="rolePerso_id == 1">
       <div class="sidebar-content">
         <ul class="nav nav-secondary">
-          <!-- <li class="nav-item active">
-                <a
-                  data-bs-toggle="collapse"
-                  href="#dashboard"
-                  class="collapsed"
-                  aria-expanded="false"
-                >
-                  <i class="fas fa-home"></i>
-                  <p>Dashboard</p>
-                  <span class="caret"></span>
-                </a>
-                <div class="collapse" id="dashboard">
-                  <ul class="nav nav-collapse">
-                    <li>
-                      <a href="../demo1/index.html">
-                        <span class="sub-item">Dashboard 1</span>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </li> -->
           <li class="nav-section">
             <span class="sidebar-mini-icon">
               <i class="fa fa-ellipsis-h"></i>
             </span>
             <h4 class="text-section">GESTION DES RAPPORTS</h4>
           </li>
-          <!-- <li class="nav-item">
-            <a
-              class="nav-link collapsed"
-              href=""
-              @click.prevent="activedOptionMenu('')"
-            >
-              <i class="fas fa-arrow-right"></i>
 
-              <p>Etat du budget</p>
-            </a>
-          </li> -->
-          <!-- <li class="nav-item">
-            <a
-              class="nav-link collapsed"
-              href=""
-              @click.prevent="activedOptionMenu('ExecutionBailleur')"
-            >
-              <i class="fas fa-arrow-right"></i>
-
-              <p>Execution par bailleur</p>
-            </a>
-          </li> -->
-          <li class="nav-item">
+          <li
+            class="nav-item"
+           
+          >
             <a
               class="nav-link collapsed"
               href=""
@@ -64,7 +26,10 @@
               <p>Exécution par Ligne</p>
             </a>
           </li>
-          <li class="nav-item">
+          <li
+            class="nav-item"
+           
+          >
             <a
               class="nav-link collapsed"
               href=""
@@ -75,7 +40,10 @@
               <p>Etat des OP Provisoire</p>
             </a>
           </li>
-          <li class="nav-item">
+          <li
+            class="nav-item"
+            
+          >
             <a
               class="nav-link collapsed"
               href=""
@@ -86,7 +54,10 @@
               <p>Situation Par Composante</p>
             </a>
           </li>
-          <li class="nav-item">
+          <li
+            class="nav-item"
+           
+          >
             <a
               class="nav-link collapsed"
               href=""
@@ -97,7 +68,10 @@
               <p>Situation sur le personnel</p>
             </a>
           </li>
-          <li class="nav-item">
+          <li
+            class="nav-item"
+            
+          >
             <a
               class="nav-link collapsed"
               href=""
@@ -108,7 +82,110 @@
               <p>Situation des missions</p>
             </a>
           </li>
-           <li class="nav-item">
+          <li
+            class="nav-item"
+           
+          >
+            <a
+              class="nav-link collapsed"
+              href=""
+              @click.prevent="activedOptionMenu('VerifierFacture')"
+            >
+              <i class="fas fa-arrow-right"></i>
+
+              <p>Vérification facture</p>
+            </a>
+          </li>
+       
+        </ul>
+      </div>
+    </div>
+
+    <div class="sidebar-wrapper scrollbar scrollbar-inner" v-else>
+      <div class="sidebar-content">
+        <ul class="nav nav-secondary">
+         
+          <li class="nav-section">
+            <span class="sidebar-mini-icon">
+              <i class="fa fa-ellipsis-h"></i>
+            </span>
+            <h4 class="text-section">GESTION DES RAPPORTS</h4>
+          </li>
+         
+          <li
+            class="nav-item"
+            v-if="AfficherSousMenuExécutionparLigne == 17 && rolePerso_id != 1"
+          >
+            <a
+              class="nav-link collapsed"
+              href=""
+              @click.prevent="activedOptionMenu('ExecutionParLigne')"
+            >
+              <i class="fas fa-arrow-right"></i>
+
+              <p>Exécution par Ligne</p>
+            </a>
+          </li>
+          <li
+            class="nav-item"
+            v-if="AfficherSousMenuEtatdesOPProvisoire == 18 && rolePerso_id != 1"
+          >
+            <a
+              class="nav-link collapsed"
+              href=""
+              @click.prevent="activedOptionMenu('listeOpProvisoire')"
+            >
+              <i class="fas fa-arrow-right"></i>
+
+              <p>Etat des OP Provisoire</p>
+            </a>
+          </li>
+          <li
+            class="nav-item"
+            v-if="AfficherSousMenuSituationParComposante == 19 && rolePerso_id != 1"
+          >
+            <a
+              class="nav-link collapsed"
+              href=""
+              @click.prevent="activedOptionMenu('situationComposante')"
+            >
+              <i class="fas fa-arrow-right"></i>
+
+              <p>Situation Par Composante</p>
+            </a>
+          </li>
+          <li
+            class="nav-item"
+            v-if="AfficherSousMenuSituationsurpersonnel == 20 && rolePerso_id != 1"
+          >
+            <a
+              class="nav-link collapsed"
+              href=""
+              @click.prevent="activedOptionMenu('EtatPersonnel')"
+            >
+              <i class="fas fa-arrow-right"></i>
+
+              <p>Situation sur le personnel</p>
+            </a>
+          </li>
+          <li
+            class="nav-item"
+            v-if="AfficherSousMenuSituationmissions == 21 && rolePerso_id != 1"
+          >
+            <a
+              class="nav-link collapsed"
+              href=""
+              @click.prevent="activedOptionMenu('')"
+            >
+              <i class="fas fa-arrow-right"></i>
+
+              <p>Situation des missions</p>
+            </a>
+          </li>
+          <li
+            class="nav-item"
+            v-if="AfficherSousMenuVérificationfacture == 22 && rolePerso_id != 1"
+          >
             <a
               class="nav-link collapsed"
               href=""
@@ -175,12 +252,121 @@ export default {
   computed: {
     ...mapGetters("Utilisateurs", [
       "loader",
+      "getterPermission",
       "getterUtilisateur",
       "champVide",
       "error",
       "errorMessage",
       "getterLoader",
     ]),
+    nameUserid() {
+      let objLinea = localStorage.getItem("User");
+      let objJson = JSON.parse(objLinea);
+      return objJson.id;
+    },
+    rolePerso_id() {
+      let objLinea = localStorage.getItem("User");
+      let objJson = JSON.parse(objLinea);
+      return objJson.role_id;
+    },
+    AfficherSousMenu() {
+      // return (id) => {
+      //   if (id != null && id != "") {
+      const qtereel = this.getterPermission.find(
+        (qtreel) => qtreel.utilisateur_id == this.nameUserid
+      );
+
+      if (qtereel) {
+        return qtereel.sous_menu;
+      }
+      return 0;
+      //   }
+      // };
+    },
+     AfficherSousMenuExécutionparLigne() {
+      // return (id) => {
+      //   if (id != null && id != "") {
+      const qtereel = this.getterPermission.find(
+        (qtreel) => qtreel.utilisateur_id == this.nameUserid && qtreel.sous_menu==17
+      );
+
+      if (qtereel) {
+        return qtereel.sous_menu;
+      }
+      return 0;
+      //   }
+      // };
+    },
+     AfficherSousMenuEtatdesOPProvisoire() {
+      // return (id) => {
+      //   if (id != null && id != "") {
+      const qtereel = this.getterPermission.find(
+        (qtreel) => qtreel.utilisateur_id == this.nameUserid && qtreel.sous_menu==18
+      );
+
+      if (qtereel) {
+        return qtereel.sous_menu;
+      }
+      return 0;
+      //   }
+      // };
+    },
+    AfficherSousMenuSituationParComposante() {
+      // return (id) => {
+      //   if (id != null && id != "") {
+      const qtereel = this.getterPermission.find(
+        (qtreel) => qtreel.utilisateur_id == this.nameUserid && qtreel.sous_menu==19
+      );
+
+      if (qtereel) {
+        return qtereel.sous_menu;
+      }
+      return 0;
+      //   }
+      // };
+    },
+    AfficherSousMenuSituationsurpersonnel() {
+      // return (id) => {
+      //   if (id != null && id != "") {
+      const qtereel = this.getterPermission.find(
+        (qtreel) => qtreel.utilisateur_id == this.nameUserid && qtreel.sous_menu==20
+      );
+
+      if (qtereel) {
+        return qtereel.sous_menu;
+      }
+      return 0;
+      //   }
+      // };
+    },
+    AfficherSousMenuSituationmissions() {
+      // return (id) => {
+      //   if (id != null && id != "") {
+      const qtereel = this.getterPermission.find(
+        (qtreel) => qtreel.utilisateur_id == this.nameUserid && qtreel.sous_menu==21
+      );
+
+      if (qtereel) {
+        return qtereel.sous_menu;
+      }
+      return 0;
+      //   }
+      // };
+    },
+     AfficherSousMenuVérificationfacture() {
+      // return (id) => {
+      //   if (id != null && id != "") {
+      const qtereel = this.getterPermission.find(
+        (qtreel) => qtreel.utilisateur_id == this.nameUserid && qtreel.sous_menu==22
+      );
+
+      if (qtereel) {
+        return qtereel.sous_menu;
+      }
+      return 0;
+      //   }
+      // };
+    },
   },
 
   methods: {

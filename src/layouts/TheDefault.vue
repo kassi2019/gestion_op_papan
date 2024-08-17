@@ -2,6 +2,7 @@
   <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
   <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
   <div>
+   
     <MenuGestionBudgetaire
       v-if="id_module == 2"
       :isChange2="isChange2"
@@ -60,12 +61,13 @@ export default {
     };
   },
   created() {
+    this.getPermission();
     //  this.identifiant = this.$route.params.id;
     this.id_module = localStorage.getItem("module_app");
   },
   computed: {
     ...mapGetters("Utilisateurs", [
-      "loader",
+      "loader","getterPermission",
       "getterUtilisateur",
       "champVide",
       "error",
@@ -85,7 +87,7 @@ export default {
   },
   methods: {
     ...mapActions("Utilisateurs", [
-      "login",
+      "login","getPermission",
       "getUtilisateur",
       "logoutUser",
       "getProfileUsers",

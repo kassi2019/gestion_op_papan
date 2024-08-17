@@ -1,7 +1,7 @@
 <template>
   <div class="sidebar" data-background-color="dark">
     <logo></logo>
-    <div class="sidebar-wrapper scrollbar scrollbar-inner">
+    <div class="sidebar-wrapper scrollbar scrollbar-inner" v-if="rolePerso_id==1">
       <div class="sidebar-content">
         <ul class="nav nav-secondary">
           <li class="nav-section">
@@ -70,7 +70,7 @@
               </ul>
             </div>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" >
             <a
               class="nav-link collapsed"
               href=""
@@ -81,7 +81,7 @@
               <p>Saisir Contrat personnel</p>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" >
             <a
               class="nav-link collapsed"
               href=""
@@ -92,7 +92,7 @@
               <p>Viser Contrat Personnel</p>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" >
             <a
               class="nav-link collapsed"
               href=""
@@ -103,7 +103,7 @@
               <p>Saisir Ordre de Mission</p>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" >
             <a
               class="nav-link collapsed"
               href=""
@@ -117,6 +117,126 @@
         </ul>
       </div>
     </div>
+
+
+    <div class="sidebar-wrapper scrollbar scrollbar-inner" v-else>
+      <div class="sidebar-content">
+        <ul class="nav nav-secondary">
+          <li class="nav-section">
+            <span class="sidebar-mini-icon">
+              <i class="fa fa-ellipsis-h"></i>
+            </span>
+            <h4 class="text-section">GESTION DU PERSONNEL</h4>
+          </li>
+          <li class="nav-item" v-if="AfficherSousMenuParametrePersonnel==12 && rolePerso_id!=1">
+            <a data-bs-toggle="collapse" href="#base">
+              <i class="fas fa-cog"></i>
+              <p>Paramétre Personnel</p>
+              <span class="caret"></span>
+            </a>
+            <div class="collapse" id="base">
+              <ul class="nav nav-collapse">
+                <li>
+                  <a href="" @click.prevent="activedOptionMenu('Fonction')">
+                    <span class="sub-item">Fonction</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="" @click.prevent="activedOptionMenu('Service')">
+                    <span class="sub-item">Service</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href=""
+                    @click.prevent="activedOptionMenu('NatureContrat')"
+                  >
+                    <span class="sub-item">Nature Contrat</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="" @click.prevent="activedOptionMenu('Emploi')">
+                    <span class="sub-item">Emploi</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href=""
+                    @click.prevent="activedOptionMenu('TypeIndemnite')"
+                  >
+                    <span class="sub-item">Type dépense</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="" @click.prevent="activedOptionMenu('Diplome')">
+                    <span class="sub-item">Diplôme</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href=""
+                    @click.prevent="activedOptionMenu('SituationMatrimonial')"
+                  >
+                    <span class="sub-item">Situation Matrimonial</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="" @click.prevent="activedOptionMenu('TypePiece')">
+                    <span class="sub-item">Type de piece</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item" v-if="AfficherSousMenuSaisirContratpersonnel==13 && rolePerso_id!=1">
+            <a
+              class="nav-link collapsed"
+              href=""
+              @click.prevent="activedOptionMenu('SaisirContratPersonnel')"
+            >
+              <i class="fas fa-arrow-right"></i>
+
+              <p>Saisir Contrat personnel</p>
+            </a>
+          </li>
+          <li class="nav-item" v-if="AfficherSousMenuViserContratPersonnel==14 && rolePerso_id!=1">
+            <a
+              class="nav-link collapsed"
+              href=""
+              @click.prevent="activedOptionMenu('ListeDuPersonnel')"
+            >
+              <i class="fas fa-arrow-right"></i>
+
+              <p>Viser Contrat Personnel</p>
+            </a>
+          </li>
+          <li class="nav-item" v-if="AfficherSousMenuSaisirOrdredeMission==15 && rolePerso_id!=1">
+            <a
+              class="nav-link collapsed"
+              href=""
+              @click.prevent="activedOptionMenu('OrdreMission')"
+            >
+              <i class="fas fa-arrow-right"></i>
+
+              <p>Saisir Ordre de Mission</p>
+            </a>
+          </li>
+          <li class="nav-item" v-if="AfficherSousMenuViserOrdredeMission==16 && rolePerso_id!=1">
+            <a
+              class="nav-link collapsed"
+              href=""
+              @click.prevent="activedOptionMenu('listeOrdreMission')"
+            >
+              <i class="fas fa-arrow-right"></i>
+
+              <p>Viser Ordre de Mission</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    
   </div>
   <!-- End Sidebar -->
 </template>
@@ -147,13 +267,122 @@ export default {
   },
   computed: {
     ...mapGetters("Utilisateurs", [
-      "loader",
+      "loader","getterPermission",
       "getterUtilisateur",
       "champVide",
       "error",
       "errorMessage",
       "getterLoader",
     ]),
+    
+     nameUserid() {
+      let objLinea = localStorage.getItem("User");
+      let objJson = JSON.parse(objLinea);
+      return objJson.id;
+    },
+    rolePerso_id() {
+      let objLinea = localStorage.getItem("User");
+      let objJson = JSON.parse(objLinea);
+      return objJson.role_id;
+    },
+    AfficherSousMenu() {
+      // return (id) => {
+      //   if (id != null && id != "") {
+      const qtereel = this.getterPermission.find(
+        (qtreel) => qtreel.utilisateur_id == this.nameUserid
+      );
+
+      if (qtereel) {
+        return qtereel.sous_menu;
+      }
+      return 0;
+      //   }
+      // };
+    },
+    AfficherSousMenuParametrePersonnel() {
+      // return (id) => {
+      //   if (id != null && id != "") {
+      const qtereel = this.getterPermission.find(
+        (qtreel) => qtreel.utilisateur_id == this.nameUserid && qtreel.sous_menu==12
+      );
+
+      if (qtereel) {
+        return qtereel.sous_menu;
+      }
+      return 0;
+      //   }
+      // };
+    },
+    AfficherSousMenuSaisirContratpersonnel() {
+      // return (id) => {
+      //   if (id != null && id != "") {
+      const qtereel = this.getterPermission.find(
+        (qtreel) => qtreel.utilisateur_id == this.nameUserid && qtreel.sous_menu==13
+      );
+
+      if (qtereel) {
+        return qtereel.sous_menu;
+      }
+      return 0;
+      //   }
+      // };
+    },
+     AfficherSousMenuViserContratPersonnel() {
+      // return (id) => {
+      //   if (id != null && id != "") {
+      const qtereel = this.getterPermission.find(
+        (qtreel) => qtreel.utilisateur_id == this.nameUserid && qtreel.sous_menu==14
+      );
+
+      if (qtereel) {
+        return qtereel.sous_menu;
+      }
+      return 0;
+      //   }
+      // };
+    },
+    AfficherSousMenuSaisirOrdredeMission() {
+      // return (id) => {
+      //   if (id != null && id != "") {
+      const qtereel = this.getterPermission.find(
+        (qtreel) => qtreel.utilisateur_id == this.nameUserid && qtreel.sous_menu==15
+      );
+
+      if (qtereel) {
+        return qtereel.sous_menu;
+      }
+      return 0;
+      //   }
+      // };
+    },
+     AfficherSousMenuViserOrdredeMission() {
+      // return (id) => {
+      //   if (id != null && id != "") {
+      const qtereel = this.getterPermission.find(
+        (qtreel) => qtreel.utilisateur_id == this.nameUserid && qtreel.sous_menu==16
+      );
+
+      if (qtereel) {
+        return qtereel.sous_menu;
+      }
+      return 0;
+      //   }
+      // };
+    },
+      AfficherSousSousMenu() {
+      // return (id) => {
+      //   if (id != null && id != "") {
+      const qtereel = this.getterPermission.find(
+        (qtreel) => qtreel.utilisateur_id == this.nameUserid
+      );
+
+      if (qtereel) {
+        return qtereel.sous_sous_menu;
+      }
+      return 0;
+      //   }
+      // };
+    },
   },
 
   methods: {

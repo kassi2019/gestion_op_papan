@@ -178,7 +178,7 @@
                     >
                     </model-list-select>
                   </div>
-                  <div class="col-4">
+                  <div class="col-5">
                     <label class="form-label">Module</label>
                     <model-list-select
                       :list="ListeModule"
@@ -190,7 +190,7 @@
                     >
                     </model-list-select>
                   </div>
-                  <div class="col-3">
+                  <div class="col-5">
                     <label class="form-label">Menu Niveau 1</label>
                     <model-list-select
                       :list="ListeMenuNiveau1"
@@ -202,7 +202,7 @@
                     >
                     </model-list-select>
                   </div>
-                  <div class="col-3">
+                  <!-- <div class="col-3">
                     <label class="form-label">Menu Niveau 2</label>
                     <model-list-select
                       :list="ListeMenuNiveau2"
@@ -213,7 +213,7 @@
                       style="border: 1px solid #000"
                     >
                     </model-list-select>
-                  </div>
+                  </div> -->
                   <div class="col-2">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
@@ -240,9 +240,9 @@
                         <th scope="col" style="text-align: center">
                           Menu Niveau 1
                         </th>
-                        <th scope="col" style="text-align: center">
+                        <!-- <th scope="col" style="text-align: center">
                           Menu Niveau 2
-                        </th>
+                        </th> -->
                         <th scope="col" style="text-align: center">Action</th>
                       </tr>
                     </thead>
@@ -257,7 +257,7 @@
                         </td>
                         <td>{{ libelleModule(item.module_id) }}</td>
                         <td>{{ libelleModule(item.sous_menu) }}</td>
-                        <td>{{ libelleModule(item.sous_sous_menu) }}</td>
+                        <!-- <td>{{ libelleModule(item.sous_sous_menu) }}</td> -->
                         <td>
                           <span
                             class="badge bg-danger"
@@ -292,6 +292,12 @@
         </div>
       </div>
     </div>
+
+
+
+
+
+    
   </div>
 </template>
 
@@ -427,7 +433,7 @@ export default {
         ...this.FormDataDossier,
 
         sous_menu: this.FormDataDossier.sous_menu,
-        sous_sous_menu: this.FormDataDossier.sous_sous_menu,
+        // sous_sous_menu: this.FormDataDossier.sous_sous_menu,
         utilisateur_id: this.FormDataDossier.utilisateur_id,
         module: this.FormDataDossier.module,
       };
