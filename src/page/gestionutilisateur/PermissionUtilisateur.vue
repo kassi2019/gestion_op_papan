@@ -251,7 +251,7 @@
                         v-for="(item, index) in TableauDossier"
                         :key="item.id"
                       >
-                        <td>{{ index + 1 }}</td>
+                        <!-- <td>{{ index + 1 }}</td> -->
                         <td style="width: 30%">
                           {{ nom_utilisateur(item.utilisateur_id) }}
                         </td>
@@ -318,9 +318,14 @@ export default {
   created() {
     this.getModule();
     this.getUtilisateur();
+    this.getPermission();
   },
   computed: {
-    ...mapGetters("Utilisateurs", ["getterModule", "getterUtilisateur"]),
+    ...mapGetters("Utilisateurs", [
+      "getterModule",
+      "getterUtilisateur",
+      "getterPermission",
+    ]),
 
     libelleModule() {
       return (id) => {
@@ -351,13 +356,13 @@ export default {
     UtilisateurName() {
       let collet = [];
       this.getterUtilisateur.filter((item) => {
-        //if (item.activite_id == this.activite_id) {
-        let data = {
-          id: item.id,
-          nom_prenoms: item.name.concat(" ", item.prenoms),
-        };
-        collet.push(data);
-        //  }
+        if (item.role_id != 1) {
+          let data = {
+            id: item.id,
+            nom_prenoms: item.name.concat(" ", item.prenoms),
+          };
+          collet.push(data);
+        }
       });
       return collet;
     },
@@ -406,7 +411,12 @@ export default {
   },
 
   methods: {
-    ...mapActions("Utilisateurs", ["getUtilisateur", "getModule"]),
+    ...mapActions("Utilisateurs", [
+      "getUtilisateur",
+      "getPermission",
+      "getModule",
+      "ajouterPermission",
+    ]),
     deletePartieRequerante(item) {
       if (item > -1) {
         this.TableauDossier.splice(item, 1);
@@ -423,11 +433,8 @@ export default {
       };
       this.TableauDossier.push(nouvelObjet12);
 
-      this.FormDataDossier = {
-        sous_menu: "",
-        sous_sous_menu: "",
-        module: "",
-      };
+      (this.FormDataDossier.sous_menu = ""),
+        (this.FormDataDossier.sous_sous_menu = "");
     },
     AfficheModalModification(id) {
       this.modifierrole = this.getterRoleUtilisateur.find(
@@ -437,15 +444,11 @@ export default {
 
     EnregistrerRole() {
       var objetDirect1 = {
-        libelle: this.formData.libelle,
-        code_role: this.formData.code_role,
+        FormDataDossier: this.TableauDossier,
       };
 
-      this.ajouterRoleUtilisateur(objetDirect1);
-      this.formData = {
-        libelle: "",
-        code_role: "",
-      };
+      this.ajouterPermission(objetDirect1);
+      (this.TableauDossier = []), (this.FormDataDossier = {});
     },
 
     ModifierRole() {

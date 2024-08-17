@@ -19,7 +19,7 @@ const defaultstate = {
     listeutilisateur: [],
   
     stateRoleUtilisateur: [],
-
+statePermission:[],
     stateService:[],
     stateModule: []
    

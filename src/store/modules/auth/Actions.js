@@ -263,3 +263,28 @@ export function supprimerUtilisateur({ commit,dispatch}, id) {
 });
 
 }
+
+// PERMISSION
+
+export function ajouterPermission({ commit }, nouveau) {
+ 
+    apiGuest.post("/EnregistrementPermission", nouveau, { headers: authHeader() })
+    .then(response => {
+      if (response.status == 201) {
+        commit("AJOUTER_PERMISSION", response.data);
+       toast("Enregistrement effectué avec succès!", {
+        "theme": "auto",
+        "type": "success",
+        "dangerouslyHTMLString": true
+})
+      }
+    }).catch();
+}
+
+export function getPermission({ commit }) {
+  apiGuest.get("/listePermission", { headers: authHeader() })
+    .then(response => {
+      commit("GET_PERMISSION", response.data);
+    })
+    .catch(error => console.log(error));
+}

@@ -7,6 +7,7 @@ export const getterUtilisateur = state => state.listeutilisateur;
 
 export const getterModule = state => state.stateModule;
 export const getterGroupement = state => state.stateService;
+export const getterPermission = state => state.statePermission;
 
 export const getterRoleUtilisateur = state => state.stateRoleUtilisateur;
 export const users = state => state.users;

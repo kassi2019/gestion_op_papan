@@ -102,3 +102,12 @@ export const AJOUTER_UTILISATEUR = (state, elementAjouter) => {
 }
 
 
+// PERMISSION
+
+export const AJOUTER_PERMISSION = (state, elementAjouter) => {
+    state.statePermission.unshift(elementAjouter)
+}
+
+export const GET_PERMISSION = (state,value)=>{
+    state.statePermission=value
+}
