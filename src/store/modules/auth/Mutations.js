@@ -8,9 +8,11 @@ export const clearUserData=(state) =>{
 export const GET_UTILISATEUR = (state,value)=>{
     state.listeutilisateur=value
 }
-
+export const GET_UTILISATEUR2 = (state,value)=>{
+    state.stateUtilisateur2=value
+}
 export const MODIFIER_UTILISATEUR = (state, elementModif) => {
-    state.listeutilisateur = state.listeutilisateur.map(response => {
+    state.stateUtilisateur2 = state.stateUtilisateur2.map(response => {
 
         if (response.id == elementModif.id) {
             response = { ...elementModif }
@@ -19,7 +21,7 @@ export const MODIFIER_UTILISATEUR = (state, elementModif) => {
     })
 }
 export const CHANGER_MOT_DE_PASSE = (state, elementModif) => {
-    state.listeutilisateur = state.listeutilisateur.map(response => {
+    state.stateUtilisateur2 = state.stateUtilisateur2.map(response => {
 
         if (response.id == elementModif.id) {
             response = { ...elementModif }
@@ -28,7 +30,7 @@ export const CHANGER_MOT_DE_PASSE = (state, elementModif) => {
     })
 }
 export const SUPPRIMER_UTILISATEUR = (state, id) => {
-    state.listeutilisateur = state.listeutilisateur.filter(titre => titre.id != id)
+    state.stateUtilisateur2 = state.stateUtilisateur2.filter(titre => titre.id != id)
 };
 export const GET_MODULE = (state,value)=>{
     state.stateModule=value

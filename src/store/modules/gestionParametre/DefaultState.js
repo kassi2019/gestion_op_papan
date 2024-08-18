@@ -31,6 +31,7 @@ const defaultstate = {
     stateActiviteSurOP: [],
     stateListeOPParUser: [],
     stateFacture: [],
+    
     stateOpParActivite:[],
     stateActiviteglobal: [],
     stateListeOPgloba: [],

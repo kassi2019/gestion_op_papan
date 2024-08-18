@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+   
     <div class="col-md-12">
       <div class="card" style="box-shadow: 5px 5px #f9d531">
         <div class="card-header">
@@ -42,42 +43,36 @@
                 <tr>
                   <!-- <th scope="col">#</th> -->
                   <!-- <th scope="col">N</th> -->
-                  <th scope="col" style="text-align: center">Code</th>
-                  <th scope="col" style="text-align: center">Libelle</th>
+                  
+                  <th scope="col" style="text-align: center">NOM ET PREMNOMS UTILISATEUR</th>
                   <th scope="col" style="text-align: center">Action</th>
                 </tr>
               </thead>
-              <!-- <tbody>
+              <tbody>
             <tr
-              v-for="item in getterRoleUtilisateur"
-              :key="item.id"
+              v-for="(item) in GroupeParUtilisateur"
+              :key="item"
               
             >
-            <td>{{ item.code_role }}</td>
-            <td style="width: 70%;">{{ item.libelle }}</td>
+           
+            <td style="width: 90%;">{{nom_utilisateur(item)}}</td>
             <td>
             
                  <span
-                  class="badge rounded-pill bg-primary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#largeModal1"
-                  style="cursor: pointer"
-                  @click.prevent="AfficheModalModification(item.id)"
-                  >Modifier</span
-                >
-                <span
-                  class="badge bg-danger"
-                  style="cursor: pointer"
-                  @click.prevent="supprimerRoleUtilisateur(item.id)"
-                  >Supprimer</span
-                >
+                            class="badge bg-info"
+                            style="cursor: pointer"
+                            title="Plus détail"
+                            @click="AfficheVentilationBudget(item)"
+                            ><i class="fas fa-tasks"></i
+                          > Plus Info</span>
+                
                 
               </td>
             </tr>
            
               
             
-                    </tbody> -->
+                    </tbody>
             </table>
           </div>
         </div>
@@ -323,16 +318,35 @@ export default {
   },
   created() {
     this.getModule();
-    this.getUtilisateur();
+    this.getUtilisateurConnecter();
     this.getPermission();
   },
   computed: {
     ...mapGetters("Utilisateurs", [
       "getterModule",
-      "getterUtilisateur",
+      "getterstateUtilisateurconnecter",
       "getterPermission",
     ]),
+GroupeParUtilisateur() {
+      // return (id) => {
 
+      let objet = this.getterPermission
+      //  let vm=this
+      let array_exercie = [];
+      if (objet.length > 0) {
+        objet.forEach(function (val) {
+          array_exercie.push(val.utilisateur_id);
+        });
+        let unique = [...new Set(array_exercie)];
+        console.log(unique);
+        if (unique.length == 0) {
+          return [];
+        }
+        return unique.sort((a, b) => (a.unique > b.unique ? 1 : -1));
+      }
+      return [];
+      // };
+    },
     libelleModule() {
       return (id) => {
         if (id != null && id != "") {
@@ -348,7 +362,7 @@ export default {
     nom_utilisateur() {
       return (id) => {
         if (id != null && id != "") {
-          const qtereel = this.getterUtilisateur.find(
+          const qtereel = this.getterstateUtilisateurconnecter.find(
             (qtreel) => qtreel.id == id
           );
 
@@ -361,7 +375,7 @@ export default {
     },
     UtilisateurName() {
       let collet = [];
-      this.getterUtilisateur.filter((item) => {
+      this.getterstateUtilisateurconnecter.filter((item) => {
         if (item.role_id != 1) {
           let data = {
             id: item.id,
@@ -418,11 +432,17 @@ export default {
 
   methods: {
     ...mapActions("Utilisateurs", [
-      "getUtilisateur",
+      "getUtilisateurConnecter",
       "getPermission",
       "getModule",
       "ajouterPermission",
     ]),
+    AfficheVentilationBudget(id) {
+      this.$router.push({
+        name: "detailPermission",
+        params: { id: id },
+      });
+    },
     deletePartieRequerante(item) {
       if (item > -1) {
         this.TableauDossier.splice(item, 1);

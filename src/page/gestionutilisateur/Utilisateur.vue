@@ -1,33 +1,34 @@
 <template>
   <div class="container">
+    
     <div class="col-md-12">
       <div class="card" style="box-shadow: 5px 5px #f9d531">
         <div class="card-header">
           <div class="page-header">
-						<h6 class="fw-bold mb-3">Liste des utilisateurs</h6>
-						<ul class="breadcrumbs mb-3">
-							<li class="nav-home">
-								<a href="#">
-									<i class="icon-home"></i>
-								</a>
-							</li>
-							<li class="separator">
-								<i class="icon-arrow-right"></i>
-							</li>
-							<li class="nav-item">
-								<a href="#">Gestion Utilisateur</a>
-							</li>
-							<li class="separator">
-								<i class="icon-arrow-right"></i>
-							</li>
-							<li class="nav-item">
-								<a href="#">Utilisateurs</a>
-							</li>
-						</ul>
-					</div>
+            <h6 class="fw-bold mb-3">
+              Liste des utilisateurs
+            </h6>
+            <ul class="breadcrumbs mb-3">
+              <li class="nav-home">
+                <a href="#">
+                  <i class="icon-home"></i>
+                </a>
+              </li>
+              <li class="separator">
+                <i class="icon-arrow-right"></i>
+              </li>
+              <li class="nav-item">
+                <a href="#">Gestion Utilisateur</a>
+              </li>
+              <li class="separator">
+                <i class="icon-arrow-right"></i>
+              </li>
+              <li class="nav-item">
+                <a href="#">Utilisateurs</a>
+              </li>
+            </ul>
+          </div>
           <div class="d-flex align-items-center">
-           
-
             <span
               class="badge badge-primary"
               style="cursor: pointer"
@@ -53,7 +54,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="item in getterUtilisateur" :key="item.id">
+                <tr v-for="item in afficherListeUtilisateur" :key="item.id">
                   <td>{{ item.name }}</td>
                   <td style="">{{ item.prenoms }}</td>
                   <td style="">{{ item.email }}</td>
@@ -68,8 +69,10 @@
                       @click.prevent="AfficheModalModification(item.id)"
                       >Modifier</span
                     >
-                    <span class="badge bg-danger" style="cursor: pointer"
-                    @click.prevent="supprimerUtilisateur(item.id)"
+                    <span
+                      class="badge bg-danger"
+                      style="cursor: pointer"
+                      @click.prevent="supprimerUtilisateur(item.id)"
                       >Supprimer</span
                     >
                     <!-- <button
@@ -145,7 +148,7 @@
                   v-model="modifierrole.email"
                 />
               </div>
-             
+
               <div class="col-12">
                 <label for="inputNanme4" class="form-label">Rôle</label>
                 <select
@@ -163,7 +166,6 @@
                   </option>
                 </select>
               </div>
-
             </form>
           </div>
           <div class="modal-footer">
@@ -171,7 +173,7 @@
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
-              @click.prevent="this.getUtilisateur()"
+              @click.prevent="this.getUtilisateurConnecter()"
             >
               Fermer
             </button>
@@ -202,13 +204,13 @@
           <div class="modal-body">
             <form>
               <div class="col-12">
-                <label for="inputNanme4" class="form-label">Nom <span
-                              style="
-                                color: red !important;
-                                font-size: 15px !important;
-                              "
-                              >*</span
-                            ></label>
+                <label for="inputNanme4" class="form-label"
+                  >Nom
+                  <span
+                    style="color: red !important; font-size: 15px !important"
+                    >*</span
+                  ></label
+                >
                 <input
                   type="text"
                   class="form-control"
@@ -218,13 +220,13 @@
                 />
               </div>
               <div class="col-12">
-                <label for="inputNanme4" class="form-label">Prénoms <span
-                              style="
-                                color: red !important;
-                                font-size: 15px !important;
-                              "
-                              >*</span
-                            ></label>
+                <label for="inputNanme4" class="form-label"
+                  >Prénoms
+                  <span
+                    style="color: red !important; font-size: 15px !important"
+                    >*</span
+                  ></label
+                >
                 <input
                   type="text"
                   class="form-control"
@@ -234,13 +236,13 @@
                 />
               </div>
               <div class="col-12">
-                <label for="inputNanme4" class="form-label">Email <span
-                              style="
-                                color: red !important;
-                                font-size: 15px !important;
-                              "
-                              >*</span
-                            ></label>
+                <label for="inputNanme4" class="form-label"
+                  >Email
+                  <span
+                    style="color: red !important; font-size: 15px !important"
+                    >*</span
+                  ></label
+                >
                 <input
                   type="email"
                   class="form-control"
@@ -248,7 +250,11 @@
                   style="border: 1px solid #000"
                   v-model="formData.email"
                 />
-                <span style="color:red" v-if="VerificationEmail(formData.email)==1">Email existe déja</span>
+                <span
+                  style="color: red"
+                  v-if="VerificationEmail(formData.email) == 1"
+                  >Email existe déja</span
+                >
               </div>
               <div class="col-12">
                 <label for="inputNanme4" class="form-label">Password</label>
@@ -264,13 +270,13 @@
                 />
               </div>
               <div class="col-12">
-                <label for="inputNanme4" class="form-label">Rôle <span
-                              style="
-                                color: red !important;
-                                font-size: 15px !important;
-                              "
-                              >*</span
-                            ></label>
+                <label for="inputNanme4" class="form-label"
+                  >Rôle
+                  <span
+                    style="color: red !important; font-size: 15px !important"
+                    >*</span
+                  ></label
+                >
                 <select
                   class="form-select"
                   style="border: 1px solid #000"
@@ -345,7 +351,13 @@
               Fermer
             </button>
             <button
-            v-if="VerificationEmail(formData.email)==0 && formData.name!='' && formData.role_id!='' && formData.prenoms!='' && formData.role_id!=''"
+              v-if="
+                VerificationEmail(formData.email) == 0 &&
+                formData.name != '' &&
+                formData.role_id != '' &&
+                formData.prenoms != '' &&
+                formData.role_id != ''
+              "
               type="button"
               class="btn btn-primary"
               @click.prevent="EnregistrerUtilisateur()"
@@ -371,12 +383,9 @@ export default {
         name: "",
         email: "",
         role_id: "",
-        prenoms:"",
-        
+        prenoms: "",
       },
-       
-    
-        
+
       FormDataFacture: {},
       modifierrole: {
         libelle: "",
@@ -386,19 +395,37 @@ export default {
   },
   created() {
     this.getRoleUtilisateur();
-    this.getUtilisateur();
+    this.getUtilisateurConnecter();
     // this.getModule();
     // this.getListeService();
   },
   computed: {
     ...mapGetters("Utilisateurs", [
       "getterExerciceBudgetaire",
-      "getterUtilisateur",
+      "getterstateUtilisateurconnecter",
       "getterModule",
       "getterGroupement",
       "getterRoleUtilisateur",
     ]),
-
+    nameUserid() {
+      let objLinea = localStorage.getItem("User");
+      let objJson = JSON.parse(objLinea);
+      return objJson.id;
+    },
+    rolePerso_id() {
+      let objLinea = localStorage.getItem("User");
+      let objJson = JSON.parse(objLinea);
+      return objJson.role_id;
+    },
+    afficherListeUtilisateur() {
+      if (this.rolePerso_id != 1) {
+        return this.getterstateUtilisateurconnecter.filter(
+          (item) => (item.id = this.nameUserid)
+        );
+      } else {
+        return this.getterstateUtilisateurconnecter;
+      }
+    },
     libelleModule() {
       return (id) => {
         if (id != null && id != "") {
@@ -415,7 +442,9 @@ export default {
     VerificationEmail() {
       return (id) => {
         if (id != null && id != "") {
-          const qtereel = this.getterUtilisateur.find((qtreel) => qtreel.email == id);
+          const qtereel = this.afficherListeUtilisateur.find(
+            (qtreel) => qtreel.email == id
+          );
 
           if (qtereel) {
             return 1;
@@ -428,17 +457,20 @@ export default {
 
   methods: {
     ...mapActions("Utilisateurs", [
-      "getExerciceBudgetaire","modifierUtilisateur","supprimerUtilisateur","ChangerMotPasse",
-      "getUtilisateur",
+      "getExerciceBudgetaire",
+      "modifierUtilisateur",
+      "supprimerUtilisateur",
+      "ChangerMotPasse",
+      "getUtilisateurConnecter",
       "getModule",
       "EnregistreUtilisateur",
       "getListeService",
       "getRoleUtilisateur",
-    
+
       "supprimerRoleUtilisateur",
     ]),
     AfficheModalModification(id) {
-      this.modifierrole = this.getterUtilisateur.find(
+      this.modifierrole = this.afficherListeUtilisateur.find(
         (items) => items.id == id
       );
     },
@@ -484,7 +516,7 @@ export default {
         id: this.modifierrole.id,
         name: this.modifierrole.name,
         email: this.modifierrole.email,
-         prenoms: this.modifierrole.prenoms,
+        prenoms: this.modifierrole.prenoms,
         role_id: this.modifierrole.role_id,
       };
 

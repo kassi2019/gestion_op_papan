@@ -223,6 +223,14 @@ export function ChangerMotPasse({ commit,dispatch }, nouveau) {
 })
     });
 }
+export function getUtilisateurConnecter({ commit }) {
+  apiGuest
+    .get("/listeUtilisateur", { headers: authHeader() })
+    .then(response => {
+      commit("GET_UTILISATEUR2", response.data);
+    })
+    .catch(error => console.log(error));
+}
 export function modifierUtilisateur({ commit,dispatch }, nouveau) {
   apiGuest.
     put("/ModifierUtilisateur/" + nouveau.id, nouveau, { headers: authHeader() })

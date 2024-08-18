@@ -352,12 +352,12 @@ export default {
   },
   components: {},
   created() {
-    this.getUtilisateur();
+    this.getUtilisateurConnecter();
   },
   computed: {
     ...mapGetters("Utilisateurs", [
       "loader",
-      "getterUtilisateur",
+      "getterstateUtilisateurconnecter",
       "champVide",
       "error",
       "errorMessage",
@@ -378,7 +378,7 @@ export default {
   methods: {
     ...mapActions("Utilisateurs", [
       "login",
-      "getUtilisateur",
+      "getUtilisateurConnecter",
       "logoutUser",
       "getProfileUsers",
       "getUsers",

@@ -2,7 +2,7 @@
 export const isLoggedIn = state => state.isLoggedIn;
 
 export const getterUtilisateur = state => state.listeutilisateur;
-
+export const getterstateUtilisateurconnecter = state => state.stateUtilisateur2;
 // export const getterExerciceBudgetaire = state => state.stateExercice.sort((a, b) => (a.annee > b.annee) ? -1 : 1);
 
 export const getterModule = state => state.stateModule;
