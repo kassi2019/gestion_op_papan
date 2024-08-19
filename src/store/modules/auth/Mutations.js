@@ -113,3 +113,10 @@ export const AJOUTER_PERMISSION = (state, elementAjouter) => {
 export const GET_PERMISSION = (state,value)=>{
     state.statePermission=value
 }
+
+export const SUPPRIMER_MENU = (state, id) => {
+    state.statePermission = state.statePermission.filter(titre => titre.id != id)
+};
+export const SUPPRIMER_MODULE = (state, id) => {
+    state.statePermission = state.statePermission.filter(titre => titre.id != id)
+};

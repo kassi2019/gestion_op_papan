@@ -245,7 +245,7 @@ export function modifierUtilisateur({ commit,dispatch }, nouveau) {
     });
 }
 
-export function supprimerUtilisateur({ commit,dispatch}, id) {
+export function supprimerUtilisateur({ commit}, id) {
 
   Swal.fire({
   // title: "Are you sure?",
@@ -260,7 +260,7 @@ export function supprimerUtilisateur({ commit,dispatch}, id) {
    
     apiGuest.delete('/supprimerUtilisateur/' + id, { headers: authHeader() })
      commit('SUPPRIMER_UTILISATEUR', id)
-     dispatch('getExerciceBudgetaire');
+    
     Swal.fire({
       title: "Suppression",
       text: "effectué avec succès.",
@@ -295,4 +295,60 @@ export function getPermission({ commit }) {
       commit("GET_PERMISSION", response.data);
     })
     .catch(error => console.log(error));
+}
+
+
+export function supprimerMenu({ commit}, id) {
+
+  Swal.fire({
+  // title: "Are you sure?",
+  text: "Voulez vous vraiment supprimer ?",
+  icon: "question",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Confimer"
+}).then((result) => {
+  if (result.isConfirmed) {
+   
+    apiGuest.delete('/supprimerleMenu/' + id, { headers: authHeader() })
+     commit('SUPPRIMER_MENU', id)
+    
+    Swal.fire({
+      title: "Suppression",
+      text: "effectué avec succès.",
+      icon: "success"
+    });
+ 
+  }
+});
+
+}
+
+
+export function supprimerModule({ commit,dispatch}, id) {
+
+  Swal.fire({
+  // title: "Are you sure?",
+  text: "Voulez vous vraiment supprimer ?",
+  icon: "question",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Confimer"
+}).then((result) => {
+  if (result.isConfirmed) {
+   
+    apiGuest.delete('/supprimerleModule/' + id, { headers: authHeader() })
+     commit('SUPPRIMER_MODULE', id)
+    dispatch('getPermission');
+    Swal.fire({
+      title: "Suppression",
+      text: "effectué avec succès.",
+      icon: "success"
+    });
+ 
+  }
+});
+
 }

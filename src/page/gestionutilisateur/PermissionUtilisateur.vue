@@ -435,7 +435,7 @@ GroupeParUtilisateur() {
       "getUtilisateurConnecter",
       "getPermission",
       "getModule",
-      "ajouterPermission",
+      "ajouterPermission","supprimerModule","supprimerMenu"
     ]),
     AfficheVentilationBudget(id) {
       this.$router.push({

@@ -263,7 +263,7 @@
       </div>
     </div>
 
-    <div class="modal fade" id="largeModal" tabindex="-1">
+    <div class="modal fade" id="largeModal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="staticBackdropLabel">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
@@ -278,7 +278,7 @@
           <div class="modal-body">
             <h3 style="text-align: center">
               VOUS N'AVEZ PAS ACCES A CE MODULE
-              <p>VEUILLEZ CONTACTER L'ADMINITRATEUR SVP?</p>
+              <p>VEUILLEZ CONTACTER L'ADMINITRATEUR SVP ? </p>
             </h3>
           </div>
           <div class="modal-footer">
