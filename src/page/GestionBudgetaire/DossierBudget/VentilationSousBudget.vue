@@ -1,29 +1,29 @@
 <template>
   <div class="container">
     <div class="col-md-12">
-      <div class="card" style="box-shadow: 5px 5px  #f9d531;">
+      <div class="card" style="box-shadow: 5px 5px #f9d531">
         <div class="card-header">
-          
           <div class="d-flex align-items-center">
-            <h4 class="card-title">Présentation du budget par composante</h4>
+            <h4 class="card-title">Présentation du budget par Activité</h4>
             <span
-                  class="badge badge-warning"
-                  style="cursor: pointer; color: #000"
-                  @click.prevent="retour(Activite_id1,dossier_id1)"
-                  ><i class="fas fa-arrow-alt-circle-left"></i> Retour</span
-                >
+              class="badge badge-warning"
+              style="cursor: pointer; color: #000"
+              @click.prevent="pagePrecedent"
+              ><i class="fas fa-arrow-alt-circle-left"></i> Retour</span
+            >
             <span
-            class="badge rounded-pill bg-primary"
-            style="cursor: pointer"
-            @click.prevent="genererEnPdf4()"
-            >Exporter en Pdf</span
-          >
+              class="badge rounded-pill bg-primary"
+              style="cursor: pointer"
+              @click.prevent="genererEnPdf4()"
+              >Exporter en Pdf</span
+            >
           </div>
         </div>
         <div class="card-body" id="printMe45" ref="table">
+          <!-- Modal -->
           <table class="table table-bordered border-primary">
             <tr>
-              <td style="text-align: center; border: 1px solid #000 !important">
+              <td style="text-align: center; ">
                 <h6 style="font-size: 12px">
                   Ministère des Ressources Animales et Halieutiques<br />
                   ------------------------- <br />
@@ -35,19 +35,18 @@
                 </h6>
                 <!-- <img src="/optimisation/skin/img/log3.png" width="80px;"  /> -->
               </td>
-              <td style="text-align: center; border: 1px solid #000 !important">
+              <td style="text-align: center; ">
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <img
                   src="../../../../public/assets/img/amoirie.png"
                   width="70px;"
                 />
-               
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               </td>
 
-              <td style="text-align: center; border: 1px solid #000 !important">
+              <td style="text-align: center; ">
                 <h6 style="font-size: 12px">
                   République de Côte d'Ivoire <br />
                   ------------------------- <br />
@@ -57,14 +56,14 @@
               </td>
             </tr>
           </table>
-          <table class="table table-bordered border-primary">
+          <table class="table table-bordered">
             <thead>
               <tr>
                 <th
-                  colspan="7"
+                  colspan="9"
                   style="text-align: center; border: 1px solid #000 !important"
                 >
-                  Composante : {{ afficheLibelleActivite(Activite_id) }}
+                  {{ afficheLibelleActivite(id_sousbudget) }}
                 </th>
               </tr>
               <br />
@@ -75,179 +74,79 @@
                     font-size: 14px;
                     border: 1px solid #000 !important;
                   "
-                  colspan="7"
+                  colspan="9"
                 >
-                  BUDGET INITIAL
+                  BUDGET ACTUEL
                 </th>
               </tr>
-           <template v-if="GroupeBailleur == 1">
-                <tr
-                  style="text-align: center; border: 1px solid #000 !important"
-                  v-for="item in GroupeBailleur"
-                  :key="item"
-                >
-                  <th
-                    style="
-                      text-align: center;
-                      border: 1px solid #000 !important;
-                    "
-                  >
-                    Nature économique
-                  </th>
-                  <th
-                    colspan=""
-                    style="
-                      text-align: center;
-                      border: 1px solid #000 !important;
-                    "
-                  >
-                    Report
-                  </th>
-                  <th
-                    colspan=""
-                    style="
-                      text-align: center;
-                      border: 1px solid #000 !important;
-                    "
-                  >
-                    Notifié
-                  </th>
-                  <th
-                    colspan=""
-                    style="
-                      text-align: center;
-                      border: 1px solid #000 !important;
-                    "
-                  >
-                    Dotation globale
-                  </th>
-                </tr>
-              </template>
-              <template v-else>
-                <tr
-                  style="text-align: center; border: 1px solid #000 !important"
-                >
-                  <th
-                    style="
-                      text-align: center;
-                      border: 1px solid #000 !important;
-                    "
-                  >
-                    Nature économique
-                  </th>
-                  <th
-                    colspan="2"
-                    style="
-                      text-align: center;
-                      border: 1px solid #000 !important;
-                    "
-                  >
-                    Report
-                  </th>
-                  <th
-                    colspan="2"
-                    style="
-                      text-align: center;
-                      border: 1px solid #000 !important;
-                    "
-                  >
-                    Notifié
-                  </th>
-                  <th
-                    colspan="2"
-                    style="
-                      text-align: center;
-                      border: 1px solid #000 !important;
-                    "
-                  >
-                    Dotation globale
-                  </th>
-                </tr>
-              </template>
-              <tr>
-                <!-- <th scope="col">#</th> -->
-                <!-- <th scope="col">N</th> -->
+
+              <tr style="text-align: center; border: 1px solid #000 !important">
                 <th
-                  scope="col"
                   style="text-align: center; border: 1px solid #000 !important"
-                ></th>
-                <th
-                  scope="col"
-                  style="text-align: center; border: 1px solid #000 !important"
-                  v-for="item in GroupeBailleur"
-                  :key="item"
-                  colspan=""
+                  colspan="3"
                 >
-                  {{ afficheSourceFinancement(item) }}
+                  Destination
                 </th>
-                <!-- <th
-              scope="col"
-              style="text-align: center"
-              v-for="item in GroupeBailleur"
-              :key="item"
-              colspan=""
-            >
-              Total
-            </th> -->
                 <th
-                  scope="col"
-                  style="text-align: center; border: 1px solid #000 !important"
-                  v-for="item in GroupeBailleur"
-                  :key="item"
                   colspan=""
+                  style="text-align: center; border: 1px solid #000 !important"
                 >
-                  {{ afficheSourceFinancement(item) }}
+                  Dotation Actuel
+                </th>
+                <th
+                  colspan=""
+                  style="text-align: center; border: 1px solid #000 !important"
+                >
+                  Modification
                 </th>
 
                 <th
-                  scope="col"
+                  colspan=""
                   style="text-align: center; border: 1px solid #000 !important"
-                ></th>
-                <!-- <th scope="col" style="text-align: center">Action</th> -->
+                >
+                 Budget Actuel
+                </th>
               </tr>
             </thead>
             <tbody>
+              <!-- <tr>
+                <td
+                  colspan="6"
+                  style="
+                    text-align: center;
+                    border: 1px solid #000 !important;
+                    background-color: #e1e6fa;
+                    font-size: 12px !important;
+                  "
+                >
+                  <span>COMPOSANTE : </span
+                  ><span
+                    style="
+                      text-transform: uppercase !important;
+                      text-align: justify !important;
+                    "
+                    >{{ libelleSousBudget(data) }}</span
+                  >
+                </td>
+              </tr> -->
+
+              <!-- POUR BIENS ET SERVICE -->
               <tr
-                v-for="item1 in GroupeNatureEconomiqueInvestissements"
+                style="border: 1px solid #000 !important; text-align: left"
+                v-for="item1 in boucle_code_ordre_bienservice(id_sousbudget)"
                 :key="item1"
               >
-                <td style="width: 50%; border: 1px solid #000 !important">
-                  {{ afficheNatureEconomique(item1) }}
+                <td colspan="3" style="border: 1px solid #000 !important">
+                  {{ item1.code }}
                 </td>
 
                 <td
-                  style="
-                    width: 30%;
-                    text-align: right;
-                    border: 1px solid #000 !important;
-                  "
-                  v-for="item in GroupeBailleur"
-                  :key="item"
+                  style="text-align: right; border: 1px solid #000 !important"
                 >
                   {{
                     formatageSommeSansFCFA(
                       parseFloat(
-                        MontantReportParLigneInvestissements(item1, item)
-                      )
-                    )
-                  }}
-                </td>
-                <!-- <td style="width: 60%" v-for="item in GroupeBailleur" :key="item">
-              {{ TotalReportParLigneInvestissements(item1) }}
-            </td> -->
-                <td
-                  style="
-                    width: 20%;
-                    text-align: right;
-                    border: 1px solid #000 !important;
-                  "
-                  v-for="item in GroupeBailleur"
-                  :key="item"
-                >
-                  {{
-                    formatageSommeSansFCFA(
-                      parseFloat(
-                        MontantNotifieParLigneInvestissements(item1, item)
+                        MontantInitialParLigneBiensService(item1.id_ligne, id_sousbudget)
                       )
                     )
                   }}
@@ -257,217 +156,8 @@
                 >
                   {{
                     formatageSommeSansFCFA(
-                      parseFloat(MontantParLigneInvestissements(item1))
-                    )
-                  }}
-                </td>
-                <!-- <td>
-              <span class="badge bg-dark" style="cursor: pointer">Budget</span>
-            </td> -->
-              </tr>
-              <tr>
-                <td
-                  style="
-                    background-color: powderblue;
-                    text-align: right;
-                    border: 1px solid #000 !important;
-                  "
-                >
-                  Sous Total {{ LibelleGrandeNatureInverssement }}
-                </td>
-                <td
-                  style="
-                    background-color: powderblue;
-                    text-align: right;
-                    border: 1px solid #000 !important;
-                  "
-                  v-for="item in GroupeBailleur"
-                  :key="item"
-                >
-                  {{
-                    formatageSommeSansFCFA(
-                      parseFloat(TotalReportBailleur(item))
-                    )
-                  }}
-                </td>
-                <td
-                  style="
-                    background-color: powderblue;
-                    text-align: right;
-                    border: 1px solid #000;
-                    border: 1px solid #000 !important;
-                  "
-                  v-for="item in GroupeBailleur"
-                  :key="item"
-                >
-                  {{
-                    formatageSommeSansFCFA(
-                      parseFloat(TotalNotifierBailleur(item))
-                    )
-                  }}
-                </td>
-                <td
-                  style="
-                    background-color: powderblue;
-                    text-align: right;
-                    border: 1px solid #000;
-                    border: 1px solid #000 !important;
-                  "
-                >
-                  {{
-                    formatageSommeSansFCFA(parseFloat(TotalDotationBailleur))
-                  }}
-                </td>
-              </tr>
-
-              <!-- 2 grande nature -->
-
-              <tr v-for="item1 in GroupeNatureEconomiquePersonnel" :key="item1">
-                <td style="width: 50%; border: 1px solid #000 !important">
-                  {{ afficheNatureEconomique(item1) }}
-                </td>
-
-                <td
-                  style="
-                    width: 30%;
-                    text-align: right;
-                    border: 1px solid #000 !important;
-                  "
-                  v-for="item in GroupeBailleur"
-                  :key="item"
-                >
-                  {{
-                    formatageSommeSansFCFA(
-                      parseFloat(MontantReportParLignePersonnel(item1, item))
-                    )
-                  }}
-                </td>
-                <!-- <td style="width: 60%" v-for="item in GroupeBailleur" :key="item">
-              {{ TotalReportParLigneInvestissements(item1) }}
-            </td> -->
-                <td
-                  style="
-                    width: 20%;
-                    text-align: right;
-                    border: 1px solid #000 !important;
-                  "
-                  v-for="item in GroupeBailleur"
-                  :key="item"
-                >
-                  {{
-                    formatageSommeSansFCFA(
-                      parseFloat(MontantNotifieParLignePersonnel(item1, item))
-                    )
-                  }}
-                </td>
-                <td
-                  style="text-align: right; border: 1px solid #000 !important"
-                >
-                  {{
-                    formatageSommeSansFCFA(
-                      parseFloat(MontantParLignePersonnel(item1))
-                    )
-                  }}
-                </td>
-                <!-- <td>
-              <span class="badge bg-dark" style="cursor: pointer">Budget</span>
-            </td> -->
-              </tr>
-              <tr>
-                <td
-                  style="
-                    background-color: powderblue;
-                    text-align: right;
-                    border: 1px solid #000;
-                    border: 1px solid #000 !important;
-                  "
-                >
-                  Sous Total {{ LibelleGrandeNaturepersonnel }}
-                </td>
-                <td
-                  style="
-                    background-color: powderblue;
-                    text-align: right;
-                    border: 1px solid #000 !important;
-                  "
-                  v-for="item in GroupeBailleur"
-                  :key="item"
-                >
-                  {{
-                    formatageSommeSansFCFA(
-                      parseFloat(TotalReportBailleurPersonnel(item))
-                    )
-                  }}
-                </td>
-                <td
-                  style="
-                    background-color: powderblue;
-                    text-align: right;
-                    border: 1px solid #000 !important;
-                  "
-                  v-for="item in GroupeBailleur"
-                  :key="item"
-                >
-                  {{
-                    formatageSommeSansFCFA(
-                      parseFloat(TotalNotifierBailleurPersonnel(item))
-                    )
-                  }}
-                </td>
-                <td
-                  style="
-                    background-color: powderblue;
-                    text-align: right;
-                    border: 1px solid #000 !important;
-                  "
-                >
-                  {{
-                    formatageSommeSansFCFA(
-                      parseFloat(TotalDotationBailleurPersonnel)
-                    )
-                  }}
-                </td>
-              </tr>
-              <!-- 3- bien service -->
-              <tr
-                v-for="item1 in GroupeNatureEconomiqueBiensService"
-                :key="item1"
-              >
-                <td style="width: 50%; border: 1px solid #000 !important">
-                  {{ afficheNatureEconomique(item1) }}
-                </td>
-
-                <td
-                  style="
-                    width: 30%;
-                    text-align: right;
-                    border: 1px solid #000 !important;
-                  "
-                  v-for="item in GroupeBailleur"
-                  :key="item"
-                >
-                  {{
-                    formatageSommeSansFCFA(
-                      parseFloat(MontantReportParLigneBiensService(item1, item))
-                    )
-                  }}
-                </td>
-                <!-- <td style="width: 60%" v-for="item in GroupeBailleur" :key="item">
-              {{ TotalReportParLigneInvestissements(item1) }}
-            </td> -->
-                <td
-                  style="
-                    width: 20%;
-                    text-align: right;
-                    border: 1px solid #000 !important;
-                  "
-                  v-for="item in GroupeBailleur"
-                  :key="item"
-                >
-                  {{
-                    formatageSommeSansFCFA(
                       parseFloat(
-                        MontantNotifieParLigneBiensService(item1, item)
+                        MontantVariationParLigneBiensService(item1.id_ligne, id_sousbudget)
                       )
                     )
                   }}
@@ -477,104 +167,89 @@
                 >
                   {{
                     formatageSommeSansFCFA(
-                      parseFloat(MontantParLigneBiensService(item1))
+                      parseFloat(
+                        parseFloat(
+                          MontantInitialParLigneBiensService(item1.id_ligne, id_sousbudget)
+                        ) +
+                          parseFloat(
+                            MontantVariationParLigneBiensService(item1.id_ligne, id_sousbudget)
+                          )
+                      )
                     )
                   }}
                 </td>
-                <!-- <td>
-              <span class="badge bg-dark" style="cursor: pointer">Budget</span>
-            </td> -->
               </tr>
               <tr>
                 <td
                   style="
-                    background-color: powderblue;
+                    background-color: #c4d7ed;
                     text-align: right;
-                    border: 1px solid #000;
+                    border: 1px solid #000 !important;
                   "
+                  colspan="3"
                 >
                   Sous Total {{ LibelleGrandeNatureBiensService }}
                 </td>
                 <td
                   style="
-                    background-color: powderblue;
+                    background-color: #c4d7ed;
                     text-align: right;
                     border: 1px solid #000 !important;
                   "
-                  v-for="item in GroupeBailleur"
-                  :key="item"
                 >
                   {{
                     formatageSommeSansFCFA(
-                      parseFloat(TotalReportBailleurBienService(item))
+                      parseFloat(MontantInitialTotaliensService(id_sousbudget))
                     )
                   }}
                 </td>
                 <td
                   style="
-                    background-color: powderblue;
+                    background-color: #c4d7ed;
                     text-align: right;
                     border: 1px solid #000 !important;
                   "
-                  v-for="item in GroupeBailleur"
-                  :key="item"
                 >
                   {{
                     formatageSommeSansFCFA(
-                      parseFloat(TotalNotifierBailleurBienService(item))
+                      parseFloat(MontantVariationTotalBiensService(id_sousbudget))
                     )
                   }}
                 </td>
                 <td
                   style="
-                    background-color: powderblue;
+                    background-color: #c4d7ed;
                     text-align: right;
                     border: 1px solid #000 !important;
                   "
                 >
                   {{
                     formatageSommeSansFCFA(
-                      parseFloat(TotalDotationBailleurBiensService)
+                      parseFloat(MontantInitialTotaliensService(id_sousbudget)) +
+                        parseFloat(MontantVariationTotalBiensService(id_sousbudget))
                     )
                   }}
                 </td>
               </tr>
-              <!-- transfert -->
-              <tr v-for="item1 in GroupeNatureEconomiqueTransfert" :key="item1">
-                <td style="width: 50%; border: 1px solid #000 !important">
-                  {{ afficheNatureEconomique(item1) }}
+
+              <tr
+                style="border: 1px solid #000 !important; text-align: center"
+                v-for="item1 in boucle_code_ordre_Personnel(id_sousbudget)"
+                :key="item1"
+              >
+                <td
+                  colspan="3"
+                  style="border: 1px solid #000 !important; text-align: left"
+                >
+                  {{ item1.code }}
                 </td>
 
                 <td
-                  style="
-                    width: 30%;
-                    text-align: right;
-                    border: 1px solid #000 !important;
-                  "
-                  v-for="item in GroupeBailleur"
-                  :key="item"
+                  style="text-align: right; border: 1px solid #000 !important"
                 >
                   {{
                     formatageSommeSansFCFA(
-                      parseFloat(MontantReportParLigneTransfert(item1, item))
-                    )
-                  }}
-                </td>
-                <!-- <td style="width: 60%" v-for="item in GroupeBailleur" :key="item">
-              {{ TotalReportParLigneInvestissements(item1) }}
-            </td> -->
-                <td
-                  style="
-                    width: 20%;
-                    text-align: right;
-                    border: 1px solid #000 !important;
-                  "
-                  v-for="item in GroupeBailleur"
-                  :key="item"
-                >
-                  {{
-                    formatageSommeSansFCFA(
-                      parseFloat(MontantNotifieParLigneTransfert(item1, item))
+                      parseFloat(MontantInitialParLignePersonnel(item1.id_ligne, id_sousbudget))
                     )
                   }}
                 </td>
@@ -583,118 +258,438 @@
                 >
                   {{
                     formatageSommeSansFCFA(
-                      parseFloat(MontantParLigneTransfert(item1))
+                      parseFloat(MontantVariationParLignePersonnel(item1.id_ligne, id_sousbudget))
                     )
                   }}
                 </td>
-                <!-- <td>
-              <span class="badge bg-dark" style="cursor: pointer">Budget</span>
-            </td> -->
+                <td
+                  style="text-align: right; border: 1px solid #000 !important"
+                >
+                  {{
+                    formatageSommeSansFCFA(
+                      parseFloat(MontantInitialParLignePersonnel(item1.id_ligne, id_sousbudget)) +
+                        parseFloat(
+                          MontantVariationParLignePersonnel(item1.id_ligne, id_sousbudget)
+                        )
+                    )
+                  }}
+                </td>
               </tr>
+
               <tr>
                 <td
                   style="
-                    background-color: powderblue;
+                    background-color: #c4d7ed;
                     text-align: right;
                     border: 1px solid #000 !important;
                   "
+                  colspan="3"
+                >
+                  Sous Total {{ LibelleGrandeNaturepersonnel }}
+                </td>
+                <td
+                  style="
+                    background-color: #c4d7ed;
+                    text-align: right;
+                    border: 1px solid #000 !important;
+                  "
+                >
+                  {{
+                    formatageSommeSansFCFA(
+                      parseFloat(MontantInitialTotalPersonnel(id_sousbudget))
+                    )
+                  }}
+                </td>
+                <td
+                  style="
+                    background-color: #c4d7ed;
+                    text-align: right;
+                    border: 1px solid #000 !important;
+                  "
+                >
+                  {{
+                    formatageSommeSansFCFA(
+                      parseFloat(MontantVariationTotalPersonnel(id_sousbudget))
+                    )
+                  }}
+                </td>
+                <td
+                  style="
+                    background-color: #c4d7ed;
+                    text-align: right;
+                    border: 1px solid #000 !important;
+                  "
+                >
+                  {{
+                    formatageSommeSansFCFA(
+                      parseFloat(MontantInitialTotalPersonnel(id_sousbudget)) +
+                        parseFloat(MontantVariationTotalPersonnel(id_sousbudget))
+                    )
+                  }}
+                </td>
+              </tr>
+
+              <tr
+                style="border: 1px solid #000 !important; text-align: center"
+                v-for="item1 in boucle_code_ordre_Transfert(id_sousbudget)"
+                :key="item1"
+              >
+                <td
+                  colspan="3"
+                  style="border: 1px solid #000 !important; text-align: left"
+                >
+                  {{ item1.code }}
+                </td>
+
+                <td
+                  style="text-align: right; border: 1px solid #000 !important"
+                >
+                  {{
+                    formatageSommeSansFCFA(
+                      parseFloat(MontantInitialParLigneTransfert(item1.id_ligne, id_sousbudget))
+                    )
+                  }}
+                </td>
+                <td
+                  style="text-align: right; border: 1px solid #000 !important"
+                >
+                  {{
+                    formatageSommeSansFCFA(
+                      parseFloat(MontantVariationParLigneTransfert(item1.id_ligne, id_sousbudget))
+                    )
+                  }}
+                </td>
+                <td
+                  style="text-align: right; border: 1px solid #000 !important"
+                >
+                  {{
+                    formatageSommeSansFCFA(
+                      parseFloat(MontantInitialParLigneTransfert(item1.id_ligne, id_sousbudget)) +
+                        parseFloat(
+                          MontantVariationParLigneTransfert(item1.id_ligne, id_sousbudget)
+                        )
+                    )
+                  }}
+                </td>
+              </tr>
+
+              <tr>
+                <td
+                  style="
+                    background-color: #c4d7ed;
+                    text-align: right;
+                    border: 1px solid #000 !important;
+                  "
+                  colspan="3"
                 >
                   Sous Total {{ LibelleGrandeNatureTransfert }}
                 </td>
                 <td
                   style="
-                    background-color: powderblue;
+                    background-color: #c4d7ed;
                     text-align: right;
                     border: 1px solid #000 !important;
                   "
-                  v-for="item in GroupeBailleur"
-                  :key="item"
                 >
                   {{
                     formatageSommeSansFCFA(
-                      parseFloat(TotalReportBailleurTransfert(item))
+                      parseFloat(MontantInitialTotalTransfert(id_sousbudget))
                     )
                   }}
                 </td>
                 <td
                   style="
-                    background-color: powderblue;
+                    background-color: #c4d7ed;
                     text-align: right;
                     border: 1px solid #000 !important;
                   "
-                  v-for="item in GroupeBailleur"
-                  :key="item"
                 >
                   {{
                     formatageSommeSansFCFA(
-                      parseFloat(TotalNotifierBailleurTransfert(item))
+                      parseFloat(MontantVariationTotalTransfert(id_sousbudget))
                     )
                   }}
                 </td>
                 <td
                   style="
-                    background-color: powderblue;
+                    background-color: #c4d7ed;
                     text-align: right;
                     border: 1px solid #000 !important;
                   "
                 >
                   {{
                     formatageSommeSansFCFA(
-                      parseFloat(TotalDotationBailleurTransfert)
+                      parseFloat(MontantInitialTotalTransfert(id_sousbudget)) +
+                        parseFloat(MontantVariationTotalTransfert(id_sousbudget))
                     )
                   }}
                 </td>
               </tr>
+
+              <tr
+                style="border: 1px solid #000 !important; text-align: center"
+                v-for="item1 in boucle_code_ordre_Investissements(id_sousbudget)"
+                :key="item1"
+              >
+                <td
+                  colspan="3"
+                  style="border: 1px solid #000 !important; text-align: left"
+                >
+                  {{ item1.code }}
+                </td>
+
+                <td
+                  style="text-align: right; border: 1px solid #000 !important"
+                >
+                  {{
+                    formatageSommeSansFCFA(
+                      parseFloat(
+                        MontantInitialParLigneInvestissement(item1.id_ligne, id_sousbudget)
+                      )
+                    )
+                  }}
+                </td>
+                <td
+                  style="text-align: right; border: 1px solid #000 !important"
+                >
+                  {{
+                    formatageSommeSansFCFA(
+                      parseFloat(
+                        MontantVariationParLigneInvestissement(item1.id_ligne, id_sousbudget)
+                      )
+                    )
+                  }}
+                </td>
+                <td
+                  style="text-align: right; border: 1px solid #000 !important"
+                >
+                  {{
+                    formatageSommeSansFCFA(
+                      parseFloat(
+                        MontantInitialParLigneInvestissement(item1.id_ligne, id_sousbudget)
+                      ) +
+                        parseFloat(
+                          MontantVariationParLigneInvestissement(item1.id_ligne, id_sousbudget)
+                        )
+                    )
+                  }}
+                </td>
+              </tr>
+
               <tr>
                 <td
                   style="
-                    background-color: #006d80;
-                    color: aliceblue;
-                    border: 1px solid #000 !important;
-                  "
-                >
-                  TOTAL GLOBAL
-                </td>
-                <td
-                  v-for="item in GroupeBailleur"
-                  :key="item"
-                  style="
-                    background-color: #006d80;
+                    background-color: #c4d7ed;
                     text-align: right;
                     border: 1px solid #000 !important;
-                    color: aliceblue;
+                  "
+                  colspan="3"
+                >
+                  Sous Total {{ LibelleGrandeNatureInverssement }}
+                </td>
+                <td
+                  style="
+                    background-color: #c4d7ed;
+                    text-align: right;
+                    border: 1px solid #000 !important;
                   "
                 >
                   {{
-                    formatageSommeSansFCFA(parseFloat(totalGlobalReport(item)))
-                  }}
-                </td>
-                <td
-                  v-for="item in GroupeBailleur"
-                  :key="item"
-                  style="
-                    background-color: #006d80;
-                    text-align: right;
-                    border: 1px solid #000 !important;
-                    color: aliceblue;
-                  "
-                >
-                  {{
-                    formatageSommeSansFCFA(parseFloat(totalGlobalNotifie(item)))
+                    formatageSommeSansFCFA(
+                      parseFloat(MontantInitialTotalInvestissement(id_sousbudget))
+                    )
                   }}
                 </td>
                 <td
                   style="
-                    background-color: #006d80;
+                    background-color: #c4d7ed;
                     text-align: right;
                     border: 1px solid #000 !important;
-                    color: aliceblue;
                   "
                 >
-                  {{ formatageSommeSansFCFA(parseFloat(totalGlobal)) }}
+                  {{
+                    formatageSommeSansFCFA(
+                      parseFloat(MontantVariationTotalInvestissement(id_sousbudget))
+                    )
+                  }}
+                </td>
+                <td
+                  style="
+                    background-color: #c4d7ed;
+                    text-align: right;
+                    border: 1px solid #000 !important;
+                  "
+                >
+                  {{
+                    formatageSommeSansFCFA(
+                      parseFloat(MontantInitialTotalInvestissement(id_sousbudget)) +
+                        parseFloat(MontantVariationTotalInvestissement(id_sousbudget))
+                    )
+                  }}
                 </td>
               </tr>
+
+              <tr>
+                <td
+                  colspan="3"
+                  style="
+                    border: 1px solid #000 !important;
+                    font-size: 12px !important;
+                    font-size: 12px !important;
+                    background-color: #abc8e2 !important;
+                    color: #000;
+                  "
+                >
+                  <span>TOTAL DU COMPOSANTE : </span>
+                  <span
+                    style="
+                      text-transform: uppercase !important;
+                      text-align: justify !important;
+                      background-color: #abc8e2 !important;
+                      color: #000;
+                    "
+                    >{{ libelleSousBudget(id_sousbudget) }}</span
+                  >
+                </td>
+                <td
+                  style="
+                    text-align: right;
+                    border: 1px solid #000 !important;
+                    background-color: #abc8e2 !important;
+                    color: #000;
+                  "
+                >
+                  {{
+                    formatageSommeSansFCFA(
+                      parseFloat(MontantInitialTotalInvestissement(id_sousbudget)) +
+                        parseFloat(MontantInitialTotalTransfert(id_sousbudget)) +
+                        parseFloat(MontantInitialTotalPersonnel(id_sousbudget)) +
+                        parseFloat(MontantInitialTotaliensService(id_sousbudget))
+                    )
+                  }}
+                </td>
+                <td
+                  style="
+                    text-align: right;
+                    border: 1px solid #000 !important;
+                    background-color: #abc8e2 !important;
+                    color: #000;
+                  "
+                >
+                  {{
+                    formatageSommeSansFCFA(
+                      parseFloat(MontantVariationTotalBiensService(id_sousbudget)) +
+                        parseFloat(MontantVariationTotalPersonnel(id_sousbudget)) +
+                        parseFloat(MontantVariationTotalTransfert(id_sousbudget)) +
+                        parseFloat(MontantVariationTotalInvestissement(id_sousbudget))
+                    )
+                  }}
+                </td>
+                <td
+                  style="
+                    text-align: right;
+                    border: 1px solid #000 !important;
+                    background-color: #abc8e2 !important;
+                    color: #000;
+                  "
+                >
+                  {{
+                    formatageSommeSansFCFA(
+                      parseFloat(
+                        parseFloat(MontantInitialTotalInvestissement(id_sousbudget)) +
+                          parseFloat(MontantInitialTotalTransfert(id_sousbudget)) +
+                          parseFloat(MontantInitialTotalPersonnel(id_sousbudget)) +
+                          parseFloat(MontantInitialTotaliensService(id_sousbudget)) +
+                          parseFloat(
+                            parseFloat(
+                              MontantVariationTotalBiensService(id_sousbudget)
+                            ) +
+                              parseFloat(MontantVariationTotalPersonnel(id_sousbudget)) +
+                              parseFloat(MontantVariationTotalTransfert(id_sousbudget)) +
+                              parseFloat(
+                                MontantVariationTotalInvestissement(id_sousbudget)
+                              )
+                          )
+                      )
+                    )
+                  }}
+                </td>
+              </tr>
+              <br />
             </tbody>
+            <tr>
+              <td
+                colspan="3"
+                style="
+                  text-align: right;
+                  border: 1px solid #000 !important;
+                  background-color: #375d81 !important;
+                  color: #fff;
+                "
+              >
+                BUDGET GLOBAL DU PROJET
+              </td>
+              <td
+                style="
+                  text-align: right;
+                  border: 1px solid #000 !important;
+                  background-color: #375d81 !important;
+                  color: #fff;
+                "
+              >
+                {{ formatageSommeSansFCFA(parseFloat(TotalglobalInitial1)) }}
+              </td>
+              <td
+                style="
+                  text-align: right;
+                  border: 1px solid #000 !important;
+                  background-color: #375d81 !important;
+                  color: #fff;
+                "
+              >
+                {{ formatageSommeSansFCFA(parseFloat(MontantVariationGlobal)) }}
+              </td>
+              <td
+                style="
+                  text-align: right;
+                  border: 1px solid #000 !important;
+                  background-color: #375d81 !important;
+                  color: #fff;
+                "
+              >
+                {{
+                  formatageSommeSansFCFA(
+                    parseFloat(
+                      parseFloat(TotalglobalInitial1) +
+                        parseFloat(MontantVariationGlobal)
+                    )
+                  )
+                }}
+              </td>
+            </tr>
+          </table>
+          <table id="customers" style="text-align: center">
+            <tr>
+              <td
+                style="text-align: center; width: 40%; font-weight: bold"
+              ></td>
+              <td
+                style="text-align: center; width: 40%; font-weight: bold"
+              ></td>
+              <td style="text-align: center; width: 100%; font-weight: bold">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                MINISTRE
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </td>
+            </tr>
+            <tr>
+              <td style="text-align: left; width: 40%"></td>
+              <td style="text-align: left; width: 40%"><br /><br /><br /></td>
+
+              <td style="text-align: center; width: 40%">
+                <br /><br /><br /><br />
+              </td>
+            </tr>
           </table>
         </div>
       </div>
@@ -704,7 +699,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import moment from "moment";
+// import moment from "moment";
 import {
   formatageSomme,
   formatageSommeSansFCFA,
@@ -714,11 +709,11 @@ export default {
   data() {
     return {
       ajouterNatureDepense: {
-        activite_id: "",
+        id_sousbudget: "",
         dotation: "",
       },
       modNatureDepense: {
-        activite_id: "",
+        id_sousbudget: "",
         dotation: "",
       },
 
@@ -740,15 +735,20 @@ export default {
     };
   },
   created() {
-    this.Activite_id = this.$route.params.id;
-    this.Activite_id1 = this.$route.params.id1;
-     this.dossier_id= this.$route.params.id2;
+    this.id_sousbudget = this.$route.params.id;
+    this.dossier_id = this.$route.params.id2;
+    //  this.id_sousbudget = this.$route.params.id;
+    // let objet = {
+    //   id: this.id_sousbudget,
+    // };
+    // this.getBudgetViseParActvite(objet);
     this.getSousBudget();
     this.getBudgetEclate();
     this.getBailleur();
     this.getNatureDepense();
     this.getNatureEconomique();
     this.getActivite();
+    this.getBudgetModifierEnProjet();
     //   this.getExerciceBudgetaire();
     //  // this.getGroupeActivitebudgetNotifie()
     //   this.getDotationNotifie();
@@ -759,17 +759,38 @@ export default {
       "getterBailleur",
       "getterNatureEconomique",
       "getterSousBudget",
-      "getterListeBudgetEclate",
+      "gettersBudgetModifierEnProjet",
       "getterExerciceBudgetaire",
       "getterDotationNotifie",
 
       "getterNatureDepense",
     ]),
+
+
+     TotalglobalInitial1() {
+     
+        return this.gettersBudgetModifierEnProjet
+          .filter(
+            (item) =>
+              (
+                
+                item.modifier_id == this.dossier_id && item.sous_budget_id==this.id_sousbudget)  ||
+              (
+                
+                item.dossier_id != this.dossier_id && item.sous_budget_id==this.id_sousbudget) 
+          )
+          .reduce(
+            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
+            0
+          )
+          .toFixed(0);
+      
+    },
     TotalDotationBailleur() {
-      return this.getterListeBudgetEclate
+      return this.gettersBudgetModifierEnProjet
         .filter(
           (item) =>
-            item.activite_id == this.Activite_id &&
+            
             this.afficheCodeNatureDepense(item.nature_depense_id) == 4
         )
         .reduce(
@@ -789,6 +810,7 @@ export default {
 
       return "";
     },
+    
     afficheNatureEconomique() {
       return (id) => {
         if (id != null && id != "") {
@@ -807,9 +829,7 @@ export default {
     afficheLibelleActivite() {
       return (id) => {
         if (id != null && id != "") {
-          const qtereel = this.getterSousBudget.find(
-            (qtreel) => qtreel.id == id
-          );
+          const qtereel = this.getterSousBudget.find((qtreel) => qtreel.id == id);
 
           if (qtereel) {
             return qtereel.libelle;
@@ -844,60 +864,58 @@ export default {
         }
       };
     },
+
     GroupeNatureEconomiqueInvestissements() {
-      // return (id) => {
+      return (id) => {
+        let objet = this.gettersBudgetModifierEnProjet.filter(
+          (item) =>
+            this.afficheCodeNatureDepense(item.nature_depense_id) == 4 &&
+            item.sous_budget_id == id
+        );
+        //  let vm=this
+        let array_exercie = [];
+        if (objet.length > 0) {
+          objet.forEach(function (val) {
+            array_exercie.push(val.ligneeconomique_id);
+          });
+          let unique = [...new Set(array_exercie)];
 
-      let objet = this.getterListeBudgetEclate.filter(
-        (item) =>
-          this.afficheCodeNatureDepense(item.nature_depense_id) == 4 &&
-          item.sous_budget_id == this.Activite_id
-      );
-      //  let vm=this
-      let array_exercie = [];
-      if (objet.length > 0) {
-        objet.forEach(function (val) {
-          array_exercie.push(val.ligneeconomique_id);
-        });
-        let unique = [...new Set(array_exercie)];
-        console.log(unique);
-        if (unique.length == 0) {
-          return [];
+          if (unique.length == 0) {
+            return [];
+          }
+          return unique.sort((a, b) => (a.unique > b.unique ? 1 : -1));
         }
-        return unique.sort((a, b) => (a.unique > b.unique ? 1 : -1));
-      }
-      return [];
-      // };
+        return [];
+      };
     },
-    GroupeNatureEconomiquePersonnel() {
-      // return (id) => {
 
-      let objet = this.getterListeBudgetEclate.filter(
-        (item) =>
-          this.afficheCodeNatureDepense(item.nature_depense_id) == 1 &&
-          item.sous_budget_id == this.Activite_id
-      );
-      //  let vm=this
-      let array_exercie = [];
-      if (objet.length > 0) {
-        objet.forEach(function (val) {
-          array_exercie.push(val.ligneeconomique_id);
-        });
-        let unique = [...new Set(array_exercie)];
-        console.log(unique);
-        if (unique.length == 0) {
-          return [];
+    GroupeNatureEconomiquePersonnel() {
+      return (id) => {
+        let objet = this.gettersBudgetModifierEnProjet.filter(
+          (item) =>
+            this.afficheCodeNatureDepense(item.nature_depense_id) == 1 &&
+            item.sous_budget_id == id
+        );
+        //  let vm=this
+        let array_exercie = [];
+        if (objet.length > 0) {
+          objet.forEach(function (val) {
+            array_exercie.push(val.ligneeconomique_id);
+          });
+          let unique = [...new Set(array_exercie)];
+
+          if (unique.length == 0) {
+            return [];
+          }
+          return unique.sort((a, b) => (a.unique > b.unique ? 1 : -1));
         }
-        return unique.sort((a, b) => (a.unique > b.unique ? 1 : -1));
-      }
-      return [];
-      // };
+        return [];
+      };
     },
     GroupeBailleur() {
       // return (id) => {
 
-      let objet = this.getterListeBudgetEclate.filter(
-        (item) => item.activite_id == this.Activite_id1
-      );
+      let objet = this.gettersBudgetModifierEnProjet;
       //  let vm=this
       let array_exercie = [];
       if (objet.length > 0) {
@@ -905,7 +923,7 @@ export default {
           array_exercie.push(val.source_financement_id);
         });
         let unique = [...new Set(array_exercie)];
-        console.log(unique);
+
         if (unique.length == 0) {
           return [];
         }
@@ -914,9 +932,43 @@ export default {
       return [];
       // };
     },
+    GroupeSousBudget() {
+      // return (id) => {
+
+      let objet = this.gettersBudgetModifierEnProjet;
+      //  let vm=this
+      let array_exercie = [];
+      if (objet.length > 0) {
+        objet.forEach(function (val) {
+          array_exercie.push(val.sous_budget_id);
+        });
+        let unique = [...new Set(array_exercie)];
+
+        if (unique.length == 0) {
+          return [];
+        }
+        return unique.sort((a, b) => (a.unique > b.unique ? 1 : -1));
+      }
+      return [];
+      // };
+    },
+    libelleSousBudget() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.getterSousBudget.find(
+            (qtreel) => qtreel.id == id
+          );
+
+          if (qtereel) {
+            return qtereel.libelle;
+          }
+          return 0;
+        }
+      };
+    },
     afficheSousBudgetParActivite() {
       return this.getterSousBudget.filter(
-        (item) => item.activite_id == this.Activite_id
+        (item) => item.id_sousbudget == this.id_sousbudget
       );
     },
     exerciceBudgetaire() {
@@ -936,10 +988,10 @@ export default {
 
     // 2-presonnel
     TotalDotationBailleurPersonnel() {
-      return this.getterListeBudgetEclate
+      return this.gettersBudgetModifierEnProjet
         .filter(
           (item) =>
-            item.sous_budget_id == this.Activite_id &&
+            
             this.afficheCodeNatureDepense(item.nature_depense_id) == 1
         )
         .reduce(
@@ -962,19 +1014,6 @@ export default {
 
     // 3 biens service
 
-    TotalDotationBailleurBiensService() {
-      return this.getterListeBudgetEclate
-        .filter(
-          (item) =>
-            item.sous_budget_id == this.Activite_id &&
-            this.afficheCodeNatureDepense(item.nature_depense_id) == 2
-        )
-        .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
-          0
-        )
-        .toFixed(0);
-    },
     LibelleGrandeNatureBiensService() {
       const qtereel = this.getterNatureDepense.find(
         (qtreel) => qtreel.code == 2
@@ -986,37 +1025,37 @@ export default {
 
       return "";
     },
+    
     GroupeNatureEconomiqueBiensService() {
-      // return (id) => {
+      return (id) => {
+        let objet = this.gettersBudgetModifierEnProjet.filter(
+          (item) =>
+            this.afficheCodeNatureDepense(item.nature_depense_id) == 2 &&
+            item.sous_budget_id == id
+        );
+        //  let vm=this
+        let array_exercie = [];
+        if (objet.length > 0) {
+          objet.forEach(function (val) {
+            array_exercie.push(val.ligneeconomique_id);
+          });
+          let unique = [...new Set(array_exercie)];
 
-      let objet = this.getterListeBudgetEclate.filter(
-        (item) =>
-          this.afficheCodeNatureDepense(item.nature_depense_id) == 2 &&
-          item.sous_budget_id == this.Activite_id
-      );
-      //  let vm=this
-      let array_exercie = [];
-      if (objet.length > 0) {
-        objet.forEach(function (val) {
-          array_exercie.push(val.ligneeconomique_id);
-        });
-        let unique = [...new Set(array_exercie)];
-        console.log(unique);
-        if (unique.length == 0) {
-          return [];
+          if (unique.length == 0) {
+            return [];
+          }
+          return unique.sort((a, b) => (a.unique > b.unique ? 1 : -1));
         }
-        return unique.sort((a, b) => (a.unique > b.unique ? 1 : -1));
-      }
-      return [];
-      // };
+        return [];
+      };
     },
 
     // transfert
     TotalDotationBailleurTransfert() {
-      return this.getterListeBudgetEclate
+      return this.gettersBudgetModifierEnProjet
         .filter(
           (item) =>
-            item.sous_budget_id == this.Activite_id &&
+            
             this.afficheCodeNatureDepense(item.nature_depense_id) == 3
         )
         .reduce(
@@ -1025,6 +1064,7 @@ export default {
         )
         .toFixed(0);
     },
+
     LibelleGrandeNatureTransfert() {
       const qtereel = this.getterNatureDepense.find(
         (qtreel) => qtreel.code == 3
@@ -1036,43 +1076,153 @@ export default {
 
       return "";
     },
+    TotalDotation($id2) {
+      if (this.MontantAnterieur($id2) == 0) {
+        return this.gettersBudgetModifierEnProjet
+          .filter(
+            (item) =>
+              
+              this.afficheCodeNatureDepense(item.nature_depense_id) == 4 &&
+              item.sous_budget_id == $id2
+          )
+          .reduce(
+            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
+            0
+          )
+          .toFixed(0);
+      } else {
+        return this.gettersBudgetModifierEnProjet
+          .filter(
+            (item) =>
+              
+              this.afficheCodeNatureDepense(item.nature_depense_id) == 4 &&
+              item.sous_budget_id == $id2
+          )
+          .reduce(
+            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
+            0
+          )
+          .toFixed(0);
+      }
+    },
+    MontantVariationGlobal() {
+      return this.gettersBudgetModifierEnProjet
+        .filter((item) => item.sous_budget_id == this.id_sousbudget)
+        .reduce(
+          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_variation),
+          0
+        )
+        .toFixed(0);
+    },
+    TotalModificationGlobal() {
+      if (this.afficheIdDossierTotalGlobal == 1) {
+        return this.gettersBudgetModifierEnProjet
+          .filter(
+            (item) =>
+              
+              this.afficheCodeNatureDepense(item.nature_depense_id) == 1
+          )
+          .reduce(
+            (prec, cur) =>
+              parseFloat(prec) + parseFloat(cur.dotation_variation),
+            0
+          )
+          .toFixed(0);
+      } else {
+        return this.gettersBudgetModifierEnProjet
+          .filter(
+            (item) =>
+              
+              this.afficheCodeNatureDepense(item.nature_depense_id) == 1
+          )
+          .reduce(
+            (prec, cur) =>
+              parseFloat(prec) + parseFloat(cur.dotation_variation),
+            0
+          )
+          .toFixed(0);
+      }
+    },
     totalGlobal() {
-      return this.getterListeBudgetEclate
-        .filter((item) => item.sous_budget_id == this.Activite_id)
+      return this.gettersBudgetModifierEnProjet
+        .filter((item) => item.id_sousbudget == this.id_sousbudget)
         .reduce(
           (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
           0
         )
         .toFixed(0);
     },
-    GroupeNatureEconomiqueTransfert() {
-      // return (id) => {
-
-      let objet = this.getterListeBudgetEclate.filter(
-        (item) =>
-          this.afficheCodeNatureDepense(item.nature_depense_id) == 3 &&
-          item.sous_budget_id == this.Activite_id
+    afficheIdDossierTotalGlobal() {
+      const qtereel = this.gettersBudgetModifierEnProjet.find(
+        (qtreel) => qtreel.id_sousbudget == this.id_sousbudget
       );
-      //  let vm=this
-      let array_exercie = [];
-      if (objet.length > 0) {
-        objet.forEach(function (val) {
-          array_exercie.push(val.ligneeconomique_id);
-        });
-        let unique = [...new Set(array_exercie)];
-        console.log(unique);
-        if (unique.length == 0) {
-          return [];
-        }
-        return unique.sort((a, b) => (a.unique > b.unique ? 1 : -1));
+
+      if (qtereel) {
+        return 1;
       }
-      return [];
-      // };
+
+      return 0;
+    },
+    MontantAnterieurGlobal() {
+      const qtereel = this.gettersBudgetModifierEnProjet.find(
+        (qtreel) => qtreel.id_sousbudget == this.id_sousbudget
+      );
+
+      if (qtereel) {
+        return qtereel.dotation_actuelle_anterieur;
+      }
+
+      return 0;
+    },
+    TotalDotationGlobal() {
+      if (this.MontantAnterieurGlobal == 0) {
+        return this.gettersBudgetModifierEnProjet
+          .filter((item) => item.id_sousbudget == this.id_sousbudget)
+          .reduce(
+            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
+            0
+          )
+          .toFixed(0);
+      } else {
+        return this.gettersBudgetModifierEnProjet
+          .filter((item) => item.id_sousbudget == this.id_sousbudget)
+          .reduce(
+            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
+            0
+          )
+          .toFixed(0);
+      }
+    },
+    
+    GroupeNatureEconomiqueTransfert() {
+      return (id) => {
+        let objet = this.gettersBudgetModifierEnProjet.filter(
+          (item) =>
+            this.afficheCodeNatureDepense(item.nature_depense_id) == 3 &&
+            item.sous_budget_id == id
+        );
+        //  let vm=this
+        let array_exercie = [];
+        if (objet.length > 0) {
+          objet.forEach(function (val) {
+            array_exercie.push(val.ligneeconomique_id);
+          });
+          let unique = [...new Set(array_exercie)];
+
+          if (unique.length == 0) {
+            return [];
+          }
+          return unique.sort((a, b) => (a.unique > b.unique ? 1 : -1));
+        }
+        return [];
+      };
     },
   },
   methods: {
     ...mapActions("parametrage", [
       "getSousBudget",
+      "getBudgetViseParActvite",
+      "getBudgetModifierEnProjet",
       "getBailleur",
       "getNatureEconomique",
       "getActivite",
@@ -1085,238 +1235,742 @@ export default {
       "getGroupeActivitebudgetNotifie",
       "getBudgetEclate",
     ]),
-    retour(id,id1) {
-      this.$router.push({
-        name: "AfficheSousBudgetEclate",
-        params: { id: id,id1: id1 },
+    boucle_code_ordre_Investissements(id) {
+      let collect = [];
+      this.GroupeNatureEconomiqueInvestissements(id).filter((item) => {
+        collect.push({
+          id_ligne: item,
+          code: this.afficheNatureEconomique(item),
+        });
       });
+
+      return collect.sort((a, b) => (a.code > b.code ? 1 : -1));
+    },
+    boucle_code_ordre_Transfert(id) {
+      let collect = [];
+      this.GroupeNatureEconomiqueTransfert(id).filter((item) => {
+        collect.push({
+          id_ligne: item,
+          code: this.afficheNatureEconomique(item),
+        });
+      });
+
+      return collect.sort((a, b) => (a.code > b.code ? 1 : -1));
+    },
+     boucle_code_ordre_bienservice(id) {
+      let collect = [];
+      this.GroupeNatureEconomiqueBiensService(id).filter((item) => {
+        collect.push({
+          id_ligne: item,
+          code: this.afficheNatureEconomique(item),
+        });
+      });
+
+      return collect.sort((a, b) => (a.code > b.code ? 1 : -1));
+    },
+    boucle_code_ordre_Personnel(id) {
+      let collect = [];
+      this.GroupeNatureEconomiquePersonnel(id).filter((item) => {
+        collect.push({
+          id_ligne: item,
+          code: this.afficheNatureEconomique(item),
+        });
+      });
+
+      return collect.sort((a, b) => (a.code > b.code ? 1 : -1));
+    },
+    pagePrecedent() {
+      window.history.back();
+    },
+    MontantActuelleParLigneInvestissement($id, $id2) {
+      if (this.afficheIdDossier($id, $id2) == 1) {
+        return this.gettersBudgetModifierEnProjet
+          .filter(
+            (item) =>
+              
+              item.ligneeconomique_id == $id &&
+              this.afficheCodeNatureDepense(item.nature_depense_id) == 4 &&
+              item.sous_budget_id == $id2
+          )
+          .reduce(
+            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
+            0
+          )
+          .toFixed(0);
+      } else {
+        return this.gettersBudgetModifierEnProjet
+          .filter(
+            (item) =>
+              
+              item.ligneeconomique_id == $id &&
+              this.afficheCodeNatureDepense(item.nature_depense_id) == 4 &&
+              item.sous_budget_id == $id2
+          )
+          .reduce(
+            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
+            0
+          )
+          .toFixed(0);
+      }
+    },
+
+    TotalDotationPersonnel($id2) {
+      if (this.MontantAnterieur($id2) == 0) {
+        return this.gettersBudgetModifierEnProjet
+          .filter(
+            (item) =>
+              
+              this.afficheCodeNatureDepense(item.nature_depense_id) == 1 &&
+              item.sous_budget_id == $id2
+          )
+          .reduce(
+            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
+            0
+          )
+          .toFixed(0);
+      } else {
+        return this.gettersBudgetModifierEnProjet
+          .filter(
+            (item) =>
+              
+              this.afficheCodeNatureDepense(item.nature_depense_id) == 1 &&
+              item.sous_budget_id == $id2
+          )
+          .reduce(
+            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
+            0
+          )
+          .toFixed(0);
+      }
+    },
+    TotalDotationBailleurBiensService($id2) {
+      if (this.afficheIdDossierTotal($id2) == 1) {
+        return this.gettersBudgetModifierEnProjet
+          .filter(
+            (item) =>
+              
+              this.afficheCodeNatureDepense(item.nature_depense_id) == 2 &&
+              item.sous_budget_id == $id2
+          )
+          .reduce(
+            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
+            0
+          )
+          .toFixed(0);
+      } else {
+        return this.gettersBudgetModifierEnProjet
+          .filter(
+            (item) =>
+              
+              this.afficheCodeNatureDepense(item.nature_depense_id) == 2 &&
+              item.sous_budget_id == $id2
+          )
+          .reduce(
+            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
+            0
+          )
+          .toFixed(0);
+      }
     },
     genererEnPdf4() {
       this.$htmlToPaper("printMe45");
     },
 
-    totalGlobalReport($id1) {
-      return this.getterListeBudgetEclate
+    // 2 personnel
+
+    // POUR PERSONNEL
+
+    TotalModificationPersonnel($id2) {
+      if (this.afficheIdDossierTotal($id2) == 1) {
+        return this.gettersBudgetModifierEnProjet
+          .filter(
+            (item) =>
+              
+              this.afficheCodeNatureDepense(item.nature_depense_id) == 1 &&
+              item.sous_budget_id == $id2
+          )
+          .reduce(
+            (prec, cur) =>
+              parseFloat(prec) + parseFloat(cur.dotation_variation),
+            0
+          )
+          .toFixed(0);
+      } else {
+        return this.gettersBudgetModifierEnProjet
+          .filter(
+            (item) =>
+              
+              this.afficheCodeNatureDepense(item.nature_depense_id) == 1 &&
+              item.sous_budget_id == $id2
+          )
+          .reduce(
+            (prec, cur) =>
+              parseFloat(prec) + parseFloat(cur.dotation_variation),
+            0
+          )
+          .toFixed(0);
+      }
+    },
+
+    afficheIdDossierTotal($id2) {
+      const qtereel = this.gettersBudgetModifierEnProjet.find(
+        (qtreel) =>
+          qtreel.id_sousbudget == this.id_sousbudget &&
+          qtreel.sous_budget_id == $id2
+      );
+
+      if (qtereel) {
+        return 1;
+      }
+
+      return 0;
+    },
+
+    MontantAnterieurTotal($id2) {
+      const qtereel = this.gettersBudgetModifierEnProjet.find(
+        (qtreel) =>
+          qtreel.id_sousbudget == this.id_sousbudget &&
+          qtreel.sous_budget_id == $id2
+      );
+
+      if (qtereel) {
+        return qtereel.dotation_actuelle_anterieur;
+      }
+
+      return 0;
+    },
+    TotalInitialPersonnel2($id2) {
+      return this.gettersBudgetModifierEnProjet
         .filter(
           (item) =>
-            item.sous_budget_id == this.Activite_id &&
-            item.source_financement_id == $id1
+            
+            this.afficheCodeNatureDepense(item.nature_depense_id) == 1 &&
+            item.sous_budget_id == $id2 &&
+            item.dotation_actuelle_anterieur == 0
         )
         .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_report),
+          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
           0
         )
         .toFixed(0);
     },
-    totalGlobalNotifie($id1) {
-      return this.getterListeBudgetEclate
+    TotalInitialPersonnel1($id2) {
+      return this.gettersBudgetModifierEnProjet
         .filter(
           (item) =>
-            item.sous_budget_id == this.Activite_id &&
-            item.source_financement_id == $id1
+            
+            this.afficheCodeNatureDepense(item.nature_depense_id) == 1 &&
+            item.sous_budget_id == $id2
         )
         .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_actuelle),
+          (prec, cur) =>
+            parseFloat(prec) + parseFloat(cur.dotation_actuelle_anterieur),
+          0
+        )
+        .toFixed(0);
+    },
+    // TotalInitialPersonnel($id2) {
+    //   if (this.MontantAnterieur($id2) == 0) {
+    //     return this.gettersBudgetModifierEnProjet
+    //       .filter(
+    //         (item) =>
+    //           
+    //           this.afficheCodeNatureDepense(item.nature_depense_id) == 1 &&
+    //           item.sous_budget_id == $id2
+    //       )
+    //       .reduce(
+    //         (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
+    //         0
+    //       )
+    //       .toFixed(0);
+    //   } else {
+    //     return this.gettersBudgetModifierEnProjet
+    //       .filter(
+    //         (item) =>
+    //           
+    //           this.afficheCodeNatureDepense(item.nature_depense_id) == 1 &&
+    //           item.sous_budget_id == $id2
+    //       )
+    //       .reduce(
+    //         (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
+    //         0
+    //       )
+    //       .toFixed(0);
+    //   }
+    // },
+    MontantAnterieur($id, $id2) {
+      const qtereel = this.gettersBudgetModifierEnProjet.find(
+        (qtreel) =>
+          qtreel.id_sousbudget == this.id_sousbudget &&
+          qtreel.ligneeconomique_id == $id &&
+          qtreel.sous_budget_id == $id2
+      );
+
+      if (qtereel) {
+        return qtereel.dotation_actuelle_anterieur;
+      }
+
+      return 0;
+    },
+    TotalInitialInvestissement2($id2) {
+      return this.gettersBudgetModifierEnProjet
+        .filter(
+          (item) =>
+            
+            this.afficheCodeNatureDepense(item.nature_depense_id) == 4 &&
+            item.sous_budget_id == $id2 &&
+            item.dotation_actuelle_anterieur == 0
+        )
+        .reduce(
+          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
+          0
+        )
+        .toFixed(0);
+    },
+    TotalInitialTransfert2($id2) {
+      return this.gettersBudgetModifierEnProjet
+        .filter(
+          (item) =>
+            
+            this.afficheCodeNatureDepense(item.nature_depense_id) == 3 &&
+            item.sous_budget_id == $id2 &&
+            item.dotation_actuelle_anterieur == 0
+        )
+        .reduce(
+          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
+          0
+        )
+        .toFixed(0);
+    },
+    TotalDotationTransfert($id2) {
+      if (this.MontantAnterieur($id2) == 0) {
+        return this.gettersBudgetModifierEnProjet
+          .filter(
+            (item) =>
+              
+              this.afficheCodeNatureDepense(item.nature_depense_id) == 3 &&
+              item.sous_budget_id == $id2
+          )
+          .reduce(
+            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
+            0
+          )
+          .toFixed(0);
+      } else {
+        return this.gettersBudgetModifierEnProjet
+          .filter(
+            (item) =>
+              
+              this.afficheCodeNatureDepense(item.nature_depense_id) == 3 &&
+              item.sous_budget_id == $id2
+          )
+          .reduce(
+            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
+            0
+          )
+          .toFixed(0);
+      }
+    },
+    TotalDotationInvestissement($id2) {
+      if (this.MontantAnterieur($id2) == 0) {
+        return this.gettersBudgetModifierEnProjet
+          .filter(
+            (item) =>
+              
+              this.afficheCodeNatureDepense(item.nature_depense_id) == 4 &&
+              item.sous_budget_id == $id2
+          )
+          .reduce(
+            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
+            0
+          )
+          .toFixed(0);
+      } else {
+        return this.gettersBudgetModifierEnProjet
+          .filter(
+            (item) =>
+              
+              this.afficheCodeNatureDepense(item.nature_depense_id) == 4 &&
+              item.sous_budget_id == $id2
+          )
+          .reduce(
+            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
+            0
+          )
+          .toFixed(0);
+      }
+    },
+    TotalModificationTransfert($id2) {
+      if (this.afficheIdDossierTotal($id2) == 1) {
+        return this.gettersBudgetModifierEnProjet
+          .filter(
+            (item) =>
+              
+              this.afficheCodeNatureDepense(item.nature_depense_id) == 3 &&
+              item.sous_budget_id == $id2
+          )
+          .reduce(
+            (prec, cur) =>
+              parseFloat(prec) + parseFloat(cur.dotation_variation),
+            0
+          )
+          .toFixed(0);
+      } else {
+        return this.gettersBudgetModifierEnProjet
+          .filter(
+            (item) =>
+              
+              this.afficheCodeNatureDepense(item.nature_depense_id) == 3 &&
+              item.sous_budget_id == $id2
+          )
+          .reduce(
+            (prec, cur) =>
+              parseFloat(prec) + parseFloat(cur.dotation_variation),
+            0
+          )
+          .toFixed(0);
+      }
+    },
+    TotalModificationInvestissement($id2) {
+      if (this.afficheIdDossierTotal($id2) == 1) {
+        return this.gettersBudgetModifierEnProjet
+          .filter(
+            (item) =>
+              
+              this.afficheCodeNatureDepense(item.nature_depense_id) == 4 &&
+              item.sous_budget_id == $id2
+          )
+          .reduce(
+            (prec, cur) =>
+              parseFloat(prec) + parseFloat(cur.dotation_variation),
+            0
+          )
+          .toFixed(0);
+      } else {
+        return this.gettersBudgetModifierEnProjet
+          .filter(
+            (item) =>
+              
+              this.afficheCodeNatureDepense(item.nature_depense_id) == 4 &&
+              item.sous_budget_id == $id2
+          )
+          .reduce(
+            (prec, cur) =>
+              parseFloat(prec) + parseFloat(cur.dotation_variation),
+            0
+          )
+          .toFixed(0);
+      }
+    },
+    TotalInitialInvestissement1($id2) {
+      return this.gettersBudgetModifierEnProjet
+        .filter(
+          (item) =>
+            
+            this.afficheCodeNatureDepense(item.nature_depense_id) == 4 &&
+            item.sous_budget_id == $id2
+        )
+        .reduce(
+          (prec, cur) =>
+            parseFloat(prec) + parseFloat(cur.dotation_actuelle_anterieur),
+          0
+        )
+        .toFixed(0);
+    },
+    TotalInitialTransfert1($id2) {
+      return this.gettersBudgetModifierEnProjet
+        .filter(
+          (item) =>
+            
+            this.afficheCodeNatureDepense(item.nature_depense_id) == 3 &&
+            item.sous_budget_id == $id2
+        )
+        .reduce(
+          (prec, cur) =>
+            parseFloat(prec) + parseFloat(cur.dotation_actuelle_anterieur),
+          0
+        )
+        .toFixed(0);
+    },
+    MontantActuelleParLigneTransfert($id, $id2) {
+      if (this.afficheIdDossier($id, $id2) == 1) {
+        return this.gettersBudgetModifierEnProjet
+          .filter(
+            (item) =>
+              
+              item.ligneeconomique_id == $id &&
+              this.afficheCodeNatureDepense(item.nature_depense_id) == 3 &&
+              item.sous_budget_id == $id2
+          )
+          .reduce(
+            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
+            0
+          )
+          .toFixed(0);
+      } else {
+        return this.gettersBudgetModifierEnProjet
+          .filter(
+            (item) =>
+              
+              item.ligneeconomique_id == $id &&
+              this.afficheCodeNatureDepense(item.nature_depense_id) == 3 &&
+              item.sous_budget_id == $id2
+          )
+          .reduce(
+            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
+            0
+          )
+          .toFixed(0);
+      }
+    },
+
+    MontantInitialParLignePersonnel($id, $id2) {
+      if (this.afficheIdDossier($id, $id2) == 1) {
+        return this.gettersBudgetModifierEnProjet
+          .filter(
+            (item) =>
+              (
+                item.ligneeconomique_id == $id &&
+                this.afficheCodeNatureDepense(item.nature_depense_id) == 1 &&
+                item.sous_budget_id == $id2 &&
+                item.modifier_id == this.dossier_id) ||
+              (
+                item.ligneeconomique_id == $id &&
+                this.afficheCodeNatureDepense(item.nature_depense_id) == 1 &&
+                item.sous_budget_id == $id2 &&
+                item.dossier_id != this.dossier_id)
+          )
+          .reduce(
+            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
+            0
+          )
+          .toFixed(0);
+      } else {
+        return this.gettersBudgetModifierEnProjet
+          .filter(
+            (item) =>
+              (
+                item.ligneeconomique_id == $id &&
+                this.afficheCodeNatureDepense(item.nature_depense_id) == 1 &&
+                item.modifier_id == this.dossier_id) ||
+              (
+                item.ligneeconomique_id == $id &&
+                this.afficheCodeNatureDepense(item.nature_depense_id) == 1 &&
+                item.dossier_id != this.dossier_id)
+          )
+          .reduce(
+            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
+            0
+          )
+          .toFixed(0);
+      }
+    },
+
+    MontantInitialParLigneTransfert($id, $id2) {
+      if (this.afficheIdDossier($id, $id2) == 1) {
+        return this.gettersBudgetModifierEnProjet
+          .filter(
+            (item) =>
+              (
+                item.ligneeconomique_id == $id &&
+                this.afficheCodeNatureDepense(item.nature_depense_id) == 3 &&
+                item.sous_budget_id == $id2 &&
+                item.modifier_id == this.dossier_id) ||
+              (
+                item.ligneeconomique_id == $id &&
+                this.afficheCodeNatureDepense(item.nature_depense_id) == 3 &&
+                item.sous_budget_id == $id2 &&
+                item.dossier_id != this.dossier_id)
+          )
+          .reduce(
+            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
+            0
+          )
+          .toFixed(0);
+      } else {
+        return this.gettersBudgetModifierEnProjet
+          .filter(
+            (item) =>
+              (
+                item.ligneeconomique_id == $id &&
+                this.afficheCodeNatureDepense(item.nature_depense_id) == 3 &&
+                item.modifier_id == this.dossier_id) ||
+              (
+                item.ligneeconomique_id == $id &&
+                this.afficheCodeNatureDepense(item.nature_depense_id) == 3 &&
+                item.dossier_id != this.dossier_id)
+          )
+          .reduce(
+            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
+            0
+          )
+          .toFixed(0);
+      }
+    },
+
+    MontantInitialParLigneInvestissement($id, $id2) {
+      if (this.afficheIdDossier($id, $id2) == 1) {
+        return this.gettersBudgetModifierEnProjet
+          .filter(
+            (item) =>
+              (
+                item.ligneeconomique_id == $id &&
+                this.afficheCodeNatureDepense(item.nature_depense_id) == 4 &&
+                item.sous_budget_id == $id2 &&
+                item.modifier_id == this.dossier_id) ||
+              (
+                item.ligneeconomique_id == $id &&
+                this.afficheCodeNatureDepense(item.nature_depense_id) == 4 &&
+                item.sous_budget_id == $id2 &&
+                item.dossier_id != this.dossier_id)
+          )
+          .reduce(
+            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
+            0
+          )
+          .toFixed(0);
+      } else {
+        return this.gettersBudgetModifierEnProjet
+          .filter(
+            (item) =>
+              (
+                item.ligneeconomique_id == $id &&
+                this.afficheCodeNatureDepense(item.nature_depense_id) == 4 &&
+                item.modifier_id == this.dossier_id) ||
+              (
+                item.ligneeconomique_id == $id &&
+                this.afficheCodeNatureDepense(item.nature_depense_id) == 4 &&
+                item.dossier_id != this.dossier_id)
+          )
+          .reduce(
+            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
+            0
+          )
+          .toFixed(0);
+      }
+    },
+
+    MontantVariationParLignePersonnel($id, $id2) {
+      return this.gettersBudgetModifierEnProjet
+        .filter(
+          (item) =>
+            
+            item.ligneeconomique_id == $id &&
+            this.afficheCodeNatureDepense(item.nature_depense_id) == 1 &&
+            item.sous_budget_id == $id2 &&
+            item.dossier_id == this.dossier_id
+        )
+        .reduce(
+          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_variation),
           0
         )
         .toFixed(0);
     },
 
-    TotalNotifierBailleur($id1) {
-      return this.getterListeBudgetEclate
+    MontantVariationParLigneTransfert($id, $id2) {
+      return this.gettersBudgetModifierEnProjet
         .filter(
           (item) =>
-            item.sous_budget_id == this.Activite_id &&
-            item.source_financement_id == $id1 &&
-            this.afficheCodeNatureDepense(item.nature_depense_id) == 4
-        )
-        .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_actuelle),
-          0
-        )
-        .toFixed(0);
-    },
-    TotalReportBailleur($id1) {
-      return this.getterListeBudgetEclate
-        .filter(
-          (item) =>
-            item.sous_budget_id == this.Activite_id &&
-            item.source_financement_id == $id1 &&
-            this.afficheCodeNatureDepense(item.nature_depense_id) == 4
-        )
-        .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_report),
-          0
-        )
-        .toFixed(0);
-    },
-    MontantParLigneInvestissements($id) {
-      return this.getterListeBudgetEclate
-        .filter(
-          (item) =>
-            item.sous_budget_id == this.Activite_id &&
+            
             item.ligneeconomique_id == $id &&
-            this.afficheCodeNatureDepense(item.nature_depense_id) == 4
+            this.afficheCodeNatureDepense(item.nature_depense_id) == 3 &&
+            item.sous_budget_id == $id2 &&
+            item.dossier_id == this.dossier_id
         )
         .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
+          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_variation),
           0
         )
         .toFixed(0);
     },
-    TotalReportParLigneInvestissements($id) {
-      return this.getterListeBudgetEclate
+
+    MontantVariationParLigneInvestissement($id, $id2) {
+      return this.gettersBudgetModifierEnProjet
         .filter(
           (item) =>
-            item.sous_budget_id == this.Activite_id &&
+            
             item.ligneeconomique_id == $id &&
-            this.afficheCodeNatureDepense(item.nature_depense_id) == 4
+            this.afficheCodeNatureDepense(item.nature_depense_id) == 4 &&
+            item.sous_budget_id == $id2 &&
+            item.dossier_id == this.dossier_id
         )
         .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_report),
+          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_variation),
           0
         )
         .toFixed(0);
     },
-    MontantReportParLigneInvestissements($id, $id1) {
-      return this.getterListeBudgetEclate
-        .filter(
-          (item) =>
-            item.sous_budget_id == this.Activite_id &&
-            item.ligneeconomique_id == $id &&
-            item.source_financement_id == $id1 &&
-            this.afficheCodeNatureDepense(item.nature_depense_id) == 4
-        )
-        .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_report),
-          0
-        )
-        .toFixed(0);
-    },
-    MontantNotifieParLigneInvestissements($id, $id1) {
-      return this.getterListeBudgetEclate
-        .filter(
-          (item) =>
-            item.sous_budget_id == this.Activite_id &&
-            item.ligneeconomique_id == $id &&
-            item.source_financement_id == $id1 &&
-            this.afficheCodeNatureDepense(item.nature_depense_id) == 4
-        )
-        .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_actuelle),
-          0
-        )
-        .toFixed(0);
-    },
-    // 2 personnel
-    TotalNotifierBailleurPersonnel($id1) {
-      return this.getterListeBudgetEclate
-        .filter(
-          (item) =>
-            item.sous_budget_id == this.Activite_id &&
-            item.source_financement_id == $id1 &&
-            this.afficheCodeNatureDepense(item.nature_depense_id) == 1
-        )
-        .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_actuelle),
-          0
-        )
-        .toFixed(0);
-    },
-    TotalReportBailleurPersonnel($id1) {
-      return this.getterListeBudgetEclate
-        .filter(
-          (item) =>
-            item.sous_budget_id == this.Activite_id &&
-            item.source_financement_id == $id1 &&
-            this.afficheCodeNatureDepense(item.nature_depense_id) == 1
-        )
-        .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_report),
-          0
-        )
-        .toFixed(0);
-    },
-    MontantReportParLignePersonnel($id, $id1) {
-      return this.getterListeBudgetEclate
-        .filter(
-          (item) =>
-            item.sous_budget_id == this.Activite_id &&
-            item.ligneeconomique_id == $id &&
-            item.source_financement_id == $id1 &&
-            this.afficheCodeNatureDepense(item.nature_depense_id) == 1
-        )
-        .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_report),
-          0
-        )
-        .toFixed(0);
-    },
-    MontantNotifieParLignePersonnel($id, $id1) {
-      return this.getterListeBudgetEclate
-        .filter(
-          (item) =>
-            item.sous_budget_id == this.Activite_id &&
-            item.ligneeconomique_id == $id &&
-            item.source_financement_id == $id1 &&
-            this.afficheCodeNatureDepense(item.nature_depense_id) == 1
-        )
-        .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_actuelle),
-          0
-        )
-        .toFixed(0);
-    },
-    MontantParLignePersonnel($id) {
-      return this.getterListeBudgetEclate
-        .filter(
-          (item) =>
-            item.sous_budget_id == this.Activite_id &&
-            item.ligneeconomique_id == $id &&
-            this.afficheCodeNatureDepense(item.nature_depense_id) == 1
-        )
-        .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
-          0
-        )
-        .toFixed(0);
+    MontantActuelleParLignePersonnel($id, $id2) {
+      if (this.afficheIdDossier($id, $id2) == 1) {
+        return this.gettersBudgetModifierEnProjet
+          .filter(
+            (item) =>
+              
+              item.ligneeconomique_id == $id &&
+              this.afficheCodeNatureDepense(item.nature_depense_id) == 1 &&
+              item.sous_budget_id == $id2
+          )
+          .reduce(
+            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
+            0
+          )
+          .toFixed(0);
+      } else {
+        return this.gettersBudgetModifierEnProjet
+          .filter(
+            (item) =>
+              
+              item.ligneeconomique_id == $id &&
+              this.afficheCodeNatureDepense(item.nature_depense_id) == 1 &&
+              item.sous_budget_id == $id2
+          )
+          .reduce(
+            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
+            0
+          )
+          .toFixed(0);
+      }
     },
     // 2 biens service
-    TotalNotifierBailleurBienService($id1) {
-      return this.getterListeBudgetEclate
-        .filter(
-          (item) =>
-            item.sous_budget_id == this.Activite_id &&
-            item.source_financement_id == $id1 &&
-            this.afficheCodeNatureDepense(item.nature_depense_id) == 2
-        )
-        .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_actuelle),
-          0
-        )
-        .toFixed(0);
+    TotalModificationBailleurBienService($id2) {
+      if (this.afficheIdDossierTotal($id2) == 1) {
+        return this.gettersBudgetModifierEnProjet
+          .filter(
+            (item) =>
+              
+              this.afficheCodeNatureDepense(item.nature_depense_id) == 2 &&
+              item.sous_budget_id == $id2
+          )
+          .reduce(
+            (prec, cur) =>
+              parseFloat(prec) + parseFloat(cur.dotation_variation),
+            0
+          )
+          .toFixed(0);
+      } else {
+        return this.gettersBudgetModifierEnProjet
+          .filter(
+            (item) =>
+              
+              this.afficheCodeNatureDepense(item.nature_depense_id) == 2 &&
+              item.sous_budget_id == $id2
+          )
+          .reduce(
+            (prec, cur) =>
+              parseFloat(prec) + parseFloat(cur.dotation_variation),
+            0
+          )
+          .toFixed(0);
+      }
     },
-    TotalReportBailleurBienService($id1) {
-      return this.getterListeBudgetEclate
+    TotalInitialBienService2($id2) {
+      return this.gettersBudgetModifierEnProjet
         .filter(
           (item) =>
-            item.sous_budget_id == this.Activite_id &&
-            item.source_financement_id == $id1 &&
-            this.afficheCodeNatureDepense(item.nature_depense_id) == 2
-        )
-        .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_report),
-          0
-        )
-        .toFixed(0);
-    },
-    MontantParLigneBiensService($id) {
-      return this.getterListeBudgetEclate
-        .filter(
-          (item) =>
-            item.sous_budget_id == this.Activite_id &&
-            item.ligneeconomique_id == $id &&
-            this.afficheCodeNatureDepense(item.nature_depense_id) == 2
+            
+            this.afficheCodeNatureDepense(item.nature_depense_id) == 2 &&
+            item.sous_budget_id == $id2 &&
+            item.dotation_actuelle_anterieur == 0
         )
         .reduce(
           (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
@@ -1324,73 +1978,28 @@ export default {
         )
         .toFixed(0);
     },
-    MontantNotifieParLigneBiensService($id, $id1) {
-      return this.getterListeBudgetEclate
+    TotalInitialBienService1($id2) {
+      return this.gettersBudgetModifierEnProjet
         .filter(
           (item) =>
-            item.sous_budget_id == this.Activite_id &&
-            item.ligneeconomique_id == $id &&
-            item.source_financement_id == $id1 &&
-            this.afficheCodeNatureDepense(item.nature_depense_id) == 2
+            
+            this.afficheCodeNatureDepense(item.nature_depense_id) == 2 &&
+            item.sous_budget_id == $id2
         )
         .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_actuelle),
-          0
-        )
-        .toFixed(0);
-    },
-    MontantReportParLigneBiensService($id, $id1) {
-      return this.getterListeBudgetEclate
-        .filter(
-          (item) =>
-            item.sous_budget_id == this.Activite_id &&
-            item.ligneeconomique_id == $id &&
-            item.source_financement_id == $id1 &&
-            this.afficheCodeNatureDepense(item.nature_depense_id) == 2
-        )
-        .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_report),
+          (prec, cur) =>
+            parseFloat(prec) + parseFloat(cur.dotation_actuelle_anterieur),
           0
         )
         .toFixed(0);
     },
 
-    /// transfert
-    TotalNotifierBailleurTransfert($id1) {
-      return this.getterListeBudgetEclate
+    TotalglobalInitial2() {
+      return this.gettersBudgetModifierEnProjet
         .filter(
           (item) =>
-            item.sous_budget_id == this.Activite_id &&
-            item.source_financement_id == $id1 &&
-            this.afficheCodeNatureDepense(item.nature_depense_id) == 3
-        )
-        .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_actuelle),
-          0
-        )
-        .toFixed(0);
-    },
-    TotalReportBailleurTransfert($id1) {
-      return this.getterListeBudgetEclate
-        .filter(
-          (item) =>
-            item.sous_budget_id == this.Activite_id &&
-            item.source_financement_id == $id1 &&
-            this.afficheCodeNatureDepense(item.nature_depense_id) == 3
-        )
-        .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_report),
-          0
-        )
-        .toFixed(0);
-    },
-    MontantParLigneTransfert($id) {
-      return this.getterListeBudgetEclate
-        .filter(
-          (item) =>
-            item.sous_budget_id == this.Activite_id &&
-            item.ligneeconomique_id == $id &&
-            this.afficheCodeNatureDepense(item.nature_depense_id) == 3
+            
+            item.dotation_actuelle_anterieur == 0
         )
         .reduce(
           (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
@@ -1398,54 +2007,345 @@ export default {
         )
         .toFixed(0);
     },
-    MontantNotifieParLigneTransfert($id, $id1) {
-      return this.getterListeBudgetEclate
-        .filter(
-          (item) =>
-            item.sous_budget_id == this.Activite_id &&
-            item.ligneeconomique_id == $id &&
-            item.source_financement_id == $id1 &&
-            this.afficheCodeNatureDepense(item.nature_depense_id) == 3
-        )
-        .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_actuelle),
-          0
-        )
-        .toFixed(0);
-    },
-    MontantReportParLigneTransfert($id, $id1) {
-      return this.getterListeBudgetEclate
-        .filter(
-          (item) =>
-            item.sous_budget_id == this.Activite_id &&
-            item.ligneeconomique_id == $id &&
-            item.source_financement_id == $id1 &&
-            this.afficheCodeNatureDepense(item.nature_depense_id) == 3
-        )
-        .reduce(
-          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_report),
-          0
-        )
-        .toFixed(0);
-    },
-    // Retour() {
-    //   this.$router.push({ name: "VentilationBudget" });
-    // },
+    afficheIdDossierTotal7() {
+      const qtereel = this.gettersBudgetModifierEnProjet.find(
+        (qtreel) => qtreel.id_sousbudget == this.id_sousbudget
+      );
 
-    AfficheMontantBudget($id) {
-      return this.getterListeBudgetEclate
-        .filter((item) => item.sous_budget_id == $id)
+      if (qtereel) {
+        return 1;
+      }
+
+      return 0;
+    },
+    
+
+    MontantParLigneBiensService($id, $id1) {
+      return this.gettersBudgetModifierEnProjet
+        .filter(
+          (item) =>
+            
+            item.ligneeconomique_id == $id &&
+            this.afficheCodeNatureDepense(item.nature_depense_id) == 2 &&
+            item.sous_budget_id == $id1
+        )
         .reduce(
           (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
           0
         )
         .toFixed(0);
     },
+    afficheIdDossier($id, $id2) {
+      const qtereel = this.gettersBudgetModifierEnProjet.find(
+        (qtreel) =>
+          
+          qtreel.ligneeconomique_id == $id &&
+          qtreel.sous_budget_id == $id2
+      );
+
+      if (qtereel) {
+        return 1;
+      }
+
+      return 0;
+    },
+    afficheIdDossierTotal1($id2) {
+      const qtereel = this.gettersBudgetModifierEnProjet.find(
+        (qtreel) =>
+          
+          qtreel.sous_budget_id == $id2
+      );
+
+      if (qtereel) {
+        return 1;
+      }
+
+      return 0;
+    },
+    MontantVariationTotalTransfert($id2) {
+      return this.gettersBudgetModifierEnProjet
+        .filter(
+          (item) =>
+            
+            this.afficheCodeNatureDepense(item.nature_depense_id) == 3 &&
+            item.sous_budget_id == $id2
+        )
+        .reduce(
+          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_variation),
+          0
+        )
+        .toFixed(0);
+    },
+
+    MontantVariationTotalInvestissement($id2) {
+      return this.gettersBudgetModifierEnProjet
+        .filter(
+          (item) =>
+            
+            this.afficheCodeNatureDepense(item.nature_depense_id) == 4 &&
+            item.sous_budget_id == $id2
+        )
+        .reduce(
+          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_variation),
+          0
+        )
+        .toFixed(0);
+    },
+    MontantVariationTotalPersonnel($id2) {
+      return this.gettersBudgetModifierEnProjet
+        .filter(
+          (item) =>
+            
+            this.afficheCodeNatureDepense(item.nature_depense_id) == 1 &&
+            item.sous_budget_id == $id2
+        )
+        .reduce(
+          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_variation),
+          0
+        )
+        .toFixed(0);
+    },
+    MontantVariationTotalBiensService($id2) {
+      return this.gettersBudgetModifierEnProjet
+        .filter(
+          (item) =>
+            
+            this.afficheCodeNatureDepense(item.nature_depense_id) == 2 &&
+            item.sous_budget_id == $id2
+        )
+        .reduce(
+          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_variation),
+          0
+        )
+        .toFixed(0);
+    },
+    MontantInitialTotaliensService($id2) {
+      if (this.afficheIdDossierTotal1($id2) == 1) {
+        return this.gettersBudgetModifierEnProjet
+          .filter(
+            (item) =>
+              (
+                this.afficheCodeNatureDepense(item.nature_depense_id) == 2 &&
+                item.sous_budget_id == 1 &&
+                item.modifier_id != this.dossier_id) ||
+              (
+                this.afficheCodeNatureDepense(item.nature_depense_id) == 2 &&
+                item.sous_budget_id == 1 &&
+                item.dossier_id == this.dossier_id)
+          )
+          .reduce(
+            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
+            0
+          )
+          .toFixed(0);
+      } else {
+        return 0;
+      }
+    },
+
+    MontantInitialTotalTransfert($id2) {
+      if (this.afficheIdDossierTotal1($id2) == 1) {
+        return this.gettersBudgetModifierEnProjet
+          .filter(
+            (item) =>
+              (
+                this.afficheCodeNatureDepense(item.nature_depense_id) == 3 &&
+                item.sous_budget_id == $id2 &&
+                item.modifier_id != this.dossier_id) ||
+              (
+                this.afficheCodeNatureDepense(item.nature_depense_id) == 3 &&
+                item.sous_budget_id == $id2 &&
+                item.dossier_id == this.dossier_id)
+          )
+          .reduce(
+            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
+            0
+          )
+          .toFixed(0);
+      } else {
+        return 0;
+      }
+    },
+
+    MontantInitialTotalInvestissement($id2) {
+      if (this.afficheIdDossierTotal1($id2) == 1) {
+        return this.gettersBudgetModifierEnProjet
+          .filter(
+            (item) =>
+              (
+                this.afficheCodeNatureDepense(item.nature_depense_id) == 4 &&
+                item.sous_budget_id == $id2 &&
+                item.modifier_id != this.dossier_id) ||
+              (
+                this.afficheCodeNatureDepense(item.nature_depense_id) == 4 &&
+                item.sous_budget_id == $id2 &&
+                item.dossier_id == this.dossier_id)
+          )
+          .reduce(
+            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
+            0
+          )
+          .toFixed(0);
+      } else {
+        return 0;
+      }
+    },
+    MontantInitialTotalPersonnel($id2) {
+      if (this.afficheIdDossierTotal1($id2) == 1) {
+        return this.gettersBudgetModifierEnProjet
+          .filter(
+            (item) =>
+              (
+                this.afficheCodeNatureDepense(item.nature_depense_id) == 1 &&
+                item.sous_budget_id == $id2 &&
+                item.modifier_id == this.dossier_id) ||
+              (
+                this.afficheCodeNatureDepense(item.nature_depense_id) == 1 &&
+                item.sous_budget_id == $id2 &&
+                item.dossier_id != this.dossier_id)
+          )
+          .reduce(
+            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
+            0
+          )
+          .toFixed(0);
+      } else {
+        return 0;
+      }
+    },
+    MontantInitialParLigneBiensService($id, $id2) {
+      if (this.afficheIdDossier($id, $id2) == 1) {
+        return this.gettersBudgetModifierEnProjet
+          .filter(
+            (item) =>
+              (
+                item.ligneeconomique_id == $id &&
+                this.afficheCodeNatureDepense(item.nature_depense_id) == 2 &&
+                item.sous_budget_id == $id2 &&
+                item.modifier_id == this.dossier_id) ||
+              (
+                item.ligneeconomique_id == $id &&
+                this.afficheCodeNatureDepense(item.nature_depense_id) == 2 &&
+                item.sous_budget_id == $id2 &&
+                item.dossier_id != this.dossier_id)
+          )
+          .reduce(
+            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
+            0
+          )
+          .toFixed(0);
+      } else {
+        return this.gettersBudgetModifierEnProjet
+          .filter(
+            (item) =>
+              (
+                item.ligneeconomique_id == $id &&
+                this.afficheCodeNatureDepense(item.nature_depense_id) == 2 &&
+                item.modifier_id == this.dossier_id) ||
+              (
+                item.ligneeconomique_id == $id &&
+                this.afficheCodeNatureDepense(item.nature_depense_id) == 2 &&
+                item.dossier_id != this.dossier_id)
+          )
+          .reduce(
+            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
+            0
+          )
+          .toFixed(0);
+      }
+    },
+    MontantInitialParLigneBiensServiceCol($id, $id2) {
+      if (this.afficheIdDossier($id, $id2) == 1) {
+        return this.gettersBudgetModifierEnProjet
+          .filter(
+            (item) =>
+              
+              item.ligneeconomique_id == $id &&
+              this.afficheCodeNatureDepense(item.nature_depense_id) == 2 &&
+              item.sous_budget_id == $id2 &&
+              item.dossier_id == this.dossier_id
+          )
+          .reduce(
+            (prec, cur) =>
+              parseFloat(prec) + parseFloat(cur.dotation_actuelle_anterieur),
+            0
+          )
+          .toFixed(0);
+      } else {
+        return this.gettersBudgetModifierEnProjet
+          .filter(
+            (item) =>
+              
+              item.ligneeconomique_id == $id &&
+              this.afficheCodeNatureDepense(item.nature_depense_id) == 2 &&
+              item.sous_budget_id == $id2
+          )
+          .reduce(
+            (prec, cur) =>
+              parseFloat(prec) + parseFloat(cur.dotation_actuelle_anterieur),
+            0
+          )
+          .toFixed(0);
+      }
+    },
+    MontantVariationParLigneBiensService($id, $id2) {
+      return this.gettersBudgetModifierEnProjet
+        .filter(
+          (item) =>
+            
+            item.ligneeconomique_id == $id &&
+            this.afficheCodeNatureDepense(item.nature_depense_id) == 2 &&
+            item.sous_budget_id == $id2
+        )
+        .reduce(
+          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_variation),
+          0
+        )
+        .toFixed(0);
+    },
+    MontantActuelleParLigneBiensService($id, $id2) {
+      if (this.afficheIdDossier($id, $id2) == 1) {
+        return this.gettersBudgetModifierEnProjet
+          .filter(
+            (item) =>
+              
+              item.ligneeconomique_id == $id &&
+              this.afficheCodeNatureDepense(item.nature_depense_id) == 2 &&
+              item.sous_budget_id == $id2 &&
+              item.dossier_id == this.dossier_id
+          )
+          .reduce(
+            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
+            0
+          )
+          .toFixed(0);
+      } else {
+        return this.gettersBudgetModifierEnProjet
+          .filter(
+            (item) =>
+              
+              item.ligneeconomique_id == $id &&
+              this.afficheCodeNatureDepense(item.nature_depense_id) == 2 &&
+              item.sous_budget_id == $id2 &&
+              item.dossier_id == this.dossier_id
+          )
+          .reduce(
+            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
+            0
+          )
+          .toFixed(0);
+      }
+    },
+
+    Retour() {
+      this.$router.push({ name: "VentilationBudget" });
+    },
+
     formatageSomme: formatageSomme,
     formatageSommeSansFCFA: formatageSommeSansFCFA,
-    formaterDate(date) {
-      return moment(date, "YYYY-MM-DD").format("DD/MM/YYYY");
-    },
+    // formaterDate(date) {
+    //   return moment(date, "YYYY-MM-DD").format("DD/MM/YYYY");
+    // },
   },
 };
 </script>

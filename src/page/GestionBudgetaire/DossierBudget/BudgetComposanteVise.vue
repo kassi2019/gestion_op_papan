@@ -77,7 +77,7 @@
                   "
                   colspan="7"
                 >
-                  BUDGET INITIAL
+                  BUDGET
                 </th>
               </tr>
            <template v-if="GroupeBailleur == 1">

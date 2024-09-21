@@ -61,7 +61,13 @@
               </td>
             </tr>
           </table>
-          <h3 style="text-align: center; border: 1px solid #000">
+          <h3
+            style="
+              text-align: center;
+              border: 1px solid #000;
+              font-size: 14px !important;
+            "
+          >
             ORDRE DE PAIEMENT DE DEPENSE
           </h3>
           <table
@@ -77,18 +83,16 @@
                     color: #000;
                     width: 10%;
                     text-align: left;
-                    
                   "
                   title=""
                 >
                   EXERCICE
-                  
                 </th>
 
                 <td
                   style="
-                    font-size: 14px;
-                    font-weight: bold;
+                    font-size: 15px;
+                    
                     color: #000;
                     text-align: left;
                     line-height: 500% !important;
@@ -108,17 +112,15 @@
                     color: #000;
                     width: 40%;
                     text-align: left;
-                    
                   "
                   title=""
                 >
                   NUMERO DE ORDRE PAIEMENT
-                
                 </th>
                 <td
                   style="
-                    font-size: 14px;
-                    font-weight: bold;
+                    font-size: 15px;
+                   
                     color: #000;
                     text-align: left;
                     line-height: 500% !important;
@@ -128,8 +130,6 @@
                 </td>
               </tr>
             </thead>
-            
-            
 
             <thead>
               <tr style="text-align: center">
@@ -140,17 +140,15 @@
                     color: #000;
                     width: 10%;
                     text-align: left;
-                    
                   "
                   title=""
                 >
                   OBJET DE LA DEPENSE
-                  
                 </th>
                 <td
                   style="
-                    font-size: 14px;
-                    font-weight: bold;
+                    font-size: 15px;
+                   
                     color: #000;
                     text-align: left;
                     line-height: 500% !important;
@@ -161,7 +159,7 @@
                 </td>
               </tr>
             </thead>
-           
+
             <thead>
               <tr style="text-align: center">
                 <th
@@ -171,17 +169,15 @@
                     color: #000;
                     width: 10%;
                     text-align: left;
-                    
                   "
                   title=""
                 >
                   MONTANT DES PRESTATIONS
-               
                 </th>
                 <td
                   style="
-                    font-size: 14px;
-                    font-weight: bold;
+                    font-size: 15px;
+                  
                     color: #000;
                     text-align: left;
                     line-height: 500% !important;
@@ -191,8 +187,7 @@
                 </td>
               </tr>
             </thead>
-            
-            
+
             <thead>
               <tr style="text-align: center">
                 <th
@@ -202,17 +197,15 @@
                     color: #000;
                     width: 10%;
                     text-align: left;
-                    
                   "
                   title=""
                 >
                   COMPOSANTE
-                  
                 </th>
                 <td
                   style="
-                    font-size: 14px;
-                    font-weight: bold;
+                    font-size: 15px;
+                   
                     color: #000;
                     text-align: left;
                     line-height: 500% !important;
@@ -231,17 +224,15 @@
                     color: #000;
                     width: 10%;
                     text-align: left;
-                    
                   "
                   title=""
                 >
                   IMPUTATION
-                  
                 </th>
                 <td
                   style="
-                    font-size: 14px;
-                    font-weight: bold;
+                    font-size: 15px;
+                    
                     color: #000;
                     text-align: left;
                     line-height: 500% !important;
@@ -260,17 +251,15 @@
                     color: #000;
                     width: 10%;
                     text-align: left;
-                    
                   "
                   title=""
                 >
                   DOTATION
-                  
                 </th>
                 <td
                   style="
-                    font-size: 14px;
-                    font-weight: bold;
+                    font-size: 15px;
+                    
                     color: #000;
                     text-align: left;
                     line-height: 500% !important;
@@ -289,17 +278,15 @@
                     color: #000;
                     width: 10%;
                     text-align: left;
-                    
                   "
                   title=""
                 >
                   CUMUL DEPENSE ANTERIEURE
-                 
                 </th>
                 <td
                   style="
-                    font-size: 14px;
-                    font-weight: bold;
+                    font-size: 15px;
+                   
                     color: #000;
                     text-align: left;
                     line-height: 500% !important;
@@ -318,17 +305,15 @@
                     color: #000;
                     width: 10%;
                     text-align: left;
-                    
                   "
                   title=""
                 >
                   DEPENSES EN COURS
-                 
                 </th>
                 <td
                   style="
-                    font-size: 14px;
-                    font-weight: bold;
+                    font-size: 15px;
+                    
                     color: #000;
                     text-align: left;
                     line-height: 500% !important;
@@ -347,17 +332,15 @@
                     color: #000;
                     width: 10%;
                     text-align: left;
-                    
                   "
                   title=""
                 >
                   CUMUL DEPENSE EN COURS
-                  
                 </th>
                 <td
                   style="
-                    font-size: 14px;
-                    font-weight: bold;
+                    font-size: 15px;
+                    
                     color: #000;
                     text-align: left;
                     line-height: 500% !important;
@@ -376,17 +359,15 @@
                     color: #000;
                     width: 10%;
                     text-align: left;
-                    
                   "
                   title=""
                 >
                   SOLDE A NOUVEAU
-                  
                 </th>
                 <td
                   style="
-                    font-size: 14px;
-                    font-weight: bold;
+                    font-size: 15px;
+                    
                     color: #000;
                     text-align: left;
                     line-height: 500% !important;
@@ -399,57 +380,84 @@
           </table>
           <table
             id="customers"
-            style="text-align: center; border: 1px solid #000;width: 100%"
+            style="text-align: center; border: 1px solid #000; width: 100%"
           >
             <tr>
-              <td style="text-align: center; width: 40%; font-weight: bold;border: 1px solid #000;">
+              <td
+                style="
+                  text-align: center;
+                  width: 40%;
+                  font-weight: bold;
+                  border: 1px solid #000;
+                "
+              >
                 SIGNATURES
               </td>
-              <td style="text-align: center; width: 40%; font-weight: bold;border: 1px solid #000">
+              <td
+                style="
+                  text-align: center;
+                  width: 40%;
+                  font-weight: bold;
+                  border: 1px solid #000;
+                "
+              >
                 CACHET ET DATE
               </td>
-              <td style="text-align: center; width: 100%; font-weight: bold;border: 1px solid #000">
-              
+              <td
+                style="
+                  text-align: center;
+                  width: 100%;
+                  font-weight: bold;
+                  border: 1px solid #000;
+                "
+              >
                 OBSERVATIONS
-               
               </td>
             </tr>
             <tr>
-              <td style="text-align: left; width: 40%;border: 1px solid #000;">
+              <td style="text-align: left; width: 40%; border: 1px solid #000">
                 Approbation et signature de l'Ordonnateur <br /><br /><br />
               </td>
-              <td style="text-align: left; width: 40%;border: 1px solid #000;">
+              <td style="text-align: left; width: 40%; border: 1px solid #000">
                 DATE <br /><br /><br />
               </td>
-              <td style="text-align: left; width: 40%;border: 1px solid #000;"></td>
+              <td
+                style="text-align: left; width: 40%; border: 1px solid #000"
+              ></td>
             </tr>
             <tr>
-              <td style="text-align: left; width: 40%;border: 1px solid #000;">
-                Visa du contrôleur Financier <br /><br /><br /><br />
+              <td style="text-align: left; width: 40%; border: 1px solid #000">
+                Visa du contrôleur Financier <br /><br /><br /><br /><br />
               </td>
-              <td style="text-align: left; width: 40%;border: 1px solid #000;">
-                DATE <br /><br /><br /><br />
+              <td style="text-align: left; width: 40%; border: 1px solid #000">
+                DATE <br /><br /><br /><br /><br />
               </td>
-              <td style="text-align: left; width: 40%;border: 1px solid #000;"></td>
+              <td
+                style="text-align: left; width: 40%; border: 1px solid #000"
+              ></td>
             </tr>
             <tr>
-              <td style="text-align: left; width: 40%;border: 1px solid #000;">
+              <td style="text-align: left; width: 40%; border: 1px solid #000">
                 Approbation et Signature du Regisseur d'Avances
-                <br /><br /><br /><br />
+                <br /><br /><br /><br /><br />
               </td>
-              <td style="text-align: left; width: 40%;border: 1px solid #000;">
-                DATE <br /><br /><br /><br />
+              <td style="text-align: left; width: 40%; border: 1px solid #000">
+                DATE <br /><br /><br /><br /><br />
               </td>
-              <td style="text-align: left; width: 40%;border: 1px solid #000;"></td>
+              <td
+                style="text-align: left; width: 40%; border: 1px solid #000"
+              ></td>
             </tr>
             <tr>
-              <td style="text-align: left; width: 40%;border: 1px solid #000;">
+              <td style="text-align: left; width: 40%; border: 1px solid #000">
                 Acquis Libératoire <br /><br /><br />
               </td>
-              <td style="text-align: left; width: 40%;border: 1px solid #000;">
+              <td style="text-align: left; width: 40%; border: 1px solid #000">
                 DATE <br /><br /><br />
               </td>
-              <td style="text-align: left; width: 40%;border: 1px solid #000;"></td>
+              <td
+                style="text-align: left; width: 40%; border: 1px solid #000"
+              ></td>
             </tr>
           </table>
         </div>

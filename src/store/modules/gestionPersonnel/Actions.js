@@ -611,19 +611,20 @@ export function getPersonnelUtilisateur({ commit }) {
     })
     .catch(error => console.log(error));
 }
-export function AjouterPersonnel({ commit }, nouveau) {
+export function AjouterPersonnel({ commit,dispatch }, nouveau) {
  
     apiGuest.post("/EnregistrementPersonnel", nouveau, { headers: authHeader() })
     .then(response => {
       if (response.status == 201) {
         commit("AJOUTER_PERSONNEL", response.data);
+        dispatch("getPersonnel");
        toast("Enregistrement effectué avec succès!", {
         "theme": "auto",
         "type": "success",
         "dangerouslyHTMLString": true
 })
       }
-    }).catch();
+    })
 }
 
 

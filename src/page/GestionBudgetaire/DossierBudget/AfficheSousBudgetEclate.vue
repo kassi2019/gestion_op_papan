@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+   
     <div class="col-md-12">
       <div class="card" style="box-shadow: 5px 5px  #f9d531;">
         <div class="card-header">
@@ -152,13 +153,14 @@ export default {
   },
   computed: {
     ...mapGetters("parametrage", [
-      "getterActivite",
+      "getterActivite","gettersBudgetModifierEnProjet",
       "getterSousBudget",
       "getterListeBudgetEclate",
       "getterExerciceBudgetaire",
       "getterDotationNotifie",
       "getterGrpeActiviteBudgetNotifie",
     ]),
+     
     afficheSousBudgetParActivite() {
       return this.getterSousBudget.filter(
         (item) => item.activite_id == this.dossier_id
@@ -181,7 +183,7 @@ export default {
   },
   methods: {
     ...mapActions("parametrage", [
-      "getSousBudget",
+      "getSousBudget","getBudgetModifierEnProjet",
       "getActivite",
       "getExerciceBudgetaire",
       "getDotationNotifie",
@@ -191,6 +193,34 @@ export default {
       "getGroupeActivitebudgetNotifie",
       "getBudgetEclate",
     ]),
+    TotalglobalInitial1($id) {
+     
+        return this.gettersBudgetModifierEnProjet
+          .filter(
+            (item) =>
+              (item.activite_id == $id &&
+                
+                item.modifier_id == this.dossier_id) ||
+              (item.activite_id == $id &&
+                
+                item.dossier_id != this.dossier_id)
+          )
+          .reduce(
+            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
+            0
+          )
+          .toFixed(0);
+      
+    },
+      MontantVariationGlobal($id) {
+      return this.gettersBudgetModifierEnProjet
+        .filter((item) => item.activite_id == $id)
+        .reduce(
+          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_variation),
+          0
+        )
+        .toFixed(0);
+    },
      voirBudgett(id,id1,id2) {
       this.$router.push({
         name: "VentilationSousBudget",
@@ -200,14 +230,17 @@ export default {
     // Retour() {
     //   this.$router.push({ name: "VentilationBudget" });
     // },
-  retour(id) {
-      this.$router.push({
-        name: "VentilationBudget",
-        params: { id: id },
-      });
+  // retour(id) {
+  //     this.$router.push({
+  //       name: "VentilationBudget",
+  //       params: { id: id },
+  //     });
+    //   },
+   retour() {
+      window.history.back();
     },
     AfficheMontantBudget($id) {
-      return this.getterListeBudgetEclate
+      return this.gettersBudgetModifierEnProjet
         .filter((item) => item.sous_budget_id == $id)
         .reduce(
           (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),

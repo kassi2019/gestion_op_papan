@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-   
     <div class="col-md-12">
       <div class="card" style="box-shadow: 5px 5px #f9d531">
         <div class="card-header">
@@ -319,7 +318,7 @@
                         readonly
                       ></money3>
                     </div>
-                    <div class="col-3">
+                    <div class="col-2">
                       <label class="form-label">Cumul dotation saisie</label>
 
                       <money3
@@ -483,24 +482,43 @@
               title="VERIFICATION DU BUDGET ( ETAPE 2 )"
               icon="ti-search"
             >
-              <div class="col-12">
-                <label class="form-label"
-                  >Activité
-                  <span
-                    style="color: red !important; font-size: 15px !important"
-                  ></span
-                ></label>
-                <model-list-select
-                  :list="libelleActivite"
-                  v-model="activite_id"
-                  option-value="id"
-                  option-text="libelle"
-                  placeholder="select item"
-                  style="border: 1px solid #000"
-                >
-                </model-list-select>
+             <div class="row">
+                <div class="col-6">
+                  <label class="form-label"
+                    >Composante
+                    <span
+                      style="color: red !important; font-size: 15px !important"
+                    ></span
+                  ></label>
+                  <model-list-select
+                    :list="getterSousBudget"
+                    v-model="composante_id"
+                    option-value="id"
+                    option-text="libelle"
+                    placeholder="select item"
+                    style="border: 1px solid #000"
+                  >
+                  </model-list-select>
+                </div>
+                <div class="col-6">
+                  <label class="form-label"
+                    >Nature économique
+                    <span
+                      style="color: red !important; font-size: 15px !important"
+                    ></span
+                  ></label>
+                  <model-list-select
+                    :list="afficherNatureEconomique"
+                    v-model="nature_economique_id"
+                    option-value="id"
+                    option-text="libelle"
+                    placeholder="select item"
+                    style="border: 1px solid #000"
+                  >
+                  </model-list-select>
+                </div>
               </div>
-              <br />
+<br/>
               <div class="table-responsive">
                 <table class="table table-bordered border-primary">
                   <thead>
@@ -1026,6 +1044,7 @@ export default {
         type_financement_id: 0,
         source_financement_id: 0,
       },
+      
       economique_id: 0,
       activite_id: 0,
       unite_operationnelle_id: 0,
@@ -1037,6 +1056,8 @@ export default {
       decision_cf: 0,
       report: 0,
       notifie: 0,
+      nature_economique_id: 0,
+      composante_id:0,
       config: {
         prefix: "",
         suffix: "",
@@ -1101,7 +1122,19 @@ export default {
       "getterDotationAutreRessource",
       "getterListeBudgetEclate",
     ]),
-
+afficherNatureEconomique() {
+      let collet = [];
+      this.afficheBudgetParActivite.filter((item) => {
+        {
+          let data = {
+            id: item.ligneeconomique_id,
+            libelle: this.afficheNatureEconomique(item.ligneeconomique_id),
+          };
+          collet.push(data);
+        }
+      });
+      return collet;
+    },
     sommeBudgetActuelle() {
       return this.afficheBudgetParActivite
 
@@ -1263,9 +1296,44 @@ export default {
       return parseFloat(this.AfficheTauxBudget) / parseFloat(100);
     },
     afficheBudgetParActivite() {
-      return this.getterListeBudgetEclate.filter(
-        (item) => item.dossier_id == this.dossier_id
-      );
+
+      // return this.getterListeBudgetEclate.filter(
+      //   (item) => item.dossier_id == this.dossier_id
+      // );
+       if (this.composante_id == 0 && this.nature_economique_id==0) {
+        return this.getterListeBudgetEclate.filter(
+          (item) =>
+            item.dossier_id == this.dossier_id && item.dotation_total != 0 && item.dossier_id == this.dossier_id
+        );
+      } else if (this.composante_id != 0 && this.nature_economique_id==0) {
+         return this.getterListeBudgetEclate.filter(
+          (item) =>
+            item.dossier_id == this.dossier_id &&
+            item.dotation_total != 0 &&
+            item.sous_budget_id == this.composante_id && item.dossier_id == this.dossier_id
+        );
+      }else if (this.composante_id == 0 && this.nature_economique_id!=0) {
+         return this.getterListeBudgetEclate.filter(
+          (item) =>
+            item.dossier_id == this.dossier_id &&
+            item.dotation_total != 0 &&
+            item.ligneeconomique_id == this.nature_economique_id && item.dossier_id == this.dossier_id
+        );
+      }else if (this.composante_id != 0 && this.nature_economique_id!=0) {
+         return this.getterListeBudgetEclate.filter(
+          (item) =>
+            item.dossier_id == this.dossier_id &&
+            item.dotation_total != 0 &&
+            item.ligneeconomique_id == this.nature_economique_id && item.sous_budget_id == this.composante_id && item.dossier_id == this.dossier_id
+        );
+      } else {
+        return this.getterListeBudgetEclate.filter(
+          (item) =>
+            item.dossier_id == this.dossier_id &&
+            item.dotation_total != 0 &&
+            item.sous_budget_id == this.composante_id && item.dossier_id == this.dossier_id
+        );
+      }
     },
     ResultatDotation() {
       if (

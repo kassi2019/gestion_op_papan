@@ -264,24 +264,44 @@
               </div>
             </TabContent>
             <TabContent title="VERIFICATION DU BUDGET" icon="ti-search">
-              <!-- <div class="col-12">
-                <label class="form-label"
-                  >Activité
-                  <span
-                    style="color: red !important; font-size: 15px !important"
-                  ></span
-                ></label>
-                <model-list-select
-                  :list="libelleActivite"
-                  v-model="activite_id"
-                  option-value="id"
-                  option-text="libelle"
-                  placeholder="select item"
-                  style="border: 1px solid #000"
-                >
-                </model-list-select>
+              <div class="row">
+                <div class="col-6">
+                  <label class="form-label"
+                    >Composante
+                    <span
+                      style="color: red !important; font-size: 15px !important"
+                    ></span
+                  ></label>
+                  <model-list-select
+                    :list="getterSousBudget"
+                    v-model="sous_budget_id"
+                    option-value="id"
+                    option-text="libelle"
+                    placeholder="select item"
+                    style="border: 1px solid #000"
+                  >
+                  </model-list-select>
+                </div>
+                <div class="col-6">
+                  <label class="form-label"
+                    >Nature économique
+                    <span
+                      style="color: red !important; font-size: 15px !important"
+                    ></span
+                  ></label>
+                  <model-list-select
+                    :list="afficherNatureEconomique"
+                    v-model="nature_economique_id"
+                    option-value="id"
+                    option-text="libelle"
+                    placeholder="select item"
+                    style="border: 1px solid #000"
+                  >
+                  </model-list-select>
+                </div>
               </div>
-              <br />-->
+
+              <br />
               <div class="table-responsive">
                 <table class="table table-bordered border-primary">
                   <thead>
@@ -483,7 +503,7 @@
                           text-align: right;
                           border: 1px solid #000 !important;
                         "
-                        v-if="sommeBudgetModifier==0"
+                        v-if="sommeBudgetModifier == 0"
                       >
                         {{
                           formatageSommeSansFCFA(
@@ -492,11 +512,11 @@
                         }}
                       </td>
                       <td
-                      v-else
+                        v-else
                         style="
                           text-align: right;
                           border: 1px solid #000 !important;
-                          background-color: red
+                          background-color: red;
                         "
                       >
                         {{
@@ -525,7 +545,11 @@
                         "
                       ></td>
                     </tr>
-                    <tr v-if="sommeBudgetModifier!=0" ><td colspan="9" style="color: red;text-align: center;">LE CUMUL DES VARIATIONS DOIT ETRE EGAL A 0</td></tr>
+                    <tr v-if="sommeBudgetModifier != 0">
+                      <td colspan="9" style="color: red; text-align: center">
+                        LE CUMUL DES VARIATIONS DOIT ETRE EGAL A 0
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -589,7 +613,7 @@
                     >
                       {{
                         formatageSommeSansFCFA(
-                          parseFloat(AfficheMontantBudget(item1.id))
+                          parseFloat(TotalglobalInitial1(item1.id))+parseFloat(MontantVariationGlobal(item1.id))
                         )
                       }}
                     </td>
@@ -1071,6 +1095,7 @@ export default {
       unite_operationnelle_id: 0,
       nature_depense_id: 0,
       sous_budget_id: 0,
+      nature_economique_id: 0,
 
       global: 0,
       autreRessource: 0,
@@ -1145,6 +1170,19 @@ export default {
       "getterDotationAutreRessource",
       "getterListeBudgetEclate",
     ]),
+    afficherNatureEconomique() {
+      let collet = [];
+      this.afficheBudgetParActivite.filter((item) => {
+        {
+          let data = {
+            id: item.ligneeconomique_id,
+            libelle: this.afficheNatureEconomique(item.ligneeconomique_id),
+          };
+          collet.push(data);
+        }
+      });
+      return collet;
+    },
     AfficheSousBudget() {
       return (id) => {
         if (id != null && id != "") {
@@ -1260,9 +1298,40 @@ export default {
         .toFixed(0);
     },
     afficheBudgetParActivite() {
-      return this.getterListeBudgetEclate.filter(
-        (item) => item.dossier_id == this.dossier_id && item.dotation_total != 0
-      );
+      if (this.sous_budget_id == 0 && this.nature_economique_id==0) {
+        return this.getterListeBudgetEclate.filter(
+          (item) =>
+            item.dossier_id == this.dossier_id && item.dotation_total != 0
+        );
+      } else if (this.sous_budget_id != 0 && this.nature_economique_id==0) {
+         return this.getterListeBudgetEclate.filter(
+          (item) =>
+            item.dossier_id == this.dossier_id &&
+            item.dotation_total != 0 &&
+            item.sous_budget_id == this.sous_budget_id
+        );
+      }else if (this.sous_budget_id == 0 && this.nature_economique_id!=0) {
+         return this.getterListeBudgetEclate.filter(
+          (item) =>
+            item.dossier_id == this.dossier_id &&
+            item.dotation_total != 0 &&
+            item.ligneeconomique_id == this.nature_economique_id
+        );
+      }else if (this.sous_budget_id != 0 && this.nature_economique_id!=0) {
+         return this.getterListeBudgetEclate.filter(
+          (item) =>
+            item.dossier_id == this.dossier_id &&
+            item.dotation_total != 0 &&
+            item.ligneeconomique_id == this.nature_economique_id && item.sous_budget_id == this.sous_budget_id
+        );
+      } else {
+        return this.getterListeBudgetEclate.filter(
+          (item) =>
+            item.dossier_id == this.dossier_id &&
+            item.dotation_total != 0 &&
+            item.sous_budget_id == this.sous_budget_id
+        );
+      }
     },
     NatureDepense_id() {
       if (this.sous_budget_id == 0 && this.activite_id != 0) {
@@ -1599,7 +1668,7 @@ export default {
       );
     },
     MontantActuel() {
-      if (this.sous_budget_id == 0) {
+      if (this.sous_budget_id != 0) {
         // return (id) => {
         //   if (id != null && id != "") {
         const qtereel = this.getterAfficheNouvelleNature.find(
@@ -1785,6 +1854,34 @@ export default {
       "supprimerBudgetEclate",
       "AjouterNouvelleNature",
     ]),
+     TotalglobalInitial1($id) {
+     
+        return this.gettersBudgetModifierEnProjet
+          .filter(
+            (item) =>
+              (item.activite_id == $id &&
+                
+                item.modifier_id == this.dossier_id) ||
+              (item.activite_id == $id &&
+                
+                item.dossier_id != this.dossier_id)
+          )
+          .reduce(
+            (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_total),
+            0
+          )
+          .toFixed(0);
+      
+    },
+      MontantVariationGlobal($id) {
+      return this.gettersBudgetModifierEnProjet
+        .filter((item) => item.activite_id == $id)
+        .reduce(
+          (prec, cur) => parseFloat(prec) + parseFloat(cur.dotation_variation),
+          0
+        )
+        .toFixed(0);
+    },
     EnregistrementNouvelleNature() {
       var objetDirect1 = {
         annebudgetaire: this.exerciceBudgetaire,
@@ -1859,10 +1956,10 @@ export default {
         params: { id: id, id1: id1 },
       });
     },
-    voirSousBudget(id,id1) {
+    voirSousBudget(id, id1) {
       this.$router.push({
         name: "AfficheSousBudgetEclate",
-        params: { id: id,id1:id1 },
+        params: { id: id, id1: id1 },
       });
     },
     AfficheMontantBudget($id) {

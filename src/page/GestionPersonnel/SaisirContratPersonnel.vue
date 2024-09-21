@@ -218,6 +218,7 @@
                         >Ce champs est obligatoire!
                       </span>
                     </div>
+                    
                     <div class="col-3">
                       <label class="form-label"
                         >Diplôme
@@ -1603,7 +1604,7 @@ export default {
       decision_cf: 0,
       nom: "",
       prenom: "",
-      date_naissance: 0,
+      date_naissance: "",
       lieu_naissance: "",
       numero_piece: "",
       numero_telephone: "",
@@ -1665,6 +1666,7 @@ tableauCivilite: [
     this.getTypeFinancement();
     this.getBailleur();
     this.getPersonnelUtilisateur();
+    this.getPersonnel();
     this.getCumulMontantContrat();
     // if (this.modNatureDepense!=0) {
 
@@ -1847,7 +1849,7 @@ tableauCivilite: [
       var diffJours = diffTime / (1000 * 3600 * 24);
       if (isNaN(diffJours)) return null;
 
-      if (parseFloat(diffJours) < 0) return "durée invalide";
+      if (parseFloat(diffJours) < 0) return 0;
 
       return diffJours;
     },
@@ -2212,7 +2214,7 @@ tableauCivilite: [
       "getCumulMontantContrat",
       "getDetailDepensePersonnel",
       "getPersonnelUtilisateur",
-      "supprimerPersonnel",
+      "supprimerPersonnel","getPersonnel",
       "supprimerPersonnelParUser",
       "getFonction",
       "getEmploi",

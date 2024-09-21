@@ -775,6 +775,7 @@ export default {
               (item.activite_id == this.Activite_id &&
                 
                 item.modifier_id == this.dossier_id) ||
+                
               (item.activite_id == this.Activite_id &&
                 
                 item.dossier_id != this.dossier_id)
