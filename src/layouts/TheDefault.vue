@@ -2,15 +2,23 @@
   <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
   <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
   <div>
-   
     <MenuGestionBudgetaire
       v-if="id_module == 2"
       :isChange2="isChange2"
     ></MenuGestionBudgetaire>
     <MenuParametre v-if="id_module == 1" :isChange2="isChange2"></MenuParametre>
-     <MenuUtilisateur v-if="id_module == 5" :isChange2="isChange2"></MenuUtilisateur>
-     <MenuGestionRapport  v-if="id_module == 4" :isChange2="isChange2"></MenuGestionRapport>
-  <MenuGestionPersonnel  v-if="id_module == 3" :isChange2="isChange2"></MenuGestionPersonnel>
+    <MenuUtilisateur
+      v-if="id_module == 5"
+      :isChange2="isChange2"
+    ></MenuUtilisateur>
+    <MenuGestionRapport
+      v-if="id_module == 4"
+      :isChange2="isChange2"
+    ></MenuGestionRapport>
+    <MenuGestionPersonnel
+      v-if="id_module == 3"
+      :isChange2="isChange2"
+    ></MenuGestionPersonnel>
 
     <div class="main-panel">
       <TheHeader></TheHeader>
@@ -49,7 +57,7 @@ export default {
     MenuParametre,
     MenuUtilisateur,
     MenuGestionRapport,
-    MenuGestionPersonnel
+    MenuGestionPersonnel,
 
     //  TheFooTer
   },
@@ -67,7 +75,8 @@ export default {
   },
   computed: {
     ...mapGetters("Utilisateurs", [
-      "loader","getterPermission",
+      "loader",
+      "getterPermission",
       "getterUtilisateur",
       "champVide",
       "error",
@@ -87,7 +96,8 @@ export default {
   },
   methods: {
     ...mapActions("Utilisateurs", [
-      "login","getPermission",
+      "login",
+      "getPermission",
       "getUtilisateur",
       "logoutUser",
       "getProfileUsers",

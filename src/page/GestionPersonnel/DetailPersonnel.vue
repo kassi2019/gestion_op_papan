@@ -683,9 +683,7 @@ total() {
       "AjouterPersonnel",
     ]),
  retour() {
-      this.$router.push({
-        name: "SaisirContratPersonnel",
-      });
+      window.history.back();
     },
       affichonsTypePersonne($id) {
           if ($id == 0) {

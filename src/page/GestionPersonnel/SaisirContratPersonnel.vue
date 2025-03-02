@@ -47,30 +47,29 @@
                       />
                     </div>
                     <div class="col-3">
-                    <label class="form-label"
-                      >Civilité
-                      <span
-                        style="
-                          color: red !important;
-                          font-size: 15px !important;
-                        "
-                      >*</span
-                    ></label>
-                    <model-list-select
-                      :list="tableauCivilite"
-                      v-model="civilite"
-                      option-value="libelle"
-                      option-text="libelle"
-                      placeholder="select item"
-                      style="border: 1px solid #000"
-                    >
-                    </model-list-select>
-                    <span
-                        style="color: red"
-                        v-if="civilite == 0"
+                      <label class="form-label"
+                        >Civilité
+                        <span
+                          style="
+                            color: red !important;
+                            font-size: 15px !important;
+                          "
+                          >*</span
+                        ></label
+                      >
+                      <model-list-select
+                        :list="tableauCivilite"
+                        v-model="civilite"
+                        option-value="libelle"
+                        option-text="libelle"
+                        placeholder="select item"
+                        style="border: 1px solid #000"
+                      >
+                      </model-list-select>
+                      <span style="color: red" v-if="civilite == 0"
                         >Ce champs est obligatoire!
                       </span>
-                  </div>
+                    </div>
                     <div class="col-6">
                       <label class="form-label"
                         >Unité Opérationnelle
@@ -218,7 +217,7 @@
                         >Ce champs est obligatoire!
                       </span>
                     </div>
-                    
+
                     <div class="col-3">
                       <label class="form-label"
                         >Diplôme
@@ -250,7 +249,7 @@
             <TabContent title="INFO SUR PERSONNEL" icon="ti-printer">
               <div class="col-lg-12">
                 <form class="row g-3">
-                  <div class="col-3">
+                  <div class="col-2">
                     <label class="form-label"
                       >Type Personnel
                       <span
@@ -270,6 +269,27 @@
                     >
                     </model-list-select>
                   </div>
+                  <div class="col-4">
+                    <label class="form-label"
+                      >N° d'ordre
+                      <span
+                        style="
+                          color: red !important;
+                          font-size: 15px !important;
+                        "
+                        >*</span
+                      ></label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      style="border: 1px solid #000 !important"
+                      v-model="numero_ordre"
+                    />
+                    <span style="color: red" v-if="numero_ordre == 0"
+                      >Ce champs est obligatoire!
+                    </span>
+                  </div>
                   <div class="col-3">
                     <label class="form-label">N° du Contrat</label>
                     <input
@@ -279,8 +299,13 @@
                       :value="ContratAutomatique"
                       readonly
                     />
+                    <span
+                      style="color: red"
+                      v-if="verificationContrat(ContratAutomatique) == 1"
+                      >N° du Contrat existe déja
+                    </span>
                   </div>
-                  <div class="col-6">
+                  <div class="col-3">
                     <label class="form-label">Matricule</label>
                     <input
                       type="text"
@@ -290,6 +315,7 @@
                       v-if="type_personnel_id == 1"
                       readonly
                     />
+
                     <input
                       v-else
                       type="text"
@@ -297,6 +323,11 @@
                       style="border: 1px solid #000 !important"
                       v-model="matricule"
                     />
+                    <span
+                      style="color: red"
+                      v-if="verificationMatricule(matriculeAutomatique) == 1"
+                      >Matricule existe déja
+                    </span>
                     <span
                       style="color: red"
                       v-if="matricule == 0 && type_personnel_id != 1"
@@ -1565,6 +1596,7 @@ export default {
   },
   data() {
     return {
+      numero_ordre: 0,
       modNatureDepense: {},
       modDetail: {},
       TableauDossier: [],
@@ -1619,17 +1651,14 @@ export default {
           libelle: "Contractuel",
         },
       ],
-tableauCivilite: [
+      tableauCivilite: [
         {
-          
           libelle: "Monsieur",
         },
         {
-          
           libelle: "Madame",
         },
         {
-          
           libelle: "Mademoiselle",
         },
       ],
@@ -1710,7 +1739,34 @@ tableauCivilite: [
       "getterDotationAutreRessource",
       "getterListeBudgetEclate",
     ]),
+    verificationMatricule() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.gettersPersonnel.find(
+            (qtreel) => qtreel.matricule == id
+          );
 
+          if (qtereel) {
+            return 1;
+          }
+          return 0;
+        }
+      };
+    },
+    verificationContrat() {
+      return (id) => {
+        if (id != null && id != "") {
+          const qtereel = this.gettersPersonnel.find(
+            (qtreel) => qtreel.numero_contrat == id
+          );
+
+          if (qtereel) {
+            return 1;
+          }
+          return 0;
+        }
+      };
+    },
     TotalTableau() {
       return this.TableauDossier.filter(
         (item) =>
@@ -1862,30 +1918,10 @@ tableauCivilite: [
     },
 
     matriculeAutomatique() {
-      return (
-        "00" +
-        "" +
-        (this.gettersPersonnel.length + 1) +
-        "/" +
-        "PAPAN" +
-        "/" +
-        "MAT" +
-        "/" +
-        this.exerciceBudgetaire
-      );
+      return this.numero_ordre + "/" + "MIRAH" + "/" + "PAPAN";
     },
     ContratAutomatique() {
-      return (
-        "00" +
-        "" +
-        (this.gettersPersonnel.length + 1) +
-        "/" +
-        "PAPAN" +
-        "/" +
-        "CT" +
-        "/" +
-        this.exerciceBudgetaire
-      );
+      return this.numero_ordre + "/" + "MIRAH" + "/" + "PAPAN" + "/" + "CT";
     },
     typeIndemnite() {
       return (id) => {
@@ -2214,7 +2250,8 @@ tableauCivilite: [
       "getCumulMontantContrat",
       "getDetailDepensePersonnel",
       "getPersonnelUtilisateur",
-      "supprimerPersonnel","getPersonnel",
+      "supprimerPersonnel",
+      "getPersonnel",
       "supprimerPersonnelParUser",
       "getFonction",
       "getEmploi",
@@ -2310,6 +2347,7 @@ tableauCivilite: [
         (this.FormDataDossier.type_indemnite_id = ""),
         (this.FormDataDossier.montant = 0),
         (this.type_piece_id = 0),
+        (this.numero_ordre = 0),
         (this.civilite = ""),
         (this.type_personnel_id = 0),
         (this.nature_contrat_id = 0),

@@ -5,8 +5,6 @@
       border-radius: 10px 10px 10px;
       border-color: #fff !important;
       border-style: solid;
-      
-      
     "
   >
     <nav

@@ -1,33 +1,17 @@
-<template >
-  
-  <div >
-    
+<template>
+  <div>
     <component :is="layout">
-    <transition
-      name="fade"
-      mode="out-in"
-      @beforeLeave="beforeLeave"
-      @enter="enter"
-      @afterEnter="afterEnter"
-    >
-    </transition>
+      <transition
+        name="fade"
+        mode="out-in"
+        @beforeLeave="beforeLeave"
+        @enter="enter"
+        @afterEnter="afterEnter"
+      >
+      </transition>
 
-    <div > <router-view></router-view></div>
-  </component>
-
-  <!-- <router-view v-slot="{ layout }">
-  <transition>
-    <component :is="layout" />
-  </transition>
-</router-view> -->
-
-<!-- <router-view v-slot="{ layout }">
-  <component :is="layout">
-    <p>In Vue Router 3, I render inside the route component</p>
-  </component>
-</router-view> -->
-
-  
+      <div><router-view></router-view></div>
+    </component>
   </div>
 </template>
 
@@ -39,7 +23,7 @@ export default {
   computed: {
     layout() {
       return (this.$route.meta.layout || default_layout) + "-layout";
-     //return (this.$route.meta.layout || default_layout) + "-layout";
+      //return (this.$route.meta.layout || default_layout) + "-layout";
     },
   },
   created() {},
@@ -49,7 +33,7 @@ export default {
     };
   },
   methods: {
-   // ...mapActions("Application", ["ajouterTransaction"]),
+    // ...mapActions("Application", ["ajouterTransaction"]),
     beforeLeave(element) {
       this.prevHeight = getComputedStyle(element).height;
     },

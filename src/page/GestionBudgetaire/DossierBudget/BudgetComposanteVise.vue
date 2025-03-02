@@ -772,7 +772,7 @@ export default {
       return this.getterBudgetViseParActivite
         .filter(
           (item) =>
-            item.activite_id == this.Activite_id &&
+            item.sous_budget_id == this.Activite_id &&
             this.afficheCodeNatureDepense(item.nature_depense_id) == 4
         )
         .reduce(

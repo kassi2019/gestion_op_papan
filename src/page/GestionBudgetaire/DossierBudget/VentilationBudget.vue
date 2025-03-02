@@ -43,6 +43,7 @@
             </ul>
           </div>
           <div class="d-flex align-items-center">
+             <!-- <h4 class="card-title">Eclatement du budget</h4> -->
             <!-- <h4 class="card-title">Eclatement du budget</h4> -->
           </div>
         </div>

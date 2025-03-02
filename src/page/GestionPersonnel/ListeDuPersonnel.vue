@@ -468,7 +468,7 @@
                         class="form-control"
                         style="border: 1px solid #000 !important"
                         v-model="modNatureDepense.numero_contrat"
-                        readonly
+                        
                       />
                     </div>
                     <div class="col-6">
@@ -479,7 +479,7 @@
                         style="border: 1px solid #000 !important"
                         v-model="modNatureDepense.matricule"
                         v-if="modNatureDepense.type_personnel_id == 1"
-                        readonly
+                        
                       />
                       <input
                         v-else

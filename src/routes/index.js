@@ -8,12 +8,10 @@ import gestionRapport from './rapportRoute'
 // import AppRoutes from "./app/AppRoutes"
 
 const regroupementDesRoutes = [
-
     AuthRoutes,
     gestionParametre,
     gestionPersonnel,
     gestionRapport
-
 ];
 
 const routes = [].concat(...regroupementDesRoutes);
@@ -28,8 +26,6 @@ router.beforeEach((to, from, next) => {
     const publicPages = ['/connexion'];
     const authRequired = !publicPages.includes(to.path);
     const loggedIn = localStorage.getItem('user-token');
- 
-   
     if (authRequired && !loggedIn) {
         
         next('/connexion');
