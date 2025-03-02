@@ -44,14 +44,14 @@ export function login({ commit }, user) {
       email: user.email,
       password: user.password
     }).then(response => {
-      
+      console.log(response);
       commit('LOGIN_USER', response.data.user)
       commit("setRefreshToken", response.data.access_token);
       commit("setAccessToken", response.data.access_token);
       localStorage.setItem('user-token', JSON.stringify(response.data.access_token))
       
       localStorage.setItem('User', JSON.stringify(response.data.user))
-     // console.log(localStorage.setItem('user-token', JSON.stringify(response.data.access_token)));
+    
       commit('SET_LOADER', false)
       router.push({ name: 'Accueil' })
       // window.location.reload()
@@ -71,6 +71,11 @@ export function login({ commit }, user) {
     commit('SET_CHAMP_VIDE_TRUE')
     }
 }
+
+
+
+
+
 
 export function ajouterServiceGroupement({ commit }, nouveau) {
  

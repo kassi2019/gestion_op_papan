@@ -5,7 +5,7 @@
 <div class="sidebar-wrapper scrollbar scrollbar-inner" v-if="rolePerso_id==1">
       <div class="sidebar-content">
         <ul class="nav nav-secondary">
-          <li class="nav-item" >
+          <!-- <li class="nav-item" >
             <a
               class="nav-link collapsed"
               href=""
@@ -15,7 +15,7 @@
 
               <p>Role</p>
             </a>
-          </li>
+          </li> -->
           <li class="nav-item" >
             <a
               class="nav-link collapsed"
@@ -27,7 +27,7 @@
               <p>Utilisateur</p>
             </a>
           </li>
-          <li class="nav-item" >
+          <!-- <li class="nav-item" >
             <a
               class="nav-link collapsed"
               href=""
@@ -37,7 +37,7 @@
 
               <p>Permission</p>
             </a>
-          </li>
+          </li> -->
         </ul>
       </div>
     </div>

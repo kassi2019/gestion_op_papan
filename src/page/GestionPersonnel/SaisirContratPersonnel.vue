@@ -1052,7 +1052,7 @@
                   <form class="row g-3">
                     <div class="col-3">
                       <label class="form-label"
-                        >Tyep Personnel
+                        >Type Personnel
                         <span
                           style="
                             color: red !important;
@@ -1077,7 +1077,7 @@
                         class="form-control"
                         style="border: 1px solid #000 !important"
                         v-model="modNatureDepense.numero_contrat"
-                        readonly
+                      
                       />
                     </div>
                     <div class="col-6">
@@ -1088,7 +1088,7 @@
                         style="border: 1px solid #000 !important"
                         v-model="modNatureDepense.matricule"
                         v-if="modNatureDepense.type_personnel_id == 1"
-                        readonly
+                      
                       />
                       <input
                         v-else
@@ -2246,7 +2246,7 @@ export default {
       "getBudgetViseParActvite",
     ]),
     ...mapActions("Personnel", [
-      "getService",
+      "getService","ModifierPersonnel",
       "getCumulMontantContrat",
       "getDetailDepensePersonnel",
       "getPersonnelUtilisateur",
@@ -2309,6 +2309,37 @@ export default {
 
         type_indemnite_id: 0,
       };
+    },
+    modificationSection() {
+      var objetDirect1 = {
+        id: this.modNatureDepense.id,
+        type_piece_id: this.modNatureDepense.type_piece_id,
+        nature_contrat_id: this.modNatureDepense.nature_contrat_id,
+        diplome_id: this.modNatureDepense.diplome_id,
+        emploi_id: this.modNatureDepense.emploi_id,
+        service_id: this.modNatureDepense.service_id,
+        fonction_id: this.modNatureDepense.fonction_id,
+        activite_id: this.modNatureDepense.activite_id,
+        unite_operationnelle_id: this.modNatureDepense.unite_operationnelle_id,
+        sous_budget_id: this.modNatureDepense.sous_budget_id,
+        date_debut: this.modNatureDepense.date_debut,
+        date_fin: this.modNatureDepense.date_fin,
+        type_personnel_id: this.modNatureDepense.type_personnel_id,
+        dure: this.modNatureDepense.dure,
+        numero_contrat: this.modNatureDepense.numero_contrat,
+        matricule: this.modNatureDepense.matricule,
+        nom: this.modNatureDepense.nom,
+        prenom: this.modNatureDepense.prenom,
+        date_naissance: this.modNatureDepense.date_naissance,
+        lieu_naissance: this.modNatureDepense.lieu_naissance,
+        numero_piece: this.modNatureDepense.numero_piece,
+        numero_telephone: this.modNatureDepense.numero_telephone,
+        decision_cf: this.modNatureDepense.decision_cf,
+        date_decision: this.modNatureDepense.date_decision,
+      };
+
+      this.ModifierPersonnel(objetDirect1);
+      this.modNatureDepense = {};
     },
     enregistrementSansTypeFiancement2() {
       var nouvelObjettrsor = {
