@@ -4,7 +4,7 @@
       <div class="card" style="box-shadow: 5px 5px #f9d531">
         <div class="card-header">
           <div class="page-header">
-            <h6 class="fw-bold mb-3">Information Sur le Bordereau</h6>
+            <h6 class="fw-bold mb-3">Information Sur le Bordereau{{ getterInformationBudget }}</h6>
             <ul class="breadcrumbs mb-3">
               <li class="nav-home">
                 <a href="#">
@@ -288,7 +288,7 @@
                 />
               </div>
               <div class="col-12">
-                <label for="inputNanme4" class="form-label">Décision</label>
+                <label for="inputNanme4" class="form-label">Décision{{ DecisionApp }}</label>
                 <select
                   class="form-select"
                   style="border: 1px solid #000"

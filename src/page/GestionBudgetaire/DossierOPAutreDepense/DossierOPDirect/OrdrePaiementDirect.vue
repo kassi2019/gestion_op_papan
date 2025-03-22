@@ -241,7 +241,7 @@
                             >Ce champs est obligatoire!
                           </span>
                         </div>
-                        <div class="col-6">
+                        <div class="col-3">
                           <label class="form-label"
                             >Numéro de ordre de paiement
                           </label>
@@ -253,6 +253,17 @@
                             readonly
                           />
                         </div>
+                             <div class="col-3">
+                    <label class="form-label"
+                      >Date ordre de paiement</label
+                    >
+                    <input
+                      type="date"
+                      class="form-control"
+                      style="border: 1px solid #000 !important"
+                      v-model="date_op"
+                    />
+                  </div>
                         <div class="col-6">
                           <label class="form-label"
                             >Montant des préstations
@@ -1301,7 +1312,7 @@
                       v-model="modNatureDepense.objet_depense"
                     />
                   </div>
-                  <div class="col-6">
+                  <div class="col-3">
                     <label class="form-label"
                       >Numéro de ordre de paiement</label
                     >
@@ -1310,6 +1321,17 @@
                       class="form-control"
                       style="border: 1px solid #000 !important"
                       v-model="modNatureDepense.numero_ordre_paiement"
+                    />
+                  </div>
+                       <div class="col-3">
+                    <label class="form-label"
+                      >Date ordre de paiement</label
+                    >
+                    <input
+                      type="date"
+                      class="form-control"
+                      style="border: 1px solid #000 !important"
+                      v-model="modNatureDepense.date_op"
                     />
                   </div>
                   <div class="col-6">
@@ -1447,6 +1469,7 @@ export default {
   data() {
     return {
       modNatureDepense: {
+        date_op:"",
         activite_id: 0,
         unite_operationnelle_id: 0,
         sous_budget_id: 0,
@@ -1479,6 +1502,7 @@ export default {
         prix_unitaire: 0,
         exonere: 0,
       },
+      date_op:"",
       decision_cf: 0,
       date_decision: "",
       autre_taux: 0,
@@ -2020,11 +2044,14 @@ export default {
         // };
       }
     },
+   recupereToutOpAutreDepense() {
+      return this.getterListeOPgloba.filter(data=>data.type_depense==0)
+    },
     automatiseNumeroOP() {
       return (
         "00" +
         "" +
-        (this.getterListeOPgloba.length + 1) +
+        (this.recupereToutOpAutreDepense.length + 1) +
         "/" +
         "PA" +
         "/" +
@@ -2772,6 +2799,7 @@ export default {
         decision_cf: this.modNatureDepense.decision_cf,
         date_paiement: this.modNatureDepense.date_paiement,
         type_depense: this.modNatureDepense.type_depense,
+         date_op: this.modNatureDepense.date_op,
       };
 
       this.modifierOrdrePaiement(objetDirect1);
@@ -2909,6 +2937,7 @@ export default {
         date_decision: this.date_decision,
         bordereau_id: this.bordereau_id,
         FormDataDossier: this.TableauDossier,
+         date_op: this.date_op,
       };
 
       this.ajouterOrdrePaiement(nouvelObjettrsor);

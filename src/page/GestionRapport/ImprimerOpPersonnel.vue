@@ -65,7 +65,7 @@
             style="
               text-align: center;
               border: 1px solid #000;
-              font-size: 14px !important;
+              font-size: 20px !important;
             "
           >
             ORDRE DE PAIEMENT DE DEPENSE
@@ -82,27 +82,60 @@
                     font-weight: bold;
                     color: #000;
                     width: 10%;
-                    text-align: left;
+                    text-align: right;
                   "
                   title=""
-                >
-                  EXERCICE
-                </th>
+                ></th>
 
                 <td
                   style="
-                    font-size: 15px;
-                    
+                    font-size: 18px;
+
                     color: #000;
                     text-align: left;
-                    line-height: 500% !important;
+                    line-height: 230% !important;
                   "
                 >
+                  <span
+                    style="
+                      font-size: 16px;
+                      font-weight: bold;
+                      color: #000;
+                      width: 10%;
+                      text-align: right;
+                    "
+                    >EXERCICE</span
+                  >
                   : {{ exerciceBudgetaire }}
                 </td>
               </tr>
             </thead>
-
+            <thead>
+              <tr style="text-align: center">
+                <th
+                  style="
+                    font-size: 16px;
+                    font-weight: bold;
+                    color: #000;
+                    width: 40%;
+                    text-align: left;
+                  "
+                  title=""
+                >
+                  DATE
+                </th>
+                <td
+                  style="
+                    font-size: 18px;
+                    color: #000;
+                    text-align: left;
+                    line-height: 230% !important;
+                  "
+                >
+                  : {{ formaterDate(date_ordre_paiement) }}
+                </td>
+              </tr>
+            </thead>
             <thead>
               <tr style="text-align: center">
                 <th
@@ -119,11 +152,10 @@
                 </th>
                 <td
                   style="
-                    font-size: 15px;
-                   
+                    font-size: 18px;
                     color: #000;
                     text-align: left;
-                    line-height: 500% !important;
+                    line-height: 230% !important;
                   "
                 >
                   : {{ numero_ordre_paiement }}
@@ -147,11 +179,11 @@
                 </th>
                 <td
                   style="
-                    font-size: 15px;
-                   
+                    font-size: 18px;
+
                     color: #000;
                     text-align: left;
-                    line-height: 500% !important;
+                    line-height: 230% !important;
                   "
                   class="text-break"
                 >
@@ -176,11 +208,11 @@
                 </th>
                 <td
                   style="
-                    font-size: 15px;
-                  
+                    font-size: 18px;
+
                     color: #000;
                     text-align: left;
-                    line-height: 500% !important;
+                    line-height: 230% !important;
                   "
                 >
                   : {{ formatageSomme(parseFloat(montant_prestation)) }}
@@ -204,11 +236,11 @@
                 </th>
                 <td
                   style="
-                    font-size: 15px;
-                   
+                    font-size: 18px;
+
                     color: #000;
                     text-align: left;
-                    line-height: 500% !important;
+                    line-height: 230% !important;
                   "
                 >
                   : {{ libellesousbudget }}
@@ -231,11 +263,11 @@
                 </th>
                 <td
                   style="
-                    font-size: 15px;
-                    
+                    font-size: 18px;
+
                     color: #000;
                     text-align: left;
-                    line-height: 500% !important;
+                    line-height: 230% !important;
                   "
                 >
                   : {{ imputation }}
@@ -258,11 +290,11 @@
                 </th>
                 <td
                   style="
-                    font-size: 15px;
-                    
+                    font-size: 18px;
+
                     color: #000;
                     text-align: left;
-                    line-height: 500% !important;
+                    line-height: 230% !important;
                   "
                 >
                   : {{ formatageSomme(parseFloat(afficheDotaion)) }}
@@ -285,11 +317,11 @@
                 </th>
                 <td
                   style="
-                    font-size: 15px;
-                   
+                    font-size: 18px;
+
                     color: #000;
                     text-align: left;
-                    line-height: 500% !important;
+                    line-height: 230% !important;
                   "
                 >
                   : {{ formatageSomme(parseFloat(cumulAnterieure)) }}
@@ -312,11 +344,11 @@
                 </th>
                 <td
                   style="
-                    font-size: 15px;
-                    
+                    font-size: 18px;
+
                     color: #000;
                     text-align: left;
-                    line-height: 500% !important;
+                    line-height: 230% !important;
                   "
                 >
                   : {{ formatageSomme(parseFloat(montant_prestation)) }}
@@ -339,11 +371,11 @@
                 </th>
                 <td
                   style="
-                    font-size: 15px;
-                    
+                    font-size: 18px;
+
                     color: #000;
                     text-align: left;
-                    line-height: 500% !important;
+                    line-height: 230% !important;
                   "
                 >
                   : {{ formatageSomme(parseFloat(cumulEnCours)) }}
@@ -366,17 +398,18 @@
                 </th>
                 <td
                   style="
-                    font-size: 15px;
-                    
+                    font-size: 18px;
+
                     color: #000;
                     text-align: left;
-                    line-height: 500% !important;
+                    line-height: 230% !important;
                   "
                 >
                   : {{ formatageSomme(parseFloat(disponible)) }}
                 </td>
               </tr>
             </thead>
+            
           </table>
           <table
             id="customers"
@@ -416,21 +449,23 @@
             </tr>
             <tr>
               <td style="text-align: left; width: 40%; border: 1px solid #000">
-                Approbation et signature de l'Ordonnateur <br /><br /><br />
+                Approbation et signature de l'Ordonnateur
+                <br /><br /><br /><br /><br /><br /><br />
               </td>
               <td style="text-align: left; width: 40%; border: 1px solid #000">
-                DATE <br /><br /><br />
+                DATE <br /><br /><br /><br /><br /><br /><br />
               </td>
               <td
-                style="text-align: left; width: 40%; border: 1px solid #000"
+                style="text-align: left; width: 50%; border: 1px solid #000"
               ></td>
             </tr>
             <tr>
               <td style="text-align: left; width: 40%; border: 1px solid #000">
-                Visa du contrôleur Financier <br /><br /><br /><br /><br />
+                Visa du contrôleur Financier
+                <br /><br /><br /><br /><br /><br /><br /><br />
               </td>
               <td style="text-align: left; width: 40%; border: 1px solid #000">
-                DATE <br /><br /><br /><br /><br />
+                DATE <br /><br /><br /><br /><br /><br /><br /><br />
               </td>
               <td
                 style="text-align: left; width: 40%; border: 1px solid #000"
@@ -439,10 +474,10 @@
             <tr>
               <td style="text-align: left; width: 40%; border: 1px solid #000">
                 Approbation et Signature du Regisseur d'Avances
-                <br /><br /><br /><br /><br />
+                <br /><br /><br /><br /><br /><br /><br /><br />
               </td>
               <td style="text-align: left; width: 40%; border: 1px solid #000">
-                DATE <br /><br /><br /><br /><br />
+                DATE <br /><br /><br /><br /><br /><br /><br /><br />
               </td>
               <td
                 style="text-align: left; width: 40%; border: 1px solid #000"
@@ -450,10 +485,10 @@
             </tr>
             <tr>
               <td style="text-align: left; width: 40%; border: 1px solid #000">
-                Acquis Libératoire <br /><br /><br />
+                Acquis Libératoire <br /><br /><br /><br /><br /><br /><br />
               </td>
               <td style="text-align: left; width: 40%; border: 1px solid #000">
-                DATE <br /><br /><br />
+                DATE <br /><br /><br /><br /><br /><br /><br />
               </td>
               <td
                 style="text-align: left; width: 40%; border: 1px solid #000"
@@ -808,6 +843,21 @@ export default {
 
       if (qtereel) {
         return qtereel.exercice;
+      }
+      return 0;
+      //     }
+      //   };
+    },
+
+    date_ordre_paiement() {
+      //   return (id) => {
+      //     if (id != null && id != "") {
+      const qtereel = this.getterListeOPgloba.find(
+        (qtreel) => qtreel.id == this.Activite_id
+      );
+
+      if (qtereel) {
+        return qtereel.date_op;
       }
       return 0;
       //     }

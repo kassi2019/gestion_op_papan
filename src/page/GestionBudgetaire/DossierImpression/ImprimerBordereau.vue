@@ -237,7 +237,7 @@ export default {
   },
   created() {
     this.bordereau_id = this.$route.params.id;
-    this.getInformationBudget();
+    // this.getBordereauParUser();
     this.getListeOrdrePaiementGlobal();
     // this.getEntreprise();
     // this.getListeFacture();
@@ -258,7 +258,7 @@ export default {
   },
   computed: {
     ...mapGetters("parametrage", [
-      "getterActivite",
+      "getterActivite","gettersBordereauParUser",
       "getterInformationBudget",
       "getterCompteBancaire",
       "getterListeOPgloba",
@@ -308,7 +308,7 @@ export default {
     libelleBordereau() {
       return (id) => {
         if (id != null && id != "") {
-          const qtereel = this.getterInformationBudget.find(
+          const qtereel = this.gettersBordereauParUser.find(
             (qtreel) => qtreel.id == id
           );
 
@@ -350,7 +350,7 @@ export default {
     numeroBordereau() {
       return (id) => {
         if (id != null && id != "") {
-          const qtereel = this.getterInformationBudget.find(
+          const qtereel = this.gettersBordereauParUser.find(
             (qtreel) => qtreel.id == id
           );
 
@@ -378,7 +378,7 @@ export default {
   },
   methods: {
     ...mapActions("parametrage", [
-      "getSousBudget",
+      "getSousBudget","getBordereauParUser",
       "getInformationBudget",
       "getListeOrdrePaiementGlobal",
       "getBailleur",

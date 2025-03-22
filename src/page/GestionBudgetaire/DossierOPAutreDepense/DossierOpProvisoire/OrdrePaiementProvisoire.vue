@@ -240,7 +240,7 @@
                             >Ce champs est obligatoire!
                           </span>
                         </div>
-                        <div class="col-6">
+                        <div class="col-3">
                           <label class="form-label"
                             >Numéro de ordre de paiement
                           </label>
@@ -250,6 +250,17 @@
                             style="border: 1px solid #000 !important"
                             :value="automatiseNumeroOP"
                             readonly
+                          />
+                        </div>
+                        <div class="col-3">
+                          <label class="form-label"
+                            >Date ordre de paiement</label
+                          >
+                          <input
+                            type="date"
+                            class="form-control"
+                            style="border: 1px solid #000 !important"
+                            v-model="date_op"
                           />
                         </div>
                         <div class="col-6">
@@ -660,7 +671,7 @@
                             <option value="1">Non</option>
                           </select>
                         </div>
-                        <div class="col-3">
+                        <!-- <div class="col-3">
                           <label class="form-label">Type de Forfait</label>
                           <select
                             class="form-select form-control"
@@ -681,11 +692,7 @@
                             >
                             ( D )</label
                           >
-                          <!-- <input
-                            type="number"
-                            class="form-control"
-                            v-model="autre_taux"
-                          /> -->
+                      
                           <money3
                             class="form-control"
                             v-bind="config"
@@ -702,7 +709,7 @@
                             class="form-control"
                             v-model="FormDataDossier.libelle_taux"
                           />
-                        </div>
+                        </div> -->
                         <div class="col-2">
                           <label class="form-label">Taux TVA (%) ( F )</label>
                           <input
@@ -712,7 +719,7 @@
                             readonly
                           />
                         </div>
-                        <div class="col-3">
+                        <!-- <div class="col-3">
                           <label
                             class="form-label"
                             v-if="FormDataDossier.type_forfait == 'taux'"
@@ -734,8 +741,8 @@
                             :model-value="afficheAutreMontant"
                             readonly
                           ></money3>
-                        </div>
-                        <div class="col-2">
+                        </div> -->
+                        <div class="col-4">
                           <label class="form-label"
                             >Montant Tva ( G = C * F)</label
                           >
@@ -746,9 +753,9 @@
                             readonly
                           ></money3>
                         </div>
-                        <div class="col-3">
+                        <div class="col-4">
                           <label class="form-label"
-                            >Montant TTC ( H = E + G + C )</label
+                            >Montant TTC ( H = G + C )</label
                           >
                           <money3
                             class="form-control"
@@ -832,7 +839,7 @@
                           </th>
                           <!-- <th scope="col" style="text-align: center">Rémise</th>
                       <th scope="col" style="text-align: center">Addition</th>-->
-                          <th
+                          <!-- <th
                             scope="col"
                             style="
                               text-align: center;
@@ -840,7 +847,7 @@
                             "
                           >
                             Cumul des autres taxes HT
-                          </th>
+                          </th> -->
                           <th
                             scope="col"
                             style="
@@ -926,7 +933,7 @@
                           >
                             {{ formatageSommeSansFCFA(parseFloat(item1.taux)) }}
                           </td>
-                          <td
+                          <!-- <td
                             style="
                               width: 15%;
                               text-align: right;
@@ -938,7 +945,7 @@
                                 parseFloat(item1.autre_montant)
                               )
                             }}
-                          </td>
+                          </td> -->
                           <td
                             style="
                               width: 15%;
@@ -1020,7 +1027,7 @@
                           >
                             {{ formatageSommeSansFCFA(parseFloat(0)) }}
                           </td>
-                          <td
+                          <!-- <td
                             style="
                               text-align: right !important;
                               background-color: #f6e8b1 !important;
@@ -1032,7 +1039,7 @@
                                 parseFloat(CumulMontantAutreMontant)
                               )
                             }}
-                          </td>
+                          </td> -->
                           <td
                             style="
                               text-align: right !important;
@@ -1068,7 +1075,7 @@
                           ></td>
                         </tr>
                         <tr>
-                          <td colspan="8"></td>
+                          <td colspan="7"></td>
                           <td colspan="">
                             <button
                               v-if="
@@ -1300,7 +1307,7 @@
                       v-model="modNatureDepense.objet_depense"
                     />
                   </div>
-                  <div class="col-6">
+                  <div class="col-3">
                     <label class="form-label"
                       >Numéro de ordre de paiement</label
                     >
@@ -1309,6 +1316,15 @@
                       class="form-control"
                       style="border: 1px solid #000 !important"
                       v-model="modNatureDepense.numero_ordre_paiement"
+                    />
+                  </div>
+                  <div class="col-3">
+                    <label class="form-label">Date ordre de paiement</label>
+                    <input
+                      type="date"
+                      class="form-control"
+                      style="border: 1px solid #000 !important"
+                      v-model="modNatureDepense.date_op"
                     />
                   </div>
                   <div class="col-6">
@@ -1478,6 +1494,8 @@ export default {
         prix_unitaire: 0,
         exonere: 0,
       },
+
+      date_op: "",
       decision_cf: 0,
       date_decision: "",
       autre_taux: 0,
@@ -1926,16 +1944,14 @@ export default {
     },
     MontantTTCMod() {
       return (
-        parseFloat(this.afficheAutreMontantMod) +
-        parseFloat(this.montantTvaMod) +
-        parseFloat(this.MontantHtMod)
+        // parseFloat(this.afficheAutreMontantMod) +
+        parseFloat(this.montantTvaMod) + parseFloat(this.MontantHtMod)
       );
     },
     MontantTTC() {
       return (
-        parseFloat(this.afficheAutreMontant) +
-        parseFloat(this.montantTva) +
-        parseFloat(this.MontantHt)
+        // parseFloat(this.afficheAutreMontant) +
+        parseFloat(this.montantTva) + parseFloat(this.MontantHt)
       );
     },
     montantTvaMod() {
@@ -2012,11 +2028,14 @@ export default {
         // };
       }
     },
+    recupereToutOpAutreDepense() {
+      return this.getterListeOPgloba.filter(data=>data.type_depense==0)
+    },
     automatiseNumeroOP() {
       return (
         "00" +
         "" +
-        (this.getterListeOPgloba.length + 1) +
+        (this.recupereToutOpAutreDepense.length + 1) +
         "/" +
         "PA" +
         "/" +
@@ -2792,6 +2811,7 @@ export default {
         decision_cf: this.modNatureDepense.decision_cf,
         date_paiement: this.modNatureDepense.date_paiement,
         type_depense: this.modNatureDepense.type_depense,
+        date_op: this.modNatureDepense.date_op,
       };
 
       this.modifierOrdrePaiement(objetDirect1);
@@ -2936,6 +2956,8 @@ export default {
         date_decision: this.date_decision,
         bordereau_id: this.bordereau_id,
         FormDataDossier: this.TableauDossier,
+        date_op: this.date_op,
+        
       };
 
       this.ajouterOrdrePaiement(nouvelObjettrsor);

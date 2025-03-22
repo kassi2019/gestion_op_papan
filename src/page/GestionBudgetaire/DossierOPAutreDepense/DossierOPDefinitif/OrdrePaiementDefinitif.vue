@@ -1638,7 +1638,7 @@
                           :value="afficheObjet(modNatureDepense.id)"
                         />
                       </div>
-                      <div class="col-6">
+                      <div class="col-3">
                         <label class="form-label"
                           >Numéro de ordre de paiement
                         </label>
@@ -1650,6 +1650,17 @@
                           readonly
                         />
                       </div>
+                               <div class="col-3">
+                    <label class="form-label"
+                      >Date ordre de paiement</label
+                    >
+                    <input
+                      type="date"
+                      class="form-control"
+                      style="border: 1px solid #000 !important"
+                      v-model="date_op"
+                    />
+                  </div>
                       <div class="col-6">
                         <label class="form-label"
                           >Montant des préstations
@@ -1970,6 +1981,7 @@ export default {
         prix_unitaire: 0,
         exonere: 0,
       },
+       date_op:"",
       decision_cf: 0,
       date_decision: "",
       autre_taux: 0,
@@ -3110,11 +3122,14 @@ export default {
         // };
       }
     },
+   recupereToutOpAutreDepense() {
+      return this.getterListeOPgloba.filter(data=>data.type_depense==0)
+    },
     automatiseNumeroOP() {
       return (
         "00" +
         "" +
-        (this.getterListeOPgloba.length + 1) +
+        (this.recupereToutOpAutreDepense.length + 1) +
         "/" +
         "PA" +
         "/" +
@@ -3942,6 +3957,8 @@ export default {
         decision_cf: this.decision_cf,
         date_decision: this.date_decision,
         bordereau_id: this.bordereau_id,
+        date_op: this.date_op,
+         type_depense:1
       };
 
       this.ajouterOrdrePaiementDefinitif(nouvelObjettrsor);

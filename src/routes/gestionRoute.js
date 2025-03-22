@@ -69,7 +69,13 @@ import RegimeImpossition from "../page/ParametreGeneraux/RegimeImpossition.vue"
 import afficheBudgetViseParActivite from "../page/GestionBudgetaire/DossierBudget/afficheBudgetViseParActivite.vue"
 import mettreDecisionBudget from "../page/GestionBudgetaire/DossierBudget/mettreDecisionBudget.vue"
 import detailFacture from "../page/GestionBudgetaire/DossierOPAutreDepense/detailFacture.vue"
+import imprimerToutOPperso from "../page/GestionBudgetaire/VoirOPTotal/imprimerToutOP.vue"
 const gestionutilisateur = [
+   {
+        path: '/imprimerToutOPperso/:id',
+        name:"imprimerToutOPperso",
+       component: imprimerToutOPperso
+     },
   {
         path: '/detailFacture/:id',
         name:"detailFacture",

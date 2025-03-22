@@ -153,7 +153,7 @@
           <div class="modal-body">
             <form>
               <div class="col-12">
-                <label for="inputNanme4" class="form-label">Exercice</label>
+                <label for="inputNanme4" class="form-label">Exercice{{ this.DecisionApp }}</label>
                 <input
                   type="text"
                   class="form-control"
@@ -517,6 +517,7 @@ export default {
     this.getDotationNotifie();
     this.getDotationReport();
     this.getBordereauParUser();
+    
     this.getInformationBudget();
   },
   computed: {

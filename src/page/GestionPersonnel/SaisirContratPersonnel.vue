@@ -418,7 +418,7 @@
                       v-model="numero_telephone"
                     />
                   </div>
-                  <div class="col-3">
+                  <div class="col-3" v-if="type_personnel_id!=0">
                     <label class="form-label"
                       >Nature contrat
                       <span
@@ -426,9 +426,8 @@
                           color: red !important;
                           font-size: 15px !important;
                         "
-                        >*</span
-                      ></label
-                    >
+                      ></span
+                    ></label>
                     <model-list-select
                       :list="gettersNatureContrat"
                       v-model="nature_contrat_id"
@@ -438,11 +437,11 @@
                       style="border: 1px solid #000"
                     >
                     </model-list-select>
-                    <span style="color: red" v-if="nature_contrat_id == 0"
+                    <!-- <span style="color: red" v-if="nature_contrat_id == 0"
                       >Ce champs est obligatoire!
-                    </span>
+                    </span> -->
                   </div>
-                  <div class="col-2">
+                  <div class="col-2" v-if="type_personnel_id!=0">
                     <label class="form-label">Date début contrat</label>
                     <input
                       type="date"
@@ -451,7 +450,7 @@
                       v-model="date_debut"
                     />
                   </div>
-                  <div class="col-2" v-if="nature_contrat_id == 1">
+                  <div class="col-2" v-if="nature_contrat_id == 1 && type_personnel_id!=0">
                     <label class="form-label">Date fin contrat</label>
                     <input
                       type="date"
@@ -460,7 +459,7 @@
                       v-model="date_fin"
                     />
                   </div>
-                  <div class="col-2" v-else>
+                  <div class="col-2"  v-if="nature_contrat_id != 1 && type_personnel_id!=0">
                     <label class="form-label">Date fin contrat</label>
                     <input
                       readonly
@@ -470,7 +469,7 @@
                       v-model="date_fin"
                     />
                   </div>
-                  <div class="col-2">
+                  <div class="col-2" v-if="type_personnel_id!=0">
                     <label class="form-label">Durée</label>
                     <input
                       type="text"
@@ -1077,7 +1076,6 @@
                         class="form-control"
                         style="border: 1px solid #000 !important"
                         v-model="modNatureDepense.numero_contrat"
-                      
                       />
                     </div>
                     <div class="col-6">
@@ -1088,7 +1086,6 @@
                         style="border: 1px solid #000 !important"
                         v-model="modNatureDepense.matricule"
                         v-if="modNatureDepense.type_personnel_id == 1"
-                      
                       />
                       <input
                         v-else
@@ -1194,17 +1191,16 @@
                         v-model="modNatureDepense.numero_telephone"
                       />
                     </div>
-                    <div class="col-3">
+                    <div class="col-3" v-if="type_personnel_id != 0">
                       <label class="form-label"
-                        >Nature contrat
+                        >Nature contrat{{ type_personnel_id }}
                         <span
                           style="
                             color: red !important;
                             font-size: 15px !important;
                           "
-                          >*</span
-                        ></label
-                      >
+                        ></span
+                      ></label>
                       <model-list-select
                         :list="gettersNatureContrat"
                         v-model="modNatureDepense.nature_contrat_id"
@@ -1214,13 +1210,13 @@
                         style="border: 1px solid #000"
                       >
                       </model-list-select>
-                      <span
+                      <!-- <span
                         style="color: red"
                         v-if="modNatureDepense.nature_contrat_id == 0"
                         >Ce champs est obligatoire!
-                      </span>
+                      </span> -->
                     </div>
-                    <div class="col-2">
+                    <div class="col-2" v-if="type_personnel_id != 0">
                       <label class="form-label">Date début contrat</label>
                       <input
                         type="date"
@@ -1231,7 +1227,10 @@
                     </div>
                     <div
                       class="col-2"
-                      v-if="modNatureDepense.nature_contrat_id == 1"
+                      v-if="
+                        modNatureDepense.nature_contrat_id == 1 &&
+                        type_personnel_id != 0
+                      "
                     >
                       <label class="form-label">Date fin contrat</label>
                       <input
@@ -1251,7 +1250,7 @@
                         v-model="modNatureDepense.date_fin"
                       />
                     </div>
-                    <div class="col-2">
+                    <div class="col-2" v-if="type_personnel_id != 0">
                       <label class="form-label">Durée</label>
                       <input
                         type="text"
@@ -2246,7 +2245,8 @@ export default {
       "getBudgetViseParActvite",
     ]),
     ...mapActions("Personnel", [
-      "getService","ModifierPersonnel",
+      "getService",
+      "ModifierPersonnel",
       "getCumulMontantContrat",
       "getDetailDepensePersonnel",
       "getPersonnelUtilisateur",
